@@ -1,0 +1,147 @@
+id: bengaluru
+name: Bengaluru
+state: Karnataka
+timezone: Asia/Kolkata
+bbox: [12.81, 77.46, 13.06, 77.76]   # from OSM route relation bounds (Overpass, 2026-10-29)
+checked: 2026-10-29
+
+lines:
+  - id: blr-purple
+    name: Purple Line
+    long_name: Whitefield (Kadugodi) – Challaghatta
+    operator: Bangalore Metro Rail Corporation Limited (BMRCL)
+    colour: "#A952A0"
+    colour_source: >-
+      operator schematic route map (Version 05) https://english.bmrc.co.in/images/metro/travel-info/sitemapimg.jpg
+      (sampled from the flat legend swatch in the JPEG)
+    mode: metro
+    termini: [Whitefield (Kadugodi), Challaghatta]
+    opened: null
+    osm:
+      ref: "Purple"
+      name_contains: "Purple Line"
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://english.bmrc.co.in/schematic-route-map/
+      - https://english.bmrc.co.in/images/metro/travel-info/sitemapimg.jpg
+    notes: >-
+      Timetable left null: the app uses the BMRCL GTFS feed for Bengaluru. The official timings page
+      (english.bmrc.co.in/metro-timings) loads its table by script and no first/last times could be read from it.
+      Third-party timetable sites were not used. The OSM colour tag
+      #e542de differs from the operator map. OSM also has separate relations for older partial patterns (e.g.
+      "Mysuru Road → Pattandur Agrahara"); match the Whitefield (Kadugodi) ↔ Challaghatta ones.
+
+  - id: blr-green
+    name: Green Line
+    long_name: Madavara – Silk Institute
+    operator: Bangalore Metro Rail Corporation Limited (BMRCL)
+    colour: "#58BA49"
+    colour_source: >-
+      operator schematic route map (Version 05) https://english.bmrc.co.in/images/metro/travel-info/sitemapimg.jpg
+      (sampled from the flat legend swatch in the JPEG)
+    mode: metro
+    termini: [Madavara, Silk Institute]
+    opened: null
+    osm:
+      ref: "Green"
+      name_contains: "Green Line"
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://english.bmrc.co.in/schematic-route-map/
+      - https://english.bmrc.co.in/images/metro/travel-info/sitemapimg.jpg
+    notes: >-
+      Timetable left null (GTFS is used; first/last times not readable from the official page). The OSM colour tag
+      is #009933. OSM also has "Silk Institute ↔ Peenya Industry" short-pattern relations; match the
+      Madavara ↔ Silk Institute ones.
+
+  - id: blr-yellow
+    name: Yellow Line
+    long_name: Rashtreeya Vidyalaya Road – Delta Electronics Bommasandra
+    operator: Bangalore Metro Rail Corporation Limited (BMRCL)
+    colour: "#F8D730"
+    colour_source: >-
+      operator schematic route map (Version 05) https://english.bmrc.co.in/images/metro/travel-info/sitemapimg.jpg
+      (sampled from the flat legend swatch in the JPEG)
+    mode: metro
+    termini: [Rashtreeya Vidyalaya Road, Delta Electronics Bommasandra]
+    opened: null
+    osm:
+      ref: "Yellow"
+      name_contains: "Yellow Line"
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://english.bmrc.co.in/schematic-route-map/
+      - https://english.bmrc.co.in/images/metro/travel-info/sitemapimg.jpg
+    notes: >-
+      Timetable left null (GTFS is used). Yellow Line frequency has changed several times in 2026 as trains were
+      added; no BMRCL statement of current first/last times or headways could be read. The OSM colour tag is the
+      word "yellow".
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs:
+    - {max_km: 2, fare: 10}
+    - {max_km: 4, fare: 20}
+    - {max_km: 6, fare: 30}
+    - {max_km: 8, fare: 40}
+    - {max_km: 10, fare: 50}
+    - {max_km: 15, fare: 60}
+    - {max_km: 20, fare: 70}
+    - {max_km: 25, fare: 80}
+    - {max_km: 30, fare: 90}
+    - {max_km: null, fare: 90}
+  discounts:
+    - {media: smart_card, percent: 5, note: "Base smart card discount, all times (BMRCL fare rules: 5% off token fare)"}
+    - {media: smart_card, percent: 10, note: "Weekday off-peak (5% + 5%), by entry time: start of service-08:00, 12:00-16:00, 21:00-close"}
+    - {media: smart_card, percent: 10, note: "All day on Sundays and on 26 Jan, 15 Aug and 2 Oct"}
+  notes: >-
+    Slabs come from the BMRCL media release of 08.02.2025 (Fare Fixation Committee fares, effective 09.02.2025);
+    the >30 km slab is open-ended (max_km null). On 13 Feb 2025 BMRCL cut fares from 14 Feb 2025 on certain
+    station pairs where the increase was above 70% (The Federal, 2025-02-14). The MD said minimum Rs 10 and maximum
+    Rs 90 were unchanged and that there was "no overall revision". For those pairs the actual fare can be lower
+    than the slab. BMRCL announced a further revision of up to 5% effective 09.02.2026 (11/21/32/42/53/63/74/84/95/95),
+    then put it on hold before it took effect (Trayaan, 2026-02-05, updated 2026-02-08). Siasat (2026-07-24)
+    confirms the hike was deferred and fares still run Rs 10-90. That report also mentions a proposal to revise
+    fares by 12% every three years from Feb 2028, with no decision taken. The Trayaan report of BMRCL's 2026 post
+    says the smart card discounts also apply to mobile QR travel-pass users. Whether single-journey QR tickets get
+    any discount could not be confirmed (a Feb 2025 Deccan Herald headline mentions "QR ticket discount removal",
+    but the article could not be opened), so no QR discount is recorded. Tourist cards: 1/3/5 days Rs 300/600/800. Group tickets get 15-25% off (not modelled).
+  source_urls:
+    - https://english.bmrc.co.in:8282/English/uploads/news/english/fileuploads/1739069224825$@!!Media%20Brief%20-English-%20Fin%2008.02.2025%20(1).pdf
+    - https://english.bmrc.co.in/fare-rules
+    - https://thefederal.com/category/states/south/karnataka/bmrcl-metro-rail-fare-siddramaiah-bengaluru-171731
+    - https://www.trayaan.com/2026/02/bengaluru-metro-train-fares-to-be-hiked-from-9-february-2026-details.html
+    - https://www.siasat.com/namma-metro-may-get-costlier-again-3512363/
+    - https://www.oneindia.com/bengaluru/namma-metro-fare-hike-in-2026-on-hold-bmrcl-pauses-talks-amid-public-concerns-7971277.html
+
+sources:
+  - https://english.bmrc.co.in/
+  - https://english.bmrc.co.in/metro-timings
+  - https://english.bmrc.co.in/schematic-route-map/
+  - https://english.bmrc.co.in/images/metro/travel-info/sitemapimg.jpg
+  - https://english.bmrc.co.in/fare-rules
+  - https://english.bmrc.co.in:8282/English/uploads/news/english/fileuploads/1739069224825$@!!Media%20Brief%20-English-%20Fin%2008.02.2025%20(1).pdf
+  - https://thefederal.com/category/states/south/karnataka/bmrcl-metro-rail-fare-siddramaiah-bengaluru-171731
+  - https://www.trayaan.com/2026/02/bengaluru-metro-train-fares-to-be-hiked-from-9-february-2026-details.html
+  - https://www.siasat.com/namma-metro-may-get-costlier-again-3512363/
+  - https://www.oneindia.com/bengaluru/namma-metro-fare-hike-in-2026-on-hold-bmrcl-pauses-talks-amid-public-concerns-7971277.html
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.*.timetable (first/last trains and headways; GTFS expected to cover these)
+  - lines.*.opened
+  - lines.*.avg_speed_kmh
+  - fares.discounts qr_ticket (single-journey QR discount status unconfirmed)
+  - Pink Line (Kalena Agrahara-Tavarekere elevated section) excluded; no report of it opening by 2026-10-29 was found, and the BMRCL schematic map (Version 05) shows only Purple, Green and Yellow as operational, but the opening status was not confirmed from a BMRCL notice

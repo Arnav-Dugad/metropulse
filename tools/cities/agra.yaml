@@ -1,0 +1,82 @@
+id: agra
+name: Agra
+state: Uttar Pradesh
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around Taj East Gate and Mankameshwar. Not from an operator source;
+# verify against the OSM relation bounds.
+bbox: [27.15, 78.00, 27.20, 78.07]
+checked: 2026-10-29
+
+lines:
+  - id: agr-yellow
+    name: Yellow Line
+    long_name: Taj East Gate – Mankameshwar
+    operator: Uttar Pradesh Metro Rail Corporation (UPMRC)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Taj East Gate, Mankameshwar]
+    opened: 2024-03-06
+    osm:
+      ref: "1"
+      name_contains: "Metro 1"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://metrorailnews.in/projects/agra-metro/
+      - https://news24online.com/india/agra-metro-to-get-5-new-stations-on-september-20-check-names-route-timings-and-fare/915883/
+      - https://en.wikipedia.org/wiki/Agra_Metro
+    notes: >-
+      LOW CONFIDENCE. The official agra.upmetrorail.com pages could not be read (blocked).
+      06:00–22:00 is from Metro Rail News's Agra page (updated 17 Oct 2026) and News24
+      (4 Sep 2026: "expected to continue operating from around 6 AM to 10 PM"). Neither quotes
+      UPMRC directly. No headway source was found. Six stations: Taj East Gate, Basai
+      (Shaheed Captain Shubham Gupta), Fatehabad Road, Taj Mahal, Agra Fort, Mankameshwar
+      (formerly Jama Masjid). Inaugurated 6 Mar 2024 (Wikipedia). The Mankameshwar – ISBT
+      extension (SN Medical College, Agra College, Raja Ki Mandi, RBS College, ISBT) was
+      announced for 20 Sep 2026 (News24) but had NOT opened as of 17 Oct 2026 per Metro Rail
+      News, and Wikipedia (citing Dainik Jagran 9 Oct 2026) says it is "awaiting inauguration",
+      so it is excluded. CHECK FOR AN OPENING LATE OCT/NOV 2026. OSM names the line "Metro 1"
+      (relations 16087452 / 17332150, colour #FFD700); Wikipedia calls it the Yellow Line.
+
+fares:
+  type: null
+  currency: INR
+  slabs: null
+  discounts:
+    - {media: smart_card, percent: 10, note: "UPMRC 'NCMC Card & QR Ticket' page (covers Lucknow, Kanpur, Agra): flat 10% discount with NCMC card."}
+  notes: >-
+    No fare table was found. News24 (4 Sep 2026) says "fare reportedly starts at Rs 10" and the
+    maximum for the full Corridor 1 is "expected to be around Rs 30". Metro Rail News gives
+    ₹10 to about ₹30 for current journeys. Agra likely uses the same UPMRC station-count table
+    as Lucknow and Kanpur, but this is NOT confirmed, so slabs are null.
+  source_urls:
+    - https://upmetrorail.com/pages/ncmc-card-qr-ticket
+    - https://news24online.com/india/agra-metro-to-get-5-new-stations-on-september-20-check-names-route-timings-and-fare/915883/
+    - https://metrorailnews.in/projects/agra-metro/
+
+notes: ""
+
+sources:
+  - https://metrorailnews.in/projects/agra-metro/
+  - https://news24online.com/india/agra-metro-to-get-5-new-stations-on-september-20-check-names-route-timings-and-fare/915883/
+  - https://en.wikipedia.org/wiki/Agra_Metro
+  - https://upmetrorail.com/pages/ncmc-card-qr-ticket
+  - https://upmetrorail.com/pages/press-releases
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[agr-yellow].colour
+  - lines[agr-yellow].timetable.weekday.headways
+  - lines[agr-yellow].timetable.saturday
+  - lines[agr-yellow].timetable.sunday
+  - lines[agr-yellow].avg_speed_kmh
+  - fares.type
+  - fares.slabs
+  - bbox   # approximate, not from a source

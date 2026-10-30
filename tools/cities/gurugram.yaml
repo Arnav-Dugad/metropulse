@@ -1,0 +1,90 @@
+id: gurugram
+name: Gurugram
+state: Haryana
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around Sikanderpur, Cyber City and Sector 55-56. Not from an operator
+# source; verify against the OSM relation bounds.
+bbox: [28.41, 77.06, 28.50, 77.12]
+checked: 2026-10-29
+
+lines:
+  - id: ggn-rapid
+    name: Rapid Metro
+    long_name: Sector 55-56 – Sikanderpur (with Cyber City loop)
+    operator: Delhi Metro Rail Corporation (DMRC) for HMRTC
+    colour: "#015B97"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Rapid Metro RMGL' (read 2026-10-29)"
+    mode: metro
+    termini: [Sector 55-56, Sikanderpur]
+    opened: null
+    osm:
+      ref: "RMGL"
+      name_contains: "Rapid MetroRail Gurgaon"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:00"
+        headways:
+          - {from: "08:00", to: "11:00", minutes: 4.5}
+          - {from: "11:00", to: "16:00", minutes: 7.33}
+          - {from: "16:00", to: "20:00", minutes: 5.33}
+      saturday:
+        first: "06:00"
+        last: "22:00"
+        headways:
+          - {from: "08:00", to: "11:00", minutes: 6}
+          - {from: "11:00", to: "20:00", minutes: 7.33}
+      sunday:
+        first: "06:00"
+        last: "22:00"
+        headways:
+          - {from: "06:00", to: "22:00", minutes: 10}
+    avg_speed_kmh: null
+    source_urls:
+      - https://delhimetrorail.com/rapid-metro
+      - https://www.delhimetrorail.com/
+    notes: >-
+      DMRC Rapid Metro FAQ, read 2026-10-29: "Trains are operational from 0600 hrs in the morning
+      to 2200 hrs", with no day qualifier, so it is applied to all days. Published frequency:
+      weekdays 4 min 30 s (08:00–11:00), 7 min 20 s (11:00–16:00), 5 min 20 s (16:00–20:00);
+      Saturday 6 min (08:00–11:00), 7 min 20 s (11:00–20:00); Sunday flat 10 min. Decimals above
+      are those exact values (7.33 = 7 min 20 s). Weekday and Saturday headways before 08:00 and
+      after 20:00 are NOT published, so those periods are gaps. DMRC First/Last tool, weekday
+      2026-10-29: Sector 55-56 -> Sikanderpur 06:00/22:00; Sikanderpur -> Sector 55-56
+      06:00/22:23:13; Sector-54 Chowk -> Sector 53-54 06:01:49/22:01:49. The network is 12.85 km
+      with 11 stations: Phase I is the Sikanderpur – Cyber City loop, Phase II is Sikanderpur –
+      Sector 55-56. Full network about 35 min (DMRC FAQ). OSM relations 4481323 ("S55 →
+      Sikandarpur") / 7890002. The Cyber City loop may need its own OSM lookup. A search
+      snippet (not read in full) mentioned a planned takeover by Gurugram Metro Rail Ltd; this
+      is unverified.
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs:
+    - {max_km: null, fare: 20}   # flat fare
+  discounts: []
+  notes: >-
+    DMRC Rapid Metro Fare Table, read 2026-10-29: "For Rapid Metro Gurugram (From Sikanderpur to
+    any station of Rapid metro) Rs. 20/- only". This is a flat fare, so there is one open-ended
+    slab. Whether the DMRC smart card discount applies on Rapid Metro was not stated, so
+    discounts is left empty. Through journeys onto DMRC lines were not researched.
+  source_urls:
+    - https://delhimetrorail.com/rapid-metro
+
+notes: >-
+  The Rapid Metro is owned by HMRTC and operated by DMRC as Metro Rail Administrator
+  (delhimetrorail.com/rapid-metro). The Yellow Line's Gurugram stations are in delhi.yaml.
+
+sources:
+  - https://delhimetrorail.com/rapid-metro
+  - https://www.delhimetrorail.com/
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[ggn-rapid].opened
+  - lines[ggn-rapid].timetable.weekday.headways (before 08:00, after 20:00)
+  - lines[ggn-rapid].timetable.saturday.headways (before 08:00, after 20:00)
+  - lines[ggn-rapid].avg_speed_kmh
+  - fares.discounts
+  - bbox   # approximate, not from a source

@@ -1,0 +1,78 @@
+# Navi Mumbai Metro: only Line 1 (CBD Belapur – Pendhar) is open to passengers on 2026-10-29.
+# No other Navi Mumbai metro line was found to be operating.
+id: navi-mumbai
+name: Navi Mumbai
+state: Maharashtra
+timezone: Asia/Kolkata
+bbox: [19.01, 73.03, 19.09, 73.11]   # from OSM bounds of the Line 1 route relation, +~0.01 margin
+checked: 2026-10-29
+
+lines:
+  - id: nm-l1
+    name: Line 1
+    long_name: CBD Belapur – Pendhar
+    operator: CIDCO (owner); O&M by Maha-Metro per 2021 appointment (see notes)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Belapur Terminal, Pendhar]
+    opened: 2023-11-17
+    osm:
+      ref: "N1"
+      name_contains: "Line 1 ("
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:00"
+        headways:
+          - {from: "06:00", to: "22:00", minutes: 15}
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://psuwatch.com/newsupdates/press-release/mh-metro-ncp
+      - https://www.freepressjournal.in/mumbai/navi-mumbai-metro-line-1-cidco-cuts-belapur-pendhar-travel-time-by-90-seconds-from-july-13
+      - https://en.wikipedia.org/wiki/Line_1_(Navi_Mumbai_Metro)
+    notes: >-
+      Timings and headway come from CIDCO's launch statement quoted by PSU Watch (2023-11-17):
+      from 2023-11-18 first service 06:00 and last 22:00 in both directions, "frequency will be of
+      15 minutes"; the statement gives no day-of-week split, so weekends are treated as the same.
+      This is nearly three years old and may be stale; later secondary reports claim 10 min at peak
+      and 15 min off-peak, but no CIDCO source for that was read. CIDCO revised the timetable from
+      2026-07-13, cutting Belapur–Pendhar running time by 1 min 30 s to 25 min 30 s (FPJ, 2026-07-10);
+      that notice did not restate first/last trains or headways. 11 stations, 11.10 km.
+      Operator: CIDCO appointed Maha-Metro for O&M in 2021 (Indian Express, cited by Wikipedia); one
+      secondary search result claims Konkan Railway took over O&M in June 2024 (not verified).
+      No official line colour was found; OSM tags the relation colour #77248B, which is not an
+      operator source and is not used here.
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs: null
+  discounts: null
+  notes: >-
+    Current slabs not confirmed from CIDCO. Launch fares (CIDCO statement, 2023-11-17): Rs 10 for
+    0–2 km, 15 for 2–4 km, 20 for 4–6 km, 25 for 6–8 km, 30 for 8–10 km, 40 beyond 10 km. Fares were
+    later cut (secondary sources say from 2024-09-07, maximum reduced from Rs 40 to Rs 30); a CSR Journal
+    piece on CIDCO's two-year ridership milestone describes tickets "between ₹10 and ₹30" (seen only
+    in a search snippet; the article body and date could not be read). Fan/real-estate
+    sites list 0–4 km Rs 10, 4–8 km Rs 20, 8+ km Rs 30, but that was not confirmed by CIDCO or
+    reputable news, so slabs are left null. Smart-card or QR discounts not found.
+  source_urls:
+    - https://psuwatch.com/newsupdates/press-release/mh-metro-ncp
+    - https://thecsrjournal.in/cidco-navi-mumbai-metro-crosses-one-crore-ridership-milestone-in-just-two-years/
+
+sources:
+  - https://psuwatch.com/newsupdates/press-release/mh-metro-ncp
+  - https://www.freepressjournal.in/mumbai/navi-mumbai-metro-line-1-cidco-cuts-belapur-pendhar-travel-time-by-90-seconds-from-july-13
+  - https://thecsrjournal.in/cidco-navi-mumbai-metro-crosses-one-crore-ridership-milestone-in-just-two-years/
+  - https://en.wikipedia.org/wiki/Line_1_(Navi_Mumbai_Metro)
+  - https://en.wikipedia.org/wiki/Navi_Mumbai_Metro
+  - https://cidco.maharashtra.gov.in/
+unknowns:
+  - lines.nm-l1.colour
+  - lines.nm-l1.avg_speed_kmh
+  - lines.nm-l1.timetable (only 2023 launch values found; current peak/off-peak split unverified)
+  - fares.slabs
+  - fares.discounts

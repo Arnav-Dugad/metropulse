@@ -1,0 +1,85 @@
+id: kochi
+name: Kochi
+state: Kerala
+timezone: Asia/Kolkata
+bbox: [9.95, 76.28, 10.12, 76.36]   # from OSM route relation bounds (Overpass, 2026-10-29)
+checked: 2026-10-29
+
+lines:
+  - id: koc-l1
+    name: Line 1
+    long_name: Aluva – Tripunithura Terminal
+    operator: Kochi Metro Rail Limited (KMRL)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Aluva, Tripunithura Terminal]
+    opened: null
+    osm:
+      ref: "I"
+      name_contains: "Kochi Metro Phase I"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 8.5}
+          - {from: "08:00", to: "10:00", minutes: 6.75}
+          - {from: "10:00", to: "16:00", minutes: 8.5}
+          - {from: "16:00", to: "19:00", minutes: 6.75}
+          - {from: "19:00", to: "23:00", minutes: 8.5}
+      saturday: same_as_weekday
+      sunday: {first: "07:30", last: "23:00", headways: [{from: "07:30", to: "23:00", minutes: 9.08}]}
+    avg_speed_kmh: null
+    source_urls:
+      - https://kochimetro.org/train-time-table/
+      - https://www.onmanorama.com/travel/travel-news/2026/07/22/kochi-metro-service-increase-from-july-22.html
+    notes: >-
+      Headways are in decimal minutes: KMRL publishes them in min:sec (08 min 30 sec = 8.5; 06 min 45 sec = 6.75;
+      09 min 05 sec = 9.08). KMRL timetable (w.e.f. 17-Feb-2026), Monday to Saturday: service 06:00-23:00, non-peak
+      08 min 30 sec, "Peak Morning/Evening" 07 min 13 sec. KMRL does not define the peak windows on that page.
+      Onmanorama (2026-07-22) reports that from 22 July 2026 the peak headway was cut to 6 min 45 sec between
+      08:00-10:00 and 16:00-19:00, Monday to Saturday. Those windows and that headway are used here; the off-peak
+      value comes from the February timetable. Sunday: 07:30-23:00 at 09 min 05 sec in all periods. Public
+      holidays (not modelled): 06:00-23:00, 09 min 45 sec between 08:00-20:00 and 11 min at other times. Last trains
+      leave both termini at 23:00. The service time on the KMRL page is taken as first and last departure from the
+      termini. Colour: KMRL publishes no line colour. The OSM colour tag is #7FFFD4, which is not from KMRL.
+      Water Metro is excluded.
+
+fares:
+  type: null
+  currency: INR
+  slabs: null
+  discounts:
+    - {media: smart_card, percent: 20, note: "Kochi1 card: 20% off every metro ride, 'discount offered by KMRL' (undated card page; a Dec 2020 news report said 10%)"}
+    - {media: qr_ticket, percent: 10, note: "WhatsApp QR tickets: 10% in normal hours, 50% between 05:45-07:00 and 22:00-23:00 (Onmanorama, 2024-01-09)"}
+  notes: >-
+    KMRL publishes fares only as a station-to-station matrix image (farechart-kmrl.png, uploaded 2024-03). The
+    values are Rs 10, 20, 30, 40, 50 and 60. Aluva to Tripunithura Terminal costs Rs 60. KMRL does not publish the
+    distance or station-count bands behind the matrix, so slabs are left null. An Onmanorama report dated 2020-12-10
+    gave station-count slabs with a Rs 50 maximum, which the 2024 matrix no longer matches. Kochi1 cards also give up
+    to 33% off trip passes (KMRL card page).
+  source_urls:
+    - https://kochimetro.org/fare-chart/
+    - https://s3-ap-south-1.amazonaws.com/kmrldata/wp-content/uploads/2024/03/13050402/farechart-kmrl.png
+    - https://kochimetro.org/card/
+    - https://www.onmanorama.com/travel/travel-news/2024/01/09/book-kochi-metro-tickets-on-whatsapp.html
+    - https://onmanorama.com/news/kerala/2020/09/05/kochi-metro-revises-fare-structure-resuming-services.html
+
+sources:
+  - https://kochimetro.org/train-time-table/
+  - https://kochimetro.org/fare-chart/
+  - https://s3-ap-south-1.amazonaws.com/kmrldata/wp-content/uploads/2024/03/13050402/farechart-kmrl.png
+  - https://kochimetro.org/card/
+  - https://kochimetro.org/metro-stations/
+  - https://www.onmanorama.com/travel/travel-news/2026/07/22/kochi-metro-service-increase-from-july-22.html
+  - https://www.onmanorama.com/travel/travel-news/2024/01/09/book-kochi-metro-tickets-on-whatsapp.html
+  - https://onmanorama.com/news/kerala/2020/09/05/kochi-metro-revises-fare-structure-resuming-services.html
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.koc-l1.colour
+  - lines.koc-l1.opened
+  - lines.koc-l1.avg_speed_kmh
+  - lines.koc-l1.timetable (peak windows come from news, not the KMRL timetable page)
+  - fares.type
+  - fares.slabs

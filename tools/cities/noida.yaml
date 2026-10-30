@@ -1,0 +1,99 @@
+id: noida
+name: Noida
+state: Uttar Pradesh
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around Noida Sector 51 and Depot Station (Greater Noida). Not from an
+# operator source; verify against the OSM relation bounds.
+bbox: [28.44, 77.34, 28.60, 77.54]
+checked: 2026-10-29
+
+lines:
+  - id: noida-aqua
+    name: Aqua Line
+    long_name: Noida Sector 51 – Depot Station (Greater Noida)
+    operator: Noida Metro Rail Corporation (NMRC)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Noida Sector 51, Depot Station]
+    opened: 2019-01-26
+    osm:
+      ref: "Aqua Line"
+      name_contains: "Aqua Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:00"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 10}
+          - {from: "08:00", to: "11:00", minutes: 7.5}
+          - {from: "11:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:00", minutes: 7.5}
+          - {from: "20:00", to: "22:00", minutes: 10}
+      saturday: {first: "06:00", last: "22:00", headways: null}
+      sunday: {first: "08:00", last: "22:00", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.nmrcnoida.com/
+      - https://www.nmrcnoida.com/Passenger-Information/Metro-Rail/Train-Timings
+    notes: >-
+      First and last trains are from the NMRC home page and the NMRC Train Timings table, read
+      2026-10-29: from Noida Sector 51 and Depot Station, Mon–Sat first 06:00, Sunday first 08:00,
+      last 22:00 on all days. The Train Timings page text also says "usually ... 6:00 am to
+      10:45 pm", which refers to the last arrivals at intermediate stations; the table's last
+      departures from both termini are 22:00. Headways: the page states "approximately 7 minutes
+      30 second during the peak hours and 10 minutes during off peak duration (Monday to Friday)".
+      Peak hours are not defined, so the 08:00–11:00 and 17:00–20:00 windows are the README
+      assumption. No headway is published for Saturday or Sunday. Wikipedia gives 15 min on
+      weekends, which was not used. Opening date is from Wikipedia: inaugurated 25 Jan 2019,
+      passenger service from 26 Jan 2019. NMRC does not publish a hex colour; OSM tags
+      colour=aqua (relations 9268568 / 9268569).
+
+fares:
+  type: station_count_slab
+  currency: INR
+  # max_stations = number of stations travelled, upper bound inclusive (README uses max_km;
+  # this operator charges by station count). null = no upper bound.
+  slabs:                       # Monday–Saturday
+    - {max_stations: 1, fare: 10}
+    - {max_stations: 2, fare: 15}
+    - {max_stations: 6, fare: 20}
+    - {max_stations: 9, fare: 30}
+    - {max_stations: 16, fare: 40}
+    - {max_stations: null, fare: 50}
+  sunday_holiday_slabs:        # EXTRA KEY: Sundays and national holidays (26 Jan, 15 Aug, 2 Oct)
+    - {max_stations: 1, fare: 10}
+    - {max_stations: 2, fare: 10}
+    - {max_stations: 6, fare: 15}
+    - {max_stations: 9, fare: 20}
+    - {max_stations: 16, fare: 30}
+    - {max_stations: null, fare: 40}
+  discounts:
+    - {media: smart_card, percent: 10, note: "10% discount will be given on each journey through Smart Card (NMRC Fare Table page)."}
+  notes: >-
+    NMRC Fare Table page, read 2026-10-29. Minimum ₹10 is charged for entry and exit at the
+    same station by QR ticket or smart card. No QR-ticket discount is listed. An NMRC press
+    release of 11 Sep 2025 says NMRC and DMRC QR tickets can be bought in the NMRC app, but it
+    names no discount.
+  source_urls:
+    - https://www.nmrcnoida.com/Passenger-Information/Metro-Rail/Fare-Table
+
+notes: >-
+  The Aqua Line has 21 stations and 29.7 km (NMRC home page). No extension had opened by
+  2026-10-29 (Wikipedia lists the Phase 2 extensions as proposed). NMRC press release of
+  24 Oct 2026: record daily ridership of 1,05,358.
+
+sources:
+  - https://www.nmrcnoida.com/
+  - https://www.nmrcnoida.com/Passenger-Information/Metro-Rail/Train-Timings
+  - https://www.nmrcnoida.com/Passenger-Information/Metro-Rail/Fare-Table
+  - https://www.nmrcnoida.com/Media/Press-Release
+  - https://en.wikipedia.org/wiki/Noida_Metro
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[noida-aqua].colour
+  - lines[noida-aqua].timetable.saturday.headways
+  - lines[noida-aqua].timetable.sunday.headways
+  - lines[noida-aqua].avg_speed_kmh
+  - bbox   # approximate, not from a source

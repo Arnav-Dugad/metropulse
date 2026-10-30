@@ -1,0 +1,237 @@
+id: chennai
+name: Chennai
+state: Tamil Nadu
+timezone: Asia/Kolkata
+bbox: [12.98, 80.08, 13.19, 80.31]   # from OSM route relation bounds (Overpass, 2026-10-29)
+checked: 2026-10-29
+
+lines:
+  - id: che-blue
+    name: Blue Line
+    long_name: Wimco Nagar Depot – Chennai Airport
+    operator: Chennai Metro Rail Limited (CMRL)
+    colour: "#00A7DF"
+    colour_source: >-
+      operator network map https://chennaimetrorail.org/wp-content/uploads/2023/11/Line-Map.pdf
+      (line drawn in spot colour PANTONE 2995 C; hex converted from the Lab alternate values embedded in the PDF)
+    mode: metro
+    termini: [Wimco Nagar Depot, Chennai Airport]
+    opened: null
+    osm:
+      ref: "1"
+      name_contains: "Blue Line"
+    timetable:
+      weekday:
+        first: "04:51"
+        last: "23:00"
+        headways:
+          - {from: "04:51", to: "08:00", minutes: 7}
+          - {from: "08:00", to: "11:00", minutes: 6}
+          - {from: "11:00", to: "17:00", minutes: 7}
+          - {from: "17:00", to: "20:00", minutes: 6}
+          - {from: "20:00", to: "22:00", minutes: 7}
+          - {from: "22:00", to: "23:00", minutes: 15}
+      saturday: same_as_weekday
+      sunday:
+        first: "05:02"
+        last: "23:00"
+        headways:
+          - {from: "05:02", to: "12:00", minutes: 10}
+          - {from: "12:00", to: "20:00", minutes: 7}
+          - {from: "20:00", to: "22:00", minutes: 10}
+          - {from: "22:00", to: "23:00", minutes: 15}
+    avg_speed_kmh: null
+    source_urls:
+      - https://chennaimetrorail.org/time-table/
+      - https://chennaimetrorail.org/wp-content/uploads/2026/10/first-and-last-train-timings_terminal_phase1-and-Phase2-dated-23.10.2026.pdf
+    notes: >-
+      CMRL timetable dated 23.10.2026. Weekday first trains: Airport 04:51, Wimco Nagar Depot 04:56; last 23:00
+      from both. Sunday/holiday first trains: Airport 05:02, Wimco Nagar Depot 05:03. Peak/off-peak windows are
+      published by CMRL (peak 08:00-11:00 and 17:00-20:00 Mon-Sat; Sunday "peak" 12:00-20:00). On weekdays,
+      short-loop trains give a 3-minute headway between Washermenpet and Alandur in peak hours; short loops do not
+      run on Saturdays, Sundays or holidays. The Saturday table is otherwise identical to the weekday table.
+      The OSM colour tag (#3281c4) differs from the operator map colour.
+
+  - id: che-green
+    name: Green Line
+    long_name: Chennai Central – St. Thomas Mount
+    operator: Chennai Metro Rail Limited (CMRL)
+    colour: "#4CA707"
+    colour_source: >-
+      operator network map https://chennaimetrorail.org/wp-content/uploads/2023/11/Line-Map.pdf
+      (line drawn in spot colour PANTONE 369 C; hex converted from the Lab alternate values embedded in the PDF)
+    mode: metro
+    termini: [Chennai Central, St. Thomas Mount]
+    opened: null
+    osm:
+      ref: "2"
+      name_contains: "Green Line"
+    timetable:
+      weekday:
+        first: "05:01"
+        last: "23:00"
+        headways:
+          - {from: "05:01", to: "08:00", minutes: 14}
+          - {from: "08:00", to: "11:00", minutes: 12}
+          - {from: "11:00", to: "17:00", minutes: 14}
+          - {from: "17:00", to: "20:00", minutes: 12}
+          - {from: "20:00", to: "22:00", minutes: 14}
+          - {from: "22:00", to: "23:00", minutes: 30}
+      saturday: same_as_weekday
+      sunday:
+        first: "04:51"
+        last: "23:17"
+        headways:
+          - {from: "04:51", to: "12:00", minutes: 20}
+          - {from: "12:00", to: "20:00", minutes: 14}
+          - {from: "20:00", to: "22:00", minutes: 20}
+          - {from: "22:00", to: "23:17", minutes: 30}
+    avg_speed_kmh: null
+    source_urls:
+      - https://chennaimetrorail.org/time-table/
+      - https://chennaimetrorail.org/wp-content/uploads/2026/10/first-and-last-train-timings_terminal_phase1-and-Phase2-dated-23.10.2026.pdf
+    notes: >-
+      CMRL timetable dated 23.10.2026. Weekday first trains: Chennai Central 05:02, St. Thomas Mount 05:01; last
+      23:00 from both. Sunday/holiday: Chennai Central 04:51-23:17, St. Thomas Mount 04:51-23:07. These headways are
+      for Green Line trains only. The separate Central-Airport inter-corridor service (che-inter) shares the
+      Central-Alandur section, and CMRL states the combined headway there is 6 min peak, 7 min off-peak and 15 min
+      late evening on Mon-Sat (7/10/15 on Sundays and holidays).
+
+  - id: che-inter
+    name: Green Line (Airport)
+    long_name: Chennai Central – Chennai Airport (via CMBT, Alandur)
+    operator: Chennai Metro Rail Limited (CMRL)
+    # Not a separately coloured line: a through service over Green and Blue track. Shown in the
+    # Green Line colour because it starts on the Green Line; added by the maintainer, not CMRL.
+    colour: "#4CA707"
+    colour_source: same as che-green
+    mode: metro
+    termini: [Chennai Central, Chennai Airport]
+    opened: null
+    osm:
+      ref: "2A"
+      name_contains: "Inter-Corridor Line"
+    timetable:
+      weekday:
+        first: "04:55"
+        last: "23:17"
+        headways:
+          - {from: "04:55", to: "08:00", minutes: 14}
+          - {from: "08:00", to: "11:00", minutes: 12}
+          - {from: "11:00", to: "17:00", minutes: 14}
+          - {from: "17:00", to: "20:00", minutes: 12}
+          - {from: "20:00", to: "22:00", minutes: 14}
+          - {from: "22:00", to: "23:17", minutes: 30}
+      saturday: same_as_weekday
+      sunday:
+        first: "04:55"
+        last: "23:08"
+        headways:
+          - {from: "04:55", to: "12:00", minutes: 20}
+          - {from: "12:00", to: "20:00", minutes: 14}
+          - {from: "20:00", to: "22:00", minutes: 20}
+          - {from: "22:00", to: "23:08", minutes: 30}
+    avg_speed_kmh: null
+    source_urls:
+      - https://chennaimetrorail.org/wp-content/uploads/2026/10/first-and-last-train-timings_terminal_phase1-and-Phase2-dated-23.10.2026.pdf
+    notes: >-
+      Through service listed by CMRL as "INTER-CORRIDOR", running over Green Line track (Central-Alandur via CMBT)
+      and Blue Line track (Alandur-Airport). Weekday: Central 04:55-23:17, Airport 05:02-23:08. Sunday/holiday:
+      Central 05:01-23:07, Airport 04:55-23:08. It is not a separately coloured line; keep or merge it depending on
+      how the pipeline models through services.
+
+  - id: che-yellow
+    name: Yellow Line
+    long_name: Poonamallee Bypass – Vadapalani
+    operator: Chennai Metro Rail Limited (CMRL)
+    colour: "#FFFF00"
+    colour_source: >-
+      operator Phase II network map https://chennaimetrorail.org/wp-content/uploads/2025/03/Phase-II-Map-Updated-Map-PHASE-2.pdf
+      (vector fill used for "CORRIDOR-4 (YELLOW)")
+    mode: metro
+    termini: [Poonamallee Bypass, Vadapalani]
+    opened: 2026-10-11
+    osm:
+      ref: "4"
+      name_contains: "Yellow Line"
+      # OSM still tags the corridor construction=route; CMRL opened Poonamallee Bypass-Vadapalani on
+      # 2026-10-11 (see source_urls). Only the section between `termini` is used.
+      allow_construction: true
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "21:00"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 15}
+          - {from: "08:00", to: "11:00", minutes: 10}
+          - {from: "11:00", to: "17:00", minutes: 15}
+          - {from: "17:00", to: "20:00", minutes: 10}
+          - {from: "20:00", to: "21:00", minutes: 15}
+      saturday: same_as_weekday
+      sunday: {first: "06:00", last: "21:00", headways: [{from: "06:00", to: "21:00", minutes: 15}]}
+    avg_speed_kmh: null
+    source_urls:
+      - https://chennaimetrorail.org/
+      - https://chennaimetrorail.org/wp-content/uploads/2026/10/first-and-last-train-timings_terminal_phase1-and-Phase2-dated-23.10.2026.pdf
+      - https://www.dtnext.in/news/chennai/commercial-metro-operations-from-poonamallee-to-vadapalani-will-commence-from-4-pm-on-sunday
+    notes: >-
+      Phase II Corridor 4, first section. Passenger service began at 16:00 on Sunday 2026-10-11 (DT Next,
+      updated 2026-10-10, quoting CMRL). That article gave a 07:00 start from Monday; the later CMRL timetable
+      dated 23.10.2026 gives 06:00, which is used here. First and last trains are 06:00 and 21:00 from both
+      termini. No peak service on Sundays and holidays. 11 stations per DT Next: Poonamallee Bypass, Poonamallee
+      Bus Stand, Poonamallee Government Hospital, Karayanchavadi, Kumananchavadi, Kattupakkam, Iyyappanthangal,
+      Thelliyaragaram, Porur Bypass, Porur Junction, Vadapalani. Other Corridor 4 stations (e.g. Saligramam,
+      Alapakkam, Valasaravakkam) were reported incomplete in July 2026 (Swarajya, 2026-07-27) and are not
+      confirmed open. Colour: CMRL has not published a hex; the Phase II map uses pure yellow. The OSM colour tag
+      is #FFDF00.
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs:
+    - {max_km: 2, fare: 10}
+    - {max_km: 5, fare: 20}
+    - {max_km: 12, fare: 30}
+    - {max_km: 21, fare: 40}
+    - {max_km: null, fare: 50}
+  discounts:
+    - {media: qr_ticket, percent: 20, note: "Store Value Pass (online QR in the CMRL app): 20% off every journey (CMRL page)"}
+    - {media: smart_card, percent: 20, note: "NCMC Singara Chennai Card; also WhatsApp, Paytm and PhonePe QR tickets. Not paper QR tickets bought at counters (DT Next, 2026-09-01)"}
+  notes: >-
+    The km slabs (up to 2 km Rs 10, 2-5 Rs 20, 5-12 Rs 30, 12-21 Rs 40, above 21 km Rs 50) come from the
+    February 2021 fare cut (The News Minute, 2021-02-20). The last slab is open-ended (max_km null). CMRL's current
+    fare table (last fare update 09/10/2026) is a station-to-station matrix covering Phase I and the Yellow Line.
+    It uses only the values 10, 20, 30, 40 and 50, which matches these slabs, but it does not restate the km bands.
+    CMRL's "20% discounted fare" matrix gives 8/16/24/32/40. The 2021 article also mentioned 50% off on Sundays and
+    public holidays; that was not confirmed as still in force, so it is left out.
+  source_urls:
+    - https://chennaimetrorail.org/cmrl-fare-table/
+    - https://chennaimetrorail.org/wp-content/uploads/2026/10/Fare-Table.pdf
+    - https://chennaimetrorail.org/wp-content/uploads/2026/10/20-discounted-Fare.pdf
+    - https://chennaimetrorail.org/store-value-pass-svp-online-qr/
+    - https://www.thenewsminute.com/article/chennai-metro-fares-slashed-february-22-full-details-143818
+    - https://www.dtnext.in/news/chennai/chennai-metro-records-over-104-crore-passengers-in-august
+
+sources:
+  - https://chennaimetrorail.org/
+  - https://chennaimetrorail.org/time-table/
+  - https://chennaimetrorail.org/wp-content/uploads/2026/10/first-and-last-train-timings_terminal_phase1-and-Phase2-dated-23.10.2026.pdf
+  - https://chennaimetrorail.org/wp-content/uploads/2023/11/Line-Map.pdf
+  - https://chennaimetrorail.org/wp-content/uploads/2025/03/Phase-II-Map-Updated-Map-PHASE-2.pdf
+  - https://chennaimetrorail.org/cmrl-fare-table/
+  - https://chennaimetrorail.org/wp-content/uploads/2026/10/Fare-Table.pdf
+  - https://chennaimetrorail.org/wp-content/uploads/2026/10/20-discounted-Fare.pdf
+  - https://chennaimetrorail.org/store-value-pass-svp-online-qr/
+  - https://www.thenewsminute.com/article/chennai-metro-fares-slashed-february-22-full-details-143818
+  - https://www.dtnext.in/news/chennai/chennai-metro-records-over-104-crore-passengers-in-august
+  - https://www.dtnext.in/news/chennai/commercial-metro-operations-from-poonamallee-to-vadapalani-will-commence-from-4-pm-on-sunday
+  - https://www.dtnext.in/news/chennai/poonamalleevadapalani-metro-fare-to-start-at-rs-10-maximum-rs-40
+  - https://swarajyamag.com/news-brief/six-stations-on-chennai-metros-poonamallee-vadapalani-corridor-remain-incomplete-despite-safety-clearance
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.che-blue.opened
+  - lines.che-green.opened
+  - lines.che-inter.opened
+  - lines.che-inter.colour
+  - lines.*.avg_speed_kmh
+  - fares.slabs (km bands not restated by CMRL since 2021)

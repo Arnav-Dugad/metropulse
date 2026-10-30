@@ -1,0 +1,289 @@
+id: kolkata
+name: Kolkata
+state: West Bengal
+timezone: Asia/Kolkata
+bbox: [22.45, 88.30, 22.66, 88.44]   # from OSM route relation bounds (Overpass, 2026-10-29)
+checked: 2026-10-29
+
+lines:
+  - id: kol-blue
+    name: Blue Line
+    long_name: Dakshineswar – Shahid Khudiram
+    operator: Metro Railway, Kolkata
+    colour: "#050366"
+    colour_source: >-
+      operator system map (as on 31.03.2026)
+      https://mtp.indianrailways.gov.in//uploads/images/1787227418006-SYSTEM%20MAP%20OF%20METRO%20RAILWAY%20CORRECTED%20UPTO%20310326%20APPROVED.jpeg
+      (sampled from the JPEG legend, so approximate)
+    mode: metro
+    termini: [Dakshineswar, Shahid Khudiram]
+    opened: null
+    osm:
+      ref: "Blue"
+      name_contains: "Blue Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:30"
+        headways:
+          - {from: "06:00", to: "07:00", minutes: 15}
+          - {from: "07:00", to: "09:00", minutes: 10}
+          - {from: "09:00", to: "11:00", minutes: 6}
+          - {from: "11:00", to: "17:00", minutes: 7}
+          - {from: "17:00", to: "19:00", minutes: 6}
+          - {from: "19:00", to: "21:00", minutes: 7}
+          - {from: "21:00", to: "22:00", minutes: 9}
+          - {from: "22:00", to: "22:30", minutes: 15}
+      saturday:
+        first: "06:00"
+        last: "22:30"
+        headways:
+          - {from: "06:00", to: "07:00", minutes: 15}
+          - {from: "07:00", to: "09:00", minutes: 10}
+          - {from: "09:00", to: "12:00", minutes: 7}
+          - {from: "12:00", to: "15:00", minutes: 8}
+          - {from: "15:00", to: "20:00", minutes: 7}
+          - {from: "20:00", to: "21:00", minutes: 8}
+          - {from: "21:00", to: "22:00", minutes: 10}
+          - {from: "22:00", to: "22:30", minutes: 15}
+      sunday:
+        first: "09:00"
+        last: "22:30"
+        headways:
+          - {from: "09:00", to: "13:00", minutes: 12}
+          - {from: "13:00", to: "16:00", minutes: 10}
+          - {from: "16:00", to: "18:00", minutes: 8}
+          - {from: "18:00", to: "20:00", minutes: 10}
+          - {from: "20:00", to: "21:00", minutes: 14}
+          - {from: "21:00", to: "22:30", minutes: 15}
+    avg_speed_kmh: null
+    source_urls:
+      - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,652
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1784875999281-WEEK%20DAYS%20BLUE%20LINE.pdf
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1785496034261-SAT%20BLUE%20LINE%20UPDATED.pdf
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1786102498176-SUNDAY%20TT%20W.E.F%209.8.26.pdf
+      - https://www.newkerala.com/news/a/now-kolkata-metro-trains-start-running-from-am-876.htm
+    notes: >-
+      Service runs only between Dakshineswar and Shahid Khudiram. Metro Railway suspended Shahid Khudiram-Kavi
+      Subhash from 12:45 on 28.07.2025 "till further notice", and the closure was still listed on the operator page
+      checked 2026-10-29. Official trip-level timetables: weekdays w.e.f. 27.07.2026, Saturday w.e.f. 01.08.2026,
+      Sunday w.e.f. 09.08.2026. Metro Railway publishes departure lists, not headway bands. The headways here are
+      medians of the gaps between departures from the two termini (Shahid Khudiram and Dakshineswar), computed per
+      hour from those PDFs and rounded into bands. Extra short-turn trips (from Mahanayak Uttam Kumar, Dum Dum or
+      Noapara) add trains on the central section. Weekday: first 06:00 from both termini; last 22:30 from Shahid
+      Khudiram and 22:18 from Dakshineswar. Sunday: first 09:00. A senior Metro Railway official quoted by IANS
+      (2026-07-22) said the 06:00 start and 22:30 finish are experimental. The site lists two weekday PDFs for the
+      same date; the later upload ("WEEK DAYS BLUE LINE") was used. In OSM, one direction's relation has ref "Blue"
+      and the other has an empty ref.
+
+  - id: kol-green
+    name: Green Line
+    long_name: Howrah Maidan – Salt Lake Sector V
+    operator: Metro Railway, Kolkata
+    colour: "#18A719"
+    colour_source: >-
+      operator system map (as on 31.03.2026)
+      https://mtp.indianrailways.gov.in//uploads/images/1787227418006-SYSTEM%20MAP%20OF%20METRO%20RAILWAY%20CORRECTED%20UPTO%20310326%20APPROVED.jpeg
+      (sampled from the JPEG legend, so approximate)
+    mode: metro
+    termini: [Howrah Maidan, Salt Lake Sector V]
+    opened: null
+    osm:
+      ref: "Green"
+      name_contains: "Green Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:30"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 15}
+          - {from: "08:00", to: "09:00", minutes: 10}
+          - {from: "09:00", to: "12:00", minutes: 6}
+          - {from: "12:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:30", minutes: 6}
+          - {from: "20:30", to: "22:30", minutes: 15}
+      saturday:
+        first: "06:00"
+        last: "22:30"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 15}
+          - {from: "08:00", to: "09:00", minutes: 10}
+          - {from: "09:00", to: "12:00", minutes: 8}
+          - {from: "12:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:00", minutes: 8}
+          - {from: "20:00", to: "21:00", minutes: 10}
+          - {from: "21:00", to: "22:30", minutes: 15}
+      sunday: {first: "09:00", last: "22:30", headways: [{from: "09:00", to: "22:30", minutes: 15}]}
+    avg_speed_kmh: null
+    source_urls:
+      - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,658
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1784879688677-WEEK%20DAYS%20GREENLINE.pdf
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1784884646784-SATURDAY%20GREEN%20LINE.pdf
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1784885484803-SUNDAY%20GREEN%20LINE.pdf
+    notes: >-
+      Full Howrah Maidan-Salt Lake Sector V corridor. Official trip-level timetables: weekdays w.e.f. 27.07.2026,
+      Saturday w.e.f. 01.08.2026, Sunday w.e.f. 09.08.2026. Headways are medians of departure gaps from Howrah Maidan
+      and Salt Lake Sector V, computed per hour from the PDFs; both directions match closely. Weekday: Howrah Maidan
+      06:00-22:30, Sector V 06:09-22:30. A few weekday morning trips start at City Centre. Sunday: Howrah Maidan
+      09:00-22:30, Sector V 09:02-22:30.
+
+  - id: kol-purple
+    name: Purple Line
+    long_name: Joka – Majerhat
+    operator: Metro Railway, Kolkata
+    colour: "#6E14CB"
+    colour_source: >-
+      operator system map (as on 31.03.2026)
+      https://mtp.indianrailways.gov.in//uploads/images/1787227418006-SYSTEM%20MAP%20OF%20METRO%20RAILWAY%20CORRECTED%20UPTO%20310326%20APPROVED.jpeg
+      (sampled from the JPEG legend, so approximate)
+    mode: metro
+    termini: [Joka, Majerhat]
+    opened: null
+    osm:
+      ref: "Purple"
+      name_contains: "Purple Line"
+    timetable:
+      weekday: {first: "06:40", last: "21:26", headways: [{from: "06:40", to: "21:26", minutes: 21}]}
+      saturday: {first: "13:25", last: "20:32", headways: [{from: "13:25", to: "20:32", minutes: 21}]}
+      sunday: no_service
+    avg_speed_kmh: null
+    source_urls:
+      - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,659
+    notes: >-
+      Official HTML timetable on the operator page. Monday to Friday: 42 trips each way, first from Joka 06:40 and
+      from Majerhat 07:03, last from Joka 21:05 and from Majerhat 21:26. Departures are about every 21 minutes,
+      with the first gap 23 minutes. Saturday (w.e.f. 22.11.2025): first from Joka 13:25 and from Majerhat 13:49,
+      last from Joka 20:11 and from Majerhat 20:32, every 21 minutes (one 28-minute gap). The operator states
+      "SUNDAY METRO SERVICE NOT AVAILABLE". The value `no_service` is not in the README schema; replace it if the
+      pipeline needs another representation. The operator page title still reads "JOKA-ESPLANADE"; only
+      Joka-Majerhat is open.
+
+  - id: kol-orange
+    name: Orange Line
+    long_name: Kavi Subhash – Beleghata
+    operator: Metro Railway, Kolkata
+    colour: "#D84E1F"
+    colour_source: >-
+      operator system map (as on 31.03.2026)
+      https://mtp.indianrailways.gov.in//uploads/images/1787227418006-SYSTEM%20MAP%20OF%20METRO%20RAILWAY%20CORRECTED%20UPTO%20310326%20APPROVED.jpeg
+      (sampled from the JPEG legend, so approximate)
+    mode: metro
+    termini: [Kavi Subhash, Beleghata]
+    opened: null
+    osm:
+      ref: "Orange"
+      name_contains: "Orange Line"
+    timetable:
+      weekday: {first: "08:40", last: "19:55", headways: [{from: "08:40", to: "19:55", minutes: 25}]}
+      saturday: no_service
+      sunday: no_service
+    avg_speed_kmh: null
+    source_urls:
+      - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,663
+    notes: >-
+      Official HTML timetable, Monday to Friday only ("NO SERVICE ON SATURDAY & SUNDAY"). 27 trips each way, every
+      25 minutes, 23-minute run time. Kavi Subhash departures run 08:40-19:30 and Beleghata departures 09:05-19:55.
+      The timetable has no effective date; the page was last reviewed 27-10-2026. The 08:00 start reported in
+      August 2025 news no longer matches. The Beleghata-IT Centre extension was only in trials in October 2026 and
+      is not included. The Orange Line's Kavi Subhash station is listed separately from the closed Blue Line Kavi
+      Subhash platforms (station code KKSO vs KKVS).
+
+  - id: kol-yellow
+    name: Yellow Line
+    long_name: Noapara – Jai Hind Bimanbandar
+    operator: Metro Railway, Kolkata
+    colour: "#C9A431"
+    colour_source: >-
+      operator system map (as on 31.03.2026)
+      https://mtp.indianrailways.gov.in//uploads/images/1787227418006-SYSTEM%20MAP%20OF%20METRO%20RAILWAY%20CORRECTED%20UPTO%20310326%20APPROVED.jpeg
+      (sampled from the JPEG legend, so approximate)
+    mode: metro
+    termini: [Noapara, Jai Hind Bimanbandar]
+    opened: null
+    osm:
+      ref: "Yellow"
+      name_contains: "Yellow Line"
+    timetable:
+      weekday:
+        first: "07:18"
+        last: "21:20"
+        headways:
+          - {from: "07:18", to: "08:00", minutes: 20}
+          - {from: "08:00", to: "13:00", minutes: 12}
+          - {from: "13:00", to: "16:00", minutes: 18}
+          - {from: "16:00", to: "19:30", minutes: 12}
+          - {from: "19:30", to: "21:20", minutes: 18}
+      saturday: {first: "07:18", last: "21:20", headways: [{from: "07:18", to: "21:20", minutes: 18}]}
+      sunday: {first: "09:18", last: "21:20", headways: [{from: "09:18", to: "21:20", minutes: 18}]}
+    avg_speed_kmh: null
+    source_urls:
+      - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,671
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1778844886248-TT-YL-WEF-18.05.2026.pdf
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1778844900563-TT-YL-WEF-23.05.2026.pdf
+      - https://oldmtp.indianrailways.gov.in/uploads/files/1785495507246-UPDATED%20YELLOW%20LINE.pdf
+    notes: >-
+      Official trip-level timetables: weekdays w.e.f. 18.05.2026, Saturday w.e.f. 23.05.2026, Sunday w.e.f.
+      02.08.2026. Headways are medians of departure gaps from Noapara and Jai Hind, computed per hour from the PDFs.
+      Weekday: Noapara 07:18-21:00, Jai Hind 07:40-21:20 (60 trips each way). Saturday: Noapara 07:18-21:00,
+      Jai Hind 07:40-21:20. Sunday: Noapara 09:18-21:00, Jai Hind 09:40-21:20. Saturday and Sunday run about every
+      18 minutes, with 20-24 minute gaps at the ends of the day. Only Noapara-Jai Hind is open; Jai Hind-Barasat is
+      under construction per the 31.03.2026 system map.
+
+fares:
+  type: distance_slab
+  applies_to_lines: [kol-blue]   # km bands are published for the Blue Line only
+  currency: INR
+  slabs:
+    - {max_km: 2, fare: 5}
+    - {max_km: 5, fare: 10}
+    - {max_km: 10, fare: 15}
+    - {max_km: 20, fare: 20}
+    - {max_km: null, fare: 25}
+  # Smart cards get 10% bonus value on recharge rather than a per-fare discount, so none is modelled.
+  discounts: []
+  notes: >-
+    The slabs above are the Blue Line distance slabs from the 5 Dec 2019 revision (Business Today, 2019-11-27):
+    0-2 km Rs 5, 2-5 km Rs 10, 5-10 km Rs 15, 10-20 km Rs 20, above 20 km Rs 25 (open-ended, max_km null). The
+    current official Blue Line station-to-station table on the operator fare page uses exactly 5/10/15/20/25. The
+    other lines have their own official station-to-station tables with different values: Green 5/10/20/30
+    (Sector V-Howrah Maidan Rs 30); Purple, Orange and Yellow 5/10/20 (Joka-Majerhat Rs 20, Noapara-Jai Hind Rs 20).
+    Their km bands are not published, so they are not encoded. The operator also publishes a combined
+    Blue-Green-Orange interchange matrix (values up to Rs 50). Fare-chart values were read on 2026-10-29 and the
+    page carries no effective date. Smart card terms are from the operator's Ticketing
+    document: 10% bonus, Rs 80 security deposit, Rs 25 minimum balance. Students get a 60% concession (not
+    modelled).
+  source_urls:
+    - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,661
+    - https://oldmtp.indianrailways.gov.in/uploads/files/1716365367373-Ticketing.docx
+    - https://www.businesstoday.in/latest/trends/story/kolkata-metro-fares-to-go-up-by-rs-5-from-december-5-239741-2019-11-27
+
+sources:
+  - https://mtp.indianrailways.gov.in/
+  - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630
+  - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,652
+  - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,658
+  - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,659
+  - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,663
+  - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,630,671
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1784875999281-WEEK%20DAYS%20BLUE%20LINE.pdf
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1785496034261-SAT%20BLUE%20LINE%20UPDATED.pdf
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1786102498176-SUNDAY%20TT%20W.E.F%209.8.26.pdf
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1784879688677-WEEK%20DAYS%20GREENLINE.pdf
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1784884646784-SATURDAY%20GREEN%20LINE.pdf
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1784885484803-SUNDAY%20GREEN%20LINE.pdf
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1778844886248-TT-YL-WEF-18.05.2026.pdf
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1778844900563-TT-YL-WEF-23.05.2026.pdf
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1785495507246-UPDATED%20YELLOW%20LINE.pdf
+  - https://oldmtp.indianrailways.gov.in/view_section.jsp?lang=0&id=0,2,661
+  - https://oldmtp.indianrailways.gov.in/uploads/files/1716365367373-Ticketing.docx
+  - https://oldmtp.indianrailways.gov.in/view_section.jsp?id=0,1,285&lang=0
+  - https://mtp.indianrailways.gov.in//uploads/images/1787227418006-SYSTEM%20MAP%20OF%20METRO%20RAILWAY%20CORRECTED%20UPTO%20310326%20APPROVED.jpeg
+  - https://www.newkerala.com/news/a/now-kolkata-metro-trains-start-running-from-am-876.htm
+  - https://www.constructionworld.in/transport-infrastructure/metro-rail-and-railways-infrastructure/kolkata-metro-extends-blue-and-green-line-timings/95107
+  - https://www.businesstoday.in/latest/trends/story/kolkata-metro-fares-to-go-up-by-rs-5-from-december-5-239741-2019-11-27
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.*.opened
+  - lines.*.avg_speed_kmh
+  - fares.slabs for Green, Purple, Orange and Yellow lines (km bands not published)
+  - exact hex colours (sampled from a JPEG, not published by the operator)

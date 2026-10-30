@@ -1,0 +1,83 @@
+id: meerut
+name: Meerut
+state: Uttar Pradesh
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around Meerut South and Modipuram. Not from an operator source; verify
+# against the OSM relation bounds.
+bbox: [28.90, 77.64, 29.09, 77.74]
+checked: 2026-10-29
+
+lines:
+  - id: mrt-1
+    name: Meerut Metro
+    long_name: Meerut South – Modipuram
+    operator: National Capital Region Transport Corporation (NCRTC)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Meerut South, Modipuram]
+    opened: 2026-02-22
+    osm:
+      ref: "1"
+      name_contains: "Line 1 (Meerut South"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:00"
+        headways: null
+      saturday: same_as_weekday
+      sunday: {first: "08:00", last: "22:00", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.republicworld.com/india/delhi-meerut-namo-bharat-meerut-metro-route-fare-timings
+      - https://en.wikipedia.org/wiki/Meerut_Metro
+    notes: >-
+      LOW CONFIDENCE TIMETABLE. Republic World (22 Feb 2026) gives 06:00–22:00 Mon–Sat and
+      08:00–22:00 Sunday, every 10–15 min (5–8 min at peak), but states this for the combined
+      Namo Bharat and Meerut Metro launch, not clearly for the Metro alone. It is not attributed
+      to NCRTC. Headways are therefore null. Third-party planners show station-level times such
+      as 05:57 / 22:47 from Meerut South, which were not used. ncrtc.in had no Meerut Metro
+      timetable. Opened 22 Feb 2026, commercial service from 18:00 that day (TheSootr;
+      Wikipedia citing India Today). Twelve stations: Meerut South, Partapur, Rithani,
+      Shatabdi Nagar, Brahmpuri, Meerut Central, Bhaisali, Begumpul, MES Colony, Daurli,
+      Meerut North, Modipuram. Modipuram Depot station is not open. The line shares tracks and
+      four stations with Namo Bharat RRTS, which is excluded here. OSM relations 16661918 /
+      20268334 ("Line 1 (Meerut South → Modipuram)", colour #d8514d).
+
+fares:
+  type: null
+  currency: INR
+  slabs: null
+  discounts: []
+  notes: >-
+    NCRTC fare list as reported by News Nation (22 Feb 2026, Hindi), minimum ₹20 and maximum ₹60.
+    It is a per-station list from each terminus, not a published slab rule.
+    From Modipuram: Meerut North 20, Daurli 20, MES Colony 30, Begumpul 30, Bhaisali 40,
+    Meerut Central 50, Brahmpuri 50, Shatabdi Nagar 50, Rithani 50, Partapur 60, Meerut South 60.
+    From Meerut South: Partapur 20, Rithani 20, Shatabdi Nagar 30, Brahmpuri 30, Meerut Central
+    30, Bhaisali 40, Begumpul 40, MES Colony 50, Daurli 50, Meerut North 60, Modipuram 60.
+    The fare basis (distance or station count) is not stated. TheSootr (22 Feb 2026) confirms
+    ₹20 min / ₹60 max and Modipuram->Begumpul ₹30. Smart card or QR discounts were not found.
+  source_urls:
+    - https://www.newsnationtv.com/states/uttar-pradesh/up-news-in-hindi-metro-services-and-namo-bharat-train-started-in-meerut-ncrtc-declared-fares-list-11145161
+    - https://thesootr.com/desh/namo-bharat-meerut-metro-fare-list-inauguration-11145314
+
+notes: ""
+
+sources:
+  - https://en.wikipedia.org/wiki/Meerut_Metro
+  - https://www.republicworld.com/india/delhi-meerut-namo-bharat-meerut-metro-route-fare-timings
+  - https://www.newsnationtv.com/states/uttar-pradesh/up-news-in-hindi-metro-services-and-namo-bharat-train-started-in-meerut-ncrtc-declared-fares-list-11145161
+  - https://thesootr.com/desh/namo-bharat-meerut-metro-fare-list-inauguration-11145314
+  - https://ncrtc.in/
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[mrt-1].colour
+  - lines[mrt-1].timetable.weekday.headways
+  - lines[mrt-1].timetable.sunday.headways
+  - lines[mrt-1].avg_speed_kmh
+  - fares.type
+  - fares.slabs
+  - fares.discounts
+  - bbox   # approximate, not from a source

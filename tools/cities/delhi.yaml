@@ -1,0 +1,439 @@
+id: delhi
+name: Delhi
+state: Delhi NCR  # lines also run into Haryana (Gurugram, Faridabad, Bahadurgarh) and Uttar Pradesh (Noida, Ghaziabad)
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around the DMRC termini (Raja Nahar Singh, Brig. Hoshiar Singh,
+# Samaypur Badli, Noida Electronic City, Vaishali, Shiv Vihar). NOT from an operator source:
+# verify against the OSM relation bounds before use.
+bbox: [28.33, 76.88, 28.77, 77.42]
+checked: 2026-10-29
+
+# How the timetable values were obtained:
+# first/last = the DMRC website "First/Last Train Time" tool (delhimetrorail.com home page),
+# queried on Thursday 2026-10-29 from each terminus to the ADJACENT station on the same line
+# (so the answer is the first/last departure from that terminus, not a multi-line journey).
+# These are therefore WEEKDAY values. DMRC does not publish line-wise headways or a Saturday/
+# Sunday first/last table in text form that could be found, so those are null.
+# DMRC disclaimer on the same page: "train timings, runtime ... is indicative and subject to change".
+
+lines:
+  - id: del-red
+    name: Red Line
+    long_name: Rithala – Shaheed Sthal (New Bus Adda)
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#C0282C"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 1' (read 2026-10-29)"
+    mode: metro
+    termini: [Rithala, Shaheed Sthal (New Bus Adda)]
+    opened: 2002-12-25
+    osm:
+      ref: "1"
+      name_contains: "Red Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Delhi_Metro
+    notes: >-
+      DMRC First/Last Train Time tool: Rithala -> Shaheed Sthal first 06:00:02, last 23:00:00;
+      Shaheed Sthal -> Rithala first 06:00:00, last 23:00:00. Opening date from Wikipedia
+      (Shahdara–Tis Hazari, 25 Dec 2002). OSM relations 447214 / 8037718 (colour tagged #FF4040).
+
+  - id: del-yellow
+    name: Yellow Line
+    long_name: Samaypur Badli – Millennium City Centre Gurugram
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#F6D71A"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 2' (read 2026-10-29)"
+    mode: metro
+    termini: [Samaypur Badli, Millennium City Centre Gurugram]
+    opened: 2004-12-20
+    osm:
+      ref: "2"
+      name_contains: "Yellow Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Delhi_Metro
+    notes: >-
+      DMRC tool: Samaypur Badli -> MCCG first 06:00:03, last 23:00:00; MCCG -> Samaypur Badli
+      first 06:00:01, last 23:00:00. Opening date from Wikipedia (Vishwavidyalaya–Kashmere Gate).
+      OSM relations 447210 / 8037712.
+
+  - id: del-blue
+    name: Blue Line
+    long_name: Dwarka Sector 21 – Noida Electronic City
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#3B76C0"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 3' (read 2026-10-29)"
+    mode: metro
+    termini: [Dwarka Sector 21, Noida Electronic City]
+    opened: 2005-12-31
+    osm:
+      ref: "3"
+      name_contains: "Blue Line (Dwarka Sector 21"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Delhi_Metro
+    notes: >-
+      DMRC tool: Dwarka Sector 21 -> Dwarka Sector 8 first 06:00, last 22:50; Noida Electronic
+      City -> Sector 62 Noida first 06:00, last 23:00. DMRC station names in the tool are
+      "DWARKA SECTOR - 21" and "SECTOR - 62 NOIDA". OSM relations 8037669 / 447209
+      (name strings "Blue Line (Dwarka Sector 21 → Noida Electronic City)" and reverse).
+
+  - id: del-blue-branch
+    name: Blue Line (Vaishali branch)
+    long_name: Yamuna Bank – Vaishali
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#3B76C0"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 4' (read 2026-10-29)"
+    mode: metro
+    termini: [Yamuna Bank, Vaishali]
+    opened: null
+    osm:
+      ref: "4"
+      name_contains: "Blue Line (Yamuna Bank"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Delhi_Metro
+    notes: >-
+      DMRC lists this as "Line 4". DMRC tool: Vaishali -> Yamuna Bank first 06:00, last 23:00.
+      Yamuna Bank -> Laxmi Nagar returned first 06:24:30, last 00:08:40 (these look like through
+      trains from the Dwarka side passing Yamuna Bank, so they were not used as terminus times).
+      Opening date left null: Wikipedia gives 8 Jan 2010 in one place and 6 Jan 2010 in another.
+      OSM relations 2535795 / 8037670.
+
+  - id: del-green
+    name: Green Line
+    long_name: Inderlok / Kirti Nagar – Brigadier Hoshiyar Singh
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#54AB55"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 5' (read 2026-10-29)"
+    mode: metro
+    termini: [Inderlok, Kirti Nagar, Brigadier Hoshiyar Singh]
+    opened: 2010-04-03
+    osm:
+      ref: "5"
+      name_contains: "Green Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Delhi_Metro
+    notes: >-
+      Two branches (Inderlok and Kirti Nagar) merge at Ashok Park Main. DMRC tool: Inderlok ->
+      Ashok Park Main 06:00/23:00; Kirti Nagar -> Satguru Ram Singh Marg 06:00/23:00;
+      Brig. Hoshiar Singh -> Bahadurgarh City 06:00/23:00 (DMRC spells the station
+      "BRIG. HOSHIAR SINGH"). OSM has separate relations for each branch (8037666, 8037687,
+      2535796, 8037675).
+
+  - id: del-violet
+    name: Violet Line
+    long_name: Kashmere Gate – Raja Nahar Singh (Ballabhgarh)
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#8115FF"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 6' (read 2026-10-29)"
+    mode: metro
+    termini: [Kashmere Gate, Raja Nahar Singh (Ballabhgarh)]
+    opened: 2010-10-03
+    osm:
+      ref: "6"
+      name_contains: "Violet Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Delhi_Metro
+    notes: >-
+      DMRC tool: Kashmere Gate -> Lal Quila 06:00/23:00; Raja Nahar Singh -> Sant Surdas (Sihi)
+      06:00/23:00. OSM relations 2535797 / 8037705.
+
+  - id: del-pink
+    name: Pink Line
+    long_name: Majlis Park – Shiv Vihar
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#ED91C9"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 7' (read 2026-10-29)"
+    mode: metro
+    termini: [Majlis Park, Shiv Vihar]
+    opened: 2018-03-14
+    osm:
+      ref: "7"
+      name_contains: "Pink Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Pink_Line_(Delhi_Metro)
+    notes: >-
+      DMRC's Service Status widget lists "Line 7 Pink" and "Line 7 Extension Pink (Extension)"
+      separately, so the new Phase 4 section is modelled as del-pink-ext. Wikipedia calls the
+      line a ring since 8 Mar 2026, but the service pattern (through-running or not) was not
+      found in any DMRC source. DMRC tool: Majlis Park -> Azadpur 06:00/23:00; Shiv Vihar ->
+      Johri Enclave 06:00/22:50. Existing OSM relations (8241298 / 8242437) are tagged
+      "Pink Line (Shiv Vihar → Maujpur - Babarpur)" and may not yet reflect the 2026 changes.
+
+  - id: del-magenta
+    name: Magenta Line
+    long_name: Botanical Garden – Krishna Park Extension
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#FF00FF"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 8' (read 2026-10-29)"
+    mode: metro
+    termini: [Botanical Garden, Krishna Park Extension]
+    opened: 2017-12-25
+    osm:
+      ref: "8"
+      name_contains: "Magenta Line (Botanical Garden"
+    timetable:
+      weekday:
+        first: "05:50"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Magenta_Line_(Delhi_Metro)
+    notes: >-
+      Janakpuri West – Krishna Park Extension (1 station) OPENED AFTER AUG 2023, on 5 Jan 2025
+      (Wikipedia). Wikipedia also says that "as of April 2026 every second train terminates at
+      Krishna Park Extension" (i.e. the rest turn at Janakpuri West); this was not confirmed on
+      a DMRC page. DMRC tool: Botanical Garden -> Okhla Bird Sanctuary 06:00/23:00; Krishna Park
+      Extension -> Janakpuri West 05:50/22:50. OSM relations 8385429 / 8385430.
+
+  - id: del-magenta-ext
+    name: Magenta Line (Extension)
+    long_name: Deepali Chowk – Majlis Park (Phase 4)
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#FF00FF"
+    colour_source: "assumed same as Line 8 on delhimetrorail.com; the widget's 'Line 8 Extension' tile colour was not separately extracted"
+    mode: metro
+    termini: [Deepali Chowk, Majlis Park]
+    opened: 2026-03-08
+    osm:
+      ref: "8"
+      name_contains: "Magenta Line (Majlis Park"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://metrorailnews.in/modi-inaugurated-2-new-sections-of-delhi-metro/
+      - https://en.wikipedia.org/wiki/Magenta_Line_(Delhi_Metro)
+    notes: >-
+      OPENED AFTER AUG 2023: inaugurated 8 Mar 2026, 9.9 km and 7 stations (Metro Rail News,
+      9 Mar 2026; Wikipedia). It runs separately from the main Magenta Line; DMRC's Service
+      Status widget lists it as "Line 8 Extension". The Krishna Park Extension – Deepali Chowk
+      gap is still under construction, with late 2026 expected per Wikipedia. DMRC tool:
+      Deepali Chowk -> Madhuban Chowk 06:30/23:00; Majlis Park -> Bhalaswa 06:00/23:00.
+      OSM relations 20300114 / 20300115.
+
+  - id: del-grey
+    name: Grey Line
+    long_name: Dwarka – Dhansa Bus Stand
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#808080"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Line 9' (read 2026-10-29)"
+    mode: metro
+    termini: [Dwarka, Dhansa Bus Stand]
+    opened: 2019-10-04
+    osm:
+      ref: "9"
+      name_contains: "Grey Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://en.wikipedia.org/wiki/Delhi_Metro
+    notes: >-
+      The DMRC tool names the Dwarka end station "DWARKA-KAKROLA". DMRC tool: Dwarka-Kakrola ->
+      Nangli 06:00/23:00; Dhansa Bus Stand -> Najafgarh 06:00/23:00. OSM relations 3537978 /
+      8051592.
+
+  - id: del-airport
+    name: Airport Express Line
+    long_name: New Delhi – Yashobhoomi Dwarka Sector 25
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#F46808"
+    colour_source: "delhimetrorail.com home page, Service Status widget, CSS colour of 'Airport Express / Orange Line' (read 2026-10-29)"
+    mode: metro
+    termini: [New Delhi, Yashobhoomi Dwarka Sector 25]
+    opened: 2011-02-23
+    osm:
+      ref: "AEx"
+      name_contains: "Airport Express Line"
+    timetable:
+      weekday:
+        first: "04:40"
+        last: "23:40"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://www.delhimetrorail.com/airport-express-line
+      - https://en.wikipedia.org/wiki/Delhi_Metro
+    notes: >-
+      Dwarka Sector 21 – Yashobhoomi Dwarka Sector 25 (2.01 km, 1 station) OPENED AFTER AUG 2023,
+      on 17 Sep 2023 (Wikipedia). DMRC tool: New Delhi -> Shivaji Stadium first 05:00, last 23:40;
+      Yashobhoomi -> Dwarka Sector 21 first 04:40, last 23:15. This line has its own fare table
+      (see fares.notes). OSM relations 2535798 / 8037715 (names still say "Dwarka Sector 25").
+
+fares:
+  type: distance_slab
+  currency: INR
+  # Monday–Saturday (all lines except the Airport Express Line); effective 2025-08-25
+  slabs:
+    - {max_km: 2, fare: 11}
+    - {max_km: 5, fare: 21}
+    - {max_km: 12, fare: 32}
+    - {max_km: 21, fare: 43}
+    - {max_km: 32, fare: 54}
+    - {max_km: null, fare: 64}
+  # EXTRA KEY (not in README schema): Sundays and national holidays
+  sunday_holiday_slabs:
+    - {max_km: 2, fare: 11}
+    - {max_km: 5, fare: 11}
+    - {max_km: 12, fare: 21}
+    - {max_km: 21, fare: 32}
+    - {max_km: 32, fare: 43}
+    - {max_km: null, fare: 54}
+  peak_windows:
+    - {days: mon_sat, from: "08:00", to: "12:00"}
+    - {days: mon_sat, from: "17:00", to: "21:00"}
+  discounts:
+    # FAQ Q20: 10% on every smart-card journey, plus an extra 10% for entry outside 08:00-12:00 and
+    # 17:00-21:00 on Monday-Saturday. National holidays (26 Jan, 15 Aug, 2 Oct) are not modelled.
+    - {media: smart_card, percent: 10, timeframe: peak, days: mon_sat, note: "Peak hours, Monday-Saturday (DMRC FAQ Q20)"}
+    - {media: smart_card, percent: 20, timeframe: offpeak, days: mon_sat, note: "10% plus the extra 10% off-peak, Monday-Saturday (DMRC FAQ Q20)"}
+    - {media: smart_card, percent: 10, days: sunday, note: "Every journey on Delhi Metro Smart Card / Virtual Smart Card / NCMC (DMRC FAQ Q20, Q64). Not given on entry/exit mismatch or entry and exit at the same station (Q21)."}
+    - {media: qr_ticket_multiple_journey, percent: 10, verified: false, note: "Multiple Journey QR Ticket (MJQRT): 10% in peak (08:00–12:00, 17:00–21:00) and 20% off-peak, per Outlook Traveller 13 Sep 2024 at launch. Not verified on a DMRC page, so it may be stale. No discount found for single-journey QR tickets."}
+  notes: >-
+    Slabs from Business Today (25 Aug 2025), confirmed by The Week and ETV Bharat for the
+    weekday 0–2, 12–21, 21–32 and >32 km slabs and the Sunday 12–21 and >32 km slabs. This was
+    the first revision since 2017, and no later revision was found up to 2026-10-29. DMRC FAQ
+    Q29: the fare depends on the shortest-route distance between stations. Airport Express
+    Line fares are a separate table that rose "up to ₹5" in Aug 2025 (DMRC post quoted by
+    ETV Bharat); the slab values were not found. Rapid Metro Gurugram (₹20 flat) is in
+    gurugram.yaml. The DMRC fare page (delhimetrorail.com/fare-structure) returned "We didn't
+    find any data" when read.
+  source_urls:
+    - https://www.businesstoday.in/amp/india/story/delhi-metro-fare-hike-dmrc-increases-prices-by-up-to-rs-4-from-aug-25-check-details-490867-2025-08-25
+    - https://www.theweek.in/news/india/2025/08/25/delhi-metro-fare-hike-minimum-ticket-price-now-is-11-check-full-details-here.amp.html
+    - https://www.etvbharat.com/en/!state/delhi-metro-raises-passenger-fares-with-effect-from-monday-enn25082500642
+    - https://delhimetrorail.com/faq-tickets-fare
+    - https://www.outlooktraveller.com/News/all-about-the-metro-fee-hike-what-commuters-need-to-know
+    - https://www.outlooktraveller.com/News/delhi-metro-introduces-qr-tickets-for-multiple-journeys-starting-today
+
+notes: >-
+  NETWORK STATE ON 2026-10-29: the DMRC home page reports 12 lines, 416 km and 303 stations,
+  "including NOIDA-Greater NOIDA Aqua Line, Rapid Metro Gurugram". Its Service Status widget
+  lists Line 1 Red, 2 Yellow, 3 Blue, 4 Blue, 5 Green, 6 Violet, 7 Pink, 7 Extension, 8 Magenta,
+  8 Extension, 9 Grey, Airport Express (Orange) and Rapid Metro (RMGL).
+  SECTIONS OPENED AFTER AUGUST 2023 (2023 GTFS is missing these): (1) Airport Express Dwarka
+  Sector 21 – Yashobhoomi Dwarka Sector 25, 17 Sep 2023; (2) Magenta Janakpuri West – Krishna
+  Park Extension, 5 Jan 2025; (3) Pink Line Phase 4 Majlis Park – Maujpur-Babarpur, 8 Mar 2026;
+  (4) Magenta Line Phase 4 Deepali Chowk – Majlis Park, 8 Mar 2026.
+  NOT OPEN (excluded): Golden Line Tughlakabad – Aerocity. Web search summaries of Metro Rail
+  News (updated 29 Sep 2026) and Construction World say DMRC is targeting December 2026 for the
+  first stretch, Tughlakabad – Sangam Vihar, with no trial runs or CMRS inspection reported.
+  Neither page was read in full. The Golden Line is absent from DMRC's Service Status widget
+  on 2026-10-29, and Wikipedia lists it as upcoming. Magenta Krishna Park Extension –
+  Deepali Chowk is also not open.
+  RECENT SERVICE CHANGES: DMRC press release of 21 Oct 2026 says 20 additional trips are added
+  on weekdays (Mon–Fri) from 22 Oct 2026 under GRAP-I. A DMRC notice dated 29 Oct 2026 says
+  all lines except the Airport Express run until 00:00 on 30 Oct 2026 only, for a concert.
+  The DMRC home page also has a notice titled "timings for commencement of Sunday services on
+  Phase-III corridors revised", but its content could not be read.
+  Colours are the CSS colours DMRC's own website uses in its Service Status widget. They are
+  not a published brand palette. OSM tags differ, e.g. Yellow is #FFDF00 in OSM.
+
+sources:
+  - https://www.delhimetrorail.com/
+  - https://delhimetrorail.com/pages/en/pressrelease_details/delhi-metro-augementing-train-tips-intensifying-dr
+  - https://delhimetrorail.com/faq-tickets-fare
+  - https://www.delhimetrorail.com/airport-express-line
+  - https://en.wikipedia.org/wiki/Delhi_Metro
+  - https://en.wikipedia.org/wiki/Pink_Line_(Delhi_Metro)
+  - https://en.wikipedia.org/wiki/Magenta_Line_(Delhi_Metro)
+  - https://metrorailnews.in/modi-inaugurated-2-new-sections-of-delhi-metro/
+  - https://metrorailnews.in/projects/delhi-metro-golden-line/
+  - https://www.constructionworld.in/transport-infrastructure/metro-rail-and-railways-infrastructure/delhi-metro-golden-line-stretch-targeted-for-december-2026-opening/97398
+  - https://www.businesstoday.in/amp/india/story/delhi-metro-fare-hike-dmrc-increases-prices-by-up-to-rs-4-from-aug-25-check-details-490867-2025-08-25
+  - https://www.theweek.in/news/india/2025/08/25/delhi-metro-fare-hike-minimum-ticket-price-now-is-11-check-full-details-here.amp.html
+  - https://www.etvbharat.com/en/!state/delhi-metro-raises-passenger-fares-with-effect-from-monday-enn25082500642
+  - https://www.outlooktraveller.com/News/all-about-the-metro-fee-hike-what-commuters-need-to-know
+  - https://www.outlooktraveller.com/News/delhi-metro-introduces-qr-tickets-for-multiple-journeys-starting-today
+  - https://overpass-api.de/api/interpreter  # OSM route=subway relation listing, read 2026-10-29
+
+omitted:
+  - "Pink Line extension Majlis Park - Maujpur-Babarpur (opened 2026-03-08): no OpenStreetMap route relation yet, so no geometry to draw. The researched line block is parked in tools/cities/pending/delhi-pink-ext.yaml."
+unknowns:
+  - lines[*].timetable.weekday.headways   # DMRC publishes no line-wise headways that could be found
+  - lines[*].timetable.saturday
+  - lines[*].timetable.sunday              # a Sunday-timings notice exists but could not be read
+  - lines[*].avg_speed_kmh
+  - lines[del-blue-branch].opened          # conflicting dates in source
+  - fares.airport_express_slabs
+  - bbox                                    # approximate, not from a source

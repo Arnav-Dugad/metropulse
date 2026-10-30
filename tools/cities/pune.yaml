@@ -1,0 +1,124 @@
+# Pune Metro (Maha-Metro): Purple Line and Aqua Line are open on 2026-10-29.
+# Excluded: Pune Metro Line 3 (Hinjewadi – Shivajinagar, PITCMRL/PMRDA) is NOT open yet; latest
+# report (Free Press Journal, updated 2026-10-27) says passenger service is "likely" from 2026-11-03.
+# Extensions PCMC–Nigdi, Swargate–Katraj and Ramwadi–Wagholi are under construction.
+id: pune
+name: Pune
+state: Maharashtra
+timezone: Asia/Kolkata
+bbox: [18.49, 73.79, 18.64, 73.92]   # from OSM bounds of the operating route relations, +~0.01 margin
+checked: 2026-10-29
+
+lines:
+  - id: pune-purple
+    name: Purple Line
+    long_name: PCMC Bhavan – Swargate (Line 1)
+    operator: Maharashtra Metro Rail Corporation Ltd (Maha-Metro)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [PCMC, Swargate]
+    opened: 2022-03-06
+    osm:
+      ref: "1"
+      name_contains: "Purple Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 10}
+          - {from: "08:00", to: "11:00", minutes: 6}
+          - {from: "11:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:00", minutes: 6}
+          - {from: "20:00", to: "23:00", minutes: 10}
+      saturday: {first: "06:00", last: "23:00", headways: null}
+      sunday: {first: "06:00", last: "23:00", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.punemetrorail.org/assets/images/home_popup/Time-Tablenew2.jpg
+      - https://www.punekarnews.in/?p=244155
+      - https://en.wikipedia.org/wiki/Pune_Metro
+    notes: >-
+      Operating hours 06:00–23:00 are Maha-Metro's "regular time" on its official Ganeshotsav 2025
+      timetable graphic (punemetrorail.org home page); no separate first/last per terminus or per
+      day type was published. Headways: Punekar News (2026-09-08) quoting MahaMetro — trains "that
+      currently operate at six-minute intervals during busy periods" and "one train every 10 minutes"
+      in non-peak hours (applies to both lines). Peak hours are not published; peak windows
+      08:00–11:00 and 17:00–20:00 are an assumption. Weekend headways not published (null); weekend
+      first/last assumed equal to the published regular hours. No official hex colour found; the
+      line name "Purple Line" is used by Maha-Metro and OSM.
+
+  - id: pune-aqua
+    name: Aqua Line
+    long_name: Vanaz – Ramwadi (Line 2)
+    operator: Maharashtra Metro Rail Corporation Ltd (Maha-Metro)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Vanaz, Ramwadi]
+    opened: 2022-03-06
+    osm:
+      ref: "2"
+      name_contains: "Aqua Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 10}
+          - {from: "08:00", to: "11:00", minutes: 6}
+          - {from: "11:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:00", minutes: 6}
+          - {from: "20:00", to: "23:00", minutes: 10}
+      saturday: {first: "06:00", last: "23:00", headways: null}
+      sunday: {first: "06:00", last: "23:00", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.punemetrorail.org/assets/images/home_popup/Time-Tablenew2.jpg
+      - https://www.punekarnews.in/?p=244155
+      - https://en.wikipedia.org/wiki/Pune_Metro
+    notes: >-
+      Same sources and caveats as the Purple Line. Peak windows 08:00–11:00 and 17:00–20:00 are an
+      assumption. The only operator route map found (download/zoom/route-map.pdf, 2022 "Azadi Ka Amrit
+      Mahotsav" edition) draws this corridor in blue (~#7082C0, sampled from JPEG) before the
+      "Aqua" name was adopted, so it is not used as the colour.
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs: null
+  discounts:
+    - {media: smart_card, percent: 10, note: "One Pune NCMC RuPay card: 10% off all Metro rides (punemetrorail.org home page)"}
+    - {media: smart_card, percent: 30, eligibility: students, note: "One Pune Vidyarthi Pass (students): 30% off every ride, every day (punemetrorail.org home page)"}
+    - {media: any, percent: 30, verified: false, note: "Weekend (Sat/Sun) concession announced 2023 (FPJ 2023-08-01); not confirmed as still active in 2026"}
+  notes: >-
+    Maha-Metro publishes a station-to-station fare matrix (English chart image on the fare page),
+    not km slabs. Fares in the matrix range from Rs 10 to Rs 35 (e.g. PCMC–Swargate 30,
+    PCMC–Ramwadi 35, Vanaz–Ramwadi 30). Distance boundaries are not published, so slabs are null;
+    the matrix itself is the authoritative source. A real-estate blog lists 0–1 km 10, 1–2 km 15,
+    2–4 km 20, 4–8 km 25, 8–16 km 30, >16 km 35, which was not confirmed and is not used.
+  source_urls:
+    - https://www.punemetrorail.org/fare_chart.aspx
+    - https://www.punemetrorail.org/assets/images/Fare-Chart-E-Web.avif
+    - https://www.punemetrorail.org/
+    - https://www.freepressjournal.in/amp/pune/pm-modi-inaugurates-extended-pune-metro-lines-all-you-need-to-know-about-routes-timings-fares-and-more
+
+sources:
+  - https://www.punemetrorail.org/
+  - https://www.punemetrorail.org/fare_chart.aspx
+  - https://www.punemetrorail.org/assets/images/Fare-Chart-E-Web.avif
+  - https://www.punemetrorail.org/assets/images/home_popup/Time-Tablenew1.jpg
+  - https://www.punemetrorail.org/assets/images/home_popup/Time-Tablenew2.jpg
+  - https://www.punemetrorail.org/download/zoom/route-map.pdf
+  - https://www.punekarnews.in/?p=244155
+  - https://www.freepressjournal.in/amp/pune/pm-modi-inaugurates-extended-pune-metro-lines-all-you-need-to-know-about-routes-timings-fares-and-more
+  - https://www.freepressjournal.in/pune/pune-metro-line-3-likely-to-launch-on-nov-3-17-stations-expected-to-open
+  - https://en.wikipedia.org/wiki/Pune_Metro
+unknowns:
+  - lines.pune-purple.colour
+  - lines.pune-aqua.colour
+  - lines.*.timetable.saturday.headways
+  - lines.*.timetable.sunday.headways
+  - lines.*.avg_speed_kmh
+  - fares.slabs

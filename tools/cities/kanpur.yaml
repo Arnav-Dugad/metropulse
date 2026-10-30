@@ -1,0 +1,90 @@
+id: kanpur
+name: Kanpur
+state: Uttar Pradesh
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around IIT Kanpur and Kanpur Central. Not from an operator source; verify
+# against the OSM relation bounds.
+bbox: [26.43, 80.21, 26.53, 80.37]
+checked: 2026-10-29
+
+lines:
+  - id: knp-orange
+    name: Orange Line
+    long_name: IIT Kanpur – Kanpur Central
+    operator: Uttar Pradesh Metro Rail Corporation (UPMRC)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [IIT Kanpur, Kanpur Central]
+    opened: 2021-12-28
+    osm:
+      ref: "1"
+      name_contains: "Orange Line (IIT Kanpur"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:00"
+        headways:
+          - {from: "08:00", to: "11:00", minutes: 6}
+          - {from: "17:00", to: "20:00", minutes: 6}
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://kanpur.upmetrorail.com/pages/kanpur-metro-timings
+      - https://en.wikipedia.org/wiki/Kanpur_Metro
+    notes: >-
+      UPMRC Kanpur "Metro Timings" page, read 2026-10-29: First Metro 06:00, Last Metro 22:00,
+      "Runtime from Motijheel to IIT Metro Station 15:30 Mins", "Headway during peak time
+      6 minutes". The page says "Last updated on - 18 Jul 2024", which is BEFORE the Kanpur
+      Central extension, so it may be stale. Peak hours are not defined, so 08:00–11:00 and
+      17:00–20:00 are the README assumption. The off-peak headway is not published. Wikipedia
+      says "five minutes between 6 am and 10:30 pm" without a citation, so it was not used.
+      Sections: IIT Kanpur–Motijheel opened 28 Dec 2021; Motijheel–Kanpur Central (5 underground
+      stations) opened 30 May 2025 (Wikipedia, citing PIB and Times of India). 14 stations are
+      operational. Kanpur Central–Naubasta had CMRS trials 27–29 Jun 2026 per Wikipedia, but
+      no opening was found (Wikipedia's "expected to be inaugurated shortly" is citation-needed,
+      and no UPMRC press release lists it), so it is excluded. The Blue Line (Agriculture
+      University–Barra-8) had only a test run on 13 Oct 2026 and is excluded. OSM relations
+      13615304 / 13615312 tag colour=orange.
+
+fares:
+  type: station_count_slab
+  currency: INR
+  slabs:
+    - {max_stations: 1, fare: 10}
+    - {max_stations: 2, fare: 15}
+    - {max_stations: 6, fare: 20}
+    - {max_stations: 9, fare: 30}
+    - {max_stations: 13, fare: 40}
+    - {max_stations: 17, fare: 50}
+    - {max_stations: null, fare: 60}
+  discounts:
+    - {media: smart_card, percent: 10, note: "UPMRC 'NCMC Card & QR Ticket' page: flat 10% discount on fare with NCMC card. Wikipedia also gives 10% via the Kanpur GoSmart card."}
+  notes: >-
+    The slab table is from Wikipedia (Kanpur Metro, undated). It was spot-checked with the
+    official fare calculator on kanpur.upmetrorail.com on 2026-10-29: IIT Kanpur -> Kanpur
+    Central (13 stations travelled) = ₹40, consistent with the 10–13 slab. With 14 stations,
+    the ₹50 and ₹60 slabs cannot currently apply.
+  source_urls:
+    - https://en.wikipedia.org/wiki/Kanpur_Metro
+    - https://kanpur.upmetrorail.com/
+    - https://upmetrorail.com/pages/ncmc-card-qr-ticket
+
+notes: ""
+
+sources:
+  - https://kanpur.upmetrorail.com/pages/kanpur-metro-timings
+  - https://kanpur.upmetrorail.com/
+  - https://upmetrorail.com/pages/ncmc-card-qr-ticket
+  - https://upmetrorail.com/pages/press-releases
+  - https://en.wikipedia.org/wiki/Kanpur_Metro
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[knp-orange].colour
+  - lines[knp-orange].timetable.weekday.headways (off-peak)
+  - lines[knp-orange].timetable.saturday
+  - lines[knp-orange].timetable.sunday
+  - lines[knp-orange].avg_speed_kmh
+  - bbox   # approximate, not from a source

@@ -1,0 +1,32 @@
+# Parked: add this block back under `lines:` in delhi.yaml once OpenStreetMap has a route relation
+# for the Pink Line extension (the build needs OSM geometry to draw and time the line).
+  - id: del-pink-ext
+    name: Pink Line (Extension)
+    long_name: Majlis Park – Maujpur-Babarpur (Phase 4)
+    operator: Delhi Metro Rail Corporation (DMRC)
+    colour: "#ED91C9"
+    colour_source: "assumed same as Line 7 on delhimetrorail.com; the widget's 'Line 7 Extension' tile colour was not separately extracted"
+    mode: metro
+    termini: [Majlis Park, Maujpur-Babarpur]
+    opened: 2026-03-08
+    osm:
+      ref: "7"
+      name_contains: "Pink Line (Majlis Park"   # adjust to the relation's name once mapped
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:22"
+        headways: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.delhimetrorail.com/
+      - https://metrorailnews.in/modi-inaugurated-2-new-sections-of-delhi-metro/
+      - https://en.wikipedia.org/wiki/Pink_Line_(Delhi_Metro)
+    notes: >-
+      OPENED AFTER AUG 2023: inaugurated Sunday 8 Mar 2026 (Metro Rail News, article dated
+      9 Mar 2026; Wikipedia gives the same opening date). About 12.3 km. Wikipedia says
+      Soorghat station is not yet open (trains pass through). DMRC tool: Majlis Park -> Burari
+      06:00/23:00; Maujpur-Babarpur -> Yamuna Vihar 06:22:30/23:22:30. No OSM relation for this
+      section was found in the 2026-10-29 Overpass listing.

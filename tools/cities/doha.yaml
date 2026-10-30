@@ -1,0 +1,171 @@
+id: doha
+name: Doha
+state: Doha
+country: Qatar
+currency: QAR
+timezone: Asia/Qatar
+bbox: [25.19, 51.34, 25.42, 51.62]   # from OSM route relation bounds of the Red, Gold and Green lines (Overpass, 2026-10-30)
+checked: 2026-10-30
+
+# Qatar Rail's own site (www.qr.com.qa) refused connections on 2026-10-30, so service hours come from press
+# reports quoting Qatar Rail, and colours and fares from Qatar Rail files kept by the Internet Archive.
+# Qatar Rail publishes service hours (when the network opens and closes), not first/last train departures per
+# terminus; the 2023 Qatar Rail station sheets list "First Train" and "Station Closes" separately. So only
+# `first` is filled (service start); `last` is null, and the published closing time is in each line's notes.
+
+lines:
+  - id: doh-red
+    name: Red Line
+    long_name: Lusail QNB – Al Wakra / Hamad International Airport T1
+    operator: Qatar Rail
+    colour: "#E2211C"
+    colour_source: >-
+      Qatar Rail network map image on www.qr.com.qa (https://www.qr.com.qa/assets/images/map-sm-EN.png, archived
+      2025-01-23 at https://web.archive.org/web/20250123210909/https://www.qr.com.qa/assets/images/map-sm-EN.png);
+      flat line fills read from the PNG: Red #E2211C, Gold #FFB71B, Green #93D50A
+    mode: metro
+    # Three ends: the main line runs Lusail QNB - Al Wakra; a one-station branch leaves at Oqba Ibn Nafie for
+    # Hamad International Airport Terminal 1 (OSM station name "Hamad International Airport").
+    termini: [Lusail QNB, Al Wakra, Hamad International Airport]
+    opened: null
+    # branch_mode is deliberately not set: how trains share the trunk between the Al Wakra and Airport branches
+    # (alternating through trains, or an airport shuttle from Oqba Ibn Nafie) is not confirmed by a current source.
+    osm:
+      route: subway
+      ref: "Red"
+      name_contains: "Red Line"
+    timetable:
+      weekday:
+        first: "05:00"
+        last: null
+        headways: null
+      friday:
+        first: "09:00"
+        last: null
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.gulf-times.com/article/697663/qatar/qatar-rail-announces-new-service-hours-for-doha-metro-lusail-tram
+      - https://www.qatarliving.com/en/article/doha-metro-guide-getting-around-cool-summer
+      - https://thepeninsulaqatar.com/article/17/02/2026/doha-metro-and-lusail-tram-announce-operating-hours-in-ramadan
+    notes: >-
+      Service hours announced by Qatar Rail, effective 2025-01-01 (Gulf Times, 2024-12-31): Doha Metro operates
+      Saturday to Thursday 05:00-01:00 and Friday 09:00-01:00. Qatar Living's Doha Metro guide (dated 2026-07-21,
+      "last updated June 2026") gives the same regular hours. Ramadan 2026 hours (05:30-01:30, Friday
+      09:30-01:30; The Peninsula, 2026-02-17) were temporary and are not used. The 01:00 is when service ends,
+      not the last departure from a terminus, so `last` is null. Saturday and Sunday share the Saturday-Thursday
+      hours. No headway has been published by Qatar Rail or reported from Qatar Rail; third-party guides
+      ("3-5 min peak, 5-8 min off-peak") are not used. All three lines have Standard, Family and goldclub
+      carriages. OSM maps through relations Lusail-Al Wakra (9573801/9573802) and Lusail-Hamad International
+      Airport T1 (10402958/10402959). A 2023 Qatar Rail station sheet for Hamad International Airport T1 said
+      first and last trains connect with Airport trains at Oqba Ibn Nafie; the current Airport service pattern
+      is unknown, so branch_mode is not set. The OSM colour tag is #E2251C.
+
+  - id: doh-gold
+    name: Gold Line
+    long_name: Ras Bu Abboud – Al Aziziyah
+    operator: Qatar Rail
+    colour: "#FFB71B"
+    colour_source: same as doh-red
+    mode: metro
+    termini: [Ras Bu Abboud, Al Aziziyah]
+    opened: null
+    osm:
+      route: subway
+      ref: "Gold"
+      name_contains: "Gold Line"
+    timetable:
+      weekday:
+        first: "05:00"
+        last: null
+        headways: null
+      friday:
+        first: "09:00"
+        last: null
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.gulf-times.com/article/697663/qatar/qatar-rail-announces-new-service-hours-for-doha-metro-lusail-tram
+      - https://www.qatarliving.com/en/article/doha-metro-guide-getting-around-cool-summer
+    notes: >-
+      Service hours as for doh-red (Qatar Rail via Gulf Times, 2024-12-31, effective 2025-01-01: Saturday to
+      Thursday 05:00-01:00, Friday 09:00-01:00; restated by Qatar Living, 2026). 01:00 is the end of service,
+      not a published last departure, so `last` is null. No published headway. The OSM colour tag is #F9B428.
+
+  - id: doh-green
+    name: Green Line
+    long_name: Al Mansoura – Al Riffa
+    operator: Qatar Rail
+    colour: "#93D50A"
+    colour_source: same as doh-red
+    mode: metro
+    termini: [Al Mansoura, Al Riffa]
+    opened: null
+    osm:
+      route: subway
+      ref: "Green"
+      name_contains: "Green Line"
+    timetable:
+      weekday:
+        first: "05:00"
+        last: null
+        headways: null
+      friday:
+        first: "09:00"
+        last: null
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.gulf-times.com/article/697663/qatar/qatar-rail-announces-new-service-hours-for-doha-metro-lusail-tram
+      - https://www.qatarliving.com/en/article/doha-metro-guide-getting-around-cool-summer
+    notes: >-
+      Service hours as for doh-red (Qatar Rail via Gulf Times, 2024-12-31, effective 2025-01-01: Saturday to
+      Thursday 05:00-01:00, Friday 09:00-01:00; restated by Qatar Living, 2026). 01:00 is the end of service,
+      not a published last departure, so `last` is null. No published headway. The OSM colour tag is #009530.
+
+# Lusail Tram is not included: Qatar Rail's tram hours are published (Gulf Times, 2024-12-31: Saturday-Thursday
+# 05:00-01:30, Friday 14:00-01:30) but no headways, and the line pattern changes for events (The Peninsula,
+# 2025-12-31).
+
+fares:
+  # Flat fare: "The same fares apply no matter what time of day you travel or what distance you travel."
+  type: distance_slab
+  currency: QAR
+  slabs:
+    - {max_km: null, fare: 2}
+  discounts: []
+  notes: >-
+    Qatar Rail Fares Policy, Version 5, valid from 05/08/2024: Standard (plastic) Travel Pass single journey QR 2
+    in Standard or Family class; goldclub Travel Pass single journey QR 10 (goldclub carriage; a premium class,
+    not modelled). Daily capping on reusable passes: after 3 journeys in a day the fare is capped at the day
+    pass price (QR 6 Standard, QR 30 goldclub); the engine has no cap, so this is not modelled. Limited Use
+    (paper) passes carry only day passes (QR 6 Standard, QR 30 Gold) or a weekly pass (QR 40). Adult and child
+    fares are the same; children under 5 travel free with an adult. One journey may include a Metro-Lusail Tram
+    transfer within 30 minutes. Qatar Living (dated 2026-07-21) gives the same QR 2 / QR 10 single fares and
+    QR 6 / QR 30 daily maximum.
+  source_urls:
+    - https://web.archive.org/web/20250404124625/https://www.qr.com.qa/media/Qatar%20Rail%20Fares%20Policy%20-%20ENG%20-%2005-08-2024.pdf
+    - https://www.qatarliving.com/en/article/doha-metro-guide-getting-around-cool-summer
+
+sources:
+  - https://www.gulf-times.com/article/697663/qatar/qatar-rail-announces-new-service-hours-for-doha-metro-lusail-tram
+  - https://www.qatarliving.com/en/article/doha-metro-guide-getting-around-cool-summer
+  - https://thepeninsulaqatar.com/article/17/02/2026/doha-metro-and-lusail-tram-announce-operating-hours-in-ramadan
+  - https://thepeninsulaqatar.com/article/31/12/2025/qatar-rail-announces-service-hours-updates-for-lusail-qnb
+  - https://web.archive.org/web/20250123210909/https://www.qr.com.qa/assets/images/map-sm-EN.png
+  - https://web.archive.org/web/20250404124625/https://www.qr.com.qa/media/Qatar%20Rail%20Fares%20Policy%20-%20ENG%20-%2005-08-2024.pdf
+  - https://web.archive.org/web/20230727155645/https://www.qr.com.qa/media/First_Last/Metro/Red_Line/Hamad%20International%20Airport%20Terminal%201.pdf
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.*.opened
+  - lines.*.avg_speed_kmh
+  - lines.*.timetable.*.last (Qatar Rail publishes service hours to 01:00, not last departures)
+  - lines.*.timetable.*.headways (no Qatar Rail figure)
+  - lines.doh-red.branch_mode (Airport branch service pattern not confirmed)
+  - fares.discounts (daily cap not modelled)

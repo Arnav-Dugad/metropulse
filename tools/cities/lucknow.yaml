@@ -1,0 +1,96 @@
+id: lucknow
+name: Lucknow
+state: Uttar Pradesh
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around CCS Airport and Munshipulia. Not from an operator source; verify
+# against the OSM relation bounds.
+bbox: [26.75, 80.86, 26.91, 81.01]
+checked: 2026-10-29
+
+lines:
+  - id: lko-red
+    name: Red Line
+    long_name: CCS International Airport – Munshipulia (North–South Corridor)
+    operator: Uttar Pradesh Metro Rail Corporation (UPMRC)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [CCS Airport, Munshipulia]
+    opened: 2017-09-06
+    osm:
+      ref: "1"
+      name_contains: "Red Line (Chaudhary Charan Singh International Airport"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:30"
+        headways:
+          - {from: "08:00", to: "11:00", minutes: 5.5}
+          - {from: "17:00", to: "20:00", minutes: 5.5}
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://lucknow.upmetrorail.com/pages/lucknow-metro-timings
+      - https://en.wikipedia.org/wiki/Lucknow_Metro
+    notes: >-
+      UPMRC Lucknow "Metro Timings" page, read 2026-10-29 (the page says "Last updated on -
+      17 Jul 2024"): First Metro 06:00, Last Metro 22:30, runtime CCS Airport–Munshipulia 40 min,
+      "Headway during peak time 5min 30sec". Peak hours are not defined, so 08:00–11:00 and
+      17:00–20:00 are the README assumption. The off-peak headway is NOT published, so those
+      periods are gaps. The page gives no day-specific timings, so Saturday and Sunday are left
+      null (likely the same, but unconfirmed). Opened: Transport Nagar–Charbagh to passengers on
+      6 Sep 2017, full corridor 9 Mar 2019 (Wikipedia). 21 stations. No new section opened in
+      2024–2026; Phase 1B Charbagh–Vasant Kunj is approved but not built (Wikipedia). UPMRC
+      publishes no hex colour; OSM tags colour=red (relations 8299495 / 8299496).
+
+fares:
+  type: station_count_slab
+  currency: INR
+  # max_stations = stations travelled, upper bound inclusive; null = no upper bound
+  slabs:
+    - {max_stations: 1, fare: 10}
+    - {max_stations: 2, fare: 15}
+    - {max_stations: 6, fare: 20}
+    - {max_stations: 9, fare: 30}
+    - {max_stations: 13, fare: 40}
+    - {max_stations: 17, fare: 50}
+    - {max_stations: null, fare: 60}
+  discounts:
+    - {media: smart_card, percent: 10, note: "UPMRC 'NCMC Card & QR Ticket' page (last updated 13 Dec 2024): 'Get flat 10% Discount on fare with your NCMC (Card)'. GoSmart cards remain valid (UPMRC press release 21 Jul 2026)."}
+  notes: >-
+    No official UPMRC slab table was found as text. The slabs are the UPMRC station-count table
+    reported in a web search summary of a 2017 LMRC fare chart (Rs 10/15/20/30/40/50/60 for
+    1/2/3–6/7–9/10–13/14–17/18+ stations). Wikipedia reports an identical table for Kanpur
+    Metro. Spot-checked on 2026-10-29 with the official fare calculator on
+    lucknow.upmetrorail.com: CCS Airport -> Transport Nagar (2 stations) = ₹15, and CCS Airport
+    -> Munshipulia (20 stations) = ₹60, both consistent. QR ticketing launched 16 Feb 2026
+    (UPMRC press release), with no QR discount mentioned. NCMC launched for Lucknow on
+    21 Jul 2026.
+  source_urls:
+    - https://lucknow.upmetrorail.com/
+    - https://upmetrorail.com/pages/ncmc-card-qr-ticket
+    - https://upmetrorail.com/pages/press-releases/lucknow-metro-launches-national-common-mobility-ca
+    - https://upmetrorail.com/pages/press-releases/lucknow-metro-introduces-qr-based-ticketing-for-fa
+    - https://themetrorailguy.com/2017/09/05/lmrcl-releases-lucknow-metros-fare-chart-smart-card-info/
+
+notes: ""
+
+sources:
+  - https://lucknow.upmetrorail.com/pages/lucknow-metro-timings
+  - https://lucknow.upmetrorail.com/
+  - https://upmetrorail.com/pages/ncmc-card-qr-ticket
+  - https://upmetrorail.com/pages/press-releases
+  - https://upmetrorail.com/pages/press-releases/lucknow-metro-launches-national-common-mobility-ca
+  - https://upmetrorail.com/pages/press-releases/lucknow-metro-introduces-qr-based-ticketing-for-fa
+  - https://themetrorailguy.com/2017/09/05/lmrcl-releases-lucknow-metros-fare-chart-smart-card-info/
+  - https://en.wikipedia.org/wiki/Lucknow_Metro
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[lko-red].colour
+  - lines[lko-red].timetable.weekday.headways (off-peak)
+  - lines[lko-red].timetable.saturday
+  - lines[lko-red].timetable.sunday
+  - lines[lko-red].avg_speed_kmh
+  - bbox   # approximate, not from a source

@@ -1,0 +1,119 @@
+# Nagpur Metro (Maha-Metro): Orange Line and Aqua Line, both open on 2026-10-29.
+# Phase 2 extensions are not open.
+id: nagpur
+name: Nagpur
+state: Maharashtra
+timezone: Asia/Kolkata
+bbox: [21.04, 78.99, 21.20, 79.16]   # from OSM bounds of the operating route relations, +~0.01 margin
+checked: 2026-10-29
+
+lines:
+  - id: ngp-orange
+    name: Orange Line
+    long_name: Automotive Square – Khapri (Line 1, North–South)
+    operator: Maharashtra Metro Rail Corporation Ltd (Maha-Metro)
+    colour: "#FF7A00"
+    colour_source: "operator website journey-planner track colour for 'orange' in https://www.metrorailnagpur.com/assets/index-C_ynyq0A.js (site https://www.metrorailnagpur.com/)"
+    mode: metro
+    termini: [Automotive Square, Khapri]
+    opened: 2019-03-08
+    osm:
+      ref: "Orange Line"
+      name_contains: "Orange Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:20"
+        headways:
+          - {from: "06:00", to: "07:00", minutes: 20}
+          - {from: "07:00", to: "08:00", minutes: 15}
+          - {from: "08:00", to: "20:30", minutes: 10}
+          - {from: "20:30", to: "21:00", minutes: 15}
+          - {from: "21:00", to: "22:20", minutes: 20}
+      saturday: {first: null, last: null, headways: null}
+      sunday: {first: null, last: null, headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.metrorailnagpur.com/assets/L1_10MIN_HEADWAY_WEF_20240624-CrQV2V6r.pdf
+      - https://www.metrorailnagpur.com/assets/timetable-line1-C1mScLU4.jpg
+    notes: >-
+      Values read from Maha-Metro's published trip-by-trip working timetable "Train Time-Table
+      Line-1 WEF 20240624 (TT_L1_PT8_NPT6_PH10_NPH15)", still linked from metrorailnagpur.com on
+      2026-10-29 (dated June 2024; may be stale). Departures: Khapri 06:00, 06:20, 06:40, 07:00,
+      07:15, 07:30, then every 10 min, 15 min from ~20:05, 20 min from 21:05, last 22:05;
+      Automotive Square 06:00/06:20, 06:40, 07:00, 07:15, 07:30, 07:45, 08:00, then every 10 min to
+      20:30, then 20:45, 21:00, 21:20, 21:40, 22:00, last 22:20. Headway blocks above merge both
+      directions (directional edges differ by up to ~30 min). The timetable does not state day types;
+      the site FAQ says timings "may vary on weekends, public holidays", so weekends are null. Site
+      FAQ also says "06:00 AM to 11:00 PM (generally)" and "Every 10–15 minutes", and the project
+      page says 06:00–22:00; the dated timetable is used.
+
+  - id: ngp-aqua
+    name: Aqua Line
+    long_name: Lokmanya Nagar – Prajapati Nagar (Line 2, East–West)
+    operator: Maharashtra Metro Rail Corporation Ltd (Maha-Metro)
+    colour: "#0078DA"
+    colour_source: "operator website journey-planner track colour for 'aqua' (#0078daff) in https://www.metrorailnagpur.com/assets/index-C_ynyq0A.js"
+    mode: metro
+    termini: [Lokmanya Nagar, Prajapati Nagar]
+    opened: 2020-01-28
+    osm:
+      ref: "Aqua Line"
+      name_contains: "Aqua Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:20"
+        headways:
+          - {from: "06:00", to: "07:00", minutes: 20}
+          - {from: "07:00", to: "08:00", minutes: 15}
+          - {from: "08:00", to: "20:30", minutes: 10}
+          - {from: "20:30", to: "21:00", minutes: 15}
+          - {from: "21:00", to: "22:20", minutes: 20}
+      saturday: {first: null, last: null, headways: null}
+      sunday: {first: null, last: null, headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.metrorailnagpur.com/assets/L2_10MIN_HEADWAY_WEF_20240624_UPDATED-epBjG0h3.pdf
+      - https://www.metrorailnagpur.com/assets/timetable-line2-BrxX_anJ.jpg
+    notes: >-
+      From "Train Time-Table Line-2 WEF 20240624 (TT_L2_PT8_NPT6_PH10_NPH15)" (dated June 2024).
+      Prajapati Nagar departures: 06:00/06:20, 06:40, 07:00, 07:15, 07:30, 07:45, 08:00, then every
+      10 min to 20:30, then 20:45, 21:00, 21:20, 21:40, 22:00, last 22:20. Lokmanya Nagar departures
+      start 06:00 with the same 20/15/10-minute pattern; its last departure is about 21:55 (inferred
+      from the last arrival at Prajapati Nagar, 22:32, so not a published value). Weekends null for
+      the same reason as the Orange Line. The hex is the site's map colour; the line is officially
+      called "Aqua".
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs: null
+  discounts:
+    - {media: smart_card, percent: 10, note: "Maha Card: '10% discount on every journey' (site FAQ)"}
+    - {media: smart_card, percent: 30, eligibility: students, note: "Students up to graduation: 30% (site FAQ: '10% for all; 30% for students (up to graduation)')"}
+  notes: >-
+    Maha-Metro publishes a 38x38 station-to-station fare matrix (fare-chart PDF), not km slabs.
+    Fares in it range from Rs 10 to Rs 40 (e.g. Khapri–Automotive Square 40, Khapri–Sitabuldi 25,
+    Khapri–Prajapati Nagar 40). Distance boundaries are not published, so slabs are null. Site FAQ:
+    "No separate concession" for senior citizens/disabled/ladies. A Rs 100 daily pass was found only
+    as a press-release title, not read, so it is not listed. Maha-Metro plans to move to NCMC cards
+    ("One Nation One Card", Hitavada 2026-05-09), which may change card discounts.
+  source_urls:
+    - https://www.metrorailnagpur.com/assets/fare-chart-CEJhjoeN.pdf
+    - https://www.metrorailnagpur.com/assets/index-C_ynyq0A.js
+
+sources:
+  - https://www.metrorailnagpur.com/
+  - https://www.metrorailnagpur.com/assets/index-C_ynyq0A.js
+  - https://www.metrorailnagpur.com/assets/L1_10MIN_HEADWAY_WEF_20240624-CrQV2V6r.pdf
+  - https://www.metrorailnagpur.com/assets/L2_10MIN_HEADWAY_WEF_20240624_UPDATED-epBjG0h3.pdf
+  - https://www.metrorailnagpur.com/assets/timetable-line1-C1mScLU4.jpg
+  - https://www.metrorailnagpur.com/assets/timetable-line2-BrxX_anJ.jpg
+  - https://www.metrorailnagpur.com/assets/fare-chart-CEJhjoeN.pdf
+  - https://en.wikipedia.org/wiki/Nagpur_Metro
+unknowns:
+  - lines.*.timetable.saturday
+  - lines.*.timetable.sunday
+  - lines.*.avg_speed_kmh
+  - fares.slabs

@@ -1,0 +1,1248 @@
+id: london
+name: London
+state: England
+country: United Kingdom
+currency: GBP
+# Fill TfL StopPoint ids missing from OSM's NaPTAN tags from TfL's StopPoint search (for live arrivals).
+tfl_codes: true
+timezone: Europe/London
+bbox: [51.40, -0.62, 51.71, 0.26]   # from OSM route relation bounds (Overpass, 2026-10-30): Morden 51.402 S, Chesham -0.611 W / 51.705 N, Upminster 0.253 E
+checked: 2026-10-30
+
+# How the timetables below were derived (applies to every line unless its notes say otherwise)
+# - Source: TfL Unified API timetable responses (api.tfl.gov.uk/Line/{line}/Timetable/{stop}, read
+#   2026-10-30), which list every scheduled departure (knownJourneys) per TfL day type ("Monday - Thursday",
+#   "Friday", "Saturday", "Sunday", or "Monday - Friday" / "Saturdays and Public Holidays"). Where the API
+#   returned incomplete day types, the TfL working timetable (WTT) or timetable notice PDF was read instead
+#   (Central, District, Piccadilly; see their notes).
+# - first / last: earliest / latest departure from any of the line's termini by a train that runs through the
+#   line's central section (the trunk station named in notes). Short trips that never reach it (e.g. Epping -
+#   Loughton late at night, Woodford - Hainault shuttle, Uxbridge - South Harrow) do not set the line's hours.
+# - headways: for each clock hour, the mean gap between consecutive departures at the trunk station, averaged
+#   over both directions where both were read, rounded to the nearest 0.25 min; consecutive hours with the same
+#   value are merged. On branched lines (branch_mode: weighted) this is the COMBINED trunk headway, and
+#   `branches` gives each OSM branch pattern's share of those trains, measured from TfL departure counts
+#   (see each line's notes for the station, day type and hours used).
+# - Night Tube (Central, Jubilee, Northern, Piccadilly, Victoria; Friday and Saturday nights): trains run all
+#   night, so the friday block runs on to Saturday morning (last "29:xx") and the saturday block to Sunday
+#   morning ("30:xx"). The day boundaries (05:30 Saturday, 07:00 Sunday; 05:45/07:00 on the Piccadilly, which
+#   are the period boundaries in its timetable notice) were chosen by the maintainer; TfL's API itself splits
+#   the days at about 03:00. Night frequencies come from the same TfL timetables.
+
+lines:
+  - id: lon-bakerloo
+    name: Bakerloo
+    long_name: Harrow & Wealdstone – Elephant & Castle
+    operator: London Underground (Transport for London)
+    colour: "#B26300"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 "London Underground line colours"
+      https://content.tfl.gov.uk/tfl-colour-standard.pdf (PMS 470, R178 G99 B0; hex converted from the RGB value)
+    mode: metro
+    termini: [Harrow & Wealdstone, Elephant & Castle]
+    opened: null
+    osm:
+      ref: "Bakerloo"
+      name_contains: "Bakerloo line"
+    timetable:
+      weekday:
+        first: "05:37"
+        last: "24:23"
+        headways:
+          - {from: "05:37", to: "06:00", minutes: 10.25}
+          - {from: "06:00", to: "07:00", minutes: 5.25}
+          - {from: "07:00", to: "08:00", minutes: 3.5}
+          - {from: "08:00", to: "09:00", minutes: 3.25}
+          - {from: "09:00", to: "11:00", minutes: 3.5}
+          - {from: "11:00", to: "16:00", minutes: 3.75}
+          - {from: "16:00", to: "19:00", minutes: 3.25}
+          - {from: "19:00", to: "20:00", minutes: 3.5}
+          - {from: "20:00", to: "22:00", minutes: 3.75}
+          - {from: "22:00", to: "23:00", minutes: 3.5}
+          - {from: "23:00", to: "24:00", minutes: 4.25}
+          - {from: "24:00", to: "24:23", minutes: 6.25}
+      saturday:
+        first: "05:37"
+        last: "24:23"
+        headways:
+          - {from: "05:37", to: "06:00", minutes: 10.25}
+          - {from: "06:00", to: "07:00", minutes: 5.75}
+          - {from: "07:00", to: "08:00", minutes: 4.5}
+          - {from: "08:00", to: "23:00", minutes: 3.75}
+          - {from: "23:00", to: "24:00", minutes: 4.25}
+          - {from: "24:00", to: "24:23", minutes: 6.25}
+      sunday:
+        first: "07:16"
+        last: "23:37"
+        headways:
+          - {from: "07:16", to: "08:00", minutes: 6.5}
+          - {from: "08:00", to: "09:00", minutes: 5}
+          - {from: "09:00", to: "10:00", minutes: 4.25}
+          - {from: "10:00", to: "22:00", minutes: 3.75}
+          - {from: "22:00", to: "23:00", minutes: 5}
+          - {from: "23:00", to: "23:37", minutes: 7.75}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/bakerloo/Timetable/940GZZLUEAC?direction=outbound
+      - https://api.tfl.gov.uk/Line/bakerloo/Timetable/940GZZLUHAW?direction=inbound
+      - https://api.tfl.gov.uk/Line/bakerloo/Timetable/940GZZLUOXC?direction=inbound
+      - https://api.tfl.gov.uk/Line/bakerloo/Timetable/940GZZLUOXC?direction=outbound
+    notes: >-
+      TfL day types "Monday - Friday" (no separate Friday), "Saturdays and Public Holidays", "Sunday". Trunk
+      station Oxford Circus. Mon-Fri first trains: Elephant & Castle 05:37, Harrow & Wealdstone 05:39; last
+      Elephant & Castle 24:23, Harrow & Wealdstone 23:54 (later Harrow departures only run to Queen's Park or
+      Stonebridge Park). Saturday: Harrow first 05:47. Sunday: Elephant & Castle 07:16-23:37, Harrow 07:19-23:12.
+      Many trains run only Elephant & Castle - Queen's Park/Stonebridge Park, so the north end is less frequent
+      than shown. No Night Tube.
+
+  - id: lon-central
+    name: Central
+    long_name: West Ruislip / Ealing Broadway – Epping / Hainault
+    operator: London Underground (Transport for London)
+    colour: "#DC241F"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 485, R220 G36 B31; hex converted from the RGB value)
+    mode: metro
+    # Four names, so the pipeline does not trim (every OSM relation is an open service pattern).
+    termini: [West Ruislip, Ealing Broadway, Epping, Hainault]
+    opened: null
+    branch_mode: weighted
+    night_after: "24:30"   # WTT 71 Night Tube periods start at 00:30
+    branches:
+      - {from: West Ruislip, to: Epping, share: 0.312, night: false}
+      - {from: Ealing Broadway, to: Hainault, via: [Newbury Park], share: 0.454, night: true}
+      - {from: Ealing Broadway, to: Loughton, share: 0.126, night: true}
+      - {from: Woodford, to: Hainault, via: [Grange Hill], share: 0.108, night: false}
+    osm:
+      ref: "Central"
+      name_contains: "Central line"
+    timetable:
+      weekday:
+        first: "05:10"
+        last: "24:00"
+        headways:
+          - {from: "05:10", to: "06:00", minutes: 5.75}
+          - {from: "06:00", to: "07:00", minutes: 3.5}
+          - {from: "07:00", to: "08:00", minutes: 2.5}
+          - {from: "08:00", to: "10:00", minutes: 2.25}
+          - {from: "10:00", to: "16:00", minutes: 2.5}
+          - {from: "16:00", to: "20:00", minutes: 2.25}
+          - {from: "20:00", to: "23:00", minutes: 2.5}
+          - {from: "23:00", to: "24:00", minutes: 3.75}
+      friday:
+        first: "05:10"
+        last: "29:29"
+        headways:
+          - {from: "05:10", to: "06:00", minutes: 5.75}
+          - {from: "06:00", to: "07:00", minutes: 3.5}
+          - {from: "07:00", to: "08:00", minutes: 2.5}
+          - {from: "08:00", to: "10:00", minutes: 2.25}
+          - {from: "10:00", to: "16:00", minutes: 2.5}
+          - {from: "16:00", to: "20:00", minutes: 2.25}
+          - {from: "20:00", to: "23:00", minutes: 2.5}
+          - {from: "23:00", to: "24:00", minutes: 3.75}
+          - {from: "24:00", to: "25:00", minutes: 7.25}
+          - {from: "25:00", to: "29:29", minutes: 10}
+      saturday:
+        first: "05:35"
+        last: "30:59"
+        headways:
+          - {from: "05:35", to: "06:00", minutes: 8.25}
+          - {from: "06:00", to: "07:00", minutes: 5.75}
+          - {from: "07:00", to: "08:00", minutes: 3.25}
+          - {from: "08:00", to: "23:00", minutes: 2.5}
+          - {from: "23:00", to: "24:00", minutes: 3.75}
+          - {from: "24:00", to: "25:00", minutes: 7.25}
+          - {from: "25:00", to: "30:59", minutes: 10}
+      sunday:
+        first: "07:05"
+        last: "23:16"
+        headways:
+          - {from: "07:05", to: "08:00", minutes: 5.75}
+          - {from: "08:00", to: "09:00", minutes: 3.75}
+          - {from: "09:00", to: "10:00", minutes: 3.25}
+          - {from: "10:00", to: "17:00", minutes: 2.75}
+          - {from: "17:00", to: "19:00", minutes: 2.5}
+          - {from: "19:00", to: "21:00", minutes: 2.75}
+          - {from: "21:00", to: "22:00", minutes: 3}
+          - {from: "22:00", to: "23:00", minutes: 3.75}
+          - {from: "23:00", to: "23:16", minutes: 5}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUBNK?direction=inbound
+      - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUBNK?direction=outbound
+      - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUEBY?direction=outbound
+      - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUWRP?direction=outbound
+      - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUEPG?direction=inbound
+      - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUHLT?direction=inbound
+      - https://tfl.gov.uk/cdn/static/cms/documents/cen-wtt-71.pdf
+    notes: >-
+      Headways: Bank (both directions) from the TfL API, which has all four day types there. First/last: the
+      API has no "Monday - Thursday" schedule for Ealing Broadway, West Ruislip or Hainault, so first/last for
+      every day were read from Working Timetable No. 71 (from 20 July 2026), counting only trains that run
+      through Liverpool Street; the WTT agrees with the API wherever both exist (Fri/Sat/Sun). Mon-Thu first
+      trains: Epping 05:10, Hainault 05:18, West Ruislip 05:23, Ealing Broadway 05:29; last through trains
+      Epping 23:45, Hainault 23:49, West Ruislip 23:53, Ealing Broadway 24:00. Later Mon-Thu departures run only
+      Epping - Leytonstone/Woodford/Loughton (to 25:20) and are not counted. Sunday: Epping/Ealing 07:05,
+      West Ruislip 06:41 (to White City only; first through train 07:12). WTT 71 summary: 24 tph White City -
+      Leytonstone off-peak, 27-30 tph peak. Night Tube (WTT summary, Friday and Saturday nights from 00:30):
+      every 10 min White City - Leytonstone, every 20 min Ealing Broadway - White City, Leytonstone - Hainault
+      (via Newbury Park) and Leytonstone - Loughton; no night service to West Ruislip, Epping or Woodford -
+      Hainault (via Grange Hill).
+      Branch shares: Mon-Thu, all day, from the TfL API eastbound departures at Bank, classified by eastern
+      end: Epping 156, Hainault/Newbury Park (via Newbury Park) 227, Loughton/Grange Hill 63. The Woodford -
+      Hainault shuttle never reaches Bank, so its count (54 Hainault -> Woodford departures, API Friday
+      schedule, the only one listed at Hainault; WTT 71 gives 3 tph all week) is added before normalising
+      (total 500). Short trips ending at Leytonstone etc. are not counted. OSM pairs West Ruislip only with
+      Epping and Ealing Broadway only with Hainault/Loughton, so the western ends are approximate (TfL
+      westbound at Bank: West Ruislip/Northolt/Ruislip Gardens 162, Ealing Broadway 114, White City/North
+      Acton 170). Because the shuttle takes a share of the Bank-based combined headway, central trains come out
+      about 11% below the published frequency. Night (from 00:30 on Friday and Saturday nights): Ealing
+      Broadway - Hainault via Newbury Park and the Loughton branch only (API Friday night at Bank: Hainault 9,
+      Loughton 8 eastbound departures).
+
+  - id: lon-circle
+    name: Circle
+    long_name: Hammersmith – Edgware Road (via Aldgate and Victoria)
+    operator: London Underground (Transport for London)
+    colour: "#FFC80A"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 116, R255 G200 B10; hex converted from the RGB value)
+    mode: metro
+    # Termini are Hammersmith and Edgware Road, but trains call at Edgware Road twice (before and after the
+    # loop), so a two-name list would make the pipeline cut each relation at the first call. Left null.
+    termini: null
+    opened: null
+    osm:
+      ref: "Circle"
+      name_contains: "Circle line"
+    timetable:
+      weekday:
+        first: "04:39"
+        last: "24:05"
+        headways:
+          - {from: "04:39", to: "06:00", minutes: 10}
+          - {from: "06:00", to: "07:00", minutes: 9.75}
+          - {from: "07:00", to: "08:00", minutes: 10.25}
+          - {from: "08:00", to: "09:00", minutes: 9.75}
+          - {from: "09:00", to: "16:00", minutes: 10}
+          - {from: "16:00", to: "17:00", minutes: 10.5}
+          - {from: "17:00", to: "19:00", minutes: 10}
+          - {from: "19:00", to: "21:00", minutes: 9.75}
+          - {from: "21:00", to: "23:00", minutes: 10}
+          - {from: "23:00", to: "24:00", minutes: 9.75}
+          - {from: "24:00", to: "24:05", minutes: 10}
+      saturday:
+        first: "04:39"
+        last: "24:05"
+        headways:
+          - {from: "04:39", to: "06:00", minutes: 10}
+          - {from: "06:00", to: "07:00", minutes: 8.75}
+          - {from: "07:00", to: "23:00", minutes: 10}
+          - {from: "23:00", to: "24:00", minutes: 9.75}
+          - {from: "24:00", to: "24:05", minutes: 10}
+      sunday:
+        first: "06:22"
+        last: "23:40"
+        headways:
+          - {from: "06:22", to: "07:00", minutes: 5}
+          - {from: "07:00", to: "08:00", minutes: 9}
+          - {from: "08:00", to: "23:00", minutes: 10}
+          - {from: "23:00", to: "23:40", minutes: 8}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/circle/Timetable/940GZZLUHSC?direction=outbound
+      - https://api.tfl.gov.uk/Line/circle/Timetable/940GZZLUERC?direction=inbound
+      - https://api.tfl.gov.uk/Line/circle/Timetable/940GZZLUBST?direction=inbound
+      - https://api.tfl.gov.uk/Line/circle/Timetable/940GZZLUBST?direction=outbound
+    notes: >-
+      Trunk station Baker Street. First/last: Hammersmith departures plus Edgware Road departures that start the
+      reverse loop towards Bayswater and run to Hammersmith (the API's other Edgware Road departures are trains
+      passing through, so they are not counted). Mon-Fri and Saturday: Hammersmith 04:39-23:51, Edgware Road
+      05:55-24:05. Sunday: Hammersmith 06:22-23:40, Edgware Road 07:15-23:25. TfL day types are "Monday -
+      Friday", "Saturdays and Public Holidays" and "Sunday". The early Sunday 5-minute band reflects only a few
+      trains between 06:22 and 07:00. No Night Tube.
+
+  - id: lon-district
+    name: District
+    long_name: Ealing Broadway / Richmond / Wimbledon / Edgware Road – Upminster
+    operator: London Underground (Transport for London)
+    colour: "#007D32"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 356, R0 G125 B50; hex converted from the RGB value)
+    mode: metro
+    # All termini listed (more than two names, so no trimming): a two-name list ending in Upminster would also
+    # match "Upminster Bridge" first and cut the last station.
+    termini: [Ealing Broadway, Richmond, Wimbledon, Kensington (Olympia), Edgware Road, Upminster]
+    opened: null
+    branch_mode: weighted
+    branches:
+      - {from: Ealing Broadway, to: Upminster, share: 0.255, night: false}
+      - {from: Richmond, to: Upminster, share: 0.239, night: false}
+      - {from: Wimbledon, to: Barking, share: 0.279, night: false}
+      - {from: Wimbledon, to: Edgware Road, share: 0.223, night: false}
+      - {from: Kensington (Olympia), to: High Street Kensington, share: 0.004, night: false}
+    osm:
+      ref: "District"
+      name_contains: "District line"
+    timetable:
+      weekday:
+        first: "04:51"
+        last: "24:51"
+        headways:
+          - {from: "04:51", to: "06:00", minutes: 4.75}
+          - {from: "06:00", to: "07:00", minutes: 2.75}
+          - {from: "07:00", to: "11:00", minutes: 2.25}
+          - {from: "11:00", to: "16:00", minutes: 2.5}
+          - {from: "16:00", to: "20:00", minutes: 2.25}
+          - {from: "20:00", to: "21:00", minutes: 2}
+          - {from: "21:00", to: "24:00", minutes: 2.5}
+          - {from: "24:00", to: "24:51", minutes: 4.25}
+      saturday:
+        first: "04:51"
+        last: "24:51"
+        headways:
+          - {from: "04:51", to: "24:51", minutes: 2.25}
+      sunday:
+        first: "06:14"
+        last: "24:02"
+        headways:
+          - {from: "06:14", to: "24:02", minutes: 2.25}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUECT?direction=inbound
+      - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUECT?direction=outbound
+      - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUEBY?direction=outbound
+      - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLURMD?direction=outbound
+      - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUWIM?direction=outbound
+      - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUUPM?direction=inbound
+      - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUERC?direction=inbound
+      - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUKOY?direction=outbound
+      - https://tfl.gov.uk/cdn/static/cms/documents/wtt-157-district-may-2026.pdf
+    notes: >-
+      Mon-Fri (one TfL day type, so no separate Friday): first/last and hourly headways at Earl's Court from
+      the TfL API; Working Timetable No. 157 (from 18 May 2026) gives the same first/last trains. Mon-Fri first
+      trains: Ealing Broadway 04:51, Wimbledon 04:55, Upminster 04:58, Richmond 05:31, Edgware Road 05:59; last
+      Wimbledon and Richmond 24:51, Edgware Road 24:21, Ealing Broadway 24:00, Upminster 23:44. The API returned
+      no Saturday or Sunday schedules, so weekends come from WTT 157. First/last read from its train tables:
+      Saturday as Mon-Fri; Sunday Upminster 06:14, Ealing Broadway 06:18, Wimbledon 07:00, Richmond 07:23,
+      Edgware Road 07:20, last Wimbledon 24:02 (an earlier 05:39 Sunday Upminster - Whitechapel short trip is
+      not counted). Weekend headways come from the WTT "Summary of train service intervals" ("All day"):
+      Earl's Court - Wimbledon 12 tph + Earl's Court - Turnham Green 12 tph (Richmond 6 + Ealing Broadway 6) +
+      Olympia shuttle 3 tph = 27 tph combined, i.e. 2.25 min. The same total appears east of Earl's Court (21
+      tph Gloucester Road - Earl's Court + 6 tph Edgware Road). The WTT notes that intervals are wider early in
+      the morning and late at night; that is not modelled at weekends. The Olympia shuttle runs only at
+      weekends (Sat 05:47, Sun 07:35, until 23:49), except for a few early Mon-Fri trips. No Night Tube.
+      Branch shares: Mon-Fri, all day, from the TfL API westbound departures at Earl's Court by destination:
+      Wimbledon 248, Ealing Broadway 126, Richmond 118, Kensington (Olympia) 2 (total 494). Wimbledon trains
+      were split using the Edgware Road departures to Wimbledon (109; 110 Wimbledon departures run to Edgware
+      Road): Edgware Road - Wimbledon 110, Wimbledon - east (OSM's Wimbledon - Barking pattern; TfL runs these to
+      Tower Hill, Barking or Upminster) 138. Shares are one set for all days, so the weekend Olympia shuttle
+      (3 tph of 27 per WTT 157, about 0.11) is under-represented; the other weekend shares from WTT 157 (0.22
+      each) are close to the weekday values.
+
+  - id: lon-hammersmith-city
+    name: Hammersmith & City
+    long_name: Hammersmith – Barking
+    operator: London Underground (Transport for London)
+    colour: "#F589A6"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 197, R245 G137 B166; hex converted from the RGB value)
+    mode: metro
+    # Termini are Hammersmith and Barking, but OSM names several stations "... (Circle and Hammersmith & City
+    # lines)", so "Hammersmith" also matches e.g. Paddington and the pipeline would cut the eastbound-to-
+    # westbound relation at Paddington. Left null (no trimming needed: both relations are the open line).
+    termini: null
+    opened: null
+    osm:
+      ref: "Hammersmith & City"
+      name_contains: "Hammersmith & City line"
+    timetable:
+      weekday:
+        first: "05:02"
+        last: "24:22"
+        headways:
+          - {from: "05:02", to: "06:00", minutes: 14.75}
+          - {from: "06:00", to: "07:00", minutes: 10}
+          - {from: "07:00", to: "08:00", minutes: 9.75}
+          - {from: "08:00", to: "16:00", minutes: 10}
+          - {from: "16:00", to: "17:00", minutes: 10.5}
+          - {from: "17:00", to: "18:00", minutes: 9.75}
+          - {from: "18:00", to: "20:00", minutes: 10}
+          - {from: "20:00", to: "21:00", minutes: 9.75}
+          - {from: "21:00", to: "23:00", minutes: 10}
+          - {from: "23:00", to: "24:00", minutes: 9.75}
+          - {from: "24:00", to: "24:22", minutes: 8}
+      saturday:
+        first: "05:02"
+        last: "24:22"
+        headways:
+          - {from: "05:02", to: "06:00", minutes: 16.5}
+          - {from: "06:00", to: "07:00", minutes: 10.5}
+          - {from: "07:00", to: "23:00", minutes: 10}
+          - {from: "23:00", to: "24:00", minutes: 9.75}
+          - {from: "24:00", to: "24:22", minutes: 8}
+      sunday:
+        first: "06:27"
+        last: "23:59"
+        headways:
+          - {from: "06:27", to: "08:00", minutes: 9.5}
+          - {from: "08:00", to: "23:00", minutes: 10}
+          - {from: "23:00", to: "23:59", minutes: 11.5}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUHSC?direction=outbound
+      - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUBKG?direction=inbound
+      - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUBKG?direction=outbound
+      - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUBST?direction=inbound
+      - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUBST?direction=outbound
+    notes: >-
+      Trunk station Baker Street. Mon-Fri and Saturday: Hammersmith 05:03-24:22, Barking 05:02-23:59. Sunday:
+      Hammersmith 06:50-23:59, Barking 06:27-22:59. TfL day types "Monday - Friday", "Saturdays and Public
+      Holidays", "Sunday". Some trains run only to or from Plaistow. No Night Tube.
+
+  - id: lon-jubilee
+    name: Jubilee
+    long_name: Stanmore – Stratford
+    operator: London Underground (Transport for London)
+    colour: "#838D93"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 430, R131 G141 B147; hex converted from the RGB value)
+    mode: metro
+    termini: [Stanmore, Stratford]
+    opened: null
+    osm:
+      ref: "Jubilee"
+      name_contains: "Jubilee line"
+    timetable:
+      weekday:
+        first: "05:16"
+        last: "24:13"
+        headways:
+          - {from: "05:16", to: "06:00", minutes: 5.5}
+          - {from: "06:00", to: "07:00", minutes: 3.5}
+          - {from: "07:00", to: "10:00", minutes: 2.25}
+          - {from: "10:00", to: "11:00", minutes: 2.75}
+          - {from: "11:00", to: "12:00", minutes: 3}
+          - {from: "12:00", to: "16:00", minutes: 2.75}
+          - {from: "16:00", to: "17:00", minutes: 2.5}
+          - {from: "17:00", to: "19:00", minutes: 2.25}
+          - {from: "19:00", to: "20:00", minutes: 2.5}
+          - {from: "20:00", to: "21:00", minutes: 3}
+          - {from: "21:00", to: "22:00", minutes: 2.75}
+          - {from: "22:00", to: "23:00", minutes: 3}
+          - {from: "23:00", to: "24:00", minutes: 3.75}
+          - {from: "24:00", to: "24:13", minutes: 4.75}
+      friday:
+        first: "05:16"
+        last: "29:29"
+        headways:
+          - {from: "05:16", to: "06:00", minutes: 5.5}
+          - {from: "06:00", to: "07:00", minutes: 3.5}
+          - {from: "07:00", to: "10:00", minutes: 2.25}
+          - {from: "10:00", to: "11:00", minutes: 2.75}
+          - {from: "11:00", to: "12:00", minutes: 3}
+          - {from: "12:00", to: "16:00", minutes: 2.75}
+          - {from: "16:00", to: "17:00", minutes: 2.5}
+          - {from: "17:00", to: "19:00", minutes: 2.25}
+          - {from: "19:00", to: "20:00", minutes: 2.5}
+          - {from: "20:00", to: "21:00", minutes: 3}
+          - {from: "21:00", to: "22:00", minutes: 2.75}
+          - {from: "22:00", to: "23:00", minutes: 3}
+          - {from: "23:00", to: "24:00", minutes: 3.5}
+          - {from: "24:00", to: "25:00", minutes: 5.75}
+          - {from: "25:00", to: "26:00", minutes: 9.5}
+          - {from: "26:00", to: "29:00", minutes: 10}
+          - {from: "29:00", to: "29:29", minutes: 9.75}
+      saturday:
+        first: "05:32"
+        last: "30:59"
+        headways:
+          - {from: "05:32", to: "06:00", minutes: 5}
+          - {from: "06:00", to: "07:00", minutes: 3.5}
+          - {from: "07:00", to: "08:00", minutes: 3}
+          - {from: "08:00", to: "23:00", minutes: 2.5}
+          - {from: "23:00", to: "24:00", minutes: 3.25}
+          - {from: "24:00", to: "25:00", minutes: 5.5}
+          - {from: "25:00", to: "30:59", minutes: 10}
+      sunday:
+        first: "07:02"
+        last: "23:37"
+        headways:
+          - {from: "07:02", to: "08:00", minutes: 5.5}
+          - {from: "08:00", to: "09:00", minutes: 3}
+          - {from: "09:00", to: "10:00", minutes: 2.75}
+          - {from: "10:00", to: "20:00", minutes: 2.5}
+          - {from: "20:00", to: "21:00", minutes: 2.75}
+          - {from: "21:00", to: "23:00", minutes: 3}
+          - {from: "23:00", to: "23:37", minutes: 4}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/jubilee/Timetable/940GZZLUSTM?direction=outbound
+      - https://api.tfl.gov.uk/Line/jubilee/Timetable/940GZZLUSTD?direction=inbound
+      - https://api.tfl.gov.uk/Line/jubilee/Timetable/940GZZLUWSM?direction=inbound
+      - https://api.tfl.gov.uk/Line/jubilee/Timetable/940GZZLUWSM?direction=outbound
+      - https://tfl.gov.uk/campaign/tube-improvements/what-we-are-doing/night-tube
+    notes: >-
+      Trunk station Westminster. Mon-Thu: Stanmore 05:23-24:13, Stratford 05:16-24:11. Night Tube on Friday and
+      Saturday nights over the whole line, every 10 min (TfL API night departures). Last Friday-night
+      departures before 05:30 Saturday: Stanmore 05:24, Stratford 05:29. Saturday: Stanmore 05:34, Stratford
+      05:32, then all night to Sunday 06:59. Sunday: Stanmore 07:07-23:26, Stratford 07:02-23:37. Many trains
+      run only between Willesden Green/Wembley Park and North Greenwich/Stratford, so the outer ends are less
+      frequent than shown.
+
+  - id: lon-metropolitan
+    name: Metropolitan
+    long_name: Aldgate / Baker Street – Amersham / Chesham / Watford / Uxbridge
+    operator: London Underground (Transport for London)
+    colour: "#9B0058"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 235, R155 G0 B88; hex converted from the RGB value)
+    mode: metro
+    termini: [Aldgate, Baker Street, Amersham, Chesham, Watford, Uxbridge]
+    opened: null
+    branch_mode: weighted
+    branches:
+      - {from: Aldgate, to: Uxbridge, share: 0.467, night: false}
+      - {from: Baker Street, to: Watford, share: 0.284, night: false}
+      - {from: Aldgate, to: Amersham, share: 0.137, night: false}
+      - {from: Aldgate, to: Chesham, share: 0.112, night: false}
+    osm:
+      ref: "Metropolitan"
+      name_contains: "Metropolitan line"
+    timetable:
+      weekday:
+        first: "05:12"
+        last: "24:13"
+        headways:
+          - {from: "05:12", to: "06:00", minutes: 7.25}
+          - {from: "06:00", to: "07:00", minutes: 3.5}
+          - {from: "07:00", to: "09:00", minutes: 2.75}
+          - {from: "09:00", to: "10:00", minutes: 2.5}
+          - {from: "10:00", to: "11:00", minutes: 3}
+          - {from: "11:00", to: "15:00", minutes: 3.75}
+          - {from: "15:00", to: "16:00", minutes: 3.5}
+          - {from: "16:00", to: "17:00", minutes: 2.75}
+          - {from: "17:00", to: "18:00", minutes: 2.5}
+          - {from: "18:00", to: "20:00", minutes: 2.75}
+          - {from: "20:00", to: "21:00", minutes: 3.25}
+          - {from: "21:00", to: "23:00", minutes: 3.75}
+          - {from: "23:00", to: "24:00", minutes: 4}
+          - {from: "24:00", to: "24:13", minutes: 5.5}
+      saturday:
+        first: "05:12"
+        last: "24:13"
+        headways:
+          - {from: "05:12", to: "06:00", minutes: 7.25}
+          - {from: "06:00", to: "07:00", minutes: 4}
+          - {from: "07:00", to: "22:00", minutes: 3.75}
+          - {from: "22:00", to: "23:00", minutes: 3.5}
+          - {from: "23:00", to: "24:00", minutes: 4}
+          - {from: "24:00", to: "24:13", minutes: 5.5}
+      sunday:
+        first: "06:36"
+        last: "23:59"
+        headways:
+          - {from: "06:36", to: "07:00", minutes: 3}
+          - {from: "07:00", to: "08:00", minutes: 4}
+          - {from: "08:00", to: "23:00", minutes: 3.75}
+          - {from: "23:00", to: "23:59", minutes: 4.75}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUAMS?direction=outbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUCSM?direction=outbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUUXB?direction=outbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUWAF?direction=outbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUWAF?direction=inbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUALD?direction=inbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUBST?direction=inbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUBST?direction=outbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUFYR?direction=inbound
+      - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUFYR?direction=outbound
+    notes: >-
+      Trunk station Finchley Road, where every Metropolitan train south of Harrow calls. TfL day types "Monday -
+      Thursday" and "Friday" are identical, so there is no separate friday block. Mon-Fri first trains:
+      Uxbridge 05:12, Amersham 05:22, Watford 05:29, Chesham 05:52, Aldgate 06:16; last Aldgate 24:13, Uxbridge
+      24:02, Watford 23:53, Amersham 23:48, Chesham 23:26. Saturday ("Saturdays and Public Holidays") is almost
+      identical (Chesham 05:56, Aldgate 06:18, Uxbridge last 24:03). Sunday: Uxbridge 06:36, Amersham 06:59,
+      Watford 07:04, Chesham 07:11, Aldgate 07:38; last Aldgate 23:59. Watford trains terminate at Baker Street.
+      Branch trains are much less frequent than the combined trunk headway (e.g. Chesham about every 30 min,
+      from the API departure counts). No Night Tube. Branch shares: Mon-Thu, all day, from the TfL API
+      northbound departures at Finchley Road by destination: Uxbridge 158, Watford 96, Amersham 46, Chesham 38
+      (total 338). 20 short trips to Harrow-on-the-Hill, Wembley Park or Rickmansworth are not counted.
+      Southbound, Uxbridge/Amersham/Chesham trains run to Aldgate or Baker Street (Finchley Road southbound:
+      Aldgate 235, Baker Street 122), but OSM maps them to Aldgate only.
+
+  - id: lon-northern
+    name: Northern
+    long_name: Edgware / Mill Hill East / High Barnet – Morden / Battersea Power Station
+    operator: London Underground (Transport for London)
+    colour: "#000000"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS Black, R0 G0 B0)
+    mode: metro
+    termini: [Morden, Battersea Power Station, Edgware, Mill Hill East, High Barnet]
+    opened: null
+    branch_mode: weighted
+    night_after: "24:30"   # from 00:30 every southbound departure from Edgware/High Barnet runs to Morden via Charing Cross
+    branches:
+      - {from: Edgware, to: Morden, via: [Bank], share: 0.240, night: false}
+      - {from: Edgware, to: Battersea Power Station, via: [Charing Cross], share: 0.226, night: false}
+      - {from: Edgware, to: Morden, via: [Charing Cross], share: 0.025, night: true}
+      - {from: High Barnet, to: Morden, via: [Bank], share: 0.219, night: false}
+      - {from: High Barnet, to: Battersea Power Station, via: [Charing Cross], share: 0.167, night: false}
+      - {from: High Barnet, to: Morden, via: [Charing Cross], share: 0.022, night: true}
+      - {from: Mill Hill East, to: Morden, via: [Bank], share: 0.040, night: false}
+      - {from: Mill Hill East, to: Battersea Power Station, via: [Charing Cross], share: 0.054, night: false}
+      - {from: Mill Hill East, to: Morden, via: [Charing Cross], share: 0.007, night: false}
+    osm:
+      ref: "Northern"
+      name_contains: "Northern line"
+    timetable:
+      weekday:
+        first: "05:15"
+        last: "24:28"
+        headways:
+          - {from: "05:15", to: "06:00", minutes: 3.25}
+          - {from: "06:00", to: "07:00", minutes: 1.75}
+          - {from: "07:00", to: "08:00", minutes: 1.5}
+          - {from: "08:00", to: "09:00", minutes: 1.25}
+          - {from: "09:00", to: "17:00", minutes: 1.5}
+          - {from: "17:00", to: "19:00", minutes: 1.25}
+          - {from: "19:00", to: "23:00", minutes: 1.5}
+          - {from: "23:00", to: "24:00", minutes: 1.75}
+          - {from: "24:00", to: "24:28", minutes: 2.5}
+      friday:
+        first: "05:15"
+        last: "29:29"
+        headways:
+          - {from: "05:15", to: "06:00", minutes: 3.25}
+          - {from: "06:00", to: "07:00", minutes: 1.75}
+          - {from: "07:00", to: "08:00", minutes: 1.5}
+          - {from: "08:00", to: "09:00", minutes: 1.25}
+          - {from: "09:00", to: "17:00", minutes: 1.5}
+          - {from: "17:00", to: "19:00", minutes: 1.25}
+          - {from: "19:00", to: "23:00", minutes: 1.5}
+          - {from: "23:00", to: "24:00", minutes: 1.75}
+          - {from: "24:00", to: "25:00", minutes: 4.25}
+          - {from: "25:00", to: "29:00", minutes: 7.5}
+          - {from: "29:00", to: "29:29", minutes: 4.25}
+      saturday:
+        first: "05:31"
+        last: "30:59"
+        headways:
+          - {from: "05:31", to: "06:00", minutes: 3}
+          - {from: "06:00", to: "07:00", minutes: 1.75}
+          - {from: "07:00", to: "23:00", minutes: 1.5}
+          - {from: "23:00", to: "24:00", minutes: 1.75}
+          - {from: "24:00", to: "25:00", minutes: 4}
+          - {from: "25:00", to: "30:00", minutes: 7.5}
+          - {from: "30:00", to: "30:59", minutes: 6}
+      sunday:
+        first: "07:01"
+        last: "23:32"
+        headways:
+          - {from: "07:01", to: "08:00", minutes: 2.75}
+          - {from: "08:00", to: "09:00", minutes: 1.75}
+          - {from: "09:00", to: "22:00", minutes: 1.5}
+          - {from: "22:00", to: "23:00", minutes: 1.75}
+          - {from: "23:00", to: "23:32", minutes: 2.25}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUEGW?direction=inbound
+      - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUHBT?direction=inbound
+      - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUMHL?direction=inbound
+      - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUMDN?direction=outbound
+      - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZBPSUST?direction=outbound
+      - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUCTN?direction=inbound
+      - https://tfl.gov.uk/campaign/tube-improvements/what-we-are-doing/night-tube
+    notes: >-
+      The Northern line has no single trunk. The combined headway counts every southbound train through Camden
+      Town (both the Edgware-branch and High Barnet-branch platforms, so both the Bank and Charing Cross
+      branches), which is every train on the line except short trips south of Camden. Off-peak this is 40 tph
+      (about 20 per central branch). Only the southbound direction was read. Mon-Thu first trains: Morden 05:15,
+      High Barnet 05:22, Edgware 05:23, Mill Hill East 05:44, Battersea Power Station 05:54; last through
+      trains Battersea 24:28, Morden 24:05, Edgware 24:01, High Barnet 24:00, Mill Hill East 23:13. Sunday:
+      Morden 07:01-23:11, Battersea 07:12-23:32. Night Tube (Friday and Saturday nights, TfL API): Morden -
+      Edgware and Morden - High Barnet via Charing Cross only, Morden about every 7-8 min, Edgware and High
+      Barnet every 15 min. No night service on the Bank branch, to Mill Hill East or to Battersea Power Station
+      (last Battersea departure 25:02 on Saturday night).
+      Branch shares: Mon-Thu, all day, from the TfL API southbound departures at the three northern termini
+      (Edgware, High Barnet, Mill Hill East), classified by destination and by whether the journey calls at Bank
+      or Charing Cross. Edgware: Morden via Bank 172, Battersea via Charing Cross 40, Kennington via Charing Cross
+      122, Morden via Charing Cross 18. High Barnet: 157 / 111 / 9 / 16. Mill Hill East: 29 / 32 / 7 / 5.
+      Trains terminating at Kennington are counted with the Battersea pattern, because OSM has no Kennington
+      pattern (so Nine Elms and Battersea Power Station are over-served). Short trips (Golders Green, East
+      Finchley, Finchley Central) are not counted. Total 718. Night (API Friday schedule, departures from 00:30):
+      Edgware 10 and High Barnet 10, all to Morden via Charing Cross; Mill Hill East only short trips to
+      Finchley Central/East Finchley.
+
+  - id: lon-piccadilly
+    name: Piccadilly
+    long_name: Cockfosters – Heathrow / Uxbridge
+    operator: London Underground (Transport for London)
+    colour: "#0019A8"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 072, R0 G25 B168; hex converted from the RGB value)
+    mode: metro
+    termini: [Cockfosters, Heathrow Terminal 4, Heathrow Terminal 5, Uxbridge]
+    opened: null
+    branch_mode: weighted
+    night_after: "24:30"   # Timetable Notice 132/26 night periods start at 00:30
+    branches:
+      - {from: Cockfosters, to: Heathrow Terminal 5, share: 0.352, night: true}
+      - {from: Cockfosters, to: Heathrow Terminal 4, share: 0.317, night: false}
+      - {from: Cockfosters, to: Uxbridge, share: 0.331, night: false}
+    osm:
+      ref: "Piccadilly"
+      name_contains: "Piccadilly line"
+    timetable:
+      weekday:
+        first: "05:02"
+        last: "23:53"
+        headways:
+          - {from: "05:02", to: "06:00", minutes: 7.5}
+          - {from: "06:00", to: "07:00", minutes: 4}
+          - {from: "07:00", to: "08:00", minutes: 3}
+          - {from: "08:00", to: "09:00", minutes: 2.5}
+          - {from: "09:00", to: "10:00", minutes: 2.75}
+          - {from: "10:00", to: "16:00", minutes: 3}
+          - {from: "16:00", to: "17:00", minutes: 2.75}
+          - {from: "17:00", to: "18:00", minutes: 2.5}
+          - {from: "18:00", to: "21:00", minutes: 2.75}
+          - {from: "21:00", to: "23:00", minutes: 3}
+          - {from: "23:00", to: "23:53", minutes: 3.5}
+      friday:
+        first: "05:02"
+        last: "29:44"
+        headways:
+          - {from: "05:02", to: "06:00", minutes: 7.5}
+          - {from: "06:00", to: "07:00", minutes: 4}
+          - {from: "07:00", to: "08:00", minutes: 3}
+          - {from: "08:00", to: "09:00", minutes: 2.5}
+          - {from: "09:00", to: "10:00", minutes: 2.75}
+          - {from: "10:00", to: "16:00", minutes: 3}
+          - {from: "16:00", to: "17:00", minutes: 2.75}
+          - {from: "17:00", to: "18:00", minutes: 2.5}
+          - {from: "18:00", to: "21:00", minutes: 2.75}
+          - {from: "21:00", to: "23:00", minutes: 3}
+          - {from: "23:00", to: "24:00", minutes: 3.5}
+          - {from: "24:00", to: "24:30", minutes: 4.5}
+          - {from: "24:30", to: "29:44", minutes: 10}
+      saturday:
+        first: "05:46"
+        last: "30:56"
+        headways:
+          - {from: "05:46", to: "07:45", minutes: 5}
+          - {from: "07:45", to: "11:30", minutes: 3.25}
+          - {from: "11:30", to: "18:30", minutes: 2.75}
+          - {from: "18:30", to: "24:30", minutes: 3}
+          - {from: "24:30", to: "30:56", minutes: 10}
+      sunday:
+        first: "07:01"
+        last: "23:24"
+        headways:
+          - {from: "07:01", to: "09:00", minutes: 5}
+          - {from: "09:00", to: "11:30", minutes: 3.25}
+          - {from: "11:30", to: "18:30", minutes: 3}
+          - {from: "18:30", to: "23:24", minutes: 3.75}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUKSX?direction=inbound
+      - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUKSX?direction=outbound
+      - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUCKS?direction=inbound
+      - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUHR4?direction=outbound
+      - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUHR5?direction=outbound
+      - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUUXB?direction=outbound
+      - https://tfl.gov.uk/cdn/static/cms/documents/ttn-132-26-piccadilly-line.pdf
+    notes: >-
+      Current TfL timetable: Timetable Notice 132/26, a temporary autumn timetable valid 28 September 2026 to
+      10 January 2027 (reduced fleet and 30 mph speed limits). The TfL API returned only "Mondays"/"Tuesdays"
+      schedules for most stops, so: weekday (Mon-Thu) first/last and hourly headways come from the API "Mondays"
+      schedule at King's Cross St. Pancras (both directions), which matches the notice. First/last for Friday,
+      Saturday and Sunday were read from the notice's train tables, counting only trains that run through King's
+      Cross; the same rule gives the Mondays API values (05:02/23:53). Mon-Thu first trains: Heathrow T4 05:02,
+      Cockfosters 05:08, Uxbridge 05:20, Heathrow T5 05:22 (API); last through trains Cockfosters 23:53,
+      Heathrow T5 23:39, T4 23:27, Uxbridge 22:01 (later Uxbridge trains run only to Rayners Lane/South Harrow).
+      Friday daytime headways are taken as Mon-Thu, because the notice summarises "Mondays to Fridays" as one.
+      All other bands come from the notice's "Summary of train service intervals and frequencies", section
+      Arnos Grove - Acton Town (every train runs through it). Where tph is given as a range, minutes = 60 / the
+      range midpoint, rounded to 0.25. Mon-Fri after 23:00: 12-15 tph, i.e. 4.5 min. Friday night / Saturday:
+      00:30-05:45 every 10 min (6 tph), 05:45-07:45 5 min, 07:45-11:30 18 tph, 11:30-18:30 21 tph, 18:30-00:30
+      every 3 min. Saturday night / Sunday: 00:30-07:00 every 10 min, 07:00-09:00 5 min, 09:00-11:30 18 tph,
+      11:30-18:30 every 3 min, 18:30-finish 15-18 tph. Night Tube runs Cockfosters - Heathrow T5 only (T4 every
+      20 min Hatton Cross - T4 before 24:00; no Uxbridge branch at night). Sunday last through trains:
+      Cockfosters 23:00, Heathrow T5 23:24. The notice also says that, because of autumn railhead conditions,
+      there are no direct trains from central London to the Uxbridge branch before 07:00 and 21:30-22:30 / after
+      23:20 Mon-Fri (passengers change at Rayners Lane).
+      Branch shares: API "Mondays" schedule, all day, westbound departures at King's Cross St. Pancras by
+      destination: Heathrow T5 98, Heathrow T4 88, Uxbridge 44 + Rayners Lane 48 (both serve the Uxbridge
+      branch west of Acton Town, so they are counted together as the Uxbridge pattern; this overstates Rayners
+      Lane - Uxbridge, which the notice gives as 2.5-5.5 tph). 100 Northfields and 1 Heathrow T2&3 short trips are
+      not counted. Total 278. Night: Heathrow T5 only (the notice gives no T4 service after about 24:00, and none
+      Acton Town - Rayners Lane during Night Tube hours).
+
+  - id: lon-victoria
+    name: Victoria
+    long_name: Brixton – Walthamstow Central
+    operator: London Underground (Transport for London)
+    colour: "#039BE5"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 299, R3 G155 B229; hex converted from the RGB value)
+    mode: metro
+    termini: [Brixton, Walthamstow Central]
+    opened: null
+    osm:
+      ref: "Victoria"
+      name_contains: "Victoria line"
+    timetable:
+      weekday:
+        first: "05:25"
+        last: "24:28"
+        headways:
+          - {from: "05:25", to: "06:00", minutes: 6}
+          - {from: "06:00", to: "07:00", minutes: 2.75}
+          - {from: "07:00", to: "10:00", minutes: 1.75}
+          - {from: "10:00", to: "11:00", minutes: 2}
+          - {from: "11:00", to: "15:00", minutes: 2.25}
+          - {from: "15:00", to: "16:00", minutes: 2}
+          - {from: "16:00", to: "20:00", minutes: 1.75}
+          - {from: "20:00", to: "23:00", minutes: 2.25}
+          - {from: "23:00", to: "24:00", minutes: 3.25}
+          - {from: "24:00", to: "24:28", minutes: 5.25}
+      friday:
+        first: "05:25"
+        last: "29:27"
+        headways:
+          - {from: "05:25", to: "06:00", minutes: 6}
+          - {from: "06:00", to: "07:00", minutes: 2.75}
+          - {from: "07:00", to: "10:00", minutes: 1.75}
+          - {from: "10:00", to: "11:00", minutes: 2}
+          - {from: "11:00", to: "15:00", minutes: 2.25}
+          - {from: "15:00", to: "16:00", minutes: 2}
+          - {from: "16:00", to: "20:00", minutes: 1.75}
+          - {from: "20:00", to: "23:00", minutes: 2.25}
+          - {from: "23:00", to: "24:00", minutes: 3.25}
+          - {from: "24:00", to: "25:00", minutes: 6.5}
+          - {from: "25:00", to: "28:00", minutes: 10}
+          - {from: "28:00", to: "29:00", minutes: 8.75}
+          - {from: "29:00", to: "29:27", minutes: 8.25}
+      saturday:
+        first: "05:30"
+        last: "30:56"
+        headways:
+          - {from: "05:30", to: "06:00", minutes: 6}
+          - {from: "06:00", to: "07:00", minutes: 3.25}
+          - {from: "07:00", to: "08:00", minutes: 2.5}
+          - {from: "08:00", to: "13:00", minutes: 2.25}
+          - {from: "13:00", to: "19:00", minutes: 2}
+          - {from: "19:00", to: "23:00", minutes: 2.25}
+          - {from: "23:00", to: "24:00", minutes: 3}
+          - {from: "24:00", to: "25:00", minutes: 6.5}
+          - {from: "25:00", to: "30:00", minutes: 10}
+          - {from: "30:00", to: "30:56", minutes: 8}
+      sunday:
+        first: "07:00"
+        last: "23:52"
+        headways:
+          - {from: "07:00", to: "08:00", minutes: 4.5}
+          - {from: "08:00", to: "10:00", minutes: 2.5}
+          - {from: "10:00", to: "21:00", minutes: 2.25}
+          - {from: "21:00", to: "22:00", minutes: 2.5}
+          - {from: "22:00", to: "23:00", minutes: 3}
+          - {from: "23:00", to: "23:52", minutes: 4.75}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/victoria/Timetable/940GZZLUBXN?direction=outbound
+      - https://api.tfl.gov.uk/Line/victoria/Timetable/940GZZLUWWL?direction=inbound
+      - https://api.tfl.gov.uk/Line/victoria/Timetable/940GZZLUOXC?direction=inbound
+      - https://api.tfl.gov.uk/Line/victoria/Timetable/940GZZLUOXC?direction=outbound
+      - https://tfl.gov.uk/campaign/tube-improvements/what-we-are-doing/night-tube
+    notes: >-
+      Trunk station Oxford Circus. Mon-Thu: Brixton 05:27-24:28, Walthamstow Central 05:25-24:10 (later
+      Walthamstow departures, to 24:53, run only to Seven Sisters and are not counted). Peak 34-36 tph in the
+      API (about 1.75 min). Night Tube on Friday and Saturday nights over the whole line, every 10 min (TfL API).
+      Last Friday-night departures before 05:30 Saturday: Brixton 05:27, Walthamstow 05:20. Sunday: Brixton
+      07:05-23:52, Walthamstow 07:00-23:29.
+
+  - id: lon-waterloo-city
+    name: Waterloo & City
+    long_name: Waterloo – Bank
+    operator: London Underground (Transport for London)
+    colour: "#76D0BD"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 5 https://content.tfl.gov.uk/tfl-colour-standard.pdf
+      (PMS 338, R118 G208 B189; hex converted from the RGB value)
+    mode: metro
+    termini: [Waterloo, Bank]
+    opened: null
+    osm:
+      ref: "Waterloo & City"
+      name_contains: "Waterloo & City line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "24:26"
+        headways:
+          - {from: "06:00", to: "07:00", minutes: 5}
+          - {from: "07:00", to: "10:00", minutes: 3.25}
+          - {from: "10:00", to: "11:00", minutes: 4.25}
+          - {from: "11:00", to: "16:00", minutes: 5}
+          - {from: "16:00", to: "17:00", minutes: 3.5}
+          - {from: "17:00", to: "20:00", minutes: 3.25}
+          - {from: "20:00", to: "21:00", minutes: 3.5}
+          - {from: "21:00", to: "22:00", minutes: 4.5}
+          - {from: "22:00", to: "23:00", minutes: 6}
+          - {from: "23:00", to: "24:00", minutes: 8}
+          - {from: "24:00", to: "24:26", minutes: 10}
+      saturday: closed
+      sunday: closed
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/waterloo-city/Timetable/940GZZLUWLO?direction=outbound
+      - https://api.tfl.gov.uk/Line/waterloo-city/Timetable/940GZZLUBNK?direction=inbound
+      - https://tfl.gov.uk/corporate/publications-and-reports/working-timetables
+    notes: >-
+      Mon-Fri only: the TfL API lists a single "Monday - Friday" schedule, and TfL's working timetables page
+      labels WTT 7 (9 October 2017) "Saturday service not operating". Waterloo 06:00-24:20, Bank 06:06-24:26.
+      Headways from both termini (no intermediate stations). A Saturday trial service has been proposed (Time
+      Out, March 2026) but none is in the TfL timetable on the checked date.
+
+  # DLR: TfL runs it as separate services rather than one line with branches, so each service is its own
+  # entry here, all in the DLR colour (the maintainer's choice, like che-inter in chennai.yaml). Each service
+  # matches exactly the two OSM relations for its own route (by ref, or by name for Stratford - Canary Wharf).
+  - id: lon-dlr-bank-lewisham
+    name: DLR (Bank – Lewisham)
+    long_name: Bank – Lewisham
+    operator: Docklands Light Railway (Transport for London)
+    colour: "#00AFAD"
+    colour_source: >-
+      TfL Colour Standard, Issue 11 (August 2026), section 3 "Mode colours", DLR
+      https://content.tfl.gov.uk/tfl-colour-standard.pdf (PMS 326, R0 G175 B173; hex converted from the RGB value)
+    mode: light_rail
+    termini: [Bank, Lewisham]
+    opened: null
+    osm:
+      route: light_rail
+      ref: "B-L"
+    timetable:
+      weekday:
+        first: "05:27"
+        last: "24:30"
+        headways:
+          - {from: "05:27", to: "06:00", minutes: 10}
+          - {from: "06:00", to: "07:00", minutes: 4.75}
+          - {from: "07:00", to: "10:00", minutes: 4.5}
+          - {from: "10:00", to: "16:00", minutes: 5}
+          - {from: "16:00", to: "20:00", minutes: 4.5}
+          - {from: "20:00", to: "23:00", minutes: 5}
+          - {from: "23:00", to: "24:00", minutes: 6.5}
+          - {from: "24:00", to: "24:30", minutes: 10}
+      saturday:
+        first: "05:26"
+        last: "24:30"
+        headways:
+          - {from: "05:26", to: "07:00", minutes: 10}
+          - {from: "07:00", to: "08:00", minutes: 8.75}
+          - {from: "08:00", to: "21:00", minutes: 5}
+          - {from: "21:00", to: "22:00", minutes: 5.25}
+          - {from: "22:00", to: "23:00", minutes: 9.25}
+          - {from: "23:00", to: "24:30", minutes: 10}
+      sunday:
+        first: "06:56"
+        last: "23:30"
+        headways:
+          - {from: "06:56", to: "09:00", minutes: 10}
+          - {from: "09:00", to: "10:00", minutes: 8.75}
+          - {from: "10:00", to: "19:00", minutes: 5}
+          - {from: "19:00", to: "20:00", minutes: 6.5}
+          - {from: "20:00", to: "23:30", minutes: 10}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLBNK?direction=outbound
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLLEW?direction=inbound
+    notes: >-
+      From the TfL API (DLR day types "Monday - Friday", "Saturday", "Sunday"). Only departures to the other
+      terminus are counted: Bank departures to Lewisham, Lewisham departures to Bank. Headways come from both
+      termini. Mon-Fri: Bank 05:30-24:30, Lewisham 05:27-24:18. Saturday: Lewisham 05:26-24:16. Sunday: Bank
+      07:00-23:30, Lewisham 06:56-23:16. No night service.
+
+  - id: lon-dlr-bank-woolwich
+    name: DLR (Bank – Woolwich Arsenal)
+    long_name: Bank – Woolwich Arsenal
+    operator: Docklands Light Railway (Transport for London)
+    colour: "#00AFAD"
+    colour_source: same as lon-dlr-bank-lewisham
+    mode: light_rail
+    termini: [Bank, Woolwich Arsenal]
+    opened: null
+    osm:
+      route: light_rail
+      ref: "B-WA"
+    timetable:
+      weekday:
+        first: "05:19"
+        last: "24:33"
+        headways:
+          - {from: "05:19", to: "06:00", minutes: 9.5}
+          - {from: "06:00", to: "07:00", minutes: 8.75}
+          - {from: "07:00", to: "09:00", minutes: 9}
+          - {from: "09:00", to: "10:00", minutes: 9.25}
+          - {from: "10:00", to: "15:00", minutes: 10}
+          - {from: "15:00", to: "16:00", minutes: 9.75}
+          - {from: "16:00", to: "19:00", minutes: 9}
+          - {from: "19:00", to: "24:33", minutes: 10}
+      saturday: {first: "05:19", last: "24:33", headways: [{from: "05:19", to: "24:33", minutes: 10}]}
+      sunday: {first: "06:49", last: "23:33", headways: [{from: "06:49", to: "23:33", minutes: 10}]}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLBNK?direction=outbound
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLWLA?direction=inbound
+    notes: >-
+      From the TfL API, counting Bank departures to Woolwich Arsenal and Woolwich Arsenal departures to Bank.
+      Mon-Fri: Bank 05:33-24:33, Woolwich Arsenal 05:19-24:09. Saturday: Woolwich last 24:10. Sunday: Bank
+      07:03-23:33, Woolwich Arsenal 06:49-23:10.
+
+  - id: lon-dlr-stratford-canary-wharf
+    name: DLR (Stratford – Canary Wharf)
+    long_name: Stratford – Canary Wharf
+    operator: Docklands Light Railway (Transport for London)
+    colour: "#00AFAD"
+    colour_source: same as lon-dlr-bank-lewisham
+    mode: light_rail
+    termini: [Stratford, Canary Wharf]
+    opened: null
+    osm:
+      route: light_rail
+      # ref "S-L" is shared with OSM's Stratford - Lewisham relations, which TfL does not run on the checked
+      # date; "Canary Wharf" matches only "DLR: Stratford → Canary Wharf" and "DLR: Canary Wharf → Stratford".
+      name_contains: "Canary Wharf"
+    timetable:
+      weekday:
+        first: "05:20"
+        last: "24:50"
+        headways:
+          - {from: "05:20", to: "06:00", minutes: 10}
+          - {from: "06:00", to: "07:00", minutes: 6.25}
+          - {from: "07:00", to: "09:00", minutes: 5}
+          - {from: "09:00", to: "10:00", minutes: 5.25}
+          - {from: "10:00", to: "15:00", minutes: 6.5}
+          - {from: "15:00", to: "16:00", minutes: 6}
+          - {from: "16:00", to: "19:00", minutes: 5}
+          - {from: "19:00", to: "20:00", minutes: 5.5}
+          - {from: "20:00", to: "23:00", minutes: 6.5}
+          - {from: "23:00", to: "24:00", minutes: 7.5}
+          - {from: "24:00", to: "24:50", minutes: 10}
+      saturday:
+        first: "05:20"
+        last: "24:50"
+        headways:
+          - {from: "05:20", to: "08:00", minutes: 10}
+          - {from: "08:00", to: "09:00", minutes: 7}
+          - {from: "09:00", to: "22:00", minutes: 6.5}
+          - {from: "22:00", to: "23:00", minutes: 9.75}
+          - {from: "23:00", to: "24:50", minutes: 10}
+      sunday:
+        first: "06:50"
+        last: "23:50"
+        headways:
+          - {from: "06:50", to: "10:00", minutes: 10}
+          - {from: "10:00", to: "11:00", minutes: 7.25}
+          - {from: "11:00", to: "19:00", minutes: 6.5}
+          - {from: "19:00", to: "20:00", minutes: 7.5}
+          - {from: "20:00", to: "23:50", minutes: 10}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLSTD?direction=outbound
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLCAN?direction=inbound
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLLEW?direction=inbound
+      - https://api.tfl.gov.uk/Line/dlr/Route/Sequence/outbound
+    notes: >-
+      From the TfL API, counting Stratford departures to Canary Wharf and Canary Wharf departures to Stratford.
+      Mon-Fri: Stratford 05:20-24:50, Canary Wharf 05:25-24:35. Sunday: Stratford 06:50-23:50, Canary Wharf
+      06:50-23:40. TfL's current route list has "Stratford - Canary Wharf" and no Stratford - Lewisham service;
+      the API's Lewisham departures go only to Bank (apart from two to Canary Wharf). OSM still maps Stratford -
+      Lewisham relations (ref S-L), and they are deliberately not matched. If TfL restores direct Stratford -
+      Lewisham trains, revisit this entry.
+
+  - id: lon-dlr-stratford-intl-woolwich
+    name: DLR (Stratford International – Woolwich Arsenal)
+    long_name: Stratford International – Woolwich Arsenal
+    operator: Docklands Light Railway (Transport for London)
+    colour: "#00AFAD"
+    colour_source: same as lon-dlr-bank-lewisham
+    mode: light_rail
+    # "Stratford International" also matches "Stratford" (a substring), which would cut the Woolwich Arsenal ->
+    # Stratford International relation one stop short. Left null.
+    termini: null
+    opened: null
+    osm:
+      route: light_rail
+      ref: "SI-WA"
+    timetable:
+      weekday:
+        first: "05:22"
+        last: "24:14"
+        headways:
+          - {from: "05:22", to: "10:00", minutes: 9}
+          - {from: "10:00", to: "15:00", minutes: 10}
+          - {from: "15:00", to: "16:00", minutes: 10.25}
+          - {from: "16:00", to: "17:00", minutes: 8.75}
+          - {from: "17:00", to: "19:00", minutes: 9}
+          - {from: "19:00", to: "24:14", minutes: 10}
+      saturday: {first: "05:22", last: "24:14", headways: [{from: "05:22", to: "24:14", minutes: 10}]}
+      sunday: {first: "06:52", last: "23:14", headways: [{from: "06:52", to: "23:14", minutes: 10}]}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLSIT?direction=outbound
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLWLA?direction=inbound
+    notes: >-
+      From the TfL API, counting Stratford International departures to Woolwich Arsenal and Woolwich Arsenal
+      departures to Stratford International. Mon-Fri: Stratford International 05:22-24:12, Woolwich Arsenal
+      05:44-24:14. Sunday: Stratford International 06:52-23:12, Woolwich Arsenal 07:14-23:14. A few short trips
+      run to or from Canning Town only and are not counted.
+
+  - id: lon-dlr-tower-gateway-beckton
+    name: DLR (Tower Gateway – Beckton)
+    long_name: Tower Gateway – Beckton
+    operator: Docklands Light Railway (Transport for London)
+    colour: "#00AFAD"
+    colour_source: same as lon-dlr-bank-lewisham
+    mode: light_rail
+    # Termini are Tower Gateway and Beckton, but "Beckton" also matches "Beckton Park" (three stops before the
+    # end), so a two-name list would make the pipeline cut the relation there. Left null.
+    termini: null
+    opened: null
+    osm:
+      route: light_rail
+      ref: "TG-B"
+    timetable:
+      weekday:
+        first: "05:20"
+        last: "24:40"
+        headways:
+          - {from: "05:20", to: "06:00", minutes: 9.5}
+          - {from: "06:00", to: "07:00", minutes: 8.75}
+          - {from: "07:00", to: "09:00", minutes: 9}
+          - {from: "09:00", to: "10:00", minutes: 9.25}
+          - {from: "10:00", to: "15:00", minutes: 10}
+          - {from: "15:00", to: "16:00", minutes: 9.75}
+          - {from: "16:00", to: "19:00", minutes: 9}
+          - {from: "19:00", to: "24:40", minutes: 10}
+      saturday: {first: "05:12", last: "24:40", headways: [{from: "05:12", to: "24:40", minutes: 10}]}
+      sunday: {first: "06:42", last: "23:40", headways: [{from: "06:42", to: "23:40", minutes: 10}]}
+    avg_speed_kmh: null
+    source_urls:
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLTWG?direction=outbound
+      - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLBEC?direction=inbound
+    notes: >-
+      From the TfL API. Mon-Fri: Tower Gateway 05:20-24:40, Beckton 05:23-24:23. Saturday: Beckton
+      05:12-24:22. Sunday: Tower Gateway 06:50-23:40, Beckton 06:42-23:22.
+
+fares: null
+
+sources:
+  - https://api.tfl.gov.uk/Line/Mode/tube,dlr
+  - https://api.tfl.gov.uk/Line/bakerloo/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/central/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/circle/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/district/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/hammersmith-city/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/jubilee/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/northern/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/piccadilly/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/victoria/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/waterloo-city/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/dlr/Route/Sequence/outbound
+  - https://api.tfl.gov.uk/Line/bakerloo/Timetable/940GZZLUEAC?direction=outbound
+  - https://api.tfl.gov.uk/Line/bakerloo/Timetable/940GZZLUHAW?direction=inbound
+  - https://api.tfl.gov.uk/Line/bakerloo/Timetable/940GZZLUOXC?direction=inbound
+  - https://api.tfl.gov.uk/Line/bakerloo/Timetable/940GZZLUOXC?direction=outbound
+  - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUBNK?direction=inbound
+  - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUBNK?direction=outbound
+  - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUEBY?direction=outbound
+  - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUEPG?direction=inbound
+  - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUHLT?direction=inbound
+  - https://api.tfl.gov.uk/Line/central/Timetable/940GZZLUWRP?direction=outbound
+  - https://api.tfl.gov.uk/Line/circle/Timetable/940GZZLUBST?direction=inbound
+  - https://api.tfl.gov.uk/Line/circle/Timetable/940GZZLUBST?direction=outbound
+  - https://api.tfl.gov.uk/Line/circle/Timetable/940GZZLUERC?direction=inbound
+  - https://api.tfl.gov.uk/Line/circle/Timetable/940GZZLUHSC?direction=outbound
+  - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUEBY?direction=outbound
+  - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUECT?direction=inbound
+  - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUECT?direction=outbound
+  - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUERC?direction=inbound
+  - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUKOY?direction=outbound
+  - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLURMD?direction=outbound
+  - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUUPM?direction=inbound
+  - https://api.tfl.gov.uk/Line/district/Timetable/940GZZLUWIM?direction=outbound
+  - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUBKG?direction=inbound
+  - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUBKG?direction=outbound
+  - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUBST?direction=inbound
+  - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUBST?direction=outbound
+  - https://api.tfl.gov.uk/Line/hammersmith-city/Timetable/940GZZLUHSC?direction=outbound
+  - https://api.tfl.gov.uk/Line/jubilee/Timetable/940GZZLUSTD?direction=inbound
+  - https://api.tfl.gov.uk/Line/jubilee/Timetable/940GZZLUSTM?direction=outbound
+  - https://api.tfl.gov.uk/Line/jubilee/Timetable/940GZZLUWSM?direction=inbound
+  - https://api.tfl.gov.uk/Line/jubilee/Timetable/940GZZLUWSM?direction=outbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUALD?direction=inbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUAMS?direction=outbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUBST?direction=inbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUBST?direction=outbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUCSM?direction=outbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUFYR?direction=inbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUFYR?direction=outbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUUXB?direction=outbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUWAF?direction=inbound
+  - https://api.tfl.gov.uk/Line/metropolitan/Timetable/940GZZLUWAF?direction=outbound
+  - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZBPSUST?direction=outbound
+  - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUCTN?direction=inbound
+  - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUEGW?direction=inbound
+  - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUHBT?direction=inbound
+  - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUMDN?direction=outbound
+  - https://api.tfl.gov.uk/Line/northern/Timetable/940GZZLUMHL?direction=inbound
+  - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUCKS?direction=inbound
+  - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUHR4?direction=outbound
+  - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUHR5?direction=outbound
+  - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUKSX?direction=inbound
+  - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUKSX?direction=outbound
+  - https://api.tfl.gov.uk/Line/piccadilly/Timetable/940GZZLUUXB?direction=outbound
+  - https://api.tfl.gov.uk/Line/victoria/Timetable/940GZZLUBXN?direction=outbound
+  - https://api.tfl.gov.uk/Line/victoria/Timetable/940GZZLUOXC?direction=inbound
+  - https://api.tfl.gov.uk/Line/victoria/Timetable/940GZZLUOXC?direction=outbound
+  - https://api.tfl.gov.uk/Line/victoria/Timetable/940GZZLUWWL?direction=inbound
+  - https://api.tfl.gov.uk/Line/waterloo-city/Timetable/940GZZLUBNK?direction=inbound
+  - https://api.tfl.gov.uk/Line/waterloo-city/Timetable/940GZZLUWLO?direction=outbound
+  - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLBEC?direction=inbound
+  - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLBNK?direction=outbound
+  - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLCAN?direction=inbound
+  - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLLEW?direction=inbound
+  - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLSIT?direction=outbound
+  - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLSTD?direction=outbound
+  - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLTWG?direction=outbound
+  - https://api.tfl.gov.uk/Line/dlr/Timetable/940GZZDLWLA?direction=inbound
+  - https://tfl.gov.uk/corporate/publications-and-reports/working-timetables
+  - https://tfl.gov.uk/cdn/static/cms/documents/cen-wtt-71.pdf
+  - https://tfl.gov.uk/cdn/static/cms/documents/wtt-157-district-may-2026.pdf
+  - https://tfl.gov.uk/cdn/static/cms/documents/ttn-132-26-piccadilly-line.pdf
+  - https://tfl.gov.uk/campaign/tube-improvements/what-we-are-doing/night-tube
+  - https://content.tfl.gov.uk/tfl-colour-standard.pdf
+  - https://www.timeout.com/london/news/this-london-tube-line-could-open-on-weekends-for-the-first-time-since-2020-030926
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.*.opened
+  - lines.*.avg_speed_kmh
+  - "fares (London uses zone-based fares, with peak/off-peak and daily caps, which the app's fare engine cannot model; no fare data entered)"
+  - "lines.lon-district.timetable.saturday/sunday.headways (published only as one all-day frequency; wider early-morning and late-night intervals not quantified)"
+  - "lines.lon-piccadilly.timetable.friday.headways 05:02-24:00 (TfL API has no Friday schedule at King's Cross; Mon-Thu values used, per the notice's single Mon-Fri summary)"
+  - "lines.lon-northern.timetable.headways (only the southbound direction at Camden Town was read)"

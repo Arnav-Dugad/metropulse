@@ -1,0 +1,73 @@
+id: indore
+name: Indore
+state: Madhya Pradesh
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around Gandhi Nagar (Devi Ahilya Bai Holkar Terminal) and Radisson
+# Square. Not from an operator source; verify against the OSM relation bounds.
+bbox: [22.70, 75.78, 22.78, 75.92]
+checked: 2026-10-29
+
+lines:
+  - id: idr-yellow
+    name: Yellow Line
+    long_name: Devi Ahilya Bai Holkar Terminal (Gandhi Nagar) – Radisson Square (Malviya Nagar Chauraha)
+    operator: Madhya Pradesh Metro Rail Corporation Ltd (MPMRCL)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Devi Ahilya Bai Holkar Terminal, Radisson Square]
+    opened: 2025-05-31
+    osm:
+      ref: "Yellow"
+      name_contains: "Metro Yellow Line"
+    timetable:
+      weekday: {first: null, last: null, headways: null}
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://en.wikipedia.org/wiki/Yellow_Line_(Indore_Metro)
+      - https://propnewstime.com/latestnewsstories/MzgxNTI=/indore-metro-s-extended-corridor-logs-75-000-journeys-and-inr-30-lakh-in-first-month
+    notes: >-
+      NO OFFICIAL TIMETABLE FOUND; mpmetrorail.com could not be read. Search results
+      gave only fan or aggregator sites (myindoremetro.com, nobroker, metrofare.in), which
+      disagree with each other (07:30–21:30 every ~15 min vs 06:00–22:00 every 10 min), so
+      nothing was recorded. Network: the 6 km priority corridor Devi Ahilya Bai Holkar Terminal
+      – Veerangana Jhalkari Bai opened 31 May 2025 (Wikipedia, citing PTI / The Hindu). The
+      corridor-2 extension to Radisson Square (Malviya Nagar Chauraha) was inaugurated 5 Sep
+      2026, with regular service from 6 Sep 2026 (Wikipedia; Propnewstime 13 Oct 2026, about
+      11 km, network now about 17 km and 16 stations). Propnewstime reports about 75,000
+      journeys in the extension's first month, so it is carrying passengers. Wikipedia's
+      station table names the far terminus "Malviya Nagar Chauraha". OSM relations 19218605 /
+      19218606 are named "Metro Yellow Line: Gandhi Nagar → Radisson Square", colour=yellow.
+
+fares:
+  type: null
+  currency: INR
+  slabs: null
+  discounts: []
+  notes: >-
+    No official fare chart was found. Propnewstime (13 Oct 2026) gives revenue of roughly ₹40
+    per journey and says a monthly pass is planned, with no price given. A web search summary of a 2025
+    Daily Pioneer article (not read in full) reports early fares of ₹5 for two stations and ₹8 for up to five, from June 2025; this is
+    superseded. Aggregator ranges (₹10–₹60, ₹10–₹40, ₹20–₹80) conflict and were not used.
+  source_urls:
+    - https://propnewstime.com/latestnewsstories/MzgxNTI=/indore-metro-s-extended-corridor-logs-75-000-journeys-and-inr-30-lakh-in-first-month
+
+notes: ""
+
+sources:
+  - https://en.wikipedia.org/wiki/Yellow_Line_(Indore_Metro)
+  - https://propnewstime.com/latestnewsstories/MzgxNTI=/indore-metro-s-extended-corridor-logs-75-000-journeys-and-inr-30-lakh-in-first-month
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[idr-yellow].colour
+  - lines[idr-yellow].timetable.weekday
+  - lines[idr-yellow].timetable.saturday
+  - lines[idr-yellow].timetable.sunday
+  - lines[idr-yellow].avg_speed_kmh
+  - fares.type
+  - fares.slabs
+  - fares.discounts
+  - bbox   # approximate, not from a source

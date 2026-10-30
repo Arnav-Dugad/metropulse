@@ -1,0 +1,87 @@
+id: jaipur
+name: Jaipur
+state: Rajasthan
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around Mansarovar and Badi Chaupar. Not from an operator source; verify
+# against the OSM relation bounds.
+bbox: [26.86, 75.73, 26.94, 75.85]
+checked: 2026-10-29
+
+lines:
+  - id: jpr-pink
+    name: Pink Line
+    long_name: Mansarovar – Badi Chaupar
+    operator: Jaipur Metro Rail Corporation (JMRC)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Mansarovar, Badi Chaupar]
+    opened: 2015-06-03
+    osm:
+      ref: "Pink Line"
+      name_contains: "Pink Line (Mansarovar"
+    timetable:
+      weekday:
+        first: "05:20"
+        last: "22:21"
+        headways:
+          - {from: "05:20", to: "06:00", minutes: 18}
+          - {from: "06:00", to: "21:50", minutes: 10}
+          - {from: "21:50", to: "22:21", minutes: 15}
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://transport.rajasthan.gov.in/content/dam/transport/metro/Passenger%20Information/Metro%20time%20Table/current%20time%20table.pdf
+      - https://transport.rajasthan.gov.in/content/transportportal/en/metro/PassengerInformation/MetroTimeTable.html
+    notes: >-
+      JMRC Public Time Table "With effective from 24.08.2023" (the current timetable linked
+      from the JMRC page, read 2026-10-29), "On all 7 days": first train 05:20 and last 22:21
+      from both Mansarovar and Badi Chaupar; 101 trains each way, 202 per day. Published
+      headways, Mansarovar -> Badi Chaupar: 05:20–05:59 "Every 18/10 minutes", 06:00–21:50
+      "Every 10 minutes", 21:51–22:21 "Every 15/16 minutes". Badi Chaupar -> Mansarovar:
+      05:20–05:59 "Every 19/20 minutes", 06:00–21:21 "Every 10 minutes", and 21:21–22:21 not
+      stated. The blocks above use the Mansarovar-direction figures, taking the first number
+      where two are given (18; 15). Run time 26–28 min end to end. Phase 1A Mansarovar–Chandpole
+      opened 3 Jun 2015; Phase 1B Chandpole–Badi Chaupar opened 23 Sep 2020 (JMRC page). 11
+      stations. JMRC publishes no hex colour; OSM tags #ff748c (relations 5250264 / 7989307).
+
+fares:
+  type: station_count_slab
+  currency: INR
+  # JMRC counts "No. of Stations travelled" 0–2, 3–5, 6–8, 9–10. Upper bound inclusive.
+  slabs:
+    - {max_stations: 2, fare: 10}
+    - {max_stations: 5, fare: 15}
+    - {max_stations: 8, fare: 25}
+    - {max_stations: 10, fare: 30}
+  discounts:
+    - {media: smart_card, percent: 10, note: "Smart Card (SV-1): 10% on standard fare for all zones (₹10→9, ₹15→13.50, ₹25→22.50, ₹30→27)."}
+    - {media: group_ticket, percent: 10, note: "Groups of 21 to 100 commuters, on request."}
+  notes: >-
+    JMRC Notification No. F7(C-23)JMRC/Fare Matrix/2013 dated 30.01.2025, fare revision
+    effective 31.01.2025 (read 2026-10-29). It also lists a one-day tourist card (₹100 + ₹50
+    deposit) and a three-day card (₹200 + ₹50 deposit). The notification also has a full
+    station-to-station matrix. Spot checks agree with the slabs, e.g. Mansarovar -> Railway
+    Station (6 stations) = 25 and New Aatish Market -> Railway Station (5) = 15. No QR discount
+    is mentioned.
+  source_urls:
+    - https://transport.rajasthan.gov.in/content/dam/transport/metro/Passenger%20Information/MetroFares/Notification%20of%20%20Fare%20Revision%20%20Effective%20from%2031.01.2025.pdf
+    - https://transport.rajasthan.gov.in/content/transportportal/en/metro/PassengerInformation/MetroFares.html
+
+notes: >-
+  Only the Pink Line (Phase 1A + 1B) carries passengers. Phase 2 and the Badi Chaupar –
+  Transport Nagar extension are not open (search results only).
+
+sources:
+  - https://transport.rajasthan.gov.in/jmrc
+  - https://transport.rajasthan.gov.in/content/transportportal/en/metro/PassengerInformation/MetroTimeTable.html
+  - https://transport.rajasthan.gov.in/content/dam/transport/metro/Passenger%20Information/Metro%20time%20Table/current%20time%20table.pdf
+  - https://transport.rajasthan.gov.in/content/transportportal/en/metro/PassengerInformation/MetroFares.html
+  - https://transport.rajasthan.gov.in/content/dam/transport/metro/Passenger%20Information/MetroFares/Notification%20of%20%20Fare%20Revision%20%20Effective%20from%2031.01.2025.pdf
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[jpr-pink].colour
+  - lines[jpr-pink].avg_speed_kmh
+  - bbox   # approximate, not from a source

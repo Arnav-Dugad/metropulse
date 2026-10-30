@@ -1,0 +1,99 @@
+id: bhopal
+name: Bhopal
+state: Madhya Pradesh
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around Subhash Nagar and AIIMS. Not from an operator source; verify
+# against the OSM relation bounds.
+bbox: [23.18, 77.39, 23.27, 77.48]
+checked: 2026-10-29
+
+lines:
+  - id: bpl-orange
+    name: Orange Line
+    long_name: Subhash Nagar – AIIMS (Priority Corridor)
+    operator: Madhya Pradesh Metro Rail Corporation Ltd (MPMRCL)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Subhash Nagar, AIIMS]
+    opened: 2025-12-21
+    osm:
+      ref: "1"
+      name_contains: "Orange Line"
+    timetable:
+      weekday:
+        first: "09:00"
+        last: null
+        headways:
+          - {from: "09:00", to: "10:30", minutes: 15}
+          - {from: "10:30", to: "17:30", minutes: 30}
+          - {from: "17:30", to: "19:00", minutes: 15}
+      saturday: null
+      sunday:
+        first: null
+        last: "20:00"
+        headways: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.thehitavada.com/Encyc/2026/9/15/bhopal-metro-15-minute-service-in-evening-peak-hrs-from-today.html
+      - https://www.freepressjournal.in/bhopal/bhopal-metro-to-run-every-15-minutes-on-sundays-services-extended-till-830-pm
+      - https://lalluram.com/change-in-bhopal-metro-service-timings/
+    notes: >-
+      LOW CONFIDENCE; SOURCES CONFLICT; NEWS ONLY. mpmetrorail.com could not be read. Weekday,
+      per The Hitavada (15 Sep 2026): service starts 09:00; 09:00–10:30 every 15 min (peak),
+      10:30–17:30 every 30 min (off-peak), 17:30–19:00 every 15 min (evening peak). The last
+      weekday train is not stated. Free Press Journal (6 Aug 2026) gives the same peak windows.
+      CONFLICT: Lalluram (14 Sep 2026, Hindi) says the timetable effective 15 Sep 2026 runs
+      Mon–Sat 11:30–19:30 (Subhash Nagar first 11:30, last 19:00; AIIMS first 12:00, last
+      19:30), every 15 min after 17:00. An earlier Jan 2026 cut moved the start to noon (Amar
+      Ujala and Daily Jagran headlines). Sunday and holidays (Hitavada and FPJ): every 15 min
+      all day; last train Subhash Nagar -> AIIMS 19:30 and AIIMS -> Subhash Nagar 20:00; first
+      train not stated. Lalluram gives Sunday 11:30–20:30, every 15 min after 13:00. Sunday
+      headways are left null because the morning frequency conflicts. Saturday: Hitavada says
+      "weekdays" while Lalluram says Mon–Sat, so Saturday is unknown. Opening: Free Press
+      Journal (18 Dec 2025) gives commercial operations from 21 Dec 2025 after a 20 Dec
+      inauguration; AIR News (20 Dec 2025) reports services commenced that day. 8 stations,
+      about 7 km. OSM network "Bhoj Metro", relations 19986926 / 19986927, colour #FB4F14.
+
+fares:
+  type: station_count_slab
+  currency: INR
+  slabs: null
+  discounts:
+    - {media: return_ticket, percent: 5, note: "Hitavada 15 Sep 2026 and FPJ 6 Aug 2026"}
+    - {media: group_ticket, percent: 10, note: "Hitavada 15 Sep 2026 and FPJ 6 Aug 2026"}
+    - {media: app_wallet_bonus, percent: null, note: "Recharge bonus 8% (₹200–499), 10% (₹500–999), 12% (₹1000–1499), 15% (₹1500–2000) per FPJ 6 Aug 2026. This is a top-up bonus, not a fare discount."}
+  notes: >-
+    No complete fare table was found. Free Press Journal (18 Dec 2025): up to one station ₹20,
+    three to five stations ₹30, Subhash Nagar–AIIMS end to end ₹40; the two-station fare is
+    not stated. The Hitavada (19 Dec 2025): minimum fare ₹20, no free-ride period. A
+    third-party table (Yometro: ₹20/30/40/50/60/80 for 1–3/4–6/7–10/...) was found in search
+    but not used.
+  source_urls:
+    - https://www.freepressjournal.in/bhopal/bhopal-news-metro-will-operate-from-9-am-to-7-pm-with-fares-starting-at-20
+    - https://www.thehitavada.com//Encyc/2025/12/19/metro-no-free-ridesfor-citizens-full-fares-to-apply-from-day-one.html
+    - https://www.thehitavada.com/Encyc/2026/9/15/bhopal-metro-15-minute-service-in-evening-peak-hrs-from-today.html
+    - https://www.freepressjournal.in/bhopal/bhopal-metro-to-run-every-15-minutes-on-sundays-services-extended-till-830-pm
+
+notes: >-
+  Carrying passengers on 2026-10-29: The Hitavada (15 Sep 2026) reports daily ridership above
+  1,000 under the new timetable.
+
+sources:
+  - https://www.thehitavada.com/Encyc/2026/9/15/bhopal-metro-15-minute-service-in-evening-peak-hrs-from-today.html
+  - https://www.freepressjournal.in/bhopal/bhopal-metro-to-run-every-15-minutes-on-sundays-services-extended-till-830-pm
+  - https://lalluram.com/change-in-bhopal-metro-service-timings/
+  - https://www.freepressjournal.in/bhopal/bhopal-news-metro-will-operate-from-9-am-to-7-pm-with-fares-starting-at-20
+  - https://www.thehitavada.com//Encyc/2025/12/19/metro-no-free-ridesfor-citizens-full-fares-to-apply-from-day-one.html
+  - https://www.newsonair.gov.in/metro-train-services-officially-commenced-in-bhopal-madhya-pradesh
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[bpl-orange].colour
+  - lines[bpl-orange].timetable.weekday.last
+  - lines[bpl-orange].timetable.saturday
+  - lines[bpl-orange].timetable.sunday.first
+  - lines[bpl-orange].timetable.sunday.headways
+  - lines[bpl-orange].avg_speed_kmh
+  - fares.slabs
+  - bbox   # approximate, not from a source

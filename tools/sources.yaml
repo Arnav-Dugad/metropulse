@@ -1,0 +1,40 @@
+# Machine-readable timetable feeds, per city. Cities not listed here (or whose feed is missing)
+# are built from OpenStreetMap geometry plus the published timetables in cities/<id>.yaml.
+
+bengaluru:
+  gtfs:
+    url: https://raw.githubusercontent.com/Vonter/bmrcl-gtfs/main/gtfs/bmrcl.zip
+    page: https://github.com/Vonter/bmrcl-gtfs
+    quality: estimated   # BMRCL publishes departures; per-station times are modelled by the feed author
+    what: Namma Metro stations, timetable, fares, entrances (unofficial GTFS)
+    licence: ODbL-1.0
+    attribution: "Vonter/bmrcl-gtfs (Vivek Matthew), derived from BMRCL timetables and OpenStreetMap"
+
+hyderabad:
+  gtfs:
+    # The official HMRL GTFS is sent by email after a request form. Place the ZIP here and rebuild;
+    # until then Hyderabad is built from OpenStreetMap with approximate timetables.
+    local: input/hyderabad/hmrl_gtfs.zip
+    page: https://data.telangana.gov.in/
+    quality: scheduled
+    what: Hyderabad Metro official GTFS
+    licence: Open Government Licence - India
+    attribution: Hyderabad Metro Rail Limited (HMRL)
+
+# Delhi: the maintainer has DMRC's permission to convert its GTFS (otd.delhi.gov.in), but the
+# portal's download fails after its request form, and the feed dates from August 2023, so lines
+# and stations opened since are missing. Until the files are in tools/input/delhi/ and merged with
+# the newer sections, Delhi is built like the other OpenStreetMap cities.
+
+# MTA terms (https://www.mta.info/developers/terms-and-conditions): serve the data from a non-MTA
+# server, do not imply MTA licensing or that the data is accurate, complete or timely. The
+# maintainer has the MTA's permission to convert the feed into this app's format; times, stop
+# names and colours are kept as published.
+new-york:
+  gtfs:
+    url: https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+    page: https://www.mta.info/developers
+    quality: scheduled
+    what: NYC Subway and Staten Island Railway stations, scheduled timetable and shapes (official MTA static GTFS)
+    licence: MTA data feed terms and conditions (https://www.mta.info/developers/terms-and-conditions, updated 2024-03-13)
+    attribution: "Data obtained from the Metropolitan Transportation Authority (MTA) and stored on MetroPulse's own server. MetroPulse is not licensed or endorsed by the MTA, and the MTA does not warrant that the data is accurate, complete or timely."

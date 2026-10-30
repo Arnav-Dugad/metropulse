@@ -1,0 +1,76 @@
+id: patna
+name: Patna
+state: Bihar
+timezone: Asia/Kolkata
+# APPROXIMATE envelope around Patliputra Bus Terminal (ISBT) and Malahi Pakri. Not from an
+# operator source; verify against the OSM relation bounds.
+bbox: [25.57, 85.05, 25.63, 85.19]
+checked: 2026-10-29
+
+lines:
+  - id: pat-blue
+    name: Blue Line
+    long_name: Patliputra Bus Terminal (ISBT) – Malahi Pakri
+    operator: Patna Metro Rail Corporation (PMRCL)
+    colour: null
+    colour_source: null
+    mode: metro
+    termini: [Patliputra Bus Terminal, Malahi Pakri]
+    opened: 2025-10-07
+    osm:
+      ref: "2"
+      name_contains: "Blue Line: Patliputra Bus Terminal"
+    timetable:
+      weekday:
+        first: "08:00"
+        last: "22:00"
+        headways:
+          - {from: "08:00", to: "22:00", minutes: 35}
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.patrika.com/en/patna-news/patna-metro-bihars-first-metro-to-run-in-patna-from-today-train-every-20-minutes-know-full-timings-fare-and-route-20002051
+      - https://www.newkerala.com/news/a/patna-metro-expands-malahi-pakri-offering-faster-commute-310.htm
+    notes: >-
+      NEWS ONLY; no PMRCL page was read. Hours 08:00–22:00 daily are from Patrika's launch
+      article (6 Oct 2025, "from 8 AM to 10 PM", initially every 20 min). These hours may have
+      changed since; no later source on hours was found. Headway of about 35 min is from
+      NewKerala's report on the Malahi Pakri extension (about Jul 2026; the article is undated
+      in the fetch): trips cut from 24 to 22 per day, "intervals of approximately 35 minutes",
+      round trip about 35 min. Same-every-day is assumed from Patrika's "daily". Opening: public
+      service from 7 Oct 2025 between ISBT, Zero Mile and Bhootnath (Patrika; search results).
+      Extended to Malahi Pakri on 2 Jul 2026 (Wikipedia via search). Khemnichak station is
+      built but trains do not stop there (NewKerala). Line length about 6.2 km. OSM relations
+      19717508 / 19717509 ("Blue Line: Patliputra Bus Terminal → Malahi Pakri", ref 2, colour
+      #4169E1).
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs:
+    - {max_km: 2, fare: 15}
+    - {max_km: 5, fare: 20}
+    - {max_km: 10, fare: 30}
+  discounts: []
+  notes: >-
+    Slabs from Patrika (6 Oct 2025, launch). NewKerala (Jul 2026) gives ISBT–Malahi Pakri
+    (6.2 km) as ₹30, consistent with the 5–10 km slab. A smart card discount of about 10% appears
+    only on unofficial guide sites, so it is not recorded.
+  source_urls:
+    - https://www.patrika.com/en/patna-news/patna-metro-bihars-first-metro-to-run-in-patna-from-today-train-every-20-minutes-know-full-timings-fare-and-route-20002051
+    - https://www.newkerala.com/news/a/patna-metro-expands-malahi-pakri-offering-faster-commute-310.htm
+
+notes: ""
+
+sources:
+  - https://www.patrika.com/en/patna-news/patna-metro-bihars-first-metro-to-run-in-patna-from-today-train-every-20-minutes-know-full-timings-fare-and-route-20002051
+  - https://www.newkerala.com/news/a/patna-metro-expands-malahi-pakri-offering-faster-commute-310.htm
+  - https://en.wikipedia.org/wiki/Malahi_Pakri_metro_station
+  - https://overpass-api.de/api/interpreter  # OSM relation listing, read 2026-10-29
+
+unknowns:
+  - lines[pat-blue].colour
+  - lines[pat-blue].avg_speed_kmh
+  - fares.discounts
+  - bbox   # approximate, not from a source

@@ -1,0 +1,656 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-30T05:51:56Z",
+  "cities": [
+    {
+      "id": "agra",
+      "name": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "none",
+      "lines": 1,
+      "stations": 6,
+      "center": [
+        27.16629,
+        78.03776
+      ],
+      "bbox": [
+        27.15,
+        78.0,
+        27.2,
+        78.07
+      ],
+      "size": 147456,
+      "sha256": "3e97b73cbc55b4844cddf6a355ed575031f025bf5cba7cef4e124088030648ef",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/agra.db"
+    },
+    {
+      "id": "ahmedabad",
+      "name": "Ahmedabad – Gandhinagar",
+      "state": "Gujarat",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "partial",
+      "lines": 4,
+      "stations": 53,
+      "center": [
+        23.09278,
+        72.60406
+      ],
+      "bbox": [
+        22.98,
+        72.49,
+        23.25,
+        72.7
+      ],
+      "size": 208896,
+      "sha256": "50147dbfe124d6e7173c586bbc0bd874564d01464bd8c9d52c182ee2c8d8933e",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/ahmedabad.db"
+    },
+    {
+      "id": "bengaluru",
+      "name": "Bengaluru",
+      "state": "Karnataka",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "estimated",
+      "timetable": "full",
+      "lines": 3,
+      "stations": 83,
+      "center": [
+        12.9538,
+        77.59477
+      ],
+      "bbox": [
+        12.81,
+        77.46,
+        13.06,
+        77.76
+      ],
+      "size": 598016,
+      "sha256": "b23555ff0ab967fa233bc8066d1d31b9bd657eeab603e2202e3b689166941e74",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/bengaluru.db"
+    },
+    {
+      "id": "bhopal",
+      "name": "Bhopal",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "unknown",
+      "lines": 1,
+      "stations": 8,
+      "center": [
+        23.22649,
+        77.43965
+      ],
+      "bbox": [
+        23.18,
+        77.39,
+        23.27,
+        77.48
+      ],
+      "size": 147456,
+      "sha256": "ec8f67ec46cbc9b6a9920923491273a2a8a802cc8d82a79553e22f92f7de3063",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/bhopal.db"
+    },
+    {
+      "id": "chennai",
+      "name": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "full",
+      "lines": 4,
+      "stations": 52,
+      "center": [
+        13.06714,
+        80.2203
+      ],
+      "bbox": [
+        12.98,
+        80.08,
+        13.19,
+        80.31
+      ],
+      "size": 249856,
+      "sha256": "50968bae989617b04b1b7db7f3e65165553989f203c2ea8d7b7d688fc6154aeb",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/chennai.db"
+    },
+    {
+      "id": "delhi",
+      "name": "Delhi",
+      "state": "Delhi NCR",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "none",
+      "lines": 11,
+      "stations": 253,
+      "center": [
+        28.61729,
+        77.20056
+      ],
+      "bbox": [
+        28.33,
+        76.88,
+        28.77,
+        77.42
+      ],
+      "size": 352256,
+      "sha256": "5d0dc5fd74f6cc5331e2d1e9e02ef2a80b1d72b0b6cc74918d3c0c1913750e64",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/delhi.db"
+    },
+    {
+      "id": "doha",
+      "name": "Doha",
+      "state": "Doha",
+      "country": "Qatar",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "unknown",
+      "lines": 3,
+      "stations": 37,
+      "center": [
+        25.29236,
+        51.51161
+      ],
+      "bbox": [
+        25.19,
+        51.34,
+        25.42,
+        51.62
+      ],
+      "size": 172032,
+      "sha256": "66f89593db7ecc4de470347ba38e304080651abeaaa98a24d79560ed62e9f3b8",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/doha.db"
+    },
+    {
+      "id": "dubai",
+      "name": "Dubai",
+      "state": "Dubai",
+      "country": "United Arab Emirates",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "none",
+      "lines": 2,
+      "stations": 52,
+      "center": [
+        25.18296,
+        55.26544
+      ],
+      "bbox": [
+        24.96,
+        55.09,
+        25.29,
+        55.41
+      ],
+      "size": 180224,
+      "sha256": "11d19bb63b1df8dffcf6559a92bd58d4424437e5eccb21c61eefa497f1599876",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/dubai.db"
+    },
+    {
+      "id": "gurugram",
+      "name": "Gurugram",
+      "state": "Haryana",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "full",
+      "lines": 1,
+      "stations": 11,
+      "center": [
+        28.47129,
+        77.09586
+      ],
+      "bbox": [
+        28.41,
+        77.06,
+        28.5,
+        77.12
+      ],
+      "size": 184320,
+      "sha256": "3e3e2ad80511b286826fd4321d100020ce54f04d3e56a6431589f3b84b7255df",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/gurugram.db"
+    },
+    {
+      "id": "hyderabad",
+      "name": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "partial",
+      "lines": 3,
+      "stations": 58,
+      "center": [
+        17.42374,
+        78.47079
+      ],
+      "bbox": [
+        17.34,
+        78.37,
+        17.5,
+        78.57
+      ],
+      "size": 217088,
+      "sha256": "3af6d41f25294cd81f2efb542891317cb896a218f69a5fc01687c4783aeb4247",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/hyderabad.db"
+    },
+    {
+      "id": "indore",
+      "name": "Indore",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "unknown",
+      "lines": 1,
+      "stations": 16,
+      "center": [
+        22.76316,
+        75.84825
+      ],
+      "bbox": [
+        22.7,
+        75.78,
+        22.78,
+        75.92
+      ],
+      "size": 147456,
+      "sha256": "117da97414850597c25f3245bcd3e6f653e504cf47208bfcfe69f2743f0f5313",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/indore.db"
+    },
+    {
+      "id": "jaipur",
+      "name": "Jaipur",
+      "state": "Rajasthan",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "full",
+      "lines": 1,
+      "stations": 11,
+      "center": [
+        26.90644,
+        75.7866
+      ],
+      "bbox": [
+        26.86,
+        75.73,
+        26.94,
+        75.85
+      ],
+      "size": 155648,
+      "sha256": "323a2d3ccc2c3e2e854b20a852b1bda8e3620353f073766919461469bee659e0",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/jaipur.db"
+    },
+    {
+      "id": "kanpur",
+      "name": "Kanpur",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "partial",
+      "lines": 1,
+      "stations": 14,
+      "center": [
+        26.48357,
+        80.30566
+      ],
+      "bbox": [
+        26.43,
+        80.21,
+        26.53,
+        80.37
+      ],
+      "size": 159744,
+      "sha256": "d4210d634e3043a2e1d6eaf2f593c110d919dbd9543b129e373c043d6aa96736",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/kanpur.db"
+    },
+    {
+      "id": "kochi",
+      "name": "Kochi",
+      "state": "Kerala",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "full",
+      "lines": 1,
+      "stations": 25,
+      "center": [
+        10.00863,
+        76.31745
+      ],
+      "bbox": [
+        9.95,
+        76.28,
+        10.12,
+        76.36
+      ],
+      "size": 172032,
+      "sha256": "59bb8c3f468acfbe58b05a10cd98f96b1479e8a2a6dd6f565f733a81bede2905",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/kochi.db"
+    },
+    {
+      "id": "kolkata",
+      "name": "Kolkata",
+      "state": "West Bengal",
+      "country": "India",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "full",
+      "lines": 5,
+      "stations": 56,
+      "center": [
+        22.54842,
+        88.3704
+      ],
+      "bbox": [
+        22.45,
+        88.3,
+        22.66,
+        88.44
+      ],
+      "size": 282624,
+      "sha256": "f3f98f20c147502786c26dedb93ffe7d7a5f00903bb726fe6a62b73af462a35f",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/kolkata.db"
+    },
+    {
+      "id": "london",
+      "name": "London",
+      "state": "England",
+      "country": "United Kingdom",
+      "version": 202610300549,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "full",
+      "lines": 16,
+      "stations": 318,
+      "center": [
+        51.53345,
+        -0.14942
+      ],
+      "bbox": [
+        51.4,
+        -0.62,
+        51.71,
+        0.26
+      ],
+      "size": 2277376,
+      "sha256": "7cdc2cf071f6c8acb11be3dc55061ed189f8863183546943ba76d15a5690cc05",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/london.db"
+    },
+    {
+      "id": "lucknow",
+      "name": "Lucknow",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "version": 202610300550,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "partial",
+      "lines": 1,
+      "stations": 21,
+      "center": [
+        26.83478,
+        80.93016
+      ],
+      "bbox": [
+        26.75,
+        80.86,
+        26.91,
+        81.01
+      ],
+      "size": 159744,
+      "sha256": "24ac18221700ee7f06f2b8a937e3383c21d32ac4d23201c9bd76bd58195f5117",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/lucknow.db"
+    },
+    {
+      "id": "meerut",
+      "name": "Meerut",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "version": 202610300550,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "none",
+      "lines": 1,
+      "stations": 12,
+      "center": [
+        28.9839,
+        77.68562
+      ],
+      "bbox": [
+        28.9,
+        77.64,
+        29.09,
+        77.74
+      ],
+      "size": 147456,
+      "sha256": "f1925101cf0783b8181665b07576438fa0cdd678efcf9c0c13a3aa0eae0f1905",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/meerut.db"
+    },
+    {
+      "id": "mumbai",
+      "name": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "version": 202610300550,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "partial",
+      "lines": 6,
+      "stations": 78,
+      "center": [
+        19.11728,
+        72.85544
+      ],
+      "bbox": [
+        18.9,
+        72.8,
+        19.29,
+        72.95
+      ],
+      "size": 258048,
+      "sha256": "daad278706ecd166584a907cf8f455239e11f78c3ce47b1b104e4a5ad0d74034",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/mumbai.db"
+    },
+    {
+      "id": "nagpur",
+      "name": "Nagpur",
+      "state": "Maharashtra",
+      "country": "India",
+      "version": 202610300550,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "partial",
+      "lines": 2,
+      "stations": 37,
+      "center": [
+        21.13211,
+        79.07715
+      ],
+      "bbox": [
+        21.04,
+        78.99,
+        21.2,
+        79.16
+      ],
+      "size": 176128,
+      "sha256": "78c8017b15876ececa6563242e6ed48b97fe16b9fa62c950a05d52f987676aee",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/nagpur.db"
+    },
+    {
+      "id": "navi-mumbai",
+      "name": "Navi Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "version": 202610300550,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "full",
+      "lines": 1,
+      "stations": 11,
+      "center": [
+        19.04728,
+        73.06949
+      ],
+      "bbox": [
+        19.01,
+        73.03,
+        19.09,
+        73.11
+      ],
+      "size": 147456,
+      "sha256": "b1e139833ec9c40203614c193724cf94a3e2ca93bccae54e044dc87fb7ecf8b6",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/navi-mumbai.db"
+    },
+    {
+      "id": "new-york",
+      "name": "New York",
+      "state": "New York",
+      "country": "United States",
+      "version": 202610300551,
+      "schema_version": 1,
+      "quality": "scheduled",
+      "timetable": "full",
+      "lines": 29,
+      "stations": 496,
+      "center": [
+        40.7232,
+        -73.94595
+      ],
+      "bbox": [
+        40.49,
+        -74.27,
+        40.92,
+        -73.73
+      ],
+      "size": 3907584,
+      "sha256": "f84c84fc650aa3434364f0569577f4cd88dfdd19860a129648e23a5332fb95b8",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/new-york.db"
+    },
+    {
+      "id": "noida",
+      "name": "Noida",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "version": 202610300551,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "partial",
+      "lines": 1,
+      "stations": 21,
+      "center": [
+        28.50354,
+        77.4447
+      ],
+      "bbox": [
+        28.44,
+        77.34,
+        28.6,
+        77.54
+      ],
+      "size": 155648,
+      "sha256": "f18313a3c440619ab69e5968d2f96eb248348d0c0fa3d4528a6023ff0b01ac34",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/noida.db"
+    },
+    {
+      "id": "patna",
+      "name": "Patna",
+      "state": "Bihar",
+      "country": "India",
+      "version": 202610300551,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "full",
+      "lines": 1,
+      "stations": 5,
+      "center": [
+        25.58514,
+        85.17416
+      ],
+      "bbox": [
+        25.57,
+        85.05,
+        25.63,
+        85.19
+      ],
+      "size": 147456,
+      "sha256": "2a533a5a68b98a462ddb59767d0b043ef5b8a1a09f7b832d36b0c867fbfac8f2",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/patna.db"
+    },
+    {
+      "id": "pune",
+      "name": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "version": 202610300551,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "partial",
+      "lines": 2,
+      "stations": 29,
+      "center": [
+        18.54357,
+        73.84837
+      ],
+      "bbox": [
+        18.49,
+        73.79,
+        18.64,
+        73.92
+      ],
+      "size": 176128,
+      "sha256": "16b0777d8af7529776b6fc819d8b18b427b6e2e7314aa41ec0f50db0990eee4f",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/pune.db"
+    },
+    {
+      "id": "riyadh",
+      "name": "Riyadh",
+      "state": "Riyadh Province",
+      "country": "Saudi Arabia",
+      "version": 202610300551,
+      "schema_version": 1,
+      "quality": "approximate",
+      "timetable": "none",
+      "lines": 6,
+      "stations": 83,
+      "center": [
+        24.70598,
+        46.71101
+      ],
+      "bbox": [
+        24.56,
+        46.54,
+        24.97,
+        46.87
+      ],
+      "size": 233472,
+      "sha256": "8953abeef74468dde72d7ddbea9d54771077f70321329d142d74cb3fc43b1ea0",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/riyadh.db"
+    }
+  ]
+}

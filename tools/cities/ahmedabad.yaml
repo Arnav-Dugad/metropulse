@@ -1,0 +1,211 @@
+# Ahmedabad – Gandhinagar Metro (GMRC), all lines open on 2026-10-29, in one file.
+# Excluded: Phase 2A/2B (Airport and GIFT City extensions) and Sabarmati Railway Station / Shahpur
+# stations shown "WORK IN PROGRESS" in GMRC's journey planner.
+id: ahmedabad
+name: Ahmedabad – Gandhinagar
+state: Gujarat
+timezone: Asia/Kolkata
+bbox: [22.98, 72.49, 23.25, 72.70]   # from OSM bounds of the operating route relations, +~0.01 margin
+checked: 2026-10-29
+
+lines:
+  - id: ahd-blue
+    name: Blue Line
+    long_name: Vastral Gam – Thaltej Gam (Line 1, East–West)
+    operator: Gujarat Metro Rail Corporation Ltd (GMRC)
+    colour: "#0181C8"
+    colour_source: "operator network map https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/RoutInfo/GMRC-Route-Map.jpg (legend swatch, sampled from JPEG)"
+    mode: metro
+    termini: [Vastral Gam, Thaltej Gam]
+    opened: 2019-03-06
+    osm:
+      ref: "1"
+      name_contains: "Blue Line"
+    timetable:
+      weekday:
+        first: "06:20"
+        last: "23:00"
+        headways:
+          - {from: "06:20", to: "07:00", minutes: 20}
+          - {from: "07:00", to: "08:00", minutes: 10}
+          - {from: "08:00", to: "11:00", minutes: 7}
+          - {from: "11:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:00", minutes: 7}
+          - {from: "20:00", to: "22:00", minutes: 10}
+          - {from: "22:00", to: "23:00", minutes: 20}
+      saturday:
+        first: "06:20"
+        last: "23:00"
+        headways:
+          - {from: "06:20", to: "07:00", minutes: 20}
+          - {from: "07:00", to: "08:00", minutes: 12}
+          - {from: "08:00", to: "11:00", minutes: 10}
+          - {from: "11:00", to: "17:00", minutes: 12}
+          - {from: "17:00", to: "20:00", minutes: 10}
+          - {from: "20:00", to: "22:00", minutes: 12}
+          - {from: "22:00", to: "23:00", minutes: 20}
+      sunday:
+        first: "06:20"
+        last: "23:00"
+        headways:
+          - {from: "06:20", to: "07:00", minutes: 20}
+          - {from: "07:00", to: "22:00", minutes: 12}
+          - {from: "22:00", to: "23:00", minutes: 20}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/2026/05/Revised-Time-Table-on-18.05.2026updated.jpg
+      - https://www.gujaratmetrorail.com/ahmedabad/
+    notes: >-
+      GMRC timetable w.e.f. 2026-05-18: weekday peak "8:00 Hrs to 11:00 Hrs and 17:00 Hrs to
+      20:00 Hrs" every 7 min; weekday non-peak and Saturday peak every 10 min; Saturday non-peak
+      and Sunday full day every 12 min; all days 06:20–07:00 and 22:00–23:00 every 20 min. First
+      06:20 and last 23:00 from both Vastral Gam and Thaltej Gam. Saturday peak hours are not
+      defined separately; the weekday peak windows are assumed for Saturday. End-to-end 45 min,
+      21.1 km (published; no commercial speed published). Thaltej Gam station opened 2024-12-08
+      (Wikipedia). Colour: the same timetable sheet marks Line 1 with a lighter blue bar (~#00B3FA);
+      the network-map value is used.
+
+  - id: ahd-red
+    name: Red Line
+    long_name: APMC – Koteshwar Road (Line 2, North–South)
+    operator: Gujarat Metro Rail Corporation Ltd (GMRC)
+    colour: "#E31E25"
+    colour_source: "operator network map https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/RoutInfo/GMRC-Route-Map.jpg (legend swatch, sampled from JPEG)"
+    mode: metro
+    termini: [APMC, Koteshwar Road]
+    opened: 2022-10-06
+    osm:
+      ref: "2"
+      name_contains: "Red Line"
+    timetable:
+      weekday:
+        first: "06:16"
+        last: "23:10"
+        headways:
+          - {from: "06:16", to: "22:00", minutes: 12}
+          - {from: "22:00", to: "23:10", minutes: 20}
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/2026/05/Revised-Time-Table-on-18.05.2026updated.jpg
+    notes: >-
+      GMRC timetable w.e.f. 2026-05-18: "Monday to Sunday (From 06:16 Hrs. to 22:00 Hrs.)" every
+      12 min; 22:00–23:00 every 20 min. First 06:20 from APMC, 06:16 from Koteshwar Road; last 23:10
+      from APMC, 23:00 from Koteshwar Road. End-to-end 35 min, 20.2 km. The operating line now ends
+      at Koteshwar Road (one stop beyond Motera Stadium); OSM relations still end at Motera Stadium.
+      Opened to the public 2022-10-06 (inaugurated 2022-09-30) per Wikipedia.
+
+  - id: ahd-yellow
+    name: Yellow Line
+    long_name: Koteshwar Road – Mahatma Mandir (Line 3, Phase 2 Corridor-1, Gandhinagar)
+    operator: Gujarat Metro Rail Corporation Ltd (GMRC)
+    colour: "#FFFE00"
+    colour_source: "operator timetable sheet line bar, https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/2026/05/Revised-Time-Table-on-18.05.2026updated.jpg (sampled from JPEG)"
+    mode: metro
+    termini: [Koteshwar Road, Mahatma Mandir]
+    opened: 2024-09-17
+    osm:
+      ref: "3"
+      name_contains: "Yellow Line"
+    timetable:
+      weekday:
+        first: "06:40"
+        last: "21:20"
+        headways:
+          - {from: "06:40", to: "08:00", minutes: 40}
+          - {from: "08:00", to: "21:20", minutes: 24}
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/2026/05/Revised-Time-Table-on-18.05.2026updated.jpg
+      - https://www.gujaratmetrorail.com/wp-content/uploads/2026/04/Tentative-TT-18.05.26.pdf
+    notes: >-
+      GMRC timetable w.e.f. 2026-05-18, "Monday to Sunday": 06:40–08:00 "Average 40 Minutes",
+      08:00–21:00 "Average 24 Minutes" (extended here to the last departure). First 06:55 from
+      Koteshwar Road, 06:40 from Mahatma Mandir; last 21:20 from Koteshwar Road, 21:00 from Mahatma
+      Mandir. 43 min, 20.87 km. GMRC's trip-level "tentative" timetable PDF shows these trains
+      running through from/to APMC on the Red Line. The network map draws all N–S services in red
+      (#E31E25); the timetable sheet's yellow bar is used to distinguish the line, matching the
+      "Yellow Line" name used in OSM (colour tag #FFFF00). Motera–Sector 1 opened 2024-09-17;
+      Sector 1–Mahatma Mandir opened in 2025–2026 (Wikipedia).
+
+  - id: ahd-violet
+    name: Violet Line
+    long_name: GNLU – GIFT City (Line 4, Phase 2 Corridor-2, Gandhinagar)
+    operator: Gujarat Metro Rail Corporation Ltd (GMRC)
+    colour: "#712CA5"
+    colour_source: "operator timetable sheet line bar, https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/2026/05/Revised-Time-Table-on-18.05.2026updated.jpg (sampled from JPEG)"
+    mode: metro
+    termini: [GNLU, GIFT City]
+    opened: 2024-09-17
+    osm:
+      ref: "4"
+      name_contains: "Violet Line"
+    timetable:
+      weekday:
+        first: "07:36"
+        last: "19:13"
+        headways:
+          - {from: "07:36", to: "10:18", minutes: 49}
+          - {from: "10:18", to: "16:06", minutes: null}
+          - {from: "16:06", to: "19:13", minutes: 57}
+      saturday: {first: null, last: null, headways: null}
+      sunday: {first: null, last: null, headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/2026/05/Revised-Time-Table-on-18.05.2026updated.jpg
+    notes: >-
+      GMRC timetable w.e.f. 2026-05-18: 07:36–10:18 "Average 49 Minutes"; 10:18–16:06 "Only Bus
+      Services for GNLU-GIFT City" (no trains: minutes null); 16:06–19:13 "Average 57 Minutes".
+      First 07:36 from GNLU, 07:48 from GIFT City; last 18:57 from GNLU, 19:13 from GIFT City.
+      6 min, 5.8 km. The sheet does not say which days this applies to (Lines 2 and 3 say "Monday
+      to Sunday"; Line 4 does not), so Saturday/Sunday are null. Network map draws it red (#E31E25).
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs:
+    - {max_km: 2.5, fare: 5}
+    - {max_km: 7.5, fare: 10}
+    - {max_km: 12.5, fare: 15}
+    - {max_km: 17.5, fare: 20}
+    - {max_km: 22.5, fare: 25}
+    - {max_km: 30, fare: 30}
+    - {max_km: 37.5, fare: 35}
+    - {max_km: null, fare: 40}
+  discounts:
+    - {media: smart_card, percent: 10, note: "GMRC smart card (CSC): 10% on completion of journey; CSC/token valid only within Phase 1 (Ahmedabad) stations"}
+    - {media: ncmc, percent: 10, note: "NCMC card: 10% on completion of journey across the GMRC network"}
+  notes: >-
+    No published km-slab table was found. Slabs were derived on 2026-10-29 from GMRC's own
+    route-and-fare calculator (wp-admin/admin-ajax.php action=get_fare, ~100 station pairs; it
+    returns single-journey token fare and km): 5 for 0.92–2.40 km, 10 for 3.06–7.05, 15 for
+    7.53–12.50, 20 for 13.41–17.39, 25 for 17.57–22.95, 30 for 22.75–29.66, 35 for 30.09–37.15,
+    40 for 37.99–45.70 km. Neighbouring slabs overlap by ~0.3 km, so boundaries are approximate;
+    the 5/10/15/20/25 steps at 2.5 km then 5 km intervals match early reports of Rs 5 for the first
+    2.5 km. Maximum observed fare Rs 40. Tokens and GMRC CSC cannot be used between Phase 1 and
+    Phase 2 stations (fare rules page); QR tickets have no published discount.
+  source_urls:
+    - https://www.gujaratmetrorail.com/ahmedabad/route-and-fares/
+    - https://www.gujaratmetrorail.com/ahmedabad/fare-rules/
+    - https://www.gujaratmetrorail.com/ahmedabad/smart-cards/
+    - https://www.gujaratmetrorail.com/ahmedabad/national-common-mobility-card-ncmc/
+
+sources:
+  - https://www.gujaratmetrorail.com/
+  - https://www.gujaratmetrorail.com/ahmedabad/
+  - https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/2026/05/Revised-Time-Table-on-18.05.2026updated.jpg
+  - https://www.gujaratmetrorail.com/wp-content/uploads/2026/04/Tentative-TT-18.05.26.pdf
+  - https://www.gujaratmetrorail.com/ahmedabad/wp-content/uploads/RoutInfo/GMRC-Route-Map.jpg
+  - https://www.gujaratmetrorail.com/ahmedabad/route-and-fares/
+  - https://www.gujaratmetrorail.com/ahmedabad/fare-rules/
+  - https://www.gujaratmetrorail.com/ahmedabad/smart-cards/
+  - https://www.gujaratmetrorail.com/ahmedabad/national-common-mobility-card-ncmc/
+  - https://en.wikipedia.org/wiki/Ahmedabad_Metro
+unknowns:
+  - lines.ahd-violet.timetable.saturday
+  - lines.ahd-violet.timetable.sunday
+  - lines.*.avg_speed_kmh
+  - fares.slabs (exact boundaries; derived from calculator)

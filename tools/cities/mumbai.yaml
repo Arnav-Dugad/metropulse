@@ -1,0 +1,362 @@
+# Mumbai Metro: lines open to passengers on 2026-10-29.
+# Excluded on purpose:
+#  - Mumbai Monorail (Chembur - Sant Gadge Maharaj Chowk): suspended since 2025-09-20; still not
+#    reopened per FPJ 2026-07-20 and 2026-09-01 reports (no later reopening found).
+#  - Line 4/4A (Thane): trials only; MMRDA targets Nov-Dec 2026 (FPJ, Swarajya 2026-08-30).
+#  - Line 9 Phase 2 (beyond Kashigaon): integration trials Sept 2026 (MMMOCL release
+#    M3/Media Dept./24/2026); not open.
+id: mumbai
+name: Mumbai
+state: Maharashtra
+timezone: Asia/Kolkata
+bbox: [18.90, 72.80, 19.29, 72.95]   # from OSM bounds of the operating route relations, +~0.01 margin
+checked: 2026-10-29
+
+lines:
+  - id: mum-l1
+    name: Line 1
+    long_name: Versova – Ghatkopar
+    operator: Mumbai Metro One Pvt Ltd (MMOPL)
+    colour: "#00AEEF"
+    colour_source: "operator network map (MMRDA/MMMOCL line map SVG): https://www.mmmocl.co.in/assets/images/line1-map.svg"
+    mode: metro
+    termini: [Versova, Ghatkopar]
+    opened: 2014-06-08
+    osm:
+      ref: "1"
+      name_contains: "Line 1"
+    timetable:
+      weekday:
+        first: "05:30"
+        last: "23:50"
+        headways:
+          - {from: "05:30", to: "08:00", minutes: 7}
+          - {from: "08:00", to: "11:00", minutes: 3.5}
+          - {from: "11:00", to: "17:00", minutes: 7}
+          - {from: "17:00", to: "20:00", minutes: 3.5}
+          - {from: "20:00", to: "23:50", minutes: 7}
+      saturday: {first: null, last: null, headways: null}
+      sunday: {first: null, last: null, headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.reliancemumbaimetro.com/metro-train-schedule.aspx
+      - https://www.reliancemumbaimetro.com/
+    notes: >-
+      MMOPL schedule page (read 2026-10-29): weekdays first train 05:30 from both Versova and
+      Ghatkopar; last train 23:25 from Versova and 23:50 from Ghatkopar. Headway "3.5 minutes"
+      in peak hours and "gradually increases to 7 minutes" in non-peak hours; the off-peak 7 min
+      is the published upper value. Peak hours are not published; peak windows 08:00–11:00 and
+      17:00–20:00 are an assumption. Saturdays, Sundays and public holidays follow "a different
+      schedule depending on commuter footfall" which is not published, so weekend values are null.
+
+  - id: mum-l2a
+    name: Line 2A
+    long_name: Andheri (West) – Dahisar (East)
+    operator: Maha Mumbai Metro Operation Corporation Ltd (MMMOCL), for MMRDA
+    colour: "#FFC600"
+    colour_source: "operator network map (MMMOCL line map SVG): https://www.mmmocl.co.in/assets/images/lines2a-map.svg"
+    mode: metro
+    termini: [Andheri (West), Dahisar (East)]
+    opened: 2022-04-02
+    osm:
+      ref: "2"
+      name_contains: "Line 2 ("
+    timetable:
+      weekday:
+        first: "05:55"
+        last: "23:00"
+        headways:
+          - {from: "05:55", to: "08:00", minutes: 10}
+          - {from: "08:00", to: "11:00", minutes: 6}
+          - {from: "11:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:00", minutes: 6}
+          - {from: "20:00", to: "23:00", minutes: 10}
+      saturday: {first: "05:55", last: "23:00", headways: null}
+      sunday: {first: "05:55", last: "23:00", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.mmmocl.co.in/train-time-table
+      - https://www.mmmocl.co.in/uploads/news_pdf/73.pdf
+      - https://www.mmmocl.co.in/network_under_operation
+    notes: >-
+      Since 2026-04-08 Line 2A runs as a standalone corridor (no through trains to Line 7);
+      interchange at Dahisar (East) inside the paid area (MMRDA release PRC/PR/20/2026, 2026-04-06).
+      First/last from the MMMOCL timetable page: Andheri (W) 05:55 / 23:00, Dahisar (E) 06:00 / 22:35
+      (a short working leaves Dahanukarwadi at 05:50; another runs Dahisar (E)–Dahanukarwadi until 23:35).
+      Headway per the 2026-04-06 release: peak 6 min, non-peak "8–10 minutes"; 10 min (upper bound) is
+      used for non-peak. Peak hours are not published; peak windows 08:00–11:00 and 17:00–20:00 are an
+      assumption. The release gives 289 weekday, 231 Saturday and 213 Sunday trips but no weekend
+      headways, so weekend headways are null; the timetable page shows one set of first/last times
+      with no day-of-week split, which is used for weekends. Note: the OSM relation is tagged ref "2"
+      and named "Line 2 (Andheri West → Dahisar (East))".
+
+  - id: mum-l7
+    name: Line 7
+    long_name: Gundavali – Dahisar (East)
+    operator: Maha Mumbai Metro Operation Corporation Ltd (MMMOCL), for MMRDA
+    colour: "#DA291C"
+    colour_source: "operator network map (MMMOCL line map SVG): https://www.mmmocl.co.in/assets/images/line7-map.svg"
+    mode: metro
+    termini: [Gundavali, Dahisar (East)]
+    opened: 2022-04-02
+    osm:
+      ref: "7"
+      name_contains: "Line 7"
+    timetable:
+      weekday:
+        first: "05:58"
+        last: "23:00"
+        headways:
+          - {from: "05:58", to: "08:00", minutes: 10}
+          - {from: "08:00", to: "11:00", minutes: 5.83}
+          - {from: "11:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:00", minutes: 5.83}
+          - {from: "20:00", to: "23:00", minutes: 10}
+      saturday: {first: "05:58", last: "23:00", headways: null}
+      sunday: {first: "05:58", last: "23:00", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.mmmocl.co.in/train-time-table
+      - https://www.mmmocl.co.in/uploads/news_pdf/73.pdf
+      - https://www.mmmocl.co.in/network_under_operation
+    notes: >-
+      Since 2026-04-08 Line 7 trains run through onto Line 9 as one "Red Line" service
+      Gundavali – Kashigaon (19.79 km) (MMRDA release PRC/PR/20/2026, 2026-04-06). Timetable page:
+      Gundavali→Kashigaon first 06:00 / last 23:00; Dahisar (E)→Gundavali first 05:58 / last 22:38;
+      Kashigaon→Gundavali first 05:50 / last 22:30. Peak headway "5:50 minutes" (5 min 50 s = 5.83),
+      non-peak "8–10 minutes" (10 used, upper bound). Peak hours are not published; peak windows
+      08:00–11:00 and 17:00–20:00 are an assumption. 276 weekday / 223 Saturday / 205 Sunday trips;
+      weekend headways not published (null).
+
+  - id: mum-l9
+    name: Line 9
+    long_name: Dahisar (East) – Kashigaon
+    operator: Maha Mumbai Metro Operation Corporation Ltd (MMMOCL), for MMRDA
+    colour: "#DA291C"
+    colour_source: "operator network map (MMMOCL line map SVG): https://www.mmmocl.co.in/assets/images/line9-map.svg"
+    mode: metro
+    termini: [Dahisar (East), Kashigaon]
+    opened: 2026-04-08
+    osm:
+      ref: "9"
+      name_contains: "Line 9"
+    timetable:
+      weekday:
+        first: "05:50"
+        last: "23:33"
+        headways:
+          - {from: "05:50", to: "08:00", minutes: 10}
+          - {from: "08:00", to: "11:00", minutes: 5.83}
+          - {from: "11:00", to: "17:00", minutes: 10}
+          - {from: "17:00", to: "20:00", minutes: 5.83}
+          - {from: "20:00", to: "23:33", minutes: 10}
+      saturday: {first: "05:50", last: "23:33", headways: null}
+      sunday: {first: "05:50", last: "23:33", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.mmmocl.co.in/train-time-table
+      - https://www.mmmocl.co.in/uploads/news_pdf/73.pdf
+      - https://www.mmmocl.co.in/network_under_operation
+    notes: >-
+      Phase 1 only (4 stations: Dahisar (E), Pandurangwadi, Miragaon, Kashigaon; 4.68 km per MMMOCL).
+      Services began 2026-04-08 (MMRDA release dated 2026-04-06). Trains are the Line 7 through
+      service Gundavali – Kashigaon, so headways equal Line 7's. Timetable page: Kashigaon→Gundavali
+      first 05:50 / last 22:30; Dahisar (E)→Kashigaon first 06:33 / last 23:33. Peak windows
+      08:00–11:00 and 17:00–20:00 are an assumption; non-peak 10 min is the upper bound of "8–10".
+
+  - id: mum-l2b
+    name: Line 2B
+    long_name: Maharashtra Nagar (Mandale) – Chembur
+    operator: Maha Mumbai Metro Operation Corporation Ltd (MMMOCL), for MMRDA
+    colour: "#FFC600"
+    colour_source: "operator network map (MMMOCL line map SVG): https://www.mmmocl.co.in/assets/images/line2b-map.svg"
+    mode: metro
+    termini: [Maharashtra Nagar (Mandale), Chembur]
+    opened: 2026-04-08
+    osm:
+      ref: "2B"
+      name_contains: "Line 2B"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "22:30"
+        headways:
+          - {from: "06:00", to: "22:30", minutes: 9.5}
+      saturday: {first: "06:00", last: "22:30", headways: null}
+      sunday: {first: "06:00", last: "22:30", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.mmmocl.co.in/train-time-table
+      - https://www.mmmocl.co.in/uploads/news_pdf/73.pdf
+      - https://www.mmmocl.co.in/uploads/news_pdf/77.pdf
+      - https://www.mmmocl.co.in/network_under_operation
+    notes: >-
+      Phase 1 Mandale – Diamond Garden opened 2026-04-08 (release 2026-04-06: "Every ~9 minutes
+      30 seconds", 209 trips, no day-of-week split). Extended to Chembur station on 2026-08-13 from
+      17:00 (MMRDA release M3/PR/23/2026), giving 6 stations. Timetable page: Mandale→Chembur
+      06:00–22:15, Chembur→Mandale 06:00–22:30. The 9.5 min headway was published before the
+      Chembur extension and may have changed. Weekend headways not published (null).
+
+  - id: mum-l3
+    name: Aqua Line
+    long_name: Aarey JVLR – Cuffe Parade (Line 3)
+    operator: Mumbai Metro Rail Corporation Ltd (MMRC)
+    colour: "#059DB2"
+    colour_source: "MMRC website line data (line_color), https://portal.mmrcl.com/en/api/v2/line-list/ (used by https://mmrcl.com)"
+    mode: metro
+    termini: [Aarey JVLR, Cuffe Parade]
+    opened: 2024-10-07
+    osm:
+      ref: "3"
+      name_contains: "Line 3"
+    timetable:
+      weekday:
+        first: "05:55"
+        last: "22:30"
+        headways: null
+      saturday: {first: null, last: null, headways: null}
+      sunday: {first: null, last: null, headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://portal.mmrcl.com/en/api/v2/line-list/
+      - https://portal.mmrcl.com/en/api/v2/line-details/LN3/
+      - https://www.freepressjournal.in/amp/mumbai/mumbai-metro-3-operations-to-commence-from-october-9-know-timings-of-first-last-train-scheduled-on-aqua-line
+      - https://swarajyamag.com/amp/story/news-brief/mumbai-metro-3-sees-sharp-ridership-surge-after-full-colababandraseepz-corridor-opens
+      - https://www.freepressjournal.in/mumbai/mumbai-metro-aqua-line-maintains-100-per-cent-punctuality-during-torrential-rains-carries-over-1448-lakh-passengers-in-9-days
+    notes: >-
+      First section Aarey JVLR – BKC opened 2024-10-07; full line to Cuffe Parade from 2025-10-09
+      (27 stations, 33.61 km per MMRC line data). First/last (05:55 from both termini, last departure
+      22:30) come from Free Press Journal, 2025-10-07, not an MMRC page; may be stale. No official
+      headway found: Swarajya (2026-01-10) reports weekday trips raised from 265 to 292 from
+      2026-01-05, Saturday 209→236, Sunday 198, and headways "from over six minutes to nearly three
+      minutes"; FPJ (2026-07-10) reports 282 scheduled trips daily in July 2026; a secondary
+      anniversary piece citing Times of India says ~5 min at peak. These conflict, so headways are
+      null. Weekend first/last times were not found for the full line (a 2024 report of an 08:30
+      Sunday start predates the full opening). MMRC's colour #059DB2 differs from the MMMOCL map's
+      Line 3 colour #00B7BB (https://www.mmmocl.co.in/assets/images/line3-map.svg); the operator's
+      value is used.
+
+fares:
+  type: per_line
+  currency: INR
+  slabs: null
+  per_line:                     # extension of the schema: Mumbai has three separate fare systems
+    - lines: [mum-l1]
+      type: distance_slab
+      slabs:
+        - {max_km: 2, fare: 10}
+        - {max_km: 5, fare: 20}
+        - {max_km: 8, fare: 30}
+        - {max_km: null, fare: 40}   # more than 8 km
+      source_urls:
+        - https://www.freepressjournal.in/topnews/mumbai-pocket-friendly-metro-fares
+        - https://www.reliancemumbaimetro.com/ticket-fares
+      notes: >-
+        Slab boundaries are from FPJ (2020-01-10). Checked 2026-10-29 against MMOPL's own fare
+        calculator: single-journey fares are still 10/20/30/40 (e.g. Versova–DN Nagar 10,
+        Versova–WEH 20, Versova–Chakala 30, Versova–Asalpha 40, Chakala–Marol Naka 10), which fits
+        these slabs. Return journey = 2x single, except the 40 slab where return is 75.
+    - lines: [mum-l2a, mum-l7, mum-l9, mum-l2b]
+      type: distance_slab
+      slabs:
+        - {max_km: 3, fare: 10}
+        - {max_km: 12, fare: 20}
+        - {max_km: 18, fare: 30}
+        - {max_km: 24, fare: 40}
+        - {max_km: 30, fare: 50}
+        - {max_km: 36, fare: 60}
+        - {max_km: 42, fare: 70}
+        - {max_km: null, fare: 80}   # more than 42 km
+      source_urls:
+        - https://www.freepressjournal.in/topnews/mumbai-pocket-friendly-metro-fares
+        - https://www.mmmocl.co.in/fare_table
+      notes: >-
+        Slabs are MMRDA's structure for all its lines as reported by FPJ (2020-01-10); no newer
+        official slab table was found (a Fare Fixation Committee for 2A/7 was proposed in 2025, no
+        outcome found). Spot checks on MMMOCL's fare calculator 2026-10-29: Andheri (W)–Dahisar (E)
+        30, Gundavali–Mogra 10, Gundavali–Jogeshwari (E) 20, Mandale–Deonar 10, Mandale–Diamond
+        Garden 20. Station chainages were not available to fully verify the boundaries.
+    - lines: [mum-l3]
+      type: distance_slab
+      slabs:
+        - {max_km: 2, fare: 10}
+        - {max_km: 5, fare: 20}
+        - {max_km: 8, fare: 30}
+        - {max_km: 12, fare: 40}
+        - {max_km: 18, fare: 50}
+        - {max_km: 25, fare: 60}
+        - {max_km: null, fare: 70}
+      source_urls:
+        - https://portal.mmrcl.com/en/api/v2/fare-calculator/
+      notes: >-
+        No published slab table found. Boundaries were derived on 2026-10-29 from MMRC's own fare
+        calculator (all 351 station pairs, which return fare and distance): 10 for 0.72–1.99 km,
+        20 for 2.07–5.10, 30 for 4.73–8.40, 40 for 8.00–12.60, 50 for 11.93–17.96, 60 for
+        18.07–24.95, 70 for 25.24–33.61 km. Adjacent slabs overlap by about 0.5 km, so the
+        boundaries are approximate. The calculator also returns a "special_fare_amount" that is
+        higher (60 instead of 50) for four pairs around 17–18 km; its meaning is not documented.
+        Secondary sites quoting "0–3 km Rs 10, 3–12 km Rs 20" disagree with the operator's calculator.
+  discounts:
+    - {media: smart_card, percent: 5, days: mon_sat, lines: [mum-l2a, mum-l7, mum-l9, mum-l2b], note: "Mumbai 1 card store value pass, Monday–Saturday, on Lines 2A/7/9/2B (MMMOCL)"}
+    - {media: smart_card, percent: 10, days: sunday, lines: [mum-l2a, mum-l7, mum-l9, mum-l2b], note: "Mumbai 1 card store value pass, Sundays and national holidays, on Lines 2A/7/9/2B (MMMOCL)"}
+    - {media: smart_card, percent: 15, eligibility: pass, note: "Mumbai 1 card 45-trip pass, valid 30 days, fixed origin-destination (MMMOCL)"}
+    - {media: smart_card, percent: 20, eligibility: pass, note: "Mumbai 1 card 60-trip pass, valid 30 days, fixed origin-destination (MMMOCL)"}
+    - {media: smart_card, percent: 20, eligibility: concession, note: "Trip-pass concession for senior citizens, persons with disabilities and students up to Class 12, with documents (MMMOCL, Marathi page)"}
+    - {media: smart_card, percent: null, note: "Mumbai 1 tourist passes: 1-day Rs 200, 3-day Rs 550 (MMMOCL)"}
+    - {media: smart_card, percent: 0, note: "Line 1 (MMOPL) store value pass charges the single-journey fare (calculator, 2026-10-29); 45-trip pass Rs 775/1100/1375 and unlimited 30-day pass Rs 450/800/1125/1400 by fare slab"}
+  notes: >-
+    Discounts for Line 3 (MMRC) were not found. MMMOCL scheme page was only available in Marathi;
+    the 15%/20% mapping follows the table columns (60 trips | 45 trips). Line 1 pass prices come from
+    the MMOPL journey planner and are per origin-destination fare slab.
+  source_urls:
+    - https://www.mmmocl.co.in/fare_schemes_products
+    - https://www.mmmocl.co.in/fare_media
+    - https://www.reliancemumbaimetro.com/ticket-fares
+    - https://portal.mmrcl.com/en/api/v2/fare-calculator/
+
+sources:
+  - https://www.reliancemumbaimetro.com/
+  - https://www.reliancemumbaimetro.com/metro-train-schedule.aspx
+  - https://www.reliancemumbaimetro.com/ticket-fares
+  - https://www.mmmocl.co.in/train-time-table
+  - https://www.mmmocl.co.in/network_under_operation
+  - https://www.mmmocl.co.in/fare_table
+  - https://www.mmmocl.co.in/fare_schemes_products
+  - https://www.mmmocl.co.in/fare_media
+  - https://www.mmmocl.co.in/uploads/news_pdf/62.pdf
+  - https://www.mmmocl.co.in/uploads/news_pdf/73.pdf
+  - https://www.mmmocl.co.in/uploads/news_pdf/77.pdf
+  - https://www.mmmocl.co.in/uploads/news_pdf/78.pdf
+  - https://www.mmmocl.co.in/assets/images/line1-map.svg
+  - https://www.mmmocl.co.in/assets/images/lines2a-map.svg
+  - https://www.mmmocl.co.in/assets/images/line2b-map.svg
+  - https://www.mmmocl.co.in/assets/images/line3-map.svg
+  - https://www.mmmocl.co.in/assets/images/line7-map.svg
+  - https://www.mmmocl.co.in/assets/images/line9-map.svg
+  - https://portal.mmrcl.com/en/api/v2/line-list/
+  - https://portal.mmrcl.com/en/api/v2/line-details/LN3/
+  - https://portal.mmrcl.com/en/api/v2/fare-calculator/
+  - https://www.freepressjournal.in/topnews/mumbai-pocket-friendly-metro-fares
+  - https://www.freepressjournal.in/amp/mumbai/mumbai-metro-3-operations-to-commence-from-october-9-know-timings-of-first-last-train-scheduled-on-aqua-line
+  - https://swarajyamag.com/amp/story/news-brief/mumbai-metro-3-sees-sharp-ridership-surge-after-full-colababandraseepz-corridor-opens
+  - https://www.freepressjournal.in/mumbai/mumbai-metro-aqua-line-maintains-100-per-cent-punctuality-during-torrential-rains-carries-over-1448-lakh-passengers-in-9-days
+  - https://www.freepressjournal.in/amp/mumbai/mumbai-metro-commuters-face-mounting-inconvenience-as-direct-service-between-line-2a-and-line-7-discontinued-after-line-9-launch
+  - https://www.freepressjournal.in/amp/mumbai/mumbai-monorail-restart-delayed-despite-safety-clearances-commuters-await-official-reopening-date-video
+  - https://swarajyamag.com/news-brief/thanes-metro-4-gaimukh-cadbury-metro-stretch-inches-towards-launch-with-rolling-stock-safety-clearance
+  - https://en.wikipedia.org/wiki/Mumbai_Metro
+unknowns:
+  - lines.mum-l1.timetable.saturday
+  - lines.mum-l1.timetable.sunday
+  - lines.mum-l2a.timetable.saturday.headways
+  - lines.mum-l2a.timetable.sunday.headways
+  - lines.mum-l7.timetable.saturday.headways
+  - lines.mum-l7.timetable.sunday.headways
+  - lines.mum-l9.timetable.saturday.headways
+  - lines.mum-l9.timetable.sunday.headways
+  - lines.mum-l2b.timetable.saturday.headways
+  - lines.mum-l2b.timetable.sunday.headways
+  - lines.mum-l3.timetable.weekday.headways
+  - lines.mum-l3.timetable.saturday
+  - lines.mum-l3.timetable.sunday
+  - lines.*.avg_speed_kmh
+  - fares.discounts (Line 3 / MMRC)

@@ -1,0 +1,160 @@
+id: dubai
+name: Dubai
+state: Dubai
+country: United Arab Emirates
+currency: AED
+timezone: Asia/Dubai
+bbox: [24.96, 55.09, 25.29, 55.41]   # from OSM route relation bounds of the Red and Green lines (Overpass, 2026-10-30)
+checked: 2026-10-30
+
+lines:
+  - id: dxb-red
+    name: Red Line
+    long_name: Centrepoint – Expo 2020 / Life Pharmacy
+    operator: Roads and Transport Authority (RTA)
+    colour: "#E40A1E"
+    colour_source: >-
+      RTA "Metro & Tram stations and location map" page https://www.rta.ae/wps/portal/rta/ae/public-transport/metro-stations-map
+      (line table in the page script: R "Red Line" #e40a1e). The RTA rail network map PDF
+      https://www.rta.ae/links/rail/rail-network-map.pdf (dated 24-09-2026) draws the line in process CMYK 0/100/92/0.
+    mode: metro
+    # Three ends: the trunk splits at National Paints (formerly Jabal Ali) into the Life Pharmacy (formerly
+    # UAE Exchange) branch and the Route 2020 branch to Expo. RTA calls the Expo terminus "Expo 2020" (R76);
+    # OSM names the station "Expo City Dubai", which is what has to match here.
+    termini: [Centrepoint, Expo City Dubai, Life Pharmacy]
+    opened: null
+    # Trains from Centrepoint run alternately to Expo 2020 and Life Pharmacy (RTA: "three direct routes";
+    # 8 min on each branch, 4 min on the shared section at peak), so headways below are the trunk's.
+    branch_mode: alternate
+    osm:
+      route: subway
+      ref: null
+      # The four Red Line relations are tagged ref=Red1 (Expo) and ref=Red2 (Life Pharmacy), so neither ref nor
+      # "Red1 Line" / "Red2 Line" catches both branches. Every Red relation name contains "Centrepoint"
+      # (e.g. "Red1 Line: Centrepoint → Expo City Dubai"); no other relation in the bbox does.
+      name_contains: "Centrepoint"
+    timetable:
+      weekday:
+        first: "05:00"
+        last: "22:52"
+        headways:
+          - {from: "05:00", to: "07:00", minutes: null}
+          - {from: "07:00", to: "09:00", minutes: 4}
+          - {from: "09:00", to: "16:00", minutes: null}
+          - {from: "16:00", to: "19:00", minutes: 4}
+          - {from: "19:00", to: "22:52", minutes: null}
+      friday:
+        first: "05:00"
+        last: "23:50"
+        headways: null
+      saturday:
+        first: "05:00"
+        last: "22:52"
+        headways: null
+      sunday:
+        first: "08:00"
+        last: "22:49"
+        headways: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.rta.ae/links/rail/rta-metro-tram-timings.pdf
+      - https://www.rta.ae/wps/portal/rta/ae/public-transport/timetable
+      - https://gulfnews.com/uae/transport/dubai-metros-third-route-all-you-need-to-know-1.500269796
+      - https://www.khaleejtimes.com/uae/dubai-metro-new-route-peak-hours
+    notes: >-
+      First/last trains from the RTA timetable PDF "Dubai Metro - Red Line" (serial REG_20260925, PDF created
+      27-09-2026). Departures from the termini, Mon-Thu: Centrepoint to Expo 2020 05:02-22:46, to Life Pharmacy
+      05:00-22:50; Expo 2020 to Centrepoint 05:00-22:44; Life Pharmacy to Centrepoint 05:00-22:52. Friday:
+      Centrepoint to Expo 05:02-23:50, to Life Pharmacy 05:00-23:46; Expo and Life Pharmacy to Centrepoint
+      05:00-23:48. Saturday: identical to Mon-Thu. Sunday: Centrepoint to Expo 08:01-22:49, to Life Pharmacy
+      08:05-22:45; Expo and Life Pharmacy to Centrepoint 08:00-22:48. Several intermediate stations have first
+      trains earlier than a run from the terminus would give (trains enter service mid-line). The PDF marks the
+      last-train columns "(Station closed)": each station closes after its last train; the RTA timetable page
+      lists station opening hours Mon-Thu and Sat 05:00-24:00, Fri 05:00-01:00, Sun 08:00-24:00. Last-train run
+      times in the PDF: Centrepoint-Expo 78 min, Centrepoint-Life Pharmacy 75 min. Headways: RTA does not publish
+      them in the timetable. Gulf News (2025-09-15), on the RTA's third Red Line route (Centrepoint-Al Fardan
+      Exchange, peak only, 07:00-09:00 and 16:00-19:00), gives: Centrepoint-Al Fardan Exchange every 2 min;
+      Al Fardan Exchange-National Paints every 4 min; National Paints-Expo 2020 every 8 min; National
+      Paints-Life Pharmacy every 8 min. The 4-min trunk headway is used for the peak bands (the alternating
+      branches then get 8 min each, as published). The extra Centrepoint-Al Fardan Exchange short turns (2 min
+      combined) are not modelled. Khaleej Times (2025-09-03) gives the evening peak as 16:00-20:00; the Gulf
+      News window is used because it is the one tied to the published frequencies. Days are not stated; the
+      peak bands are applied Mon-Thu only. Off-peak, Friday, Saturday and Sunday headways are not published
+      (minutes null / headways null). Older figures (RTA 2020: 2 min 38 s peak) are not used. Station renamings
+      (naming rights) used by RTA: Rashidiya -> centrepoint, Jabal Ali -> National Paints, UAE Exchange -> Life
+      Pharmacy, Al Khail -> Al Fardan Exchange. OSM's Expo branch relation (420297 / 7734260) has no stop for
+      Jumeirah Golf Estates (R73), which RTA lists as served. The OSM colour tag is #CC0000.
+
+  - id: dxb-green
+    name: Green Line
+    long_name: e& – Creek
+    operator: Roads and Transport Authority (RTA)
+    colour: "#00A243"
+    colour_source: >-
+      RTA "Metro & Tram stations and location map" page https://www.rta.ae/wps/portal/rta/ae/public-transport/metro-stations-map
+      (line table in the page script: G "Green Line" #00a243). The RTA rail network map PDF
+      https://www.rta.ae/links/rail/rail-network-map.pdf draws the line in process CMYK 85/0/95/0.
+    mode: metro
+    termini: [e&, Creek]
+    opened: null
+    osm:
+      route: subway
+      ref: "Green"
+      name_contains: "Green Line"
+    timetable:
+      weekday:
+        first: "05:01"
+        last: "23:25"
+        headways: null
+      friday:
+        first: "05:01"
+        last: "24:25"
+        headways: null
+      saturday:
+        first: "05:01"
+        last: "23:24"
+        headways: null
+      sunday:
+        first: "08:01"
+        last: "23:23"
+        headways: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://www.rta.ae/links/rail/rta-metro-tram-timings.pdf
+      - https://www.rta.ae/wps/portal/rta/ae/public-transport/timetable
+    notes: >-
+      First/last trains from the RTA timetable PDF "Dubai Metro - Green Line" (serial REG_20260925). Departures
+      from the termini: Mon-Thu e& 05:01-23:23, Creek 05:03-23:25; Friday e& 05:01-00:23, Creek 05:03-00:25;
+      Saturday e& 05:01-23:23, Creek 05:03-23:24; Sunday e& 08:01-23:22, Creek 08:03-23:23. Last-train run time
+      e& to Creek 40 min, Creek to e& 39 min. e& was formerly Etisalat (OSM relation names still say "Etisalat";
+      the station is tagged name:en "e&"). Interchanges with the Red Line at Union and BurJuman. No current
+      headway has been published by RTA or reported from RTA: the latest operator figure found is RTA's 2020
+      notice of 5 min at peak, which is too old to use, so all headways are null. The OSM colour tag is #00CC00.
+
+# Fares are not modelled. Dubai Metro fares are zone-based (7 fare zones; nol Silver/Personal card AED 3 within
+# one zone, AED 5 across two adjacent zones, AED 7.50 for more than two zones; nol Red ticket AED 4 / 6 / 8.50).
+# The zone count depends on where the zone boundaries fall, not on distance or the number of stations, so neither
+# distance_slab nor station_count_slab is equivalent. Gold Class (nol Gold card AED 6 / 10 / 15) is a
+# premium-cabin surcharge, not a discount; it is not modelled. Personal-card concessions (students, seniors:
+# 50%; people of determination: free) are group concessions. Source: RTA nol fares page
+# https://rta.ae/wps/portal/rta/ae/public-transport/Nol-Fares?lang=en (read 2026-10-30).
+fares: null
+
+sources:
+  - https://www.rta.ae/wps/portal/rta/ae/public-transport/timetable
+  - https://www.rta.ae/links/rail/rta-metro-tram-timings.pdf
+  - https://www.rta.ae/wps/portal/rta/ae/public-transport/metro-stations-map
+  - https://www.rta.ae/links/rail/rail-network-map.pdf
+  - https://rta.ae/wps/portal/rta/ae/public-transport/Nol-Fares?lang=en
+  - https://gulfnews.com/uae/transport/dubai-metros-third-route-all-you-need-to-know-1.500269796
+  - https://www.khaleejtimes.com/uae/dubai-metro-new-route-peak-hours
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.*.opened
+  - lines.*.avg_speed_kmh
+  - lines.dxb-red.timetable.weekday.headways (off-peak bands; only peak frequencies reported, Gulf News 2025-09-15 quoting RTA)
+  - lines.dxb-red.timetable.friday.headways
+  - lines.dxb-red.timetable.saturday.headways
+  - lines.dxb-red.timetable.sunday.headways
+  - lines.dxb-green.timetable.*.headways (no current RTA figure)
+  - fares (zone-based; the engine supports only distance and station-count slabs)

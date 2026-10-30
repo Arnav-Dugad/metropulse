@@ -1,0 +1,149 @@
+id: hyderabad
+name: Hyderabad
+state: Telangana
+timezone: Asia/Kolkata
+bbox: [17.34, 78.37, 17.50, 78.57]   # from OSM route relation bounds (Overpass, 2026-10-29)
+checked: 2026-10-29
+
+lines:
+  - id: hyd-red
+    name: Red Line
+    long_name: Miyapur – L B Nagar
+    operator: L&T Metro Rail (Hyderabad) Limited (L&TMRHL)
+    colour: "#E31E24"
+    colour_source: operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the line)
+    mode: metro
+    termini: [Miyapur, L B Nagar]
+    opened: null
+    osm:
+      ref: "1"
+      name_contains: "Red Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 4.83}
+          - {from: "08:00", to: "10:30", minutes: 3.67}
+          - {from: "10:30", to: "17:00", minutes: 4.83}
+          - {from: "17:00", to: "20:00", minutes: 3.67}
+          - {from: "20:00", to: "23:00", minutes: 4.83}
+      saturday: {first: "06:00", last: "23:00", headways: null}
+      sunday: {first: "06:00", last: "23:00", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://ltmetro.com/train-timings/
+      - https://hmrl.co.in/train-timings/
+      - https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf
+    notes: >-
+      First and last trains come from L&TMRHL: "Monday to Sunday: First train at 06:00 hrs, last train from terminal
+      stations at 23:00 hrs in Red & Blue line ... on all days". Headways come from an HMRL press release dated
+      22.04.2026 describing normal weekday operation: 3 min 40 sec (3.67) in the peaks (08:00-10:30 and
+      17:00-20:00) and 4 min 50 sec (4.83) off-peak on the Miyapur-LB Nagar (C1) corridor. The release does not
+      give separate early-morning or late-evening values, so the off-peak value is applied from first to last train.
+      Saturday and Sunday headways are not published.
+
+  - id: hyd-blue
+    name: Blue Line
+    long_name: Nagole – Raidurg
+    operator: L&T Metro Rail (Hyderabad) Limited (L&TMRHL)
+    colour: "#007ABB"
+    colour_source: operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the line)
+    mode: metro
+    termini: [Nagole, Raidurg]
+    opened: null
+    osm:
+      ref: "3"
+      name_contains: "Blue Line"
+    timetable:
+      weekday:
+        first: "06:00"
+        last: "23:00"
+        headways:
+          - {from: "06:00", to: "08:00", minutes: 5.33}
+          - {from: "08:00", to: "10:30", minutes: 3.67}
+          - {from: "10:30", to: "17:00", minutes: 5.33}
+          - {from: "17:00", to: "20:00", minutes: 3.67}
+          - {from: "20:00", to: "23:00", minutes: 5.33}
+      saturday: {first: "06:00", last: "23:00", headways: null}
+      sunday: {first: "06:00", last: "23:00", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://ltmetro.com/train-timings/
+      - https://hmrl.co.in/train-timings/
+      - https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf
+    notes: >-
+      First and last trains are the same as on the Red Line (L&TMRHL, all days). HMRL press release (22.04.2026):
+      3 min 40 sec (3.67) in the 08:00-10:30 and 17:00-20:00 weekday peaks and 5 min 20 sec (5.33) off-peak on the
+      Nagole-Raidurg (C3) corridor. The off-peak value is applied from first to last train. Saturday and Sunday
+      headways are not published.
+
+  - id: hyd-green
+    name: Green Line
+    long_name: JBS Parade Ground – MG Bus Station
+    operator: L&T Metro Rail (Hyderabad) Limited (L&TMRHL)
+    colour: "#009846"
+    colour_source: operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the line)
+    mode: metro
+    termini: [JBS Parade Ground, MG Bus Station]
+    opened: null
+    osm:
+      ref: "2"
+      name_contains: "Green Line"
+    timetable:
+      weekday: {first: "06:00", last: "23:35", headways: null}
+      saturday: {first: "06:00", last: "23:35", headways: null}
+      sunday: {first: "06:00", last: "23:35", headways: null}
+    avg_speed_kmh: null
+    source_urls:
+      - https://ltmetro.com/train-timings/
+      - https://hmrl.co.in/train-timings/
+    notes: >-
+      L&TMRHL: first train 06:00 and last train from terminals 23:35 on the Green Line, on all days. No headway is
+      published for the Green Line (C2). The April 2026 HMRL release covers only C1 and C3.
+
+fares:
+  type: distance_slab
+  currency: INR
+  slabs:
+    - {max_km: 2, fare: 11}
+    - {max_km: 4, fare: 17}
+    - {max_km: 6, fare: 28}
+    - {max_km: 9, fare: 37}
+    - {max_km: 12, fare: 47}
+    - {max_km: 15, fare: 51}
+    - {max_km: 18, fare: 56}
+    - {max_km: 21, fare: 61}
+    - {max_km: 24, fare: 65}
+    - {max_km: null, fare: 69}
+  discounts: []
+  notes: >-
+    L&TMRHL press release PR/189 dated 23-05-2025, effective 24 May 2025. The FFC fare zones are given as "up to 2",
+    "more than 2 up to 4", and so on up to "more than 24", which is open-ended here (max_km null). These fares
+    already include a 10% discount on the FFC increase. They apply to all fare media (paper QR/token, digital tickets,
+    smart cards), so no separate smart card or QR discount is recorded. No metro fare revision after May 2025 was
+    found as of 2026-10-29. An RTC-Metro common pass was under review in October 2026 and is not modelled.
+  source_urls:
+    - https://ltmetro.com/fare-ticketing/
+    - https://ltmetro.com/wp-content/uploads/2025/05/Hyderabad-Metro-Rail-Revised-Fare-Chart-Final.pdf
+    - https://ltmetro.com/ticketing/
+
+sources:
+  - https://ltmetro.com/train-timings/
+  - https://hmrl.co.in/train-timings/
+  - https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf
+  - https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf
+  - https://ltmetro.com/fare-ticketing/
+  - https://ltmetro.com/wp-content/uploads/2025/05/Hyderabad-Metro-Rail-Revised-Fare-Chart-Final.pdf
+  - https://ltmetro.com/ticketing/
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.*.opened
+  - lines.*.avg_speed_kmh
+  - lines.hyd-red.timetable.saturday.headways
+  - lines.hyd-red.timetable.sunday.headways
+  - lines.hyd-blue.timetable.saturday.headways
+  - lines.hyd-blue.timetable.sunday.headways
+  - lines.hyd-green.timetable.weekday.headways
+  - lines.hyd-green.timetable.saturday.headways
+  - lines.hyd-green.timetable.sunday.headways

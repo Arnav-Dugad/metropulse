@@ -1,0 +1,287 @@
+id: riyadh
+name: Riyadh
+state: Riyadh Province
+country: Saudi Arabia
+currency: SAR
+timezone: Asia/Riyadh
+bbox: [24.56, 46.54, 24.97, 46.87]   # from OSM route relation bounds of the six metro lines (Overpass, 2026-10-30)
+checked: 2026-10-30
+
+# Operating hours used by every line below (one network-wide schedule, no per-line timetable):
+# Riyadh Public Transport (@RiyadhTransport, the RCRC public transport account) posted on 2025-09-05:
+# "Riyadh Metro will now operate from 5:30 AM to 12:00 AM, Saturday till Thursday, and from 10:00 AM to
+# 12:00 AM on Fridays." No later change to the regular hours was found (Ramadan and Eid schedules are
+# temporary and are not modelled). These are system opening hours, not per-terminus first/last
+# departures, so first = 05:30 / 10:00 and last = 24:00 for every line. Headways are not published
+# by the operator (see unknowns).
+
+lines:
+  - id: ryd-blue
+    name: Blue Line
+    long_name: SABB – Ad Dar Al Baida
+    operator: Royal Commission for Riyadh City (RCRC) / Riyadh Public Transport (RPT)
+    colour: "#17A4D2"
+    colour_source: >-
+      RCRC Metro & Bus network map https://www.rcrc.gov.sa/static/app/uploads/2024/12/Map-1.pdf
+      (line drawn in spot colour "Metro 1", CMYK alternate 80/8/1/0; converted to sRGB with the U.S. Web Coated
+      SWOP profile RSWOP.icm, relative colorimetric)
+    mode: metro
+    termini: [SABB, Ad Dar Al Baida]
+    opened: 2024-12-01
+    osm:
+      route: subway
+      ref: "1"
+      name_contains: "Blue Line"
+    timetable:
+      weekday:
+        first: "05:30"
+        last: "24:00"
+        headways: null
+      friday:
+        first: "10:00"
+        last: "24:00"
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://x.com/RiyadhTransport/status/1963922588771508440
+      - https://gulfnews.com/world/gulf/saudi/saudi-arabia-riyadh-metro-adjusts-schedule-to-530am-in-push-to-ease-traffic-1.500259210
+      - https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/
+      - https://www.rcrc.gov.sa/en/rcrc-qasr-al-hokm-station-of-riyadh-metro-to-begin-operations-on-wednesday/
+    notes: >-
+      Line 1, 25 stations. Opened 2024-12-01 with some stations opening later: Ministry of Interior and Al
+      Murabba later in December 2024 (Saudi Gazette headline), Al Murooj, Bank Albilad and King Fahad Library on
+      2025-01-05 (SPA release on the Orange Line launch), and Qasr Al Hokm on 2025-02-26 at 06:00 (RCRC release
+      dated 2025-02-25). No Blue Line station was found to be still closed on 2026-10-30. Hours: 05:30-24:00
+      Saturday to Thursday, 10:00-24:00 Friday (RPT post 2025-09-05). These are network opening hours mapped
+      directly to first/last trains. The operator publishes no headways. Unofficial guides give 3-5 min peak and
+      5-10 min off-peak for the whole network; they are not used. OSM spells Al Murabba as "Al Muorabba" and has
+      the colour tag #00AEE6.
+
+  - id: ryd-red
+    name: Red Line
+    long_name: King Saud University – King Fahad Stadium
+    operator: Royal Commission for Riyadh City (RCRC) / Riyadh Public Transport (RPT)
+    colour: "#E84B3D"
+    colour_source: >-
+      RCRC Metro & Bus network map https://www.rcrc.gov.sa/static/app/uploads/2024/12/Map-1.pdf
+      (spot colour "Metro 2", CMYK alternate 0/87/83/0; converted with RSWOP.icm, relative colorimetric)
+    mode: metro
+    termini: [King Saud University, King Fahad Stadium]
+    opened: 2024-12-15
+    osm:
+      route: subway
+      ref: "2"
+      name_contains: "Red Line"
+    timetable:
+      weekday:
+        first: "05:30"
+        last: "24:00"
+        headways: null
+      friday:
+        first: "10:00"
+        last: "24:00"
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://x.com/RiyadhTransport/status/1963922588771508440
+      - https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/
+    notes: >-
+      Line 2, 15 stations. Opened 2024-12-15. Hours as for the Blue Line (RPT post 2025-09-05). No headways
+      published. RCRC lists an 8.4 km extension from King Saud University to Diriyah Gate (five new stations);
+      it is not open and is not included. OSM still ends the line at King Saud University. In November 2025, five
+      eastern stations were partly suspended for technical reasons (Saudi Gazette, per Wikipedia). That was a
+      temporary disruption and is not modelled. The OSM colour tag is #EF3434.
+
+  - id: ryd-orange
+    name: Orange Line
+    long_name: Jeddah Road – Khashm Al An
+    operator: Royal Commission for Riyadh City (RCRC) / Riyadh Public Transport (RPT)
+    colour: "#F2883F"
+    colour_source: >-
+      RCRC Metro & Bus network map https://www.rcrc.gov.sa/static/app/uploads/2024/12/Map-1.pdf
+      (spot colour "Metro 3", CMYK alternate 0/54/87/0; converted with RSWOP.icm, relative colorimetric)
+    mode: metro
+    termini: [Jeddah Road, Khashm Al An]
+    opened: 2025-01-05
+    osm:
+      route: subway
+      ref: "3"
+      name_contains: "Orange Line"
+    timetable:
+      weekday:
+        first: "05:30"
+        last: "24:00"
+        headways: null
+      friday:
+        first: "10:00"
+        last: "24:00"
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://x.com/RiyadhTransport/status/1963922588771508440
+      - https://www.rcrc.gov.sa/en/230241-2/
+      - https://www.arabnews.com/saudi-arabia/riyadh-metros-landmark-western-station-opens-for-full-operations-2643649
+      - https://www.railwaygazette.com/metro-metro-categories/2026/05/21/desert-sand-dune-inspired-metro-station-opens/
+      - https://gulfnews.com/world/gulf/saudi/saudi-arabia-riyadh-expands-metro-network-with-new-orange-line-station-1.500178929
+    notes: >-
+      Line 3, 22 stations. Opened 2025-01-05 with only some stations in service. Other stations followed during
+      2025 (e.g. Hassan bin Thabit Street, Gulf News, updated 2025-06-27). The last one, Western Station, opened on
+      2026-05-15 (RCRC release dated 2026-05-14; Arab News 2026-05-15). Railway Gazette (2026-05-21) calls it the
+      last of the line's 22 stations, so the whole line is treated as open. Hours as for the Blue Line (RPT post
+      2025-09-05). No headways published. OSM names Railway Station "Railway". The OSM colour tag is #ED872D.
+
+  - id: ryd-yellow
+    name: Yellow Line
+    long_name: King Abdullah Financial District – Airport T1-2
+    operator: Royal Commission for Riyadh City (RCRC) / Riyadh Public Transport (RPT)
+    colour: "#FFCB29"
+    colour_source: >-
+      RCRC Metro & Bus network map https://www.rcrc.gov.sa/static/app/uploads/2024/12/Map-1.pdf
+      (spot colour "Metro 4", CMYK alternate 0/17/99/0; converted with RSWOP.icm, relative colorimetric)
+    mode: metro
+    termini: [King Abdullah Financial District, Airport T1-2]
+    opened: 2024-12-01
+    osm:
+      route: subway
+      ref: "4"
+      name_contains: "Yellow Line"
+    timetable:
+      weekday:
+        first: "05:30"
+        last: "24:00"
+        headways: null
+      friday:
+        first: "10:00"
+        last: "24:00"
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://x.com/RiyadhTransport/status/1963922588771508440
+      - https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/
+    notes: >-
+      Line 4, 9 stations, serving King Khalid International Airport (T5, T3-4, T1-2). Opened 2024-12-01. Hours
+      as for the Blue Line (RPT post 2025-09-05). No headways published. It shares the KAFD-Ar Rabi-Uthman Bin
+      Affan Road-SABIC section with the Purple Line. They are two separate lines, not branches, so there is no
+      combined headway. The OSM relations' "to" tag reads "Terminal 1-2", while the station is named
+      "Airport T1-2". The OSM colour tag is #FFD009.
+
+  - id: ryd-green
+    name: Green Line
+    long_name: Ministry of Education – National Museum
+    operator: Royal Commission for Riyadh City (RCRC) / Riyadh Public Transport (RPT)
+    colour: "#51AB3F"
+    colour_source: >-
+      RCRC Metro & Bus network map https://www.rcrc.gov.sa/static/app/uploads/2024/12/Map-1.pdf
+      (spot colour "Metro 5", CMYK alternate 73/0/100/0; converted with RSWOP.icm, relative colorimetric)
+    mode: metro
+    termini: [Ministry of Education, National Museum]
+    opened: 2024-12-15
+    osm:
+      route: subway
+      ref: "5"
+      name_contains: "Green Line"
+    timetable:
+      weekday:
+        first: "05:30"
+        last: "24:00"
+        headways: null
+      friday:
+        first: "10:00"
+        last: "24:00"
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://x.com/RiyadhTransport/status/1963922588771508440
+      - https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/
+    notes: >-
+      Line 5, 12 stations along King Abdulaziz Road. Opened 2024-12-15. Hours as for the Blue Line (RPT post
+      2025-09-05). No headways published. Both OSM relations are named only "Green Line", and their from/to tags
+      are in Arabic (وزارة التعليم / المتحف الوطني). The pipeline's headsign falls back to the relation's "to"
+      tag, so it needs the English station name instead. The OSM colour tag is #008000.
+
+  - id: ryd-purple
+    name: Purple Line
+    long_name: King Abdullah Financial District – An Naseem
+    operator: Royal Commission for Riyadh City (RCRC) / Riyadh Public Transport (RPT)
+    colour: "#9B498C"
+    colour_source: >-
+      RCRC Metro & Bus network map https://www.rcrc.gov.sa/static/app/uploads/2024/12/Map-1.pdf
+      (spot colour "Metro 6", CMYK alternate 45/84/0/0; converted with RSWOP.icm, relative colorimetric)
+    mode: metro
+    termini: [King Abdullah Financial District, An Naseem]
+    opened: 2024-12-01
+    osm:
+      route: subway
+      # Both OSM relations are named only in Arabic ("المسار البنفسجي") with no name:en, so match by ref.
+      ref: "6"
+    timetable:
+      weekday:
+        first: "05:30"
+        last: "24:00"
+        headways: null
+      friday:
+        first: "10:00"
+        last: "24:00"
+        headways: null
+      saturday: same_as_weekday
+      sunday: same_as_weekday
+    avg_speed_kmh: null
+    source_urls:
+      - https://x.com/RiyadhTransport/status/1963922588771508440
+      - https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/
+    notes: >-
+      Line 6, 11 stations. Opened 2024-12-01. Hours as for the Blue Line (RPT post 2025-09-05). No headways
+      published. It shares KAFD-Ar Rabi-Uthman Bin Affan Road-SABIC with the Yellow Line (separate lines). The
+      OSM colour tag (#7F00FF) is far bluer than the operator map colour.
+
+fares:
+  type: distance_slab
+  currency: SAR
+  slabs:
+    - {max_km: null, fare: 4}
+  notes: >-
+    Riyadh Metro sells time-based tickets, not distance fares. RCRC: fares start from SAR 4, "valid for 2 hours
+    from the first check-in". The standard-class 2-hour ticket (SAR 4) is the normal single-journey ticket, so
+    it is encoded as a flat SAR 4 fare. Transfers and bus trips within the 2 hours are not modelled. Platinumlist
+    (updated 2025-12-25) says regular ticket prices have not changed since the December 2024 launch: 2-hour pass
+    SAR 4 standard, SAR 10 first class. Not modelled: first class, 3-day, 7-day and 30-day passes, the annual
+    (SAR 1,260 / SAR 3,150) and student semester (SAR 260) passes from 2026-01-01, and the 50% concession for
+    eligible groups (seniors, students and others). Children aged 6 and under travel free.
+  source_urls:
+    - https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/
+    - https://platinumlist.net/guide/riyadh-metro-sets-annual-pass-prices-for-2026-here-are-the-fares
+    - https://cairoscene.com/News/Riyadh-Metro-Updates-Fares-Introduces-Semester-Tickets-for-2026
+
+sources:
+  - https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/
+  - https://www.rcrc.gov.sa/static/app/uploads/2024/12/Map-1.pdf
+  - https://www.rcrc.gov.sa/en/rcrc-qasr-al-hokm-station-of-riyadh-metro-to-begin-operations-on-wednesday/
+  - https://www.rcrc.gov.sa/en/230241-2/
+  - https://x.com/RiyadhTransport/status/1963922588771508440
+  - https://gulfnews.com/world/gulf/saudi/saudi-arabia-riyadh-metro-adjusts-schedule-to-530am-in-push-to-ease-traffic-1.500259210
+  - https://platinumlist.net/guide/riyadh-metro-changes-operating-hours-on-fridays-starting-july-4/
+  - https://www.arabnews.com/saudi-arabia/riyadh-metros-landmark-western-station-opens-for-full-operations-2643649
+  - https://www.railwaygazette.com/metro-metro-categories/2026/05/21/desert-sand-dune-inspired-metro-station-opens/
+  - https://gulfnews.com/world/gulf/saudi/saudi-arabia-riyadh-expands-metro-network-with-new-orange-line-station-1.500178929
+  - https://platinumlist.net/guide/riyadh-metro-sets-annual-pass-prices-for-2026-here-are-the-fares
+  - https://cairoscene.com/News/Riyadh-Metro-Updates-Fares-Introduces-Semester-Tickets-for-2026
+  - https://en.wikipedia.org/wiki/Riyadh_Metro
+  - https://web.archive.org/web/20241222222708/https://www.riyadhbus.sa/en/web/guest/lines
+  - https://overpass-api.de/api/interpreter
+# Note: the Platinumlist article of July 2025 (Friday hours 08:00-24:00 from 2025-07-04) was superseded by
+# the RPT post of 2025-09-05 (Friday 10:00-24:00). The archived RPT lines page (Dec 2024) gave 06:00-24:00.
+unknowns:
+  - lines.*.timetable.weekday.headways
+  - lines.*.timetable.friday.headways
+  - lines.*.avg_speed_kmh
+  - lines.*.timetable (first/last are network opening hours, not per-terminus departure times)

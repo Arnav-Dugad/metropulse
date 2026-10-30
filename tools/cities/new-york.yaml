@@ -1,0 +1,851 @@
+id: new-york
+name: New York
+state: New York
+country: United States
+currency: USD
+timezone: America/New_York
+# GTFS stop extent is 40.5128,-74.2520 to 40.9031,-73.7554 (stops.txt, feed 20261028); OSM NYC Subway + SIR route
+# relation bounds (Overpass, 2026-10-30) fall inside this box. Padded by about 0.01-0.02 degrees.
+bbox: [40.49, -74.27, 40.92, -73.73]
+checked: 2026-10-30
+
+# One entry per GTFS route (29 routes in routes.txt). `gtfs_route` is the exact route_short_name; the three shuttles
+# share route_short_name "S", so `gtfs_route_id` (the GTFS route_id) is given for every line as well.
+# OSM: relations_for() uses name_contains when it is set (ref is then ignored). The names all start "NYCS - ",
+# which keeps Newark Light Rail (ref 7), PATH and other systems in the box from matching.
+lines:
+  - id: nyc-a
+    name: "A train"
+    long_name: "8 Avenue Express"
+    gtfs_route: "A"        # exact GTFS route_short_name
+    gtfs_route_id: "A"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#0062CF"
+    colour_source: GTFS routes.txt route_color 0062CF (route_id A), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Inwood-207 St", "Far Rockaway-Mott Av"]
+    opened: null
+    osm:
+      ref: "A"
+      name_contains: "NYCS - A Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Two southern branches: Far Rockaway-Mott Av and Ozone Park-Lefferts Blvd (GTFS headsigns); a few
+      trips run to Rockaway Park-Beach 116 St.
+
+  - id: nyc-c
+    name: "C train"
+    long_name: "8 Avenue Local"
+    gtfs_route: "C"        # exact GTFS route_short_name
+    gtfs_route_id: "C"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#0062CF"
+    colour_source: GTFS routes.txt route_color 0062CF (route_id C), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["168 St", "Euclid Av"]
+    opened: null
+    osm:
+      ref: "C"
+      name_contains: "NYCS - C Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-e
+    name: "E train"
+    long_name: "8 Avenue Local"
+    gtfs_route: "E"        # exact GTFS route_short_name
+    gtfs_route_id: "E"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#0062CF"
+    colour_source: GTFS routes.txt route_color 0062CF (route_id E), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Jamaica Center-Parsons/Archer", "World Trade Center"]
+    opened: null
+    osm:
+      ref: "E"
+      name_contains: "NYCS - E Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-b
+    name: "B train"
+    long_name: "6 Avenue Express"
+    gtfs_route: "B"        # exact GTFS route_short_name
+    gtfs_route_id: "B"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#EB6800"
+    colour_source: GTFS routes.txt route_color EB6800 (route_id B), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Bedford Park Blvd", "Brighton Beach"]
+    opened: null
+    osm:
+      ref: "B"
+      name_contains: "NYCS - B Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Weekday service only in this feed (220 trips, all service_id Weekday). Some trips end at 145 St.
+
+  - id: nyc-d
+    name: "D train"
+    long_name: "6 Avenue Express"
+    gtfs_route: "D"        # exact GTFS route_short_name
+    gtfs_route_id: "D"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#EB6800"
+    colour_source: GTFS routes.txt route_color EB6800 (route_id D), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Norwood-205 St", "Coney Island-Stillwell Av"]
+    opened: null
+    osm:
+      ref: "D"
+      name_contains: "NYCS - D Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-f
+    name: "F train"
+    long_name: "Queens Blvd Express/6 Av Local"
+    gtfs_route: "F"        # exact GTFS route_short_name
+    gtfs_route_id: "F"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#EB6800"
+    colour_source: GTFS routes.txt route_color EB6800 (route_id F), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Jamaica-179 St", "Coney Island-Stillwell Av"]
+    opened: null
+    osm:
+      ref: "F"
+      name_contains: "NYCS - F Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-fx
+    name: "F Express"
+    long_name: "Brooklyn F Express"
+    gtfs_route: "FX"        # exact GTFS route_short_name
+    gtfs_route_id: "FX"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#EB6800"
+    colour_source: GTFS routes.txt route_color EB6800 (route_id FX), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Jamaica-179 St", "Coney Island-Stillwell Av"]
+    opened: null
+    osm:
+      ref: "<F>"
+      name_contains: "NYCS - <F> Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. GTFS route FX (signed as the diamond <F>); weekday only, 4 trips in this feed version. Riders treat
+      it as an F variant; the app shows it as its own line unless the pipeline merges it into F.
+
+  - id: nyc-m
+    name: "M train"
+    long_name: "Queens Blvd Local/6 Av Local"
+    gtfs_route: "M"        # exact GTFS route_short_name
+    gtfs_route_id: "M"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#EB6800"
+    colour_source: GTFS routes.txt route_color EB6800 (route_id M), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Forest Hills-71 Av", "Middle Village-Metropolitan Av"]
+    opened: null
+    osm:
+      ref: "M"
+      name_contains: "NYCS - M Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Headsigns towards Manhattan vary by time: Delancey St-Essex St, Forest Hills-71 Av, Myrtle Av (GTFS
+      trips.txt).
+
+  - id: nyc-g
+    name: "G train"
+    long_name: "Brooklyn-Queens Crosstown"
+    gtfs_route: "G"        # exact GTFS route_short_name
+    gtfs_route_id: "G"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#799534"
+    colour_source: GTFS routes.txt route_color 799534 (route_id G), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Court Sq", "Church Av"]
+    opened: null
+    osm:
+      ref: "G"
+      name_contains: "NYCS - G Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-j
+    name: "J train"
+    long_name: "Nassau St Local"
+    gtfs_route: "J"        # exact GTFS route_short_name
+    gtfs_route_id: "J"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#8E5C33"
+    colour_source: GTFS routes.txt route_color 8E5C33 (route_id J), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Jamaica Center-Parsons/Archer", "Broad St"]
+    opened: null
+    osm:
+      ref: "J"
+      name_contains: "NYCS - J Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-z
+    name: "Z train"
+    long_name: "Nassau St Express"
+    gtfs_route: "Z"        # exact GTFS route_short_name
+    gtfs_route_id: "Z"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#8E5C33"
+    colour_source: GTFS routes.txt route_color 8E5C33 (route_id Z), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Jamaica Center-Parsons/Archer", "Broad St"]
+    opened: null
+    osm:
+      ref: "Z"
+      name_contains: "NYCS - Z Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Weekday rush-hour service only (12 trips, all service_id Weekday, in this feed version).
+
+  - id: nyc-l
+    name: "L train"
+    long_name: "14 St-Canarsie Local"
+    gtfs_route: "L"        # exact GTFS route_short_name
+    gtfs_route_id: "L"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#7C858C"
+    colour_source: GTFS routes.txt route_color 7C858C (route_id L), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["8 Av", "Canarsie-Rockaway Pkwy"]
+    opened: null
+    osm:
+      ref: "L"
+      name_contains: "NYCS - L Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-n
+    name: "N train"
+    long_name: "Broadway Local"
+    gtfs_route: "N"        # exact GTFS route_short_name
+    gtfs_route_id: "N"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#F6BC26"
+    colour_source: GTFS routes.txt route_color F6BC26 (route_id N), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Astoria-Ditmars Blvd", "Coney Island-Stillwell Av"]
+    opened: null
+    osm:
+      ref: "N"
+      name_contains: "NYCS - N Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-q
+    name: "Q train"
+    long_name: "Broadway Express"
+    gtfs_route: "Q"        # exact GTFS route_short_name
+    gtfs_route_id: "Q"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#F6BC26"
+    colour_source: GTFS routes.txt route_color F6BC26 (route_id Q), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["96 St", "Coney Island-Stillwell Av"]
+    opened: null
+    osm:
+      ref: "Q"
+      name_contains: "NYCS - Q Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-r
+    name: "R train"
+    long_name: "Broadway Local"
+    gtfs_route: "R"        # exact GTFS route_short_name
+    gtfs_route_id: "R"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#F6BC26"
+    colour_source: GTFS routes.txt route_color F6BC26 (route_id R), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Forest Hills-71 Av", "Bay Ridge-95 St"]
+    opened: null
+    osm:
+      ref: "R"
+      name_contains: "NYCS - R Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-w
+    name: "W train"
+    long_name: "Broadway Local"
+    gtfs_route: "W"        # exact GTFS route_short_name
+    gtfs_route_id: "W"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#F6BC26"
+    colour_source: GTFS routes.txt route_color F6BC26 (route_id W), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Astoria-Ditmars Blvd", "Whitehall St-South Ferry"]
+    opened: null
+    osm:
+      ref: "W"
+      name_contains: "NYCS - W Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Weekday service only in this feed (187 trips, all service_id Weekday).
+
+  - id: nyc-gs
+    name: "42 St Shuttle"
+    long_name: "42 St Shuttle"
+    gtfs_route: "S"        # exact GTFS route_short_name
+    gtfs_route_id: "GS"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#7C858C"
+    colour_source: GTFS routes.txt route_color 7C858C (route_id GS), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Times Sq-42 St", "Grand Central-42 St"]
+    opened: null
+    osm:
+      ref: "S"
+      name_contains: "NYCS - S 42nd Street Shuttle"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. GTFS route_id GS; route_short_name is "S", shared with FS and H. OSM has two pairs of relations with
+      this name (ids 9699093/9699094 and 11245930/11245932).
+
+  - id: nyc-fs
+    name: "Franklin Av Shuttle"
+    long_name: "Franklin Avenue Shuttle"
+    gtfs_route: "S"        # exact GTFS route_short_name
+    gtfs_route_id: "FS"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#7C858C"
+    colour_source: GTFS routes.txt route_color 7C858C (route_id FS), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Franklin Av", "Prospect Park"]
+    opened: null
+    osm:
+      ref: "S"
+      name_contains: "NYCS - S Franklin Avenue Shuttle"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. GTFS route_id FS; route_short_name "S" is shared with GS and H.
+
+  - id: nyc-h
+    name: "Rockaway Park Shuttle"
+    long_name: "Rockaway Park Shuttle"
+    gtfs_route: "S"        # exact GTFS route_short_name
+    gtfs_route_id: "H"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#7C858C"
+    colour_source: GTFS routes.txt route_color 7C858C (route_id H), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Broad Channel", "Rockaway Park-Beach 116 St"]
+    opened: null
+    osm:
+      ref: "S"
+      name_contains: "NYCS - S Rockaway Park Shuttle"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. GTFS route_id H; route_short_name "S" is shared with GS and FS.
+
+  - id: nyc-1
+    name: "1 train"
+    long_name: "Broadway - 7 Avenue Local"
+    gtfs_route: "1"        # exact GTFS route_short_name
+    gtfs_route_id: "1"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#D82233"
+    colour_source: GTFS routes.txt route_color D82233 (route_id 1), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Van Cortlandt Park-242 St", "South Ferry"]
+    opened: null
+    osm:
+      ref: "1"
+      name_contains: "NYCS - 1 Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-2
+    name: "2 train"
+    long_name: "7 Avenue Express"
+    gtfs_route: "2"        # exact GTFS route_short_name
+    gtfs_route_id: "2"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#D82233"
+    colour_source: GTFS routes.txt route_color D82233 (route_id 2), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Wakefield-241 St", "Flatbush Av-Brooklyn College"]
+    opened: null
+    osm:
+      ref: "2"
+      name_contains: "NYCS - 2 Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-3
+    name: "3 train"
+    long_name: "7 Avenue Express"
+    gtfs_route: "3"        # exact GTFS route_short_name
+    gtfs_route_id: "3"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#D82233"
+    colour_source: GTFS routes.txt route_color D82233 (route_id 3), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Harlem-148 St", "New Lots Av"]
+    opened: null
+    osm:
+      ref: "3"
+      name_contains: "NYCS - 3 Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Some trips end at 34 St-Penn Station (GTFS headsigns).
+
+  - id: nyc-4
+    name: "4 train"
+    long_name: "Lexington Avenue Express"
+    gtfs_route: "4"        # exact GTFS route_short_name
+    gtfs_route_id: "4"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#009952"
+    colour_source: GTFS routes.txt route_color 009952 (route_id 4), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Woodlawn", "Crown Hts-Utica Av"]
+    opened: null
+    osm:
+      ref: "4"
+      name_contains: "NYCS - 4 Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Some trips run to New Lots Av (GTFS headsigns).
+
+  - id: nyc-5
+    name: "5 train"
+    long_name: "Lexington Avenue Express"
+    gtfs_route: "5"        # exact GTFS route_short_name
+    gtfs_route_id: "5"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#009952"
+    colour_source: GTFS routes.txt route_color 009952 (route_id 5), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Eastchester-Dyre Av", "Bowling Green"]
+    opened: null
+    osm:
+      ref: "5"
+      name_contains: "NYCS - 5 Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Southbound headsigns: Bowling Green, Flatbush Av-Brooklyn College or E 180 St (GTFS trips.txt); some
+      northbound trips start/end at Nereid Av.
+
+  - id: nyc-6
+    name: "6 train"
+    long_name: "Lexington Avenue Local"
+    gtfs_route: "6"        # exact GTFS route_short_name
+    gtfs_route_id: "6"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#009952"
+    colour_source: GTFS routes.txt route_color 009952 (route_id 6), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Pelham Bay Park", "Brooklyn Bridge-City Hall"]
+    opened: null
+    osm:
+      ref: "6"
+      name_contains: "NYCS - 6 Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. Some northbound trips end at Parkchester (GTFS headsigns).
+
+  - id: nyc-6x
+    name: "6 Express"
+    long_name: "Pelham Bay Park Express"
+    gtfs_route: "6X"        # exact GTFS route_short_name
+    gtfs_route_id: "6X"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#009952"
+    colour_source: GTFS routes.txt route_color 009952 (route_id 6X), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Pelham Bay Park", "Brooklyn Bridge-City Hall"]
+    opened: null
+    osm:
+      ref: "<6>"
+      name_contains: "NYCS - <6> Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. GTFS route 6X (signed as the diamond <6>); weekday only, 114 trips. Shown as its own line unless the
+      pipeline merges it into 6.
+
+  - id: nyc-7
+    name: "7 train"
+    long_name: "Flushing Local"
+    gtfs_route: "7"        # exact GTFS route_short_name
+    gtfs_route_id: "7"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#9A38A1"
+    colour_source: GTFS routes.txt route_color 9A38A1 (route_id 7), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Flushing-Main St", "34 St-Hudson Yards"]
+    opened: null
+    osm:
+      ref: "7"
+      name_contains: "NYCS - 7 Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction.
+
+  - id: nyc-7x
+    name: "7 Express"
+    long_name: "Flushing Express"
+    gtfs_route: "7X"        # exact GTFS route_short_name
+    gtfs_route_id: "7X"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#9A38A1"
+    colour_source: GTFS routes.txt route_color 9A38A1 (route_id 7X), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["Flushing-Main St", "34 St-Hudson Yards"]
+    opened: null
+    osm:
+      ref: "<7>"
+      name_contains: "NYCS - <7> Train"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. GTFS route 7X (signed as the diamond <7>); weekday only, 107 trips. Shown as its own line unless the
+      pipeline merges it into 7.
+
+  - id: nyc-sir
+    name: "Staten Island Railway"
+    long_name: "Staten Island Railway"
+    gtfs_route: "SIR"        # exact GTFS route_short_name
+    gtfs_route_id: "SI"     # GTFS route_id (needed to tell the three "S" shuttles apart)
+    operator: MTA New York City Transit
+    colour: "#08179C"
+    colour_source: GTFS routes.txt route_color 08179C (route_id SI), feed version 20261028-fall-2026-pick-with-long-term-supplements
+    mode: metro
+    termini: ["St George", "Tottenville"]
+    opened: null
+    osm:
+      ref: "SIR"
+      name_contains: "NYCS - Staten Island Railway"
+      route: subway
+    timetable:
+      weekday: null
+      saturday: null
+      sunday: null
+    avg_speed_kmh: null
+    source_urls:
+      - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+      - https://www.mta.info/developers
+    notes: >-
+      Timetable left null: GTFS supplies scheduled times. Termini are the most frequent GTFS trip_headsign per
+      direction. GTFS route_id SI, route_short_name SIR, route_type 2 (rail; import_gtfs maps it to mode metro). GTFS
+      agency is MTA NYCT; OSM tags the operator as Staten Island Rapid Transit Operating Authority. Some trips end at
+      Great Kills.
+fares:
+  type: distance_slab
+  currency: USD
+  slabs:
+    - {max_km: null, fare: 3.00}
+  notes: >-
+    Flat fare: $3 per ride on the subway and local buses (MTA "Subway and bus fares" page, read 2026-10-30). The base
+    fare rose from $2.90 to $3.00 on Sunday 4 January 2026 (MTA Board vote of 30 Sep 2025, NY1; in effect from
+    4 Jan 2026, ABC7). No further increase before 2026-10-30 was found; the MTA page still lists $3. Not modelled:
+    the OMNY weekly fare cap ($35 per 7-day period on subway and local bus; $67 including express bus), the one free
+    transfer within two hours (subway-bus, bus-subway, bus-bus; out-of-system free transfers at Lexington Av/59 St -
+    Lexington Av/63 St and Junius St - Livonia Av), reduced fare (half fare, $1.50, for seniors and riders with
+    qualifying disabilities; reduced-fare weekly cap $17.50 per NY1), and the $3.50 single-ride ticket price
+    approved in the same package (NY1; the MTA fares page does not list it). MetroCards could no longer be bought or
+    refilled from 1 January 2026 (MTA fares page). Staten Island Railway: in January 2010 fares were collected only at
+    St. George, the ballpark stop and (from that month) Tompkinsville, so rides between other SIR stations were free
+    (Second Avenue Sagas, 2010-01-19). Current practice was not confirmed from an MTA page; it is not modelled, so the
+    app will show $3 for every SIR trip. Riding within the subway between lines is free (one fare per
+    entry), which the flat slab already gives.
+  source_urls:
+    - https://www.mta.info/fares-tolls/subway-bus
+    - https://ny1.com/nyc/all-boroughs/news/2025/09/30/mta-board-approves-subway-and-bus-fare-hike-for-2026
+    - https://abc7ny.com/post/mta-fare-increases-3-commuters-buses-subway-trains-nyc/18350815/
+    - https://www.timeout.com/newyork/news/its-official-the-new-york-subway-is-now-more-expensive-than-its-ever-been-100125
+    - https://secondavenuesagas.com/2010/01/19/fare-collection-at-sirs-tompkinsville-starts-wed/
+
+sources:
+  - https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip
+  - https://www.mta.info/developers
+  - https://www.mta.info/developers/terms-and-conditions
+  - https://www.mta.info/doing-business-with-us/licensing-program
+  - https://www.mta.info/fares-tolls/subway-bus
+  - https://ny1.com/nyc/all-boroughs/news/2025/09/30/mta-board-approves-subway-and-bus-fare-hike-for-2026
+  - https://abc7ny.com/post/mta-fare-increases-3-commuters-buses-subway-trains-nyc/18350815/
+  - https://www.timeout.com/newyork/news/its-official-the-new-york-subway-is-now-more-expensive-than-its-ever-been-100125
+  - https://secondavenuesagas.com/2010/01/19/fare-collection-at-sirs-tompkinsville-starts-wed/
+  - https://overpass-api.de/api/interpreter
+unknowns:
+  - lines.*.opened
+  - lines.*.avg_speed_kmh
+  - lines.*.timetable (left null by design; GTFS supplies scheduled times)
+  - fares Staten Island Railway (current collection points and whether intermediate SIR rides are free, not confirmed from an MTA page)
+  - fares single-ride ticket price ($3.50 per NY1, 2025-09-30; not listed on the MTA fares page)
+  - Service on 2026-10-30 and 2026-10-31 (the regular feed's calendar starts 2026-11-01; the supplemented feed covers today)
