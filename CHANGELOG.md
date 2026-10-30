@@ -3,7 +3,7 @@
 All notable changes to MetroPulse are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [SemVer](https://semver.org/).
 
-## [Unreleased]
+## [1.1.0] - 2026-10-30
 
 ### Added
 - **Real logos and line symbols.** Operator logos appear in the city picker and on the Lines tab. London roundels, New York route bullets and Doha and Kolkata line emblems appear on line chips, the map's station sheet, line screens and widgets. All come from Wikimedia Commons and are credited in *Licences and sources*, along with a notice that MetroPulse is independent and not affiliated with any operator.
