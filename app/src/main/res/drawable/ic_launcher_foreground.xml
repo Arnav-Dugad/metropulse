@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  MetroPulse mark: a pulse wave that settles onto a track and arrives at a station ring.
+  Drawn inside the 66dp safe zone of the 108dp adaptive canvas.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Soft shadow under the wave for depth. -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M28,58.5H39.5L45.5,42.5L54.5,73.5L61.5,52.5L65.5,58.5H71"
+        android:strokeWidth="7"
+        android:strokeAlpha="0.22"
+        android:strokeColor="#FF12062E"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M28,56H39.5L45.5,40L54.5,71L61.5,50L65.5,56H71"
+        android:strokeWidth="6.5"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- Station ring. -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M78,56m-5.5,0a5.5,5.5 0,1 1,11 0a5.5,5.5 0,1 1,-11 0"
+        android:strokeWidth="4.5"
+        android:strokeColor="#FFFFFFFF" />
+</vector>

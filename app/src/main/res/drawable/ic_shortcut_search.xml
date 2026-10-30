@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher shortcut icon: MetroPulse's search glyph on a soft violet disc. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path android:fillColor="#FFEEE9FF" android:pathData="M24,2a22,22 0,1 1,0 44a22,22 0,1 1,0 -44z" />
+    <group android:translateX="12" android:translateY="12">
+            <path android:pathData="M10.75 17.5a6.75 6.75 0 1 0 0-13.5a6.75 6.75 0 0 0 0 13.5Z" android:strokeColor="#FF6C3BFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+            <path android:pathData="M15.75 15.75L20 20" android:strokeColor="#FF6C3BFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    </group>
+</vector>

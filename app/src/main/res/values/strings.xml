@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MetroPulse</string>
+
+    <!-- Navigation -->
+    <string name="nav_map">Map</string>
+    <string name="nav_plan">Plan</string>
+    <string name="nav_lines">Lines</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Placeholders until the transit features land -->
+    <string name="home_where_to">Where to?</string>
+    <string name="empty_map_title">Your city, in 3D</string>
+    <string name="empty_plan_title">Plan a journey</string>
+    <string name="empty_plan_body">Fastest routes and interchanges, fully offline.</string>
+
+    <!-- City -->
+    <string name="city_choose_title">Choose your city</string>
+    <string name="city_choose_body">Lines, timetables and fares for metro systems in India, the Gulf, London and New York. Everything works offline.</string>
+    <string name="city_choose_action">Choose city</string>
+    <string name="city_picker_title">Your city</string>
+    <string name="city_search_hint">Search cities</string>
+    <string name="city_times_scheduled">Timetable</string>
+    <string name="city_times_approximate">Approx. times</string>
+    <string name="city_first_last_only">First &amp; last trains</string>
+    <string name="city_failed_body">The data on this phone may be damaged. Try again, or pick another city.</string>
+    <string name="city_choose_other">Choose another city</string>
+    <string name="city_failed_title">Couldn\'t open this city\'s data</string>
+    <string name="home_trains_by_timetable">Trains shown by timetable</string>
+    <string name="home_trains_none">No published timetable, so no trains shown</string>
+    <string name="home_trains_not_now">No trains scheduled right now</string>
+    <string name="map_attribution">© OpenMapTiles © OpenStreetMap contributors</string>
+    <string name="action_close">Close</string>
+    <plurals name="lines_count">
+        <item quantity="one">%d line</item>
+        <item quantity="other">%d lines</item>
+    </plurals>
+    <plurals name="stations_count">
+        <item quantity="one">%d station</item>
+        <item quantity="other">%d stations</item>
+    </plurals>
+
+    <!-- On-board mode -->
+    <string name="home_on_board">On board</string>
+    <string name="onboard_sheet_title">Where are you going?</string>
+    <string name="onboard_from">From</string>
+    <string name="onboard_to">To</string>
+    <string name="onboard_choose_station">Choose a station</string>
+    <string name="onboard_choose_destination">Choose your stop</string>
+    <string name="onboard_nearest">%1$d m away</string>
+    <string name="onboard_search_hint">Search stations</string>
+    <string name="onboard_no_route">No route between these stations right now.</string>
+    <string name="onboard_wake_me">Wake me</string>
+    <plurals name="onboard_stops_before">
+        <item quantity="one">%d stop before</item>
+        <item quantity="other">%d stops before</item>
+    </plurals>
+    <string name="onboard_direct">direct</string>
+    <plurals name="onboard_changes">
+        <item quantity="one">%d change</item>
+        <item quantity="other">%d changes</item>
+    </plurals>
+    <plurals name="onboard_stops">
+        <item quantity="one">%d stop</item>
+        <item quantity="other">%d stops</item>
+    </plurals>
+    <string name="onboard_summary_timed">%1$s → %2$s · %3$d min · %4$s</string>
+    <string name="onboard_summary_untimed">About %1$d min · %2$s · times unavailable</string>
+    <string name="onboard_start">Start trip</string>
+    <string name="onboard_privacy">Uses your location to follow the train. It stays on your phone. Without it, MetroPulse follows the timetable.</string>
+    <string name="onboard_end_trip">End trip</string>
+    <string name="onboard_min">min</string>
+    <string name="onboard_card_to">To</string>
+    <string name="onboard_card_arrived">You have arrived</string>
+    <string name="onboard_card_board_timed">Board the %1$s towards %2$s at %3$s, leaving %4$s</string>
+    <string name="onboard_card_board">Board the %1$s towards %2$s at %3$s</string>
+    <string name="onboard_card_riding">%1$s · next %2$s</string>
+    <string name="onboard_card_change_at">change at %1$s</string>
+    <string name="onboard_wrong_direction">This train is heading away from %1$s</string>
+    <string name="onboard_missed_stop">You have passed %1$s</string>
+    <string name="onboard_location_denied">No location access, so this trip follows the timetable.</string>
+    <string name="onboard_location_off">Location is off, so this trip follows the timetable.</string>
+    <string name="onboard_location_fix">Fix</string>
+    <string name="onboard_source_live">Live</string>
+    <string name="onboard_source_scheduled">Scheduled</string>
+    <string name="onboard_source_approximate">Approx.</string>
+    <string name="onboard_starting">Starting your trip…</string>
+    <string name="onboard_board_title">Board the %1$s towards %2$s</string>
+    <string name="onboard_board_departs">From %1$s at %2$s</string>
+    <string name="onboard_board_untimed">From %1$s · times unavailable</string>
+    <string name="onboard_riding_title">To %1$s</string>
+    <string name="onboard_riding_body">%1$s · about %2$d min · next %3$s</string>
+    <string name="onboard_riding_body_untimed">%1$s · next %2$s</string>
+    <string name="onboard_chip_minutes">%1$d min</string>
+    <string name="onboard_arrived_title">Arrived at %1$s</string>
+    <string name="onboard_arrived_body">Mind the gap as you step off.</string>
+    <string name="onboard_channel_trip">Trip progress</string>
+    <string name="onboard_channel_trip_description">Your train\'s progress while on-board mode is on</string>
+    <string name="onboard_channel_alert">Wake alerts</string>
+    <string name="onboard_channel_alert_description">Rings before your stop so you can get off in time</string>
+    <string name="onboard_alert_title">Your stop is next</string>
+    <string name="onboard_alert_text">Get ready to get off at %1$s</string>
+    <string name="onboard_alert_body">Gather your things and move towards the doors.</string>
+    <string name="onboard_alert_dismiss">I\'m awake</string>
+
+    <!-- Lines -->
+    <string name="lines_title">Lines</string>
+    <string name="lines_hours">First %1$s · Last %2$s</string>
+    <string name="lines_times_unavailable">Times unavailable</string>
+    <string name="lines_attribution">Network data © OpenStreetMap contributors (ODbL) and operator timetables.</string>
+    <string name="lines_note_approximate">Approximate times are modelled from published first and last trains and frequencies.</string>
+    <string name="lines_note_unavailable">Where the operator publishes only first and last trains, no departure times are shown.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_city">City</string>
+    <string name="settings_city_data">Offline data from %1$s</string>
+    <string name="settings_section_updates">Updates</string>
+    <string name="settings_section_about">About</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_auto_check">Check for updates automatically</string>
+    <string name="settings_auto_check_body">Once a day, over any connection</string>
+    <string name="settings_check_now">Check for updates</string>
+    <string name="settings_checking">Checking…</string>
+    <string name="settings_up_to_date">Up to date</string>
+    <string name="settings_available">%1$s available</string>
+    <string name="settings_downloading">Downloading %1$s</string>
+    <string name="settings_ready">Ready to install</string>
+    <string name="settings_check_failed">Couldn\'t check</string>
+    <string name="settings_last_checked">Last checked %1$s</string>
+    <string name="settings_just_now">just now</string>
+    <string name="settings_updates_disabled">Updates are off in debug builds</string>
+    <string name="settings_source">Source code</string>
+    <string name="settings_source_body">Open source under the MIT licence</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_privacy_body">No accounts, ads or tracking. Location stays on your phone.</string>
+
+    <!-- Update sheet -->
+    <string name="update_overline_available">Update available</string>
+    <string name="update_overline_downloading">Downloading</string>
+    <string name="update_overline_ready">Ready to install</string>
+    <string name="update_overline_installing">Installing</string>
+    <string name="update_overline_failed">Update failed</string>
+    <string name="update_overline_current">You\'re up to date</string>
+    <string name="update_overline_checking">Checking</string>
+    <string name="update_to">updates to</string>
+    <string name="update_whats_new">What\'s new</string>
+    <string name="update_verified">Verified</string>
+    <string name="update_checksum">SHA-256</string>
+    <string name="settings_update_failed">Update failed</string>
+    <string name="update_now">Update now</string>
+    <string name="update_install">Install update</string>
+    <string name="update_retry">Try again</string>
+    <string name="update_done">Done</string>
+    <string name="update_skip">Skip this version</string>
+    <string name="update_later">Later</string>
+    <string name="update_cancel">Cancel</string>
+    <string name="update_hide">Continue in background</string>
+    <string name="update_permission_title">Allow MetroPulse to install updates</string>
+    <string name="update_permission_body">Android asks you to approve apps that update themselves. You only need to do this once.</string>
+    <string name="update_permission_action">Open settings</string>
+
+    <!-- Shared actions -->
+    <string name="action_retry">Try again</string>
+    <string name="action_back">Back</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_done">Done</string>
+    <string name="action_save">Save to favourites</string>
+    <string name="action_unsave">Remove from favourites</string>
+    <string name="home_station_details">Departures and details</string>
+
+    <!-- Journey planner -->
+    <string name="plan_title">Plan</string>
+    <string name="plan_pick_from">From</string>
+    <string name="plan_pick_to">To</string>
+    <string name="plan_swap">Swap start and destination</string>
+    <string name="plan_now">Leave now</string>
+    <string name="plan_leave_at">Leave at %1$s</string>
+    <string name="plan_leave_at_title">Leave at</string>
+    <string name="plan_pick_time">Pick a time</string>
+    <string name="plan_in_minutes">In %1$d min</string>
+    <string name="plan_options">Options</string>
+    <string name="plan_fastest">Fastest</string>
+    <string name="plan_fewest_changes">Fewest changes</string>
+    <string name="plan_about">About %1$s</string>
+    <string name="plan_fare_with_card">%1$s · %2$s with card</string>
+    <string name="plan_to_station">To %1$s</string>
+    <string name="plan_untimed_note">Some lines here have no timetable, so the time is estimated from distance.</string>
+    <string name="plan_favourites">Favourites</string>
+    <string name="plan_recent">Recent</string>
+    <string name="plan_empty_title">Where are you headed?</string>
+    <string name="plan_empty_body">Pick a start and a destination. Routes are worked out on your phone, even offline.</string>
+    <string name="plan_no_route_title">No route found</string>
+    <string name="plan_no_route_body">These stations aren\'t connected by any service at this time. Try a later time or a nearby station.</string>
+    <string name="plan_gone_title">Journey unavailable</string>
+    <string name="plan_gone_body">This journey is no longer in the results. Go back and plan again.</string>
+
+    <!-- Journey details -->
+    <string name="journey_route">Route</string>
+    <string name="journey_towards">%1$s towards %2$s</string>
+    <string name="journey_change">Change trains · %1$s</string>
+    <string name="journey_change_here">Change trains here</string>
+    <string name="journey_walk">Walk to %1$s · %2$s</string>
+    <string name="journey_fare">Fare</string>
+    <string name="journey_fare_token">Token</string>
+    <string name="journey_fare_media">%1$s (%2$d%% off)</string>
+    <string name="journey_fare_tickets">%1$d tickets</string>
+    <string name="journey_fare_unknown">Fare not available for this trip</string>
+    <string name="journey_basis_distance">Fare for %1$s km</string>
+    <plurals name="journey_basis_stations">
+        <item quantity="one">Fare for %1$d station</item>
+        <item quantity="other">Fare for %1$d stations</item>
+    </plurals>
+    <string name="journey_basis_table">From the operator\'s fare table</string>
+    <string name="media_smart_card">Smart card</string>
+    <string name="media_qr_ticket">QR ticket</string>
+    <string name="media_ncmc">NCMC card</string>
+
+    <!-- Station details -->
+    <string name="station_plan_from">From here</string>
+    <string name="station_plan_to">Go here</string>
+    <string name="station_show_on_map">Show on map</string>
+    <string name="station_departures">Next departures</string>
+    <string name="station_no_departures">No departures listed for this station.</string>
+    <string name="station_due">Due</string>
+    <string name="station_all_night">From %1$s, through the night</string>
+    <string name="station_short_trip">Ends at %1$s</string>
+    <string name="station_service_ended">No more trains today</string>
+    <string name="station_exits">Exits</string>
+    <string name="station_exit_unnamed">Unnamed exit</string>
+    <string name="station_step_free">Step-free</string>
+    <string name="station_gone_title">Station not found</string>
+    <string name="station_gone_body">This station isn\'t in the current city\'s data.</string>
+
+    <!-- Line details -->
+    <string name="line_towards">To %1$s</string>
+    <string name="line_gone_title">Line not found</string>
+    <string name="line_gone_body">This line isn\'t in the current city\'s data.</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search stations</string>
+    <string name="search_nearby">Nearby</string>
+    <string name="search_favourites">Favourites</string>
+    <string name="search_distance">%1$d m away</string>
+    <string name="search_empty_title">Find a station</string>
+    <string name="search_empty_body">Type a station name. Nearby and favourite stations show up here.</string>
+    <string name="search_none_title">No matches</string>
+    <string name="search_none_body">No station matches \"%1$s\".</string>
+
+    <!-- Onboarding -->
+    <string name="welcome_title">Your metro, in your pocket</string>
+    <string name="welcome_body">Routes, trip tracking and wake alerts for metros in India, the Gulf, London and New York. No account, no ads.</string>
+    <string name="welcome_offline">Plans journeys without an internet connection</string>
+    <string name="welcome_alerts">Wakes you a stop or two before yours</string>
+    <string name="welcome_honest">Every time says whether it is live, scheduled or approximate</string>
+    <string name="welcome_private">No tracking. Your location never leaves your phone</string>
+    <string name="welcome_start">Get started</string>
+    <string name="welcome_continue">Continue</string>
+    <string name="welcome_not_now">Not now</string>
+    <string name="welcome_city_title">Where do you ride?</string>
+    <string name="welcome_city_body">You can switch cities any time from the map or Settings.</string>
+    <string name="welcome_location_title">Follow your train</string>
+    <string name="welcome_location_body">On-board mode uses your location to show where your train is and when to get off.</string>
+    <string name="welcome_location_private">Used during trips and to find stations near you. It never leaves your phone</string>
+    <string name="welcome_location_fallback">Without it, MetroPulse follows the timetable instead</string>
+    <string name="welcome_location_allow">Allow location</string>
+    <string name="welcome_location_granted">Location allowed</string>
+    <string name="welcome_alerts_title">Never miss your stop</string>
+    <string name="welcome_alerts_body">Notifications keep your trip on the lock screen and ring the wake alert, even with the screen off.</string>
+    <string name="welcome_alerts_progress">Your train\'s progress on the lock screen</string>
+    <string name="welcome_alerts_wake">An alarm before your stop, over the lock screen</string>
+    <string name="welcome_alerts_allow">Allow notifications</string>
+    <string name="welcome_alerts_granted">Notifications allowed</string>
+    <string name="welcome_full_screen_allow">Allow alerts over the lock screen</string>
+    <string name="welcome_finish">Start using MetroPulse</string>
+
+    <!-- Settings -->
+    <string name="settings_section_offline">Offline map</string>
+    <string name="settings_offline_download">Download the %1$s map</string>
+    <string name="settings_offline_downloading">Downloading the map… %1$d%%</string>
+    <string name="settings_offline_ready">%1$s map on this phone</string>
+    <string name="settings_offline_full">every detail, 3D buildings included</string>
+    <string name="settings_offline_partial">streets and stations; closer detail needs a connection</string>
+    <string name="settings_offline_wifi">best on Wi-Fi</string>
+    <string name="settings_offline_failed">The download stopped. Tap to try again.</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="home_offline">Offline · lines and times still work; the map needs a connection</string>
+    <string name="home_offline_downloaded">Offline · using the downloaded map</string>
+    <string name="settings_section_commute">My commute</string>
+    <string name="settings_commute_home">Home station</string>
+    <string name="settings_commute_work">Work station</string>
+    <string name="settings_commute_not_set">Not set</string>
+    <string name="settings_commute_tile">Add the commute tile</string>
+    <string name="settings_commute_tile_body">Start your trip from Quick Settings: home to work before noon, work to home after.</string>
+    <string name="settings_commute_tile_body_legacy">Add “Start my commute” from the Quick Settings editor: home to work before noon, work to home after.</string>
+    <string name="settings_section_trips">Trips</string>
+    <string name="settings_wake_alert">Wake alert</string>
+    <string name="settings_wake_alert_body">For new trips; you can change it for each trip.</string>
+    <string name="settings_full_screen">Allow alerts over the lock screen</string>
+    <string name="settings_full_screen_body">Android has turned this off, so the wake alert shows only as a notification.</string>
+    <string name="settings_live">Live arrivals</string>
+    <string name="settings_live_body">In London, from TfL\'s free open data: your phone asks TfL directly. No other city publishes live times.</string>
+    <string name="about_live">Live data</string>
+    <string name="line_trains_live">Trains placed by live arrival predictions</string>
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_high_contrast">High contrast</string>
+    <string name="settings_high_contrast_body">Stronger text and borders</string>
+    <string name="settings_reduce_motion">Reduce motion</string>
+    <string name="settings_reduce_motion_body">Fewer animations and calmer map updates. Also on when animations are off in Android settings.</string>
+    <string name="settings_section_data">City data</string>
+    <string name="settings_data_updates">Weekly data updates</string>
+    <string name="settings_data_updates_body">New stations, lines and timetables without an app update</string>
+    <string name="settings_data_check">Check for new data</string>
+    <plurals name="settings_data_updated">
+        <item quantity="one">%1$d city updated</item>
+        <item quantity="other">%1$d cities updated</item>
+    </plurals>
+    <string name="settings_licences">Licences and data sources</string>
+    <string name="settings_licences_body">Credits for maps, data and code</string>
+    <string name="commute_not_set">Set your home and work stations first.</string>
+
+    <!-- About -->
+    <string name="about_title">Licences and sources</string>
+    <string name="about_body">MetroPulse %1$s is built on open data and open-source software. Thank you to everyone below.</string>
+    <string name="about_app">This app</string>
+    <string name="about_app_licence">Free and open source · MIT licence</string>
+    <string name="about_city_data">%1$s data</string>
+    <string name="about_map">Map</string>
+    <string name="about_libraries">Fonts and libraries</string>
+    <string name="about_more">%1$d more</string>
+    <string name="about_fewer">Show fewer</string>
+
+    <!-- Quick Settings tile and shortcuts -->
+    <string name="tile_label">Start my commute</string>
+    <string name="tile_leg">To %1$s</string>
+    <string name="tile_not_set">Set up in MetroPulse</string>
+    <string name="tile_running">To %1$s</string>
+    <string name="shortcut_search_short">Search</string>
+    <string name="shortcut_search_long">Search stations</string>
+    <string name="shortcut_onboard_short">On board</string>
+    <string name="shortcut_onboard_long">Follow my train</string>
+    <string name="shortcut_journey_short">To %1$s</string>
+    <string name="shortcut_journey_long">%1$s → %2$s</string>
+
+    <!-- Widgets -->
+    <string name="widget_next_trains_label">Next trains</string>
+    <string name="widget_next_trains_description">Timetabled departures from your favourite stations</string>
+    <string name="widget_trip_label">My trip</string>
+    <string name="widget_trip_description">Your trip in progress, or one tap to start one</string>
+    <string name="widget_no_city">Open MetroPulse to choose your city.</string>
+    <string name="widget_no_favourites">Star a station in MetroPulse to see its next trains here.</string>
+    <string name="widget_service_ended">No more today</string>
+    <string name="widget_no_trip">No trip running</string>
+    <string name="widget_no_trip_body">Tap to follow your train</string>
+    <string name="widget_short_trips">Faded trains end sooner</string>
+    <string name="widget_trip_board">%1$s from %2$s at %3$s</string>
+    <string name="widget_trip_board_untimed">%1$s from %2$s</string>
+    <string name="widget_trip_arrive">%1$s · arrive %2$s</string>
+</resources>

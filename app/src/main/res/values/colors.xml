@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="splash_background">#FF2B1070</color>
+    <color name="window_background">#FFF3F2F8</color>
+    <color name="widget_background">#FFFFFFFF</color>
+    <color name="widget_surface">#FFEEE9FF</color>
+    <color name="widget_text_primary">#FF110F18</color>
+    <color name="widget_text_secondary">#FF5F5B6E</color>
+    <color name="widget_accent">#FF6C3BFF</color>
+    <color name="widget_on_accent">#FFFFFFFF</color>
+</resources>
