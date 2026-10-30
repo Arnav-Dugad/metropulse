@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-label="MetroPulse: your metro, in your pocket">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12062E"/>
+      <stop offset="0.55" stop-color="#2B1070"/>
+      <stop offset="1" stop-color="#6C3BFF"/>
+    </linearGradient>
+    <linearGradient id="pulse" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#B39DFF" stop-opacity="0"/>
+      <stop offset="0.25" stop-color="#B39DFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="400" fill="url(#bg)"/>
+  <!-- A pulse that becomes a metro line ending in a station ring. -->
+  <path d="M0 300 H520 L560 230 L600 360 L640 270 L670 300 H1120" fill="none" stroke="url(#pulse)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1150" cy="300" r="26" fill="none" stroke="#FFFFFF" stroke-width="10"/>
+  <text x="96" y="168" fill="#FFFFFF" font-family="Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="96" font-weight="800" letter-spacing="-3">MetroPulse</text>
+  <text x="100" y="226" fill="#D5C9FF" font-family="Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="30" font-weight="500">Your metro, in your pocket. Offline routes, wake alerts and a 3D map.</text>
+</svg>

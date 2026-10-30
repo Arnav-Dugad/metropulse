@@ -1,0 +1,66 @@
+# Builds, signs and publishes the APK when a version tag (v1.2.3) is pushed. Installed apps find
+# it through the GitHub Releases API and verify it against the asset's SHA-256 digest.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Version from the tag
+        id: version
+        run: echo "name=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Unit tests
+        run: ./gradlew --no-configuration-cache :core:domain:test :core:data:testReleaseUnitTest :core:map:testReleaseUnitTest
+
+      - name: Data pipeline tests
+        run: |
+          python3 -m pip install --quiet -r tools/requirements.txt
+          cd tools && python3 -m unittest discover -s tests -q
+
+      - name: Signing key
+        env:
+          SIGNING_KEYSTORE_B64: ${{ secrets.SIGNING_KEYSTORE_B64 }}
+        run: |
+          echo "$SIGNING_KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+          echo "METROPULSE_STORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+
+      - name: Build the release APK
+        env:
+          METROPULSE_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          METROPULSE_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          METROPULSE_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+        run: ./gradlew --no-configuration-cache :app:assembleRelease -Pmetropulse.versionName=${{ steps.version.outputs.name }}
+
+      - name: Check the signature
+        run: |
+          APK=app/build/outputs/apk/release/app-release.apk
+          "$ANDROID_HOME"/build-tools/$(ls "$ANDROID_HOME"/build-tools | sort -V | tail -1)/apksigner verify --print-certs "$APK"
+          mkdir -p dist
+          cp "$APK" "dist/MetroPulse-${{ steps.version.outputs.name }}.apk"
+          cd dist && sha256sum "MetroPulse-${{ steps.version.outputs.name }}.apk" | cut -d' ' -f1 > "MetroPulse-${{ steps.version.outputs.name }}.apk.sha256"
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: MetroPulse ${{ steps.version.outputs.name }}
+          generate_release_notes: true
+          files: |
+            dist/MetroPulse-${{ steps.version.outputs.name }}.apk
+            dist/MetroPulse-${{ steps.version.outputs.name }}.apk.sha256

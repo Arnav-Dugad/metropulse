@@ -1,0 +1,22 @@
+name: Wrong station, time or fare
+description: The app's data for a city doesn't match reality
+labels: [data]
+body:
+  - type: input
+    id: city
+    attributes:
+      label: City and line
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What's wrong?
+      description: The station, time or fare the app shows, and what it should be.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: A link to the operator's timetable, notice or fare table, if you have one.
