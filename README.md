@@ -31,7 +31,7 @@ No account. No ads. No tracking. Your location never leaves your phone.
   stops before your destination, even with the screen off.
 - **Station details**: next trains per line and direction, first and last trains, exits and
   step-free access; **line strip maps** with trains moving along them.
-- **Live arrivals in London** from TfL's open data, fetched by your phone directly.
+- **Live arrivals in London and New York** from TfL's and the MTA's feeds, fetched by your phone directly.
 - **Home-screen widgets** (next trains, your trip), launcher shortcuts and a **"Start my
   commute"** Quick Settings tile.
 - **Offline maps**: download a city's map for use without a connection.
@@ -75,7 +75,7 @@ No account. No ads. No tracking. Your location never leaves your phone.
 | Riyadh | Saudi Arabia | 6 | 83 | First & last trains |
 | Dubai | United Arab Emirates | 2 | 52 | First & last trains |
 | London | United Kingdom | 16 | 312 | Approx., **live arrivals** |
-| New York | United States | 29 | 496 | Timetable (MTA) |
+| New York | United States | 29 | 496 | Timetable (MTA), **live arrivals** |
 
 **Timetable**: the operator's schedule (Bengaluru via an unofficial GTFS feed). **Approx.**:
 modelled from the operator's published first and last trains and frequencies. **First & last
@@ -85,11 +85,11 @@ an app update.
 
 ### Live data
 
-London's live arrivals come from TfL's free [Unified API](https://api.tfl.gov.uk), called by each
-phone directly (no MetroPulse server). New York's MTA feeds are supported in the code but switched
-off (`metropulse.mtaRealtime` in `gradle.properties`): the MTA's terms do not allow apps to fetch
-its realtime feeds directly from its servers. No Indian or Gulf metro publishes a free realtime
-feed; there, on-board mode follows your train with your phone's own GPS.
+London's live arrivals come from TfL's free [Unified API](https://api.tfl.gov.uk) and New York's
+from the MTA's GTFS-realtime feeds, each called by the phone directly (no MetroPulse server). The
+MTA's terms only allow this with its permission, which this project has; forks without it should
+set `metropulse.mtaRealtime=false` in `gradle.properties`. No Indian or Gulf metro publishes a free
+realtime feed; there, on-board mode follows your train with your phone's own GPS.
 
 ## Install
 
@@ -122,8 +122,8 @@ City databases are built by the Python pipeline in [`tools/`](tools/); see
 ## Privacy
 
 No accounts, analytics, ads or crash reporting. Location is used only on your phone. The app
-talks to OpenFreeMap (map tiles), GitHub (updates and city data) and, in London, TfL (live
-arrivals). Details in [PRIVACY.md](PRIVACY.md).
+talks to OpenFreeMap (map tiles), GitHub (updates and city data) and, for live arrivals, TfL in
+London and the MTA in New York. Details in [PRIVACY.md](PRIVACY.md).
 
 ## Credits and licences
 

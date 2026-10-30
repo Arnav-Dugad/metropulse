@@ -32,6 +32,7 @@ sees your IP address and the app's user agent (`MetroPulse/<version>`).
 | `github.com` and its download servers | Downloads a new version of the app | Only when you choose to update |
 | `raw.githubusercontent.com` | Checks for and downloads newer city data (stations, timetables, fares) | About once a week, unless you turn off data updates in Settings |
 | `api.tfl.gov.uk` ([TfL open data](https://tfl.gov.uk/info-for/open-data-users/)) | Live arrival times in London. TfL can tell which stations or lines are being looked at. | Only while a London station or line is on screen, every 30 seconds, unless you turn off live arrivals in Settings |
+| `api-endpoint.mta.info` (the MTA) | Live arrival times in New York. The MTA can tell which lines are being looked at. | Only while a New York station or line is on screen, every 30 seconds, unless you turn off live arrivals in Settings |
 
 Nothing else is contacted. Timetables, routes and fares are worked out on your phone.
 

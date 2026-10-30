@@ -57,6 +57,14 @@ private val MAP_CREDITS = listOf(
 )
 
 /** Live arrivals in London (TfL's transport data terms ask for these notices). */
+private val MTA_LIVE_CREDITS = listOf(
+    Credit(
+        "Metropolitan Transportation Authority (MTA)",
+        "Live arrivals in New York · MetroPulse is not licensed or endorsed by the MTA, and the MTA does not warrant that the data is accurate, complete or timely",
+        listOf("https://www.mta.info/developers/terms-and-conditions"),
+    ),
+)
+
 private val LIVE_CREDITS = listOf(
     Credit(
         "Powered by TfL Open Data",
@@ -102,6 +110,7 @@ fun AboutScreen(network: TransitNetwork?, version: String, onBack: () -> Unit) {
                 item { CreditCard(stringResource(R.string.about_city_data, network.cityName), cityCredits) }
             }
             if (network?.cityId == "london") item { CreditCard(stringResource(R.string.about_live), LIVE_CREDITS) }
+            if (network?.cityId == "new-york") item { CreditCard(stringResource(R.string.about_live), MTA_LIVE_CREDITS) }
             item { CreditCard(stringResource(R.string.about_map), MAP_CREDITS) }
             item { CreditCard(stringResource(R.string.about_libraries), APP_CREDITS) }
         }

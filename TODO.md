@@ -117,9 +117,8 @@ The full plan is in phases 1–9. English UI only for now; localization is defer
 ## Live data (added 2026-10-30) ✅
 - [x] Researched free realtime sources: only TfL (London) is free, keyless and allowed to be called directly by apps; the MTA's terms forbid apps fetching its feeds from MTA servers; no Indian or Gulf metro publishes a public realtime feed (Delhi OTD realtime is buses only, with private keys; Dubai's API needs a secret)
 - [x] London: live arrivals on station screens and live trains on line strip maps from TfL's Unified API, "Powered by TfL Open Data" shown, OS/Geomni notices in About; Settings › Live arrivals (on by default); stations matched by TfL StopPoint ids from OSM NaPTAN codes (multi-valued tags, platform codes) and TfL's StopPoint search at build time, with a name fallback in the app
-- [x] New York: GTFS-realtime decoder (no protobuf runtime) and MTA client written and tested, but off (`metropulse.mtaRealtime=false`) until the MTA permits direct access
+- [x] New York: live arrivals and live trains on line maps from the MTA's GTFS-realtime feeds (own decoder, no protobuf runtime); enabled with the MTA's permission (`metropulse.mtaRealtime=true`)
 - [x] Fixed: stations named after a neighbouring bus station ("Canada Water Bus Station"); Night Tube hours now read "From 5:50 am, through the night"
-- [ ] New York realtime: enable once the MTA agrees in writing, or serve its feed from a non-MTA mirror
 - [ ] Live trains on the 3D map (TfL has no position feed; positions would be estimated from predictions for every line at once, about 1 MB per refresh)
 - [ ] TfL: 50 requests a minute per phone without a key; a shared app key would pool all users into one 500/min quota, so none is used
 

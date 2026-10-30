@@ -300,7 +300,7 @@
     <string name="settings_full_screen">Allow alerts over the lock screen</string>
     <string name="settings_full_screen_body">Android has turned this off, so the wake alert shows only as a notification.</string>
     <string name="settings_live">Live arrivals</string>
-    <string name="settings_live_body">In London, from TfL\'s free open data: your phone asks TfL directly. No other city publishes live times.</string>
+    <string name="settings_live_body">In London (TfL open data) and New York (MTA): your phone asks them directly. No other city publishes live times.</string>
     <string name="about_live">Live data</string>
     <string name="line_trains_live">Trains placed by live arrival predictions</string>
     <string name="settings_section_appearance">Appearance</string>

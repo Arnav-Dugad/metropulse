@@ -8,7 +8,7 @@ All notable changes to MetroPulse are recorded here. The format follows
 First public release.
 
 ### Added
-- **Live arrivals in London** from TfL's open data: live departures at stations and live trains on line maps, labelled *Live*. Turn them off in Settings.
+- **Live arrivals in London and New York** from TfL's and the MTA's feeds: live departures at stations and live trains on line maps, labelled *Live*. Turn them off in Settings.
 - **International metros:** London (Underground and DLR, Night Tube included), New York (the MTA's official timetable), Dubai, Doha and Riyadh. Cities are grouped by country, fares show in each city's currency, and Gulf cities' Friday timetables are used on Fridays.
 - **Offline maps:** download a city's map in Settings to see streets, labels and 3D buildings without a connection. The map says when you're offline.
 - **Welcome tour.** The first launch introduces the app, asks for your city, and explains why on-board mode would like location and notifications before Android asks. Every permission can be skipped.
