@@ -34,6 +34,7 @@ sees your IP address and the app's user agent (`MetroPulse/<version>`).
 | `github.com` and its download servers | Downloads a new version of the app | Only when you choose to update |
 | `raw.githubusercontent.com` | Checks for and downloads newer city data (stations, timetables, fares) | About once a week, unless you turn off data updates in Settings |
 | `api.tfl.gov.uk` ([TfL open data](https://tfl.gov.uk/info-for/open-data-users/)) | Live arrivals, live trains and line status in London. TfL can tell which stations or lines are being looked at. | Only while London is on screen: arrivals every 30 seconds for the station, line or map area you are looking at, status every 2 minutes. Off if you turn off live data in Settings. |
+| `otd.delhi.gov.in` ([Delhi Open Transit Data](https://otd.delhi.gov.in)) | Live positions of Delhi's buses, shown near metro stations. The whole city's feed is downloaded and the buses near the station are picked out on your phone, so the server is not told which station you are looking at or where you are. | Only while a Delhi station's details are on screen: every 30 seconds (about 600 KB each time). Off if you turn off live data in Settings. |
 | `api-endpoint.mta.info` (the MTA) | Live arrivals, live trains and service alerts in New York. The MTA can tell which lines are being looked at. | Only while New York is on screen: arrivals every 30 seconds, alerts every 2 minutes. Off if you turn off live data in Settings. |
 
 Nothing else is contacted. Timetables, routes and fares are worked out on your phone.

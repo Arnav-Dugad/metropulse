@@ -18,7 +18,7 @@ from metropipe.model import CityData, Line, Pattern, Station  # noqa: E402
 from metropipe.osm import OsmIndex, StationResolver, _route_shape, build_facilities, display_name, group_complexes, track_kind  # noqa: E402
 from metropipe.timetable import build_line_timetable, run_profile  # noqa: E402
 from metropipe.validate import validate  # noqa: E402
-from build_data import curated_source  # noqa: E402
+from build_data import bus_routes, curated_source  # noqa: E402
 
 # Three stations ~1.1 km apart along a north-south line.
 FEED = {
@@ -390,6 +390,22 @@ class FacilitiesTest(unittest.TestCase):
         build_facilities(data, city)
         self.assertEqual({"a": True, "c": False}, city.station_access)
         self.assertEqual({"a": ["atm", "lift"]}, city.station_facilities)
+
+
+
+class BusRoutesTest(unittest.TestCase):
+    def test_names_and_descriptions(self):
+        text = (
+            "\ufeffroute_id,route_short_name,route_long_name,route_type,agency_id\n"
+            "1750,534,Anand Vihar ISBT  -  Mehrauli,3,DTC\n"
+            "12,,Outer Mudrika Sewa,3,DTC\n"
+            "99,OMS,OMS,3,DIMTS\n"
+            "100,,,3,DTC\n"
+        )
+        self.assertEqual(
+            bus_routes(text),
+            {"1750": ["534", "Anand Vihar ISBT - Mehrauli"], "12": ["Outer Mudrika Sewa", ""], "99": ["OMS", ""]},
+        )
 
 
 if __name__ == "__main__":

@@ -11,6 +11,8 @@ data class AppBuildInfo(
     val dataManifestUrl: String = "",
     /** New York live predictions straight from the MTA's servers; off unless the MTA permits it. */
     val mtaRealtime: Boolean = false,
+    /** Key for Delhi's Open Transit Data bus positions; blank leaves Delhi's live buses off. */
+    val otdDelhiKey: String = "",
 ) {
     val userAgent: String get() = "MetroPulse/$versionName (Android; +https://github.com/Arnav-Dugad/metropulse)"
 }

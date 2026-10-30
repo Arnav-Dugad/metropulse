@@ -95,6 +95,14 @@ private val MTA_LIVE_CREDITS = listOf(
     ),
 )
 
+private val DELHI_LIVE_CREDITS = listOf(
+    Credit(
+        "Delhi Open Transit Data",
+        "Live bus positions · Transport Department, Government of NCT of Delhi, with IIIT-Delhi · provided as is, without any warranty",
+        listOf("https://otd.delhi.gov.in/data/realtime/", "https://otd.delhi.gov.in/terms"),
+    ),
+)
+
 private val LIVE_CREDITS = listOf(
     Credit(
         "Powered by TfL Open Data",
@@ -145,6 +153,7 @@ fun AboutScreen(network: TransitNetwork?, version: String, onBack: () -> Unit) {
             }
             if (network?.cityId == "london") item { CreditCard(stringResource(R.string.about_live), LIVE_CREDITS) }
             if (network?.cityId == "new-york") item { CreditCard(stringResource(R.string.about_live), MTA_LIVE_CREDITS) }
+            if (network?.cityId == "delhi") item { CreditCard(stringResource(R.string.about_live), DELHI_LIVE_CREDITS) }
             item { CreditCard(stringResource(R.string.about_map), MAP_CREDITS) }
             if (logos.isNotEmpty()) item {
                 CreditCard(stringResource(R.string.about_logos), logos, note = stringResource(R.string.about_logos_note))

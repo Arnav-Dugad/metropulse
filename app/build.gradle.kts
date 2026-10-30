@@ -38,6 +38,10 @@ android {
         buildConfigField("String", "DATA_MANIFEST_URL", "\"${providers.gradleProperty("metropulse.dataManifestUrl").get()}\"")
         // The MTA's terms forbid apps that fetch its realtime feeds directly; enable only with its permission.
         buildConfigField("boolean", "MTA_REALTIME", providers.gradleProperty("metropulse.mtaRealtime").orElse("false").get())
+        // Delhi's live bus positions need a key from otd.delhi.gov.in, kept out of the repository
+        // (CI secret OTD_DELHI_KEY). It ships inside the APK; without one, Delhi has no live buses.
+        val otdKey = secret("OTD_DELHI_KEY") ?: providers.gradleProperty("metropulse.otdDelhiKey").orNull
+        buildConfigField("String", "OTD_DELHI_KEY", "\"${otdKey.orEmpty().filter { it.isLetterOrDigit() }}\"")
     }
 
     signingConfigs {

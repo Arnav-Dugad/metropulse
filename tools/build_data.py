@@ -5,6 +5,7 @@ MetroPulse data pipeline.
     python -I -X utf8 tools/build_data.py build delhi pune   # selected cities
     python -I -X utf8 tools/build_data.py build --refresh    # ignore cached downloads
     python -I -X utf8 tools/build_data.py docs               # regenerate DATA_SOURCES.md
+    python -I -X utf8 tools/build_data.py delhi-buses        # Delhi bus route names for live buses
 
 Downloads go to tools/cache/ (never committed). Databases are written to
 app/src/main/assets/cities/<id>.db and listed in data/manifest.json, which the app checks
@@ -15,6 +16,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+import io
 import json
 import re
 import sys
@@ -447,6 +449,45 @@ QUALITY_TEXT = {
 }
 
 
+OTD_ROUTES = TOOLS / "input" / "delhi" / "otd" / "routes.txt"
+BUS_ROUTES_ASSET = ROOT / "app" / "src" / "main" / "assets" / "live" / "delhi-bus-routes.json"
+
+
+def bus_routes(text: str) -> dict[str, list[str]]:
+    """routes.txt -> {route_id: [public name, description]}; the description is left empty when it
+    only repeats the name."""
+    import csv
+
+    out: dict[str, list[str]] = {}
+    for row in csv.DictReader(io.StringIO(text.lstrip("\ufeff"))):
+        rid = (row.get("route_id") or "").strip()
+        short = (row.get("route_short_name") or "").strip()
+        long = re.sub(r"\s+", " ", (row.get("route_long_name") or "").strip())
+        name = short or long
+        if not rid or not name:
+            continue
+        out[rid] = [name, "" if long == name else long]
+    return out
+
+
+def cmd_delhi_buses(_args) -> int:
+    """Route names for Delhi's live bus positions, from the Open Transit Data static routes.txt,
+    downloaded by hand from https://otd.delhi.gov.in/data/static/ (the portal asks for a form)."""
+    if not OTD_ROUTES.exists():
+        print(f"Missing {OTD_ROUTES.relative_to(ROOT)}: download 'routes' from https://otd.delhi.gov.in/data/static/")
+        return 1
+    routes = bus_routes(OTD_ROUTES.read_text(encoding="utf-8", errors="replace"))
+    BUS_ROUTES_ASSET.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "source": "Delhi Open Transit Data, Transport Department, GNCTD (otd.delhi.gov.in)",
+        "updated": dt.date.today().isoformat(),
+        "routes": dict(sorted(routes.items())),
+    }
+    BUS_ROUTES_ASSET.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    print(f"wrote {len(routes)} routes to {BUS_ROUTES_ASSET.relative_to(ROOT)}")
+    return 0
+
+
 def cmd_docs(_args) -> int:
     sources = yaml.safe_load((TOOLS / "sources.yaml").read_text(encoding="utf-8")) or {}
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.exists() else {"cities": []}
@@ -513,6 +554,14 @@ def cmd_docs(_args) -> int:
             out.append(f"- **Omitted:** {omitted}")
         out.append("")
     out += [
+        "## Live data",
+        "",
+        "- **London:** arrivals, line status and station closures from TfL's Unified API (Powered by TfL Open Data).",
+        "- **Delhi buses:** live positions of DTC and cluster buses from Delhi Open Transit Data",
+        "  (Transport Department, GNCTD; <https://otd.delhi.gov.in/data/realtime/>), shown near metro stations.",
+        "  Release builds carry a key for the feed; route names come from the portal's static `routes.txt`",
+        "  (`tools/build_data.py delhi-buses`). The feed has no metro trains and no arrival predictions.",
+        "",
         "### Not used",
         "",
         "- **DMRC GTFS (otd.delhi.gov.in).** The maintainer has DMRC's permission to convert it, but the portal's",
@@ -533,8 +582,9 @@ def main() -> int:
     b.add_argument("cities", nargs="*", help="city ids (default: all)")
     b.add_argument("--refresh", action="store_true", help="ignore cached downloads")
     sub.add_parser("docs", help="regenerate DATA_SOURCES.md")
+    sub.add_parser("delhi-buses", help="Delhi bus route names from tools/input/delhi/otd/routes.txt")
     args = parser.parse_args()
-    return {"build": cmd_build, "docs": cmd_docs}[args.command](args)
+    return {"build": cmd_build, "docs": cmd_docs, "delhi-buses": cmd_delhi_buses}[args.command](args)
 
 
 if __name__ == "__main__":

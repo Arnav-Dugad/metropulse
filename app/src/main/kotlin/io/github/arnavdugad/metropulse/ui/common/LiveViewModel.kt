@@ -2,9 +2,11 @@ package io.github.arnavdugad.metropulse.ui.common
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.arnavdugad.metropulse.core.data.live.DelhiBusRepository
 import io.github.arnavdugad.metropulse.core.data.live.LiveProvider
 import io.github.arnavdugad.metropulse.core.data.live.LiveRepository
 import io.github.arnavdugad.metropulse.core.data.settings.AppSettings
+import io.github.arnavdugad.metropulse.core.domain.live.BusSnapshot
 import io.github.arnavdugad.metropulse.core.domain.live.LiveSnapshot
 import io.github.arnavdugad.metropulse.core.domain.live.ServiceAlert
 import io.github.arnavdugad.metropulse.core.domain.transit.TransitNetwork
@@ -29,7 +31,11 @@ import javax.inject.Inject
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class LiveViewModel @Inject constructor(private val repository: LiveRepository, private val settings: AppSettings) : ViewModel() {
+class LiveViewModel @Inject constructor(
+    private val repository: LiveRepository,
+    private val buses: DelhiBusRepository,
+    private val settings: AppSettings,
+) : ViewModel() {
 
     private val refreshes = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
@@ -49,6 +55,25 @@ class LiveViewModel @Inject constructor(private val repository: LiveRepository, 
 
     fun stations(network: TransitNetwork, complexIds: Set<String>): Flow<LiveSnapshot?> =
         if (complexIds.isEmpty()) flowOf(null) else poll(network) { repository.forStations(network, complexIds) }
+
+    /** Live buses near a station, where the city publishes bus positions (Delhi); null elsewhere or when off. */
+    fun buses(network: TransitNetwork, complexId: String): Flow<BusSnapshot?> =
+        settings.settings.map { it.liveData && buses.available(network) }.distinctUntilChanged().flatMapLatest { on ->
+            if (!on) flowOf(null) else flow {
+                var last: BusSnapshot? = null
+                while (true) {
+                    last = try {
+                        buses.near(network, complexId)
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        last?.takeIf { Instant.now().epochSecond - it.fetchedAtEpochSec < KEEP_SECS }
+                    }
+                    emit(last)
+                    withTimeoutOrNull(REFRESH_MS) { refreshes.first() }
+                }
+            }
+        }
 
     /** Current disruptions, rechecked every couple of minutes; empty where no operator publishes them. */
     fun alerts(network: TransitNetwork): Flow<List<ServiceAlert>> = enabled(network).flatMapLatest { on ->

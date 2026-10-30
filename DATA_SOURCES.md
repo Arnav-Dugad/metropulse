@@ -27,7 +27,7 @@ live train positions, so the only *Live* times come from your own phone's GPS wh
 | Doha | 3 | 37 | Approximate: modelled from published first/last trains and headways | OpenStreetMap + operator timetables |
 | Dubai | 2 | 52 | First and last trains only: no headways published, so no departure times are shown | OpenStreetMap + operator timetables |
 | Gurugram | 1 | 11 | Approximate: modelled from published first/last trains and headways | OpenStreetMap + operator timetables |
-| Hyderabad | 3 | 58 | Approximate: modelled from published first/last trains and headways; some days show times unavailable | OpenStreetMap + operator timetables (official feed not supplied yet) |
+| Hyderabad | 3 | 57 | Scheduled: official timetable with per-station times | [Open Government Licence - India](https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs) |
 | Indore | 1 | 16 | Approximate: modelled from published first/last trains and headways | OpenStreetMap + operator timetables |
 | Jaipur | 1 | 11 | Approximate: modelled from published first/last trains and headways | OpenStreetMap + operator timetables |
 | Kanpur | 1 | 14 | Approximate: modelled from published first/last trains and headways; some days show times unavailable | OpenStreetMap + operator timetables |
@@ -132,14 +132,13 @@ live train positions, so the only *Live* times come from your own phone's GPS wh
 
 ### Hyderabad
 
-- **Timetable feed:** Hyderabad Metro official GTFS. Licence: Open Government Licence - India. Attribution: Hyderabad Metro Rail Limited (HMRL).
-  Supplied manually at `tools/input/hyderabad/hmrl_gtfs.zip`; when absent, the city is built from OpenStreetMap.
-- **Checked:** 2026-10-29
-- **Red Line** (Miyapur – L B Nagar): <https://ltmetro.com/train-timings/>, <https://hmrl.co.in/train-timings/>, <https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf>
-- **Blue Line** (Nagole – Raidurg): <https://ltmetro.com/train-timings/>, <https://hmrl.co.in/train-timings/>, <https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf>
-- **Green Line** (JBS Parade Ground – MG Bus Station): <https://ltmetro.com/train-timings/>, <https://hmrl.co.in/train-timings/>
+- **Timetable feed:** Hyderabad Metro stations, entrances, timetable and shapes (official HMRL GTFS via Open Data Telangana). Licence: Open Government Licence - India. Attribution: Hyderabad Metro Rail Limited (HMRL), published by Open Data Telangana.
+- **Checked:** 2026-10-30
+- **Red Line** (Miyapur – L B Nagar): <https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs>, <https://data.telangana.gov.in/>, <https://ltmetro.com/train-timings/>, <https://hmrl.co.in/train-timings/>, <https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf>
+- **Blue Line** (Nagole – Raidurg): <https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs>, <https://data.telangana.gov.in/>, <https://ltmetro.com/train-timings/>, <https://hmrl.co.in/train-timings/>, <https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf>
+- **Green Line** (JBS Parade Ground – MG Bus Station): <https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs>, <https://data.telangana.gov.in/>, <https://ltmetro.com/train-timings/>, <https://hmrl.co.in/train-timings/>
 - **Fares:** <https://ltmetro.com/fare-ticketing/>, <https://ltmetro.com/wp-content/uploads/2025/05/Hyderabad-Metro-Rail-Revised-Fare-Chart-Final.pdf>, <https://ltmetro.com/ticketing/>
-- **Not found (left empty):** lines.*.opened, lines.*.avg_speed_kmh, lines.hyd-red.timetable.saturday.headways, lines.hyd-red.timetable.sunday.headways, lines.hyd-blue.timetable.saturday.headways, lines.hyd-blue.timetable.sunday.headways, lines.hyd-green.timetable.weekday.headways, lines.hyd-green.timetable.saturday.headways, lines.hyd-green.timetable.sunday.headways
+- **Not found (left empty):** lines.*.opened, lines.*.avg_speed_kmh, lines.*.timetable (GTFS headways differ from the HMRL release of 22.04.2026; which is current is not confirmed), fares (GTFS fare_rules show pre-discount FFC fares and omit JBS Parade Ground), JBS Parade Ground / Parade Ground interchange (not linked in the GTFS)
 
 ### Indore
 
@@ -311,6 +310,14 @@ live train positions, so the only *Live* times come from your own phone's GPS wh
 - **Purple Line** (King Abdullah Financial District – An Naseem): <https://x.com/RiyadhTransport/status/1963922588771508440>, <https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/>
 - **Fares:** <https://www.rcrc.gov.sa/en/projects/king-abdulaziz-project-for-riyadh-public-transport-2/>, <https://platinumlist.net/guide/riyadh-metro-sets-annual-pass-prices-for-2026-here-are-the-fares>, <https://cairoscene.com/News/Riyadh-Metro-Updates-Fares-Introduces-Semester-Tickets-for-2026>
 - **Not found (left empty):** lines.*.timetable.weekday.headways, lines.*.timetable.friday.headways, lines.*.avg_speed_kmh, lines.*.timetable (first/last are network opening hours, not per-terminus departure times)
+
+## Live data
+
+- **London:** arrivals, line status and station closures from TfL's Unified API (Powered by TfL Open Data).
+- **Delhi buses:** live positions of DTC and cluster buses from Delhi Open Transit Data
+  (Transport Department, GNCTD; <https://otd.delhi.gov.in/data/realtime/>), shown near metro stations.
+  Release builds carry a key for the feed; route names come from the portal's static `routes.txt`
+  (`tools/build_data.py delhi-buses`). The feed has no metro trains and no arrival predictions.
 
 ### Not used
 

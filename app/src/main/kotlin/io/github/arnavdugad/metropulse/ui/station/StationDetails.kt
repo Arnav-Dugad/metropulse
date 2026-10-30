@@ -214,6 +214,8 @@ fun StationDetails(
             }
             if (shown.any { it.live }) liveViewModel.provider(network)?.let { LiveCredit(it.credit) }
 
+            BusesNearby(network, complexId, liveViewModel, nowEpoch)
+
             StationAccess(network, complexId)
 
             val exits = network.exits.filter { e -> members.any { it.id == e.stationId } }

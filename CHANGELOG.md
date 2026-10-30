@@ -3,6 +3,11 @@
 All notable changes to MetroPulse are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [SemVer](https://semver.org/).
 
+## [1.2.0] - 2026-10-30
+
+### Added
+- **Live buses near Delhi metro stations.** A Delhi station's details now list the DTC and cluster buses within a 600 m walk, by route, nearest first. Each shows how far away it is and whether it is coming closer or moving away. Positions come live from Delhi Open Transit Data (Transport Department, GNCTD) every 30 seconds while the station is on screen. The phone downloads the whole city's feed and picks out the nearby buses itself, so your location and the station you are viewing are never sent. Positions only: the feed has no arrival times and no metro trains. Turn it off with live data in Settings.
+
 ## [1.1.0] - 2026-10-30
 
 ### Added

@@ -108,4 +108,14 @@
     <string name="about_logos_note">Operator logos and line symbols are trademarks of their owners, shown only to identify their services, from the files on Wikimedia Commons listed here. MetroPulse is independent: it is not affiliated with, endorsed or sponsored by any operator.</string>
     <string name="plan_step_free_none_title">No step-free route found</string>
     <string name="plan_step_free_none_body">Every route changes at a station without step-free access. Turn off Step-free to see them.</string>
+    <string name="buses_nearby">Buses nearby</string>
+    <string name="buses_none">No buses are reporting their position within %1$d m right now.</string>
+    <string name="buses_more_routes">%1$d more routes</string>
+    <string name="buses_fewer">Show fewer</string>
+    <string name="buses_route_unnamed">DTC or cluster bus</string>
+    <string name="buses_also">Also %1$s away</string>
+    <string name="buses_approaching">Coming closer</string>
+    <string name="buses_leaving">Moving away</string>
+    <string name="buses_seen">Seen %1$d s ago</string>
+    <string name="buses_credit">Live bus positions from Delhi Open Transit Data (Transport Department, GNCTD). Positions only: no arrival times.</string>
 </resources>

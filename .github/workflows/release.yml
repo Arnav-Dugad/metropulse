@@ -54,6 +54,7 @@ jobs:
           METROPULSE_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
           METROPULSE_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           METROPULSE_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          OTD_DELHI_KEY: ${{ secrets.OTD_DELHI_KEY }}
         run: ./gradlew --no-configuration-cache :app:assembleRelease -Pmetropulse.versionName=${{ steps.version.outputs.name }}
 
       - name: Check the signature

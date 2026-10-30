@@ -20,5 +20,6 @@ object AppModule {
         updatesEnabled = BuildConfig.UPDATES_ENABLED && BuildConfig.UPDATE_FEED_URL.isNotBlank(),
         dataManifestUrl = BuildConfig.DATA_MANIFEST_URL,
         mtaRealtime = BuildConfig.MTA_REALTIME,
+        otdDelhiKey = BuildConfig.OTD_DELHI_KEY,
     )
 }

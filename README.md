@@ -35,6 +35,8 @@ No account. No ads. No tracking. Your location never leaves your phone.
   step-free access; **line strip maps** with trains moving along them.
 - **Live arrivals and disruption alerts in London and New York** from TfL's and the MTA's feeds,
   fetched by your phone directly, with platform numbers where TfL gives them.
+- **Live buses near Delhi metro stations**: DTC and cluster buses within a 600 m walk, by route, from
+  Delhi Open Transit Data.
 - **Real operator logos and line symbols** (London roundels, New York bullets and more), from
   Wikimedia Commons.
 - **Trip history** and a weekday **commute reminder**, kept on your phone.
@@ -95,7 +97,11 @@ London's live arrivals come from TfL's free [Unified API](https://api.tfl.gov.uk
 from the MTA's GTFS-realtime feeds, each called by the phone directly (no MetroPulse server). The
 MTA's terms only allow this with its permission, which this project has; forks without it should
 set `metropulse.mtaRealtime=false` in `gradle.properties`. No Indian or Gulf metro publishes a free
-realtime feed; there, on-board mode follows your train with your phone's own GPS.
+realtime feed for its trains; there, on-board mode follows your train with your phone's own GPS.
+Delhi's buses do publish live positions ([Open Transit Data](https://otd.delhi.gov.in)), shown
+near metro stations. The feed needs a free key: release builds get it from the `OTD_DELHI_KEY`
+secret, and local builds from the `OTD_DELHI_KEY` environment variable or
+`metropulse.otdDelhiKey` in your user `gradle.properties`. Without one, Delhi simply shows no buses.
 
 ## Install
 
@@ -129,7 +135,7 @@ City databases are built by the Python pipeline in [`tools/`](tools/); see
 
 No accounts, analytics, ads or crash reporting. Location is used only on your phone. The app
 talks to OpenFreeMap (map tiles), GitHub (updates and city data) and, for live arrivals, TfL in
-London and the MTA in New York. Details in [PRIVACY.md](PRIVACY.md).
+London, the MTA in New York and Delhi Open Transit Data (bus positions). Details in [PRIVACY.md](PRIVACY.md).
 
 ## Credits and licences
 
@@ -145,6 +151,8 @@ London and the MTA in New York. Details in [PRIVACY.md](PRIVACY.md).
   complete or timely.
 - London live arrivals: Powered by TfL Open Data. Contains OS data © Crown copyright and database
   rights 2016 and Geomni UK Map data © and database rights 2019. MetroPulse is not endorsed by TfL.
+- Delhi live bus positions: Delhi Open Transit Data, Transport Department, Government of NCT of
+  Delhi (otd.delhi.gov.in), provided as is.
 - [Inter](https://rsms.me/inter/) font (SIL Open Font License 1.1).
 - Operator logos and line symbols are trademarks of their owners, used only to identify their
   services, from Wikimedia Commons; each file's author and licence is in

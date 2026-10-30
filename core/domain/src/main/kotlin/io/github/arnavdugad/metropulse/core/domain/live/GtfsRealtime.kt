@@ -159,6 +159,15 @@ internal class ProtoReader(private val buf: ByteArray, private var pos: Int = 0,
         return ProtoReader(buf, pos, pos + n).also { pos += n }
     }
 
+    /** A protobuf `float` (wire type 5, little-endian). */
+    fun float(): Float {
+        if (pos + 4 > end) throw IllegalArgumentException("truncated float")
+        var bits = 0
+        for (i in 0 until 4) bits = bits or ((buf[pos + i].toInt() and 0xFF) shl (8 * i))
+        pos += 4
+        return Float.fromBits(bits)
+    }
+
     fun string(): String {
         val n = length()
         return String(buf, pos, n, Charsets.UTF_8).also { pos += n }

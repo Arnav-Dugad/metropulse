@@ -165,6 +165,13 @@ object MpIcons {
     }
     val BellPlus by lazy { icon("BellPlus", "M6 16.5V11a6 6 0 0 1 8.5-5.45", "M18 11v5.5l1.5 1.5h-15L6 16.5", "M10 20.25a2 2 0 0 0 4 0", "M18 2.75v5", "M15.5 5.25h5") }
 
+    val Bus by lazy {
+        icon(
+            "Bus", "M6.75 3.75h10.5a2 2 0 0 1 2 2v11.5H4.75V5.75a2 2 0 0 1 2-2Z", "M4.75 11.25h14.5", "M9.75 6.5h4.5",
+            "M7.75 17.25v2.5", "M16.25 17.25v2.5", "M8 14.25h0.01", "M16 14.25h0.01",
+        )
+    }
+
     private fun icon(name: String, vararg paths: String): ImageVector =
         ImageVector.Builder(name = "MpIcons.$name", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f)
             .apply {
