@@ -44,6 +44,13 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.arnavdugad.metropulse.R
+import java.time.format.FormatStyle
+import java.time.format.DateTimeFormatter
+import java.time.LocalDate
+import io.github.arnavdugad.metropulse.ui.common.Logos
+import io.github.arnavdugad.metropulse.ui.common.Logo
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.platform.LocalContext
 import io.github.arnavdugad.metropulse.ui.common.SectionTitle
 import io.github.arnavdugad.metropulse.core.designsystem.component.Tag
 import io.github.arnavdugad.metropulse.core.designsystem.component.pressScale
@@ -170,6 +177,11 @@ private fun CityRow(city: CityInfo, selected: Boolean, onClick: () -> Unit) {
             .padding(horizontal = 12.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        // The operator's mark, in a fixed-width slot so the names line up.
+        Box(Modifier.width(52.dp), contentAlignment = Alignment.CenterStart) {
+            val context = LocalContext.current
+            remember(city.id) { Logos.operatorKey(context, city.id) }?.let { Logo(it, 26.dp, null, Modifier.widthIn(max = 46.dp)) }
+        }
         Column(Modifier.weight(1f)) {
             Text(city.name, style = MetroPulseTheme.type.bodyStrong, color = colors.textPrimary)
             Text(
@@ -181,6 +193,7 @@ private fun CityRow(city: CityInfo, selected: Boolean, onClick: () -> Unit) {
                 style = MetroPulseTheme.type.caption,
                 color = colors.textSecondary,
             )
+            Freshness(city)
         }
         Spacer(Modifier.width(8.dp))
         Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -192,6 +205,23 @@ private fun CityRow(city: CityInfo, selected: Boolean, onClick: () -> Unit) {
             Icon(MpIcons.Check, null, tint = colors.accent, modifier = Modifier.size(20.dp))
         }
     }
+}
+
+/** When the data was built, and when an official timetable runs out (amber within a month, red after). */
+@Composable
+private fun Freshness(city: CityInfo) {
+    val colors = MetroPulseTheme.colors
+    val format = remember { DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM) }
+    val built = remember(city.version) { runCatching { LocalDate.parse((city.version / 10_000).toString(), DateTimeFormatter.BASIC_ISO_DATE) }.getOrNull() }
+    val until = remember(city.validUntil) { city.validUntil?.let { runCatching { LocalDate.parse(it.toString(), DateTimeFormatter.BASIC_ISO_DATE) }.getOrNull() } }
+    val today = LocalDate.now()
+    val (text, tint) = when {
+        until != null && until.isBefore(today) -> stringResource(R.string.city_timetable_expired, until.format(format)) to colors.danger
+        until != null && until.isBefore(today.plusDays(31)) -> stringResource(R.string.city_timetable_ends, until.format(format)) to colors.approximate
+        built != null -> stringResource(R.string.city_data_built, built.format(format)) to colors.textTertiary
+        else -> return
+    }
+    Text(text, style = MetroPulseTheme.type.caption, color = tint)
 }
 
 /** What the rider gets for times in this city, honestly. */

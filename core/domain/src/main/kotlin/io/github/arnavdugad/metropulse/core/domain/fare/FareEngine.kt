@@ -47,7 +47,29 @@ data class FareDiscount(
 )
 
 /** Peak hours for timeframe-specific discounts. [days]: Mon = 1 ... Sun = 64. */
-data class PeakWindow(val days: Int, val startSecs: Int, val endSecs: Int)
+data class PeakWindow(val days: Int, val startSecs: Int, val endSecs: Int) {
+    fun covers(date: LocalDate, secs: Int): Boolean = days and (1 shl (date.dayOfWeek.value - 1)) != 0 && secs in startSecs until endSecs
+}
+
+/** How a zonal system prices a journey. */
+enum class ZoneRule {
+    /** By the lowest and highest zone the journey touches (London). */
+    Span,
+
+    /** By how many zones the journey passes through (Dubai). */
+    Count,
+}
+
+/** One row of a zonal fare table, in minor units. [zones] is (lowest, highest) for Span, (n, n) for Count. */
+data class ZoneFare(val zones: Pair<Int, Int>, val peak: Int, val offPeak: Int)
+
+/** A zonal fare system: each station's zone(s) (boundary stations list two) and the fare table. */
+class ZonalFares(
+    val rule: ZoneRule,
+    val stationZones: Map<String, List<Int>>,
+    val fares: List<ZoneFare>,
+    val peak: List<PeakWindow>,
+)
 
 class FareData(
     /** Official origin-destination table, from station id -> to station id -> paise. */
@@ -55,8 +77,9 @@ class FareData(
     val rules: List<FareRule>,
     val discounts: List<FareDiscount>,
     val peakWindows: List<PeakWindow>,
+    val zonal: ZonalFares? = null,
 ) {
-    val isEmpty: Boolean get() = od.isEmpty() && rules.isEmpty()
+    val isEmpty: Boolean get() = od.isEmpty() && rules.isEmpty() && zonal == null
 
     companion object {
         val None = FareData(emptyMap(), emptyList(), emptyList(), emptyList())
@@ -72,6 +95,9 @@ enum class FareBasis {
 
     /** A slab by number of stations travelled. */
     Stations,
+
+    /** By the zones the journey touches. */
+    Zones,
 }
 
 /** One ticket. Separate operators (Mumbai) need separate tickets. */
@@ -118,7 +144,11 @@ class FareEngine(private val network: TransitNetwork) {
     fun quote(journey: Journey, date: LocalDate, departSecs: Int?): FareQuote? {
         val rides = journey.rides
         if (rides.isEmpty() || fares.isEmpty) return null
-        val components = if (fares.od.isNotEmpty()) listOf(tableFare(rides)) else slabFares(rides, date)
+        val components = when {
+            fares.zonal != null -> listOf(zonalFare(rides, fares.zonal, date, departSecs))
+            fares.od.isNotEmpty() -> listOf(tableFare(rides))
+            else -> slabFares(rides, date)
+        }
         val total = components.takeIf { c -> c.all { it.paise != null } }?.sumOf { it.paise!! }
         val media = if (total == null) emptyList() else mediaFares(components, date, departSecs)
         return FareQuote(components, total, media)
@@ -131,6 +161,42 @@ class FareEngine(private val network: TransitNetwork) {
         val toIds = sameComplex(to)
         val paise = fromIds.firstNotNullOfOrNull { a -> toIds.firstNotNullOfOrNull { b -> fares.od[a]?.get(b) } }
         return FareComponent(rides.map { it.lineId }.distinct(), from, to, paise, FareBasis.Table.takeIf { paise != null }, null)
+    }
+
+    /**
+     * Zonal fare over every station the rides call at. A boundary station counts as whichever of
+     * its zones makes the fare cheaper. Peak prices apply in the peak windows, and when the time is
+     * not known.
+     */
+    private fun zonalFare(rides: List<Leg.Ride>, zonal: ZonalFares, date: LocalDate, departSecs: Int?): FareComponent {
+        val lineIds = rides.map { it.lineId }.distinct()
+        val from = rides.first().fromStationId
+        val to = rides.last().toStationId
+        val stations = rides.flatMap { r ->
+            network.patternById[r.patternId]?.stationIds?.subList(r.boardIndex, r.alightIndex + 1) ?: listOf(r.fromStationId, r.toStationId)
+        }
+        val zones = stations.mapNotNull { zonal.stationZones[it]?.takeIf(List<Int>::isNotEmpty) }
+        if (zones.size < 2) return FareComponent(lineIds, from, to, null, null, null)
+        val key = when (zonal.rule) {
+            // Inner zones cost more: a boundary station counts in its outer zone for the low end, inner for the high end.
+            ZoneRule.Span -> {
+                val lo = zones.minOf { it.max() }
+                val hi = zones.maxOf { it.min() }
+                minOf(lo, hi) to maxOf(lo, hi)
+            }
+            // Count each zone once; a boundary station adds nothing if one of its zones is already counted.
+            ZoneRule.Count -> {
+                val counted = HashSet<Int>()
+                zones.filter { it.size == 1 }.forEach { counted += it[0] }
+                zones.filter { it.size > 1 }.forEach { z -> if (z.none(counted::contains)) counted += z.first() }
+                counted.size to counted.size
+            }
+        }
+        val row = zonal.fares.firstOrNull { it.zones == key }
+            ?: zonal.fares.filter { zonal.rule == ZoneRule.Count && it.zones.first <= key.first }.maxByOrNull { it.zones.first }
+            ?: return FareComponent(lineIds, from, to, null, null, null)
+        val peak = departSecs == null || zonal.peak.any { it.covers(date, departSecs) }
+        return FareComponent(lineIds, from, to, if (peak) row.peak else row.offPeak, FareBasis.Zones, (key.second - key.first + 1).toDouble())
     }
 
     private fun sameComplex(stationId: String): List<String> {

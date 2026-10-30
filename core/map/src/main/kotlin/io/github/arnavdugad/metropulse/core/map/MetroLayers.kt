@@ -37,6 +37,7 @@ import org.maplibre.android.style.layers.PropertyFactory.fillOpacity
 import org.maplibre.android.style.layers.PropertyFactory.iconAllowOverlap
 import org.maplibre.android.style.layers.PropertyFactory.iconIgnorePlacement
 import org.maplibre.android.style.layers.PropertyFactory.iconImage
+import org.maplibre.android.style.layers.PropertyFactory.iconOffset
 import org.maplibre.android.style.layers.PropertyFactory.iconSize
 import org.maplibre.android.style.layers.PropertyFactory.lineCap
 import org.maplibre.android.style.layers.PropertyFactory.lineColor
@@ -104,15 +105,20 @@ internal object MetroLayers {
 
     private const val ICON_STATION = "mp-station"
     private const val ICON_INTERCHANGE = "mp-interchange"
+    private const val ICON_TERMINUS = "mp-terminus"
+    private const val ICON_ACCESS = "mp-access"
+    const val SRC_ROUTE = "mp-route"
     private val EMPTY: FeatureCollection = FeatureCollection.fromFeatures(emptyList())
 
     /** Adds the sources, icons and layers once per style load. */
     fun install(style: Style, palette: MapPalette, density: Float) {
-        for (id in listOf(SRC_LINES, SRC_STRUCTURES, SRC_TRENCHES, SRC_STATIONS, SRC_TRAINS, SRC_TRAINS_TUNNEL, SRC_TRAIN_DOTS, SRC_MY_TRAIN, SRC_MY_TRAIN_DOT)) {
+        for (id in listOf(SRC_LINES, SRC_STRUCTURES, SRC_TRENCHES, SRC_STATIONS, SRC_TRAINS, SRC_TRAINS_TUNNEL, SRC_TRAIN_DOTS, SRC_MY_TRAIN, SRC_MY_TRAIN_DOT, SRC_ROUTE)) {
             if (style.getSource(id) == null) style.addSource(GeoJsonSource(id, EMPTY))
         }
         style.addImage(ICON_STATION, stationIcon(density, 9f, 2.4f, palette, interchange = false))
         style.addImage(ICON_INTERCHANGE, stationIcon(density, 11f, 2.6f, palette, interchange = true))
+        style.addImage(ICON_TERMINUS, terminusIcon(density, palette))
+        style.addImage(ICON_ACCESS, accessIcon(density))
 
         // Lines and 3D structures go under the base map's labels; stations go on top of everything.
         val firstLabel = style.layers.firstOrNull { it is SymbolLayer }?.id
@@ -174,9 +180,28 @@ internal object MetroLayers {
         )
         // The rider's own train: violet cars, and a haloed dot that stays visible at every zoom.
         below(trainLayer("mp-my-train", SRC_MY_TRAIN, palette))
+        // A planned journey ("Show on map"), drawn over the network: casing, rides, dashed walks.
+        style.addLayer(
+            LineLayer("mp-route-casing", SRC_ROUTE).withProperties(
+                lineColor(palette.casing), lineCap(Property.LINE_CAP_ROUND), lineJoin(Property.LINE_JOIN_ROUND),
+                lineWidth(interpolate(linear(), zoom(), stop(9, 7f), stop(13, 11f), stop(16, 18f))),
+            ),
+        )
+        style.addLayer(
+            LineLayer("mp-route", SRC_ROUTE).withFilter(eq(get("walk"), literal(false))).withProperties(
+                lineColor(palette.lineColour()), lineCap(Property.LINE_CAP_ROUND), lineJoin(Property.LINE_JOIN_ROUND),
+                lineWidth(interpolate(linear(), zoom(), stop(9, 4.5f), stop(13, 7f), stop(16, 12f))),
+            ),
+        )
+        style.addLayer(
+            LineLayer("mp-route-walk", SRC_ROUTE).withFilter(eq(get("walk"), literal(true))).withProperties(
+                lineColor(palette.label), lineCap(Property.LINE_CAP_ROUND),
+                lineWidth(interpolate(linear(), zoom(), stop(9, 2.5f), stop(16, 5f))), lineDasharray(arrayOf(0.1f, 1.8f)),
+            ),
+        )
         style.addLayer(
             SymbolLayer(LAYER_STATIONS, SRC_STATIONS).withProperties(
-                iconImage(switchCase(get("interchange"), literal(ICON_INTERCHANGE), literal(ICON_STATION))),
+                iconImage(match(get("kind"), literal(ICON_STATION), stop("interchange", ICON_INTERCHANGE), stop("terminus", ICON_TERMINUS))),
                 iconSize(interpolate(linear(), zoom(), stop(9, 0.38f), stop(11, 0.55f), stop(13, 0.85f), stop(16, 1.25f))),
                 iconAllowOverlap(true), iconIgnorePlacement(true),
                 symbolSortKey(switchCase(get("interchange"), literal(0f), literal(1f))),
@@ -188,12 +213,23 @@ internal object MetroLayers {
                 textOpacity(interpolate(linear(), zoom(), stop(10.5, switchCase(get("interchange"), literal(1f), literal(0f))), stop(12.5, 1f))),
             ),
         )
+        // Step-free stations get a small badge once the map is close enough to read it.
+        style.addLayer(
+            SymbolLayer("mp-station-access", SRC_STATIONS).withFilter(eq(get("access"), literal(true))).withProperties(
+                iconImage(ICON_ACCESS), iconAllowOverlap(true), iconIgnorePlacement(true),
+                iconSize(interpolate(linear(), zoom(), stop(13, 0.7f), stop(16, 1f))), iconOffset(arrayOf(11f, -11f)),
+            ).apply { minZoom = 13.5f },
+        )
         style.addLayer(
             CircleLayer("mp-my-train-dot", SRC_MY_TRAIN_DOT).withProperties(
                 circleColor(palette.myTrain), circleRadius(interpolate(linear(), zoom(), stop(9, 6f), stop(14, 8f), stop(17, 6f))),
                 circleStrokeColor("#FFFFFF"), circleStrokeWidth(3f),
             ),
         )
+    }
+
+    fun setRoute(style: Style, route: FeatureCollection) {
+        style.getSourceAs<GeoJsonSource>(SRC_ROUTE)?.setGeoJson(route)
     }
 
     fun setNetwork(style: Style, data: NetworkMapData) {
@@ -229,6 +265,51 @@ internal object MetroLayers {
             fillExtrusionBase(get("base")), fillExtrusionHeight(get("top")),
             fillExtrusionOpacity(1f), fillExtrusionVerticalGradient(true),
         ).apply { minZoom = 13f }
+
+    /** A terminus: a rounded "cap", wider than a station disc, so line ends read at a glance. */
+    private fun terminusIcon(density: Float, palette: MapPalette): Bitmap {
+        val w = 26f * density
+        val h = 16f * density
+        val shadow = 2f * density
+        val bitmap = createBitmap((w + 2 * shadow).toInt() + 2, (h + 2 * shadow).toInt() + 2)
+        val canvas = Canvas(bitmap)
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        val left = shadow + 1
+        val top = shadow + 1
+        val radius = h / 2
+        paint.color = Color.argb(70, 0, 0, 0)
+        canvas.drawRoundRect(left, top + shadow * 0.6f, left + w, top + h + shadow * 0.6f, radius, radius, paint)
+        paint.color = palette.stationRing
+        canvas.drawRoundRect(left, top, left + w, top + h, radius, radius, paint)
+        val ring = 2.6f * density
+        paint.color = palette.stationFill
+        canvas.drawRoundRect(left + ring, top + ring, left + w - ring, top + h - ring, radius - ring, radius - ring, paint)
+        return bitmap
+    }
+
+    /** A step-free badge: a blue disc with a wheelchair glyph. */
+    private fun accessIcon(density: Float): Bitmap {
+        val size = (18 * density).toInt()
+        val bitmap = createBitmap(size, size)
+        val canvas = Canvas(bitmap)
+        val c = size / 2f
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        paint.color = Color.WHITE
+        canvas.drawCircle(c, c, c, paint)
+        paint.color = Color.parseColor("#1F6FEB")
+        canvas.drawCircle(c, c, c - 1.5f * density, paint)
+        paint.color = Color.WHITE
+        val u = size / 18f
+        canvas.drawCircle(9.4f * u, 4.2f * u, 1.5f * u, paint) // head
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = 1.6f * u
+        paint.strokeCap = Paint.Cap.ROUND
+        canvas.drawLine(9.2f * u, 6.4f * u, 8.6f * u, 10.2f * u, paint) // back
+        canvas.drawLine(8.6f * u, 10.2f * u, 12.2f * u, 10.2f * u, paint) // seat
+        canvas.drawLine(12.2f * u, 10.2f * u, 13.4f * u, 13.6f * u, paint) // leg
+        canvas.drawCircle(8.4f * u, 12.4f * u, 3.2f * u, paint) // wheel
+        return bitmap
+    }
 
     /** A station pin: a white disc in a dark ring; interchanges get a second inner ring. */
     private fun stationIcon(density: Float, radiusDp: Float, ringDp: Float, palette: MapPalette, interchange: Boolean): Bitmap {

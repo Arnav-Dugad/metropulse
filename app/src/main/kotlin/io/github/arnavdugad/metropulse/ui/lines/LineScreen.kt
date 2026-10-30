@@ -1,6 +1,23 @@
 package io.github.arnavdugad.metropulse.ui.lines
 
 import androidx.compose.foundation.background
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import io.github.arnavdugad.metropulse.core.domain.live.Alerts
+import io.github.arnavdugad.metropulse.ui.common.AlertBanners
+import io.github.arnavdugad.metropulse.ui.common.Logo
+import io.github.arnavdugad.metropulse.ui.common.Logos
+import io.github.arnavdugad.metropulse.ui.common.symbolHalo
+import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -105,6 +122,29 @@ fun LineScreen(
 
         // Live trains (London) when the feed reports them, otherwise where the timetable puts them.
         val live by remember(network, lineId) { liveViewModel.line(network, lineId) }.collectAsStateWithLifecycle(null)
+        val allAlerts by remember(network) { liveViewModel.alerts(network) }.collectAsStateWithLifecycle(emptyList())
+        val alerts = remember(allAlerts, lineId) { Alerts.forLine(allAlerts, lineId) }
+        val context = LocalContext.current
+        val logo = remember(lineId) { Logos.lineKey(context, lineId) }
+
+        // Swipe sideways to switch direction; the strip follows the finger and springs back.
+        val density = LocalDensity.current
+        val threshold = with(density) { 72.dp.toPx() }
+        val drag = remember { Animatable(0f) }
+        val scope = rememberCoroutineScope()
+        val haptics = rememberMpHaptics()
+        val swipe = Modifier.draggable(
+            orientation = Orientation.Horizontal,
+            enabled = directions.size > 1,
+            state = rememberDraggableState { delta -> scope.launch { drag.snapTo(drag.value + delta) } },
+            onDragStopped = { velocity ->
+                val total = drag.value
+                if (total < -threshold || velocity < -1500f) direction = (direction + 1) % directions.size
+                else if (total > threshold || velocity > 1500f) direction = (direction - 1 + directions.size) % directions.size
+                if (total.absoluteValue > threshold || velocity.absoluteValue > 1500f) haptics.tick()
+                drag.animateTo(0f, spring(stiffness = Spring.StiffnessMediumLow))
+            },
+        )
         val latestLive by rememberUpdatedState(live)
         var trains by remember { mutableStateOf(emptyList<StripTrain>()) }
         var trainsLive by remember { mutableStateOf(false) }
@@ -123,7 +163,7 @@ fun LineScreen(
             }
         }
 
-        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 40.dp)) {
+        LazyColumn(Modifier.fillMaxSize().then(swipe), contentPadding = PaddingValues(bottom = 40.dp)) {
             item { DetailTopBar(onBack) }
             item {
                 Column(
@@ -138,7 +178,7 @@ fun LineScreen(
                     Box(Modifier.fillMaxWidth().height(6.dp).background(lineColour))
                     Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            LineDot(line, 14.dp)
+                            if (logo != null) Logo(logo, 30.dp, null, Modifier.symbolHalo(line)) else LineDot(line, 14.dp)
                             Spacer(Modifier.width(10.dp))
                             Text(line.name, style = MetroPulseTheme.type.headline, color = colors.textPrimary, modifier = Modifier.weight(1f).semantics { heading() })
                             when {
@@ -161,6 +201,9 @@ fun LineScreen(
                     }
                 }
             }
+            if (alerts.isNotEmpty()) item {
+                AlertBanners(alerts, Modifier.padding(start = 20.dp, end = 20.dp, top = 16.dp))
+            }
             if (directions.size > 1) item {
                 Row(Modifier.padding(start = 20.dp, end = 20.dp, top = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     directions.forEachIndexed { i, p ->
@@ -180,10 +223,20 @@ fun LineScreen(
                     color = colors.textTertiary,
                     modifier = Modifier.padding(start = 24.dp, top = 12.dp, bottom = 8.dp),
                 )
+                if (directions.size > 1) Text(
+                    stringResource(R.string.line_swipe_hint),
+                    style = MetroPulseTheme.type.caption,
+                    color = colors.textTertiary,
+                    modifier = Modifier.padding(start = 24.dp, bottom = 8.dp),
+                )
             }
             itemsIndexed(pattern.stationIds, key = { i, id -> "$direction-$i-$id" }) { i, stationId ->
                 val station = network.stationById.getValue(stationId)
                 StripRow(
+                    modifier = Modifier.graphicsLayer {
+                        translationX = drag.value * 0.6f
+                        alpha = 1f - (drag.value.absoluteValue / (threshold * 4)).coerceIn(0f, 0.5f)
+                    },
                     name = station.name,
                     colour = lineColour,
                     first = i == 0,
@@ -217,6 +270,7 @@ private fun DirectionChip(text: String, selected: Boolean, onClick: () -> Unit) 
 
 @Composable
 private fun StripRow(
+    modifier: Modifier = Modifier,
     name: String,
     colour: Color,
     first: Boolean,
@@ -227,7 +281,7 @@ private fun StripRow(
 ) {
     val colors = MetroPulseTheme.colors
     Row(
-        Modifier.fillMaxWidth().height(ROW_HEIGHT).clickable(role = Role.Button, onClick = onClick).padding(horizontal = 20.dp),
+        modifier.fillMaxWidth().height(ROW_HEIGHT).clickable(role = Role.Button, onClick = onClick).padding(horizontal = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(Modifier.width(36.dp).height(ROW_HEIGHT), contentAlignment = Alignment.Center) {

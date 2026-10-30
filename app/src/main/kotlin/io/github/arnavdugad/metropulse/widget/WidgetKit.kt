@@ -26,6 +26,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import io.github.arnavdugad.metropulse.R
+import io.github.arnavdugad.metropulse.ui.common.Logos
 import io.github.arnavdugad.metropulse.core.data.city.CityRepository
 import io.github.arnavdugad.metropulse.core.data.user.UserRepository
 import io.github.arnavdugad.metropulse.core.domain.city.CityState
@@ -81,6 +82,17 @@ internal fun WidgetText(
         maxLines = maxLines,
         style = TextStyle(color = color, fontSize = size, fontWeight = if (bold) FontWeight.Bold else FontWeight.Normal),
     )
+}
+
+/** A line's own symbol (roundel, bullet) where it has a round one, else a dot in its colour. */
+@Composable
+internal fun LineMark(lineId: String, rgb: Int, size: Dp = 10.dp) {
+    val context = androidx.glance.LocalContext.current
+    val px = (size.value * context.resources.displayMetrics.density * 1.7f).toInt()
+    // A black symbol would vanish on the dark widget; those lines keep their (day/night) dot.
+    val bitmap = if (rgb and 0xFFFFFF == 0) null else Logos.lineKey(context, lineId)?.let { Logos.bitmap(context, it, px) }?.takeIf { it.width <= it.height * 1.3f }
+    if (bitmap != null) Image(ImageProvider(bitmap), contentDescription = null, modifier = GlanceModifier.size(size * 1.7f))
+    else Dot(lineColour(rgb), size)
 }
 
 @Composable

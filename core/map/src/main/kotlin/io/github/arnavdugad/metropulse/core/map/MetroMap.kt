@@ -21,7 +21,16 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.runtime.withFrameNanos
+import io.github.arnavdugad.metropulse.core.domain.geo.LineString
+import io.github.arnavdugad.metropulse.core.domain.live.LiveSnapshot
 import io.github.arnavdugad.metropulse.core.domain.transit.TransitNetwork
+import io.github.arnavdugad.metropulse.core.map.geometry.MapGeometry
+import org.maplibre.android.geometry.LatLngBounds
+import org.maplibre.geojson.Feature
+import org.maplibre.geojson.FeatureCollection
+import org.maplibre.geojson.Point
+import org.maplibre.geojson.LineString as GeoLineString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Dispatcher
@@ -65,6 +74,11 @@ data class MapFollow(val patternId: Int, val alongM: Double, val speedMps: Doubl
 private const val OVERVIEW_TILT = 52.0
 private const val OVERVIEW_BEARING = -14.0
 private const val FLY_MS = 1_600
+private const val FLY_OVER_M = 1_500_000.0
+private const val FLY_OVER_ZOOM = 2.2
+private const val LIVE_ZOOM = 12.0
+private const val ROUTE_TILT = 40.0
+private const val ROUTE_DRAW_MS = 1_400.0
 private const val TILT_ZOOM_BONUS = 0.15
 private const val FOLLOW_ZOOM = 15.6
 private const val FOLLOW_TILT = 58.0
@@ -92,11 +106,20 @@ fun MetroMap(
     onStationClick: (complexId: String) -> Unit,
     onMapClick: () -> Unit,
     modifier: Modifier = Modifier,
-    /** True while scheduled trains are on the map (a timetabled city at night shows none). */
-    onTrainsShown: (Boolean) -> Unit = {},
+    /** Where the trains on the map come from right now (none, the timetable, live predictions). */
+    onTrains: (TrainSource) -> Unit = {},
     follow: MapFollow? = null,
     focus: MapFocus? = null,
     onFocusShown: () -> Unit = {},
+    /** Live predictions for the lines last asked for through [onLiveLinesWanted]. */
+    live: LiveSnapshot? = null,
+    /** Lines on screen when zoomed in enough to follow trains; empty when zoomed out. */
+    onLiveLinesWanted: (Set<String>) -> Unit = {},
+    onStationLongPress: (complexId: String) -> Unit = {},
+    /** A planned journey to draw (it traces itself across the map), or null. */
+    route: MapRoute? = null,
+    /** Stops animating trains while a sheet covers the map. */
+    paused: Boolean = false,
 ) {
     val context = LocalContext.current
     val density = LocalDensity.current
@@ -115,6 +138,9 @@ fun MetroMap(
     var followBearing by remember { mutableStateOf<Double?>(null) }
     val stationClick by rememberUpdatedState(onStationClick)
     val mapClick by rememberUpdatedState(onMapClick)
+    val stationLongPress by rememberUpdatedState(onStationLongPress)
+    val liveLinesWanted by rememberUpdatedState(onLiveLinesWanted)
+    var animator by remember { mutableStateOf<TrainAnimator?>(null) }
 
     val padding = with(density) {
         intArrayOf(
@@ -160,6 +186,13 @@ fun MetroMap(
             m.addOnCameraIdleListener {
                 val c = m.cameraPosition
                 c.target?.let { savedCamera = doubleArrayOf(it.latitude, it.longitude, c.zoom, c.tilt, c.bearing) }
+                // Live trains are fetched only for the lines in view, and only when close enough to see them.
+                val d = data
+                val visible = m.projection.visibleRegion.latLngBounds
+                liveLinesWanted(
+                    if (d == null || c.zoom < LIVE_ZOOM) emptySet()
+                    else d.lineBounds.filterValues { it.intersect(visible) != null }.keys,
+                )
             }
             m.addOnCameraMoveStartedListener { reason ->
                 if (reason == MapLibreMap.OnCameraMoveStartedListener.REASON_API_GESTURE) userMovedAt = System.currentTimeMillis()
@@ -169,6 +202,12 @@ fun MetroMap(
                 val complex = hits.firstOrNull()?.getStringProperty("complex")
                 if (complex != null) stationClick(complex) else mapClick()
                 complex != null
+            }
+            m.addOnMapLongClickListener { latLng ->
+                val hits = m.queryRenderedFeatures(m.projection.toScreenLocation(latLng), MetroLayers.LAYER_STATIONS)
+                val complex = hits.firstOrNull()?.getStringProperty("complex") ?: return@addOnMapLongClickListener false
+                stationLongPress(complex)
+                true
             }
             map = m
         }
@@ -202,8 +241,22 @@ fun MetroMap(
                 val flat = m.getCameraForLatLngBounds(bounds, padding, OVERVIEW_BEARING, 0.0)
                 if (flat != null) {
                     val camera = CameraPosition.Builder(flat).zoom(flat.zoom + TILT_ZOOM_BONUS).tilt(OVERVIEW_TILT).bearing(OVERVIEW_BEARING).build()
-                    if (animate) m.animateCamera(CameraUpdateFactory.newCameraPosition(camera), FLY_MS)
-                    else m.moveCamera(CameraUpdateFactory.newCameraPosition(camera))
+                    val from = m.cameraPosition.target
+                    val to = camera.target
+                    val far = from != null && to != null && from.distanceTo(to) > FLY_OVER_M
+                    when {
+                        !animate -> m.moveCamera(CameraUpdateFactory.newCameraPosition(camera))
+                        // Between continents, rise until the whole route is in view, then come down on the new city.
+                        far -> {
+                            val middle = LatLng((from!!.latitude + to!!.latitude) / 2, midLongitude(from.longitude, to.longitude))
+                            val high = CameraPosition.Builder().target(middle).zoom(FLY_OVER_ZOOM).tilt(0.0).bearing(0.0).build()
+                            m.animateCamera(CameraUpdateFactory.newCameraPosition(high), FLY_MS, object : MapLibreMap.CancelableCallback {
+                                override fun onFinish() = m.animateCamera(CameraUpdateFactory.newCameraPosition(camera), FLY_MS)
+                                override fun onCancel() = Unit
+                            })
+                        }
+                        else -> m.animateCamera(CameraUpdateFactory.newCameraPosition(camera), FLY_MS)
+                    }
                 }
             }
         }
@@ -246,32 +299,104 @@ fun MetroMap(
         }
     }
 
-    val trainsShown by rememberUpdatedState(onTrainsShown)
+    val trainSource by rememberUpdatedState(onTrains)
+    val isPaused by rememberUpdatedState(paused)
     DisposableEffect(style, data, reducedMotion) {
         val s = style
         val d = data
-        val animator = if (s != null && d != null) {
+        val a = if (s != null && d != null) {
             TrainAnimator(s, d, reducedMotion, viewport = {
                 map?.let { m -> Viewport(m.projection.visibleRegion.latLngBounds, m.cameraPosition.zoom) }
-            }, onRunning = { trainsShown(it) })
+            }, onSource = { trainSource(it) })
         } else {
             null
         }
-        trainsShown(false) // until the first frame finds trains running
-        animator?.start()
+        animator = a
+        trainSource(TrainSource.None) // until the first frame finds trains running
+        if (!isPaused) a?.start()
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_RESUME -> animator?.start()
-                Lifecycle.Event.ON_PAUSE -> animator?.stop()
+                Lifecycle.Event.ON_RESUME -> if (!isPaused) a?.start()
+                Lifecycle.Event.ON_PAUSE -> a?.stop()
                 else -> Unit
             }
         }
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
-            animator?.stop()
+            a?.stop()
+            animator = null
+        }
+    }
+
+    // A sheet over the map: nobody can see the trains, so stop moving them (keeps scrolling smooth).
+    LaunchedEffect(animator, paused) {
+        val a = animator ?: return@LaunchedEffect
+        if (paused) a.stop() else a.start()
+    }
+
+    LaunchedEffect(animator, live) {
+        val a = animator ?: return@LaunchedEffect
+        a.setLive(live, live?.arrivals?.mapTo(HashSet()) { it.lineId }.orEmpty())
+    }
+
+    // The planned journey draws itself from start to end, then the camera frames it.
+    LaunchedEffect(style, route) {
+        val s = style ?: return@LaunchedEffect
+        val m = map ?: return@LaunchedEffect
+        val r = route
+        if (r == null) {
+            MetroLayers.setRoute(s, FeatureCollection.fromFeatures(emptyList()))
+            return@LaunchedEffect
+        }
+        val all = r.segments.flatMap { it.points }
+        if (all.size >= 2) {
+            val bounds = LatLngBounds.Builder().includes(all.map { LatLng(it.lat, it.lon) }).build()
+            m.getCameraForLatLngBounds(bounds, padding, OVERVIEW_BEARING, 0.0)?.let { flat ->
+                val camera = CameraPosition.Builder(flat).zoom(flat.zoom + TILT_ZOOM_BONUS).tilt(ROUTE_TILT).bearing(OVERVIEW_BEARING).build()
+                if (reducedMotion) m.moveCamera(CameraUpdateFactory.newCameraPosition(camera))
+                else m.animateCamera(CameraUpdateFactory.newCameraPosition(camera), FLY_MS)
+            }
+        }
+        val lengths = r.segments.map { LineString(it.points).lengthM }
+        val total = lengths.sum().coerceAtLeast(1.0)
+        val start = System.nanoTime()
+        while (true) {
+            val f = if (reducedMotion) 1.0 else ((System.nanoTime() - start) / 1e6 / ROUTE_DRAW_MS).coerceAtMost(1.0)
+            MetroLayers.setRoute(s, routeFeatures(r, lengths, total * easeInOut(f)))
+            if (f >= 1.0) break
+            withFrameNanos { }
         }
     }
 
     AndroidView(factory = { mapView }, modifier = modifier)
+}
+
+/** The route drawn up to [lengthM] metres from its start. */
+private fun routeFeatures(route: MapRoute, lengths: List<Double>, lengthM: Double): FeatureCollection {
+    val features = ArrayList<Feature>()
+    var left = lengthM
+    route.segments.forEachIndexed { i, segment ->
+        if (left <= 0) return@forEachIndexed
+        val line = LineString(segment.points)
+        val points = if (left >= lengths[i]) segment.points else MapGeometry.slice(line, 0.0, left)
+        left -= lengths[i]
+        if (points.size >= 2) {
+            features += Feature.fromGeometry(GeoLineString.fromLngLats(points.map { Point.fromLngLat(it.lon, it.lat) })).apply {
+                addStringProperty("color", NetworkMapData.hex(segment.color))
+                addBooleanProperty("walk", segment.walk)
+            }
+        }
+    }
+    return FeatureCollection.fromFeatures(features)
+}
+
+private fun easeInOut(t: Double): Double = if (t < 0.5) 2 * t * t else 1 - (-2 * t + 2).let { it * it } / 2
+
+/** The longitude halfway between two, the short way round the globe. */
+private fun midLongitude(a: Double, b: Double): Double {
+    var d = b - a
+    if (d > 180) d -= 360
+    if (d < -180) d += 360
+    return ((a + d / 2 + 540) % 360) - 180
 }

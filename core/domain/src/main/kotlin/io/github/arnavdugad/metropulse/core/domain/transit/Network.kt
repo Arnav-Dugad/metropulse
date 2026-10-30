@@ -136,6 +136,10 @@ class TransitNetwork(
     val stationCodes: Map<String, String> = emptyMap(),
     /** GTFS route_id -> line id, for matching realtime feeds. */
     val routeCodes: Map<String, String> = emptyMap(),
+    /** Station id -> step-free (true) or not (false), where OpenStreetMap or the operator says. */
+    val stepFree: Map<String, Boolean> = emptyMap(),
+    /** Station id -> facilities found in or by it ("toilets", "lift", "parking", "atm", "bicycle_parking"). */
+    val facilities: Map<String, List<String>> = emptyMap(),
 ) {
     val lineById: Map<String, Line> = lines.associateBy { it.id }
     val stationById: Map<String, Station> = stations.associateBy { it.id }
@@ -176,6 +180,25 @@ class TransitNetwork(
         if (starts.isEmpty()) return null
         return LineHours(lineId, dayType, starts.min(), starts.max())
     }
+
+    /**
+     * Whether a station complex has step-free access: true if any of its platforms or entrances is
+     * marked step-free, false if every platform is marked not, null when nobody has said.
+     */
+    fun stepFree(complexId: String): Boolean? {
+        val members = complexes[complexId].orEmpty()
+        val known = members.mapNotNull { stepFree[it.id] }
+        return when {
+            known.any { it } -> true
+            exits.any { e -> e.wheelchair == true && members.any { it.id == e.stationId } } -> true
+            known.isNotEmpty() && known.size == members.size -> false
+            else -> null
+        }
+    }
+
+    /** Facilities at a station complex, merged over its platforms. */
+    fun facilities(complexId: String): List<String> =
+        complexes[complexId].orEmpty().flatMap { facilities[it.id].orEmpty() }.distinct()
 
     /** Display name of a complex. */
     fun complexName(complexId: String): String = complexes[complexId]?.first()?.name ?: complexId

@@ -1,0 +1,50 @@
+[
+  {
+    "icsCode": "1000260",
+    "naptanCode": "910GWBRMPTN",
+    "stopPointName": "West Brompton Station",
+    "outageStartArea": "RPL S",
+    "outageEndArea": "RLY",
+    "message": "West Brompton: No Step Free Access - Step free access is not available to the eastbound District line and southbound Mildmay line / Southern platform due to a faulty lift. Call us on 0343 222 1234 for more help"
+  },
+  {
+    "icsCode": "1000256",
+    "naptanCode": "910GWMBY",
+    "stopPointName": "Wembley Central Station",
+    "outageStartArea": "RLY",
+    "outageEndArea": "RPLAN",
+    "message": "Wembley Central: No Step Free Access - Step free access is not available to the northbound Southern / London Northwestern platform due to a faulty lift. Call us on 0343 222 1234 if you need help planning your journey."
+  },
+  {
+    "icsCode": "1000271",
+    "naptanCode": "910GWLSDJHL",
+    "stopPointName": "Willesden Junction Station",
+    "outageStartArea": "RLY",
+    "outageEndArea": "BakNB",
+    "message": "Willesden Junction: No Step Free Access - Step free access is not available to the Bakerloo line and the Lioness line due to a faulty lift. Call us on 0343 222 1234 if you need more information."
+  },
+  {
+    "icsCode": "1000271",
+    "naptanCode": "910GWLSDJHL",
+    "stopPointName": "Willesden Junction Station",
+    "outageStartArea": "RLY",
+    "outageEndArea": "BakSB",
+    "message": "Willesden Junction: No Step Free Access - Step free access is not available to the Bakerloo line and the Lioness line due to a faulty lift. Call us on 0343 222 1234 if you need more information."
+  },
+  {
+    "icsCode": "1000271",
+    "naptanCode": "910GWLSDJHL",
+    "stopPointName": "Willesden Junction Station",
+    "outageStartArea": "RLY",
+    "outageEndArea": "RPL-L",
+    "message": "Willesden Junction: No Step Free Access - Step free access is not available to the Bakerloo line and the Lioness line due to a faulty lift. Call us on 0343 222 1234 if you need more information."
+  },
+  {
+    "icsCode": "1000037",
+    "naptanCode": "910GCNDAW",
+    "stopPointName": "Canada Water Station",
+    "outageStartArea": "SURRE",
+    "outageEndArea": "RLY",
+    "message": "Canada Water : Step free access is not available between the ticket hall and street level due to a faulty lift. Step free access between lines is still available. Call us on 0343 222 1234 if you need more information."
+  }
+]

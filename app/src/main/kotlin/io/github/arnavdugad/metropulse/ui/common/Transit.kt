@@ -32,6 +32,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
+import androidx.compose.foundation.Image
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -50,31 +62,51 @@ import io.github.arnavdugad.metropulse.core.designsystem.theme.MetroPulseTheme
 import io.github.arnavdugad.metropulse.core.designsystem.theme.MpShapes
 import io.github.arnavdugad.metropulse.core.domain.transit.Line
 
-/** A line's official colour. */
 /** The line's colour; a black line (London's Northern line) is drawn grey on dark surfaces, where black would vanish. */
 @Composable
 @ReadOnlyComposable
 fun Line.composeColor(): Color =
     if (color and 0xFFFFFF == 0 && MetroPulseTheme.colors.isDark) Color(0xFF8E919C) else Color(0xFF000000 or color.toLong())
 
+/**
+ * A line marker: the operator's own round symbol where there is one (New York's bullets, Doha's
+ * line icons), drawn a little larger; otherwise a dot in the line's colour.
+ */
 @Composable
 fun LineDot(line: Line, size: Dp = 10.dp, modifier: Modifier = Modifier) {
-    Box(modifier.size(size).clip(CircleShape).background(line.composeColor()))
+    val context = LocalContext.current
+    val px = with(LocalDensity.current) { (size * BULLET_SCALE).roundToPx() }
+    val key = remember(line.id) { Logos.lineKey(context, line.id) }
+    val bullet by produceState<ImageBitmap?>(null, key, px) {
+        value = key?.let { k -> withContext(Dispatchers.Default) { Logos.bitmap(context, k, px)?.takeIf { it.width <= it.height * 1.3f }?.asImageBitmap() } }
+    }
+    val b = bullet
+    if (b != null) Image(b, null, modifier.size(size * BULLET_SCALE).symbolHalo(line))
+    else Box(modifier.size(size).clip(CircleShape).background(line.composeColor()))
 }
 
-/** A line's name on a tint of its colour. */
+/** A line's name on a tint of its colour, led by its symbol (a roundel, a bullet) where it has one. */
 @Composable
 fun LineChip(line: Line, modifier: Modifier = Modifier, label: String = line.name) {
     val colour = line.composeColor()
+    val context = LocalContext.current
+    val logo = remember(line.id) { Logos.lineKey(context, line.id) }
     Row(
-        modifier.clip(MpShapes.pill).background(colour.copy(alpha = 0.16f)).padding(horizontal = 10.dp, vertical = 5.dp),
+        modifier.clip(MpShapes.pill).background(colour.copy(alpha = 0.16f)).padding(start = if (logo != null) 6.dp else 10.dp, end = 10.dp, top = 4.dp, bottom = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Box(Modifier.size(9.dp).clip(CircleShape).background(colour))
+        if (logo != null) Logo(logo, 18.dp, null, Modifier.symbolHalo(line)) else Box(Modifier.size(9.dp).clip(CircleShape).background(colour))
         Spacer(Modifier.width(6.dp))
         Text(label, style = MetroPulseTheme.type.label, color = MetroPulseTheme.colors.textPrimary, maxLines = 1)
     }
 }
+
+private const val BULLET_SCALE = 1.7f
+
+/** A black symbol (the Northern line's roundel) sits on a light disc in dark mode, as it would on a station wall. */
+@Composable
+fun Modifier.symbolHalo(line: Line): Modifier =
+    if (line.color and 0xFFFFFF == 0 && MetroPulseTheme.colors.isDark) background(Color(0xFFE9E9EE), CircleShape) else this
 
 @Composable
 fun SectionTitle(text: String, modifier: Modifier = Modifier) {
@@ -228,4 +260,29 @@ fun ChoiceChip(text: String, selected: Boolean, idle: Color = MetroPulseTheme.co
 @Composable
 fun LiveCredit(text: String, modifier: Modifier = Modifier) {
     Text(text, style = MetroPulseTheme.type.caption, color = MetroPulseTheme.colors.textTertiary, modifier = modifier.padding(start = 8.dp, top = 8.dp))
+}
+
+/**
+ * A gradient through the colours of [lines], deepened so white text stays readable on yellow and
+ * pale lines; [fallback] (the brand gradient) when there are none.
+ */
+@Composable
+fun lineBrush(lines: List<Line>, fallback: Brush): Brush {
+    val colours = lines.distinctBy { it.id }.map { deepen(it.composeColor()) }
+    return when (colours.size) {
+        0 -> fallback
+        1 -> Brush.linearGradient(listOf(colours[0], deepen(colours[0], 0.35f)))
+        else -> Brush.linearGradient(colours)
+    }
+}
+
+/** Mixes [c] towards black until white text on it has enough contrast. */
+private fun deepen(c: Color, extra: Float = 0f): Color {
+    var k = extra
+    var out = lerp(c, Color.Black, k)
+    while (out.luminance() > 0.28f && k < 0.8f) {
+        k += 0.08f
+        out = lerp(c, Color.Black, k)
+    }
+    return out
 }

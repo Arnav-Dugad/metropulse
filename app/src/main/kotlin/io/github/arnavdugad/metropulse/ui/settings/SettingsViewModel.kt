@@ -23,6 +23,9 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import io.github.arnavdugad.metropulse.reminders.CommuteReminder
 import javax.inject.Inject
 
 /** Result of the last manual city data check. */
@@ -43,6 +46,7 @@ class SettingsViewModel @Inject constructor(
     private val updater: CityDataUpdater,
     private val commute: CommuteStarter,
     buildInfo: AppBuildInfo,
+    @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
     /** Null until read from disk, so the splash screen can wait for it. */
@@ -66,6 +70,14 @@ class SettingsViewModel @Inject constructor(
     fun setAlertStops(stops: Int) = edit { settings.setAlertStops(stops) }
     fun setCityDataUpdates(on: Boolean) = edit { settings.setCityDataUpdates(on) }
     fun setLiveData(on: Boolean) = edit { settings.setLiveData(on) }
+    fun setVibrateAtStops(on: Boolean) = edit { settings.setVibrateAtStops(on) }
+    fun setStepFreeRoutes(on: Boolean) = edit { settings.setStepFreeRoutes(on) }
+
+    /** Saves the weekday reminder and (re)schedules or cancels its alarm. */
+    fun setCommuteReminder(on: Boolean, minutes: Int) = edit {
+        settings.setCommuteReminder(on, minutes)
+        CommuteReminder.sync(context)
+    }
     fun finishOnboarding() = edit { settings.setOnboardingDone() }
 
     fun setCommuteStation(home: Boolean, complexId: String?) {

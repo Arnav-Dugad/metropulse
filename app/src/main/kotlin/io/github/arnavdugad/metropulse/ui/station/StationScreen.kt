@@ -100,7 +100,6 @@ class FavouriteStationsViewModel @Inject constructor(cities: CityRepository, pri
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun StationScreen(
     complexId: String,
@@ -115,169 +114,25 @@ fun StationScreen(
 ) {
     val colors = MetroPulseTheme.colors
     val favourites by favouritesViewModel.favourites.collectAsStateWithLifecycle()
-    Box(Modifier.fillMaxSize().background(colors.background)) {
-        val members = network?.complexes?.get(complexId)
-        if (network == null || members == null) {
-            Column {
-                DetailTopBar(onBack)
-                EmptyState(MpIcons.Pin, stringResource(R.string.station_gone_title), stringResource(R.string.station_gone_body), Modifier.padding(top = 80.dp))
-            }
-            return@Box
+    Column(Modifier.fillMaxSize().background(colors.background)) {
+        if (network == null || network.complexes[complexId] == null) {
+            DetailTopBar(onBack)
+            EmptyState(MpIcons.Pin, stringResource(R.string.station_gone_title), stringResource(R.string.station_gone_body), Modifier.padding(top = 80.dp))
+            return@Column
         }
         val name = network.complexName(complexId)
-        val lines = network.linesAtComplex[complexId].orEmpty()
         val favourite = favourites.any { it.complexId == complexId }
-        // Departures refresh as time passes.
-        var groups by remember { mutableStateOf(emptyList<DepartureGroup>()) }
-        // Live predictions (London) replace the timetable where they match; elsewhere the timetable stays.
-        val live by remember(network, complexId) { liveViewModel.station(network, complexId) }.collectAsStateWithLifecycle(null)
-        val shown = remember(groups, live) {
-            live?.let { LiveDepartures.merge(network, complexId, ZonedDateTime.now(network.timezone).toLocalDate(), groups, it) }
-                ?: groups.map { LiveGroup(it, live = false) }
-        }
-        var nowSecs by remember { mutableStateOf(0) }
-        LaunchedEffect(network, complexId) {
-            while (true) {
-                val now = ZonedDateTime.now(network.timezone)
-                nowSecs = now.toLocalTime().toSecondOfDay()
-                groups = Departures.at(network, complexId, now.toLocalDate(), nowSecs)
-                delay(REFRESH_MS)
-            }
-        }
-        Column(Modifier.fillMaxSize()) {
-            DetailTopBar(onBack) {
-                RoundIconButton(
-                    if (favourite) MpIcons.StarFilled else MpIcons.Star,
-                    stringResource(if (favourite) R.string.action_unsave else R.string.action_save),
-                    { favouritesViewModel.setFavourite(SavedStation(network.cityId, complexId, name), !favourite) },
-                    if (favourite) colors.accent else colors.textPrimary,
-                )
-            }
-            Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).navigationBarsPadding().padding(bottom = 24.dp)) {
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .sharedElement("station-$complexId")
-                        .shadow(10.dp, MpShapes.card, ambientColor = colors.shadow, spotColor = colors.shadow)
-                        .clip(MpShapes.card)
-                        .background(colors.surface)
-                        .padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    Text(name, style = MetroPulseTheme.type.headline, color = colors.textPrimary, modifier = Modifier.semantics { heading() })
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        lines.forEach { line -> LineChip(line) }
-                    }
-                    // Equal heights even when large text wraps one label and not the other.
-                    Row(Modifier.height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        SecondaryButton(stringResource(R.string.station_plan_from), onPlanFrom, Modifier.weight(1f).fillMaxHeight())
-                        SecondaryButton(stringResource(R.string.station_plan_to), onPlanTo, Modifier.weight(1f).fillMaxHeight())
-                    }
-                    SecondaryButton(stringResource(R.string.station_show_on_map), onShowOnMap, Modifier.fillMaxWidth(), icon = MpIcons.Map)
-                }
-
-                SectionTitle(stringResource(R.string.station_departures))
-                if (groups.isEmpty()) {
-                    Text(stringResource(R.string.station_no_departures), style = MetroPulseTheme.type.body, color = colors.textSecondary, modifier = Modifier.padding(4.dp))
-                }
-                Column(Modifier.fillMaxWidth().clip(MpShapes.card).background(colors.surface)) {
-                    shown.forEachIndexed { i, lg ->
-                        if (i > 0) HorizontalDivider(color = colors.hairline)
-                        DepartureRow(lg.group, nowSecs, lg.live, onClick = { onLine(lg.group.line.id) })
-                    }
-                }
-                if (shown.any { it.live }) liveViewModel.provider(network)?.let { LiveCredit(it.credit) }
-
-                val exits = network.exits.filter { e -> members.any { it.id == e.stationId } }
-                if (exits.isNotEmpty()) {
-                    SectionTitle(stringResource(R.string.station_exits))
-                    Column(Modifier.fillMaxWidth().clip(MpShapes.card).background(colors.surface).padding(vertical = 4.dp)) {
-                        exits.sortedBy { it.name }.forEach { exit ->
-                            Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Icon(MpIcons.Exit, null, tint = colors.accent, modifier = Modifier.size(18.dp))
-                                Spacer(Modifier.width(12.dp))
-                                Text(exit.name.ifBlank { stringResource(R.string.station_exit_unnamed) }, style = MetroPulseTheme.type.body, color = colors.textPrimary, modifier = Modifier.weight(1f))
-                                if (exit.wheelchair == true) Tag(stringResource(R.string.station_step_free), tint = colors.live)
-                            }
-                        }
-                    }
-                }
-                Spacer(Modifier.height(8.dp))
-            }
-        }
-    }
-}
-
-@Composable
-private fun DepartureRow(g: DepartureGroup, nowSecs: Int, live: Boolean, onClick: () -> Unit) {
-    val colors = MetroPulseTheme.colors
-    val clock = rememberClockFormatter()
-    Column(
-        Modifier.fillMaxWidth().clickable(role = Role.Button, onClick = onClick).padding(horizontal = 16.dp, vertical = 14.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp),
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            LineDot(g.line, 12.dp)
-            Spacer(Modifier.width(10.dp))
-            Text(
-                stringResource(R.string.journey_towards, g.line.name, g.headsign),
-                style = MetroPulseTheme.type.bodyStrong,
-                color = colors.textPrimary,
-                modifier = Modifier.weight(1f),
+        DetailTopBar(onBack) {
+            RoundIconButton(
+                if (favourite) MpIcons.StarFilled else MpIcons.Star,
+                stringResource(if (favourite) R.string.action_unsave else R.string.action_save),
+                { favouritesViewModel.setFavourite(SavedStation(network.cityId, complexId, name), !favourite) },
+                if (favourite) colors.accent else colors.textPrimary,
             )
-            when {
-                live -> TimeSourceChip(TimeSource.Live)
-                g.timed -> TimeSourceChip(if (g.line.quality == DataQuality.Approximate) TimeSource.Approximate else TimeSource.Scheduled)
-            }
         }
-        if ((g.timed || live) && g.next.isNotEmpty()) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                // Fixed columns keep the times aligned from one direction to the next.
-                for (slot in 0 until DEPARTURE_SLOTS) {
-                    val d = g.next.getOrNull(slot)
-                    Column(Modifier.weight(1f)) { if (d != null) DepartureTime(d, g.headsign, nowSecs) }
-                }
-            }
-        } else if (g.timed) {
-            Text(stringResource(R.string.station_service_ended), style = MetroPulseTheme.type.body, color = colors.textSecondary)
-        } else {
-            Text(stringResource(R.string.lines_times_unavailable), style = MetroPulseTheme.type.body, color = colors.textSecondary)
-        }
-        val first = g.firstSecs
-        val last = g.lastSecs
-        if (first != null && last != null) {
-            val hours = hoursText(first, last, clock)
-            Text(hours, style = MetroPulseTheme.type.caption, color = colors.textTertiary)
-        }
-    }
-}
-
-@Composable
-private fun DepartureTime(d: Departure, groupHeadsign: String, nowSecs: Int) {
-    val colors = MetroPulseTheme.colors
-    val clock = rememberClockFormatter()
-    val minutes = ((d.secs - nowSecs) / 60).coerceAtLeast(0)
-    // Countdowns past an hour are harder to read than the clock time.
-    Text(
-        when {
-            minutes == 0 -> stringResource(R.string.station_due)
-            minutes < 60 -> stringResource(R.string.onboard_chip_minutes, minutes)
-            else -> clock(d.secs)
-        },
-        style = MetroPulseTheme.type.title,
-        color = colors.textPrimary,
-    )
-    if (minutes < 60) Text(clock(d.secs), style = MetroPulseTheme.type.caption, color = colors.textSecondary)
-    if (d.headsign != groupHeadsign) {
-        Text(
-            stringResource(R.string.station_short_trip, d.headsign),
-            style = MetroPulseTheme.type.caption,
-            color = colors.accent,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
+        StationDetails(
+            complexId, network, favouritesViewModel, liveViewModel, onPlanFrom, onPlanTo, onShowOnMap, onLine,
+            modifier = Modifier.weight(1f).navigationBarsPadding(),
         )
     }
 }
-
-private const val REFRESH_MS = 15_000L
-private const val DEPARTURE_SLOTS = 3

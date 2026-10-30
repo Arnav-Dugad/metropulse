@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Strings for live data, alerts, station details and the map (v1.1). -->
+<resources>
+    <string name="alerts_more">%1$d more notices</string>
+    <string name="alerts_read">Read more</string>
+    <string name="alerts_less">Show less</string>
+    <plurals name="alerts_count">
+        <item quantity="one">%1$d line disrupted</item>
+        <item quantity="other">%1$d lines disrupted</item>
+    </plurals>
+    <string name="alerts_good_service">Good service</string>
+
+    <string name="station_live_age">Live · %1$d s ago</string>
+    <string name="station_facilities">Access and facilities</string>
+    <string name="station_not_step_free">No step-free access</string>
+    <string name="station_pin_direction">Show only this direction in widgets</string>
+    <string name="station_unpin_direction">Show every direction in widgets</string>
+    <string name="station_pinned">Shown in widgets</string>
+    <string name="station_resumes">No more trains today · first at %1$s (in %2$s)</string>
+    <string name="facility_toilets">Toilets</string>
+    <string name="facility_lift">Lift</string>
+    <string name="facility_parking">Parking</string>
+    <string name="facility_atm">ATM</string>
+    <string name="facility_bike">Bike parking</string>
+
+    <string name="home_trains_live">Trains placed by live predictions</string>
+    <string name="home_service_resumes">Service resumes at %1$s</string>
+    <string name="home_route_clear">Clear route</string>
+    <string name="home_station_expand">Departures and details</string>
+    <string name="home_station_collapse">Collapse</string>
+    <string name="city_loading">Loading the city</string>
+
+    <string name="journey_live">Live trains</string>
+    <string name="journey_live_leaves">%1$s from %2$s at %3$s</string>
+    <string name="journey_live_arrives">Arrives at %1$s at %2$s</string>
+    <string name="journey_live_later">The planned train has gone or is out of reach</string>
+    <string name="journey_live_missed">Change may be missed: planned %1$s</string>
+    <string name="journey_show_map">Map</string>
+    <string name="journey_share">Share journey</string>
+    <string name="journey_share_text_timed">%1$s → %2$s by %3$s, leaving %4$s, arriving %5$s (MetroPulse)</string>
+    <string name="journey_share_text">%1$s → %2$s by %3$s (MetroPulse)</string>
+    <string name="journey_remind">Remind me to leave</string>
+    <string name="journey_remind_before">%1$d minutes before</string>
+    <string name="journey_reminder_set">Reminder set for %1$s</string>
+    <string name="reminder_channel">Reminders</string>
+    <string name="reminder_channel_description">Reminders to leave for a train</string>
+    <string name="reminder_leave_title">Leave in %1$d minutes</string>
+    <string name="reminder_leave_text">The %1$s %2$s from %3$s</string>
+    <string name="commute_reminder_title">Time to leave</string>
+    <string name="commute_reminder_leg">%1$s → %2$s</string>
+    <string name="commute_reminder_text">%1$s · next trains %2$s</string>
+    <string name="journey_basis_zones">Zonal fare: peak or off-peak by the time you travel</string>
+    <string name="onboard_share_eta">Share my arrival time</string>
+    <string name="onboard_share_text">On the %1$s to %2$s, arriving about %3$s (MetroPulse)</string>
+    <string name="onboard_share_text_untimed">On the %1$s to %2$s (MetroPulse)</string>
+
+    <string name="plan_step_free">Step-free</string>
+    <string name="plan_step_free_endpoint">No step-free access recorded at %1$s</string>
+    <plurals name="plan_step_free_dropped">
+        <item quantity="one">%1$d option hidden: it changes at a station without step-free access</item>
+        <item quantity="other">%1$d options hidden: they change at stations without step-free access</item>
+    </plurals>
+    <string name="plan_step_free_unknown">Step-free access unknown at %1$s</string>
+    <string name="plan_compare">Compare</string>
+    <string name="plan_compare_arrive">Arrive</string>
+    <string name="plan_compare_time">Time</string>
+    <string name="plan_compare_changes">Changes</string>
+    <string name="plan_compare_walk">Walk</string>
+    <string name="plan_compare_fare">Fare</string>
+    <string name="plan_commute_suggest_title">Is this your commute?</string>
+    <string name="plan_commute_suggest_body">You often travel between %1$s and %2$s. Set it as your commute for a morning reminder and one-tap trips.</string>
+    <string name="plan_commute_home_is">Home: %1$s</string>
+    <string name="plan_commute_not_now">Not now</string>
+    <string name="line_swipe_hint">Swipe sideways to switch direction</string>
+    <string name="lines_good_service">Good service</string>
+
+    <string name="trips_title">Trip history</string>
+    <string name="trips_recent">Trips</string>
+    <string name="trips_empty_title">No trips yet</string>
+    <string name="trips_empty_body">Trips you take with on-board mode appear here, with your time on trains and fares.</string>
+    <string name="trips_private">Your trip history stays on this phone. Nothing is uploaded.</string>
+    <string name="trips_clear">Clear history</string>
+    <string name="trips_clear_title">Clear trip history?</string>
+    <string name="trips_clear_body">Every recorded trip is deleted from this phone.</string>
+    <plurals name="trips_count_label">
+        <item quantity="one">trip</item>
+        <item quantity="other">trips</item>
+    </plurals>
+    <string name="trips_on_trains">on trains</string>
+    <string name="trips_km">%1$.1f km</string>
+    <string name="trips_travelled">travelled</string>
+    <string name="trips_fares">in fares (token price)</string>
+    <string name="trips_top_line">Most ridden</string>
+    <string name="trips_ended_early">Ended early</string>
+    <string name="settings_trips_body">Your trips and totals, kept on this phone</string>
+    <string name="settings_vibrate_stops">Tick at each stop</string>
+    <string name="settings_vibrate_stops_body">A short vibration as the train calls at each station during a trip</string>
+    <string name="settings_step_free">Step-free routes</string>
+    <string name="settings_step_free_body">Plan only journeys whose changes have lifts or ramps, where the data knows</string>
+    <string name="settings_commute_reminder">Weekday reminder</string>
+    <string name="settings_commute_reminder_body">At %1$s, with the next trains from home</string>
+    <string name="settings_commute_reminder_needs">Set home and work first</string>
+    <string name="settings_commute_reminder_time">Reminder time</string>
+    <string name="city_data_built">Data from %1$s</string>
+    <string name="city_timetable_ends">Timetable ends %1$s</string>
+    <string name="city_timetable_expired">Timetable expired %1$s: times may be wrong</string>
+    <string name="about_logos">Logos and line symbols</string>
+    <string name="about_logos_note">Operator logos and line symbols are trademarks of their owners, shown only to identify their services, from the files on Wikimedia Commons listed here. MetroPulse is independent: it is not affiliated with, endorsed or sponsored by any operator.</string>
+    <string name="plan_step_free_none_title">No step-free route found</string>
+    <string name="plan_step_free_none_body">Every route changes at a station without step-free access. Turn off Step-free to see them.</string>
+</resources>

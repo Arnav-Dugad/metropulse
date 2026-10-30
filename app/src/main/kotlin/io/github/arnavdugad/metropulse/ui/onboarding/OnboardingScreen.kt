@@ -69,6 +69,7 @@ import io.github.arnavdugad.metropulse.core.designsystem.component.PrimaryButton
 import io.github.arnavdugad.metropulse.core.designsystem.component.SecondaryButton
 import io.github.arnavdugad.metropulse.core.designsystem.component.TextAction
 import io.github.arnavdugad.metropulse.core.designsystem.icon.MpIcons
+import io.github.arnavdugad.metropulse.ui.common.NetworkScene
 import io.github.arnavdugad.metropulse.core.designsystem.theme.MetroPulseTheme
 import io.github.arnavdugad.metropulse.core.designsystem.theme.MpShapes
 import io.github.arnavdugad.metropulse.core.domain.city.CityState
@@ -112,7 +113,7 @@ fun OnboardingScreen(cityViewModel: CityViewModel, onDone: () -> Unit) {
 
 @Composable
 private fun WelcomePage(onNext: () -> Unit) {
-    Page(MpIcons.Train, stringResource(R.string.welcome_title), stringResource(R.string.welcome_body)) {
+    Page(MpIcons.Train, stringResource(R.string.welcome_title), stringResource(R.string.welcome_body), scene = true) {
         Feature(MpIcons.Offline, stringResource(R.string.welcome_offline))
         Feature(MpIcons.Bell, stringResource(R.string.welcome_alerts))
         Feature(MpIcons.Clock, stringResource(R.string.welcome_honest))
@@ -232,7 +233,7 @@ private fun NotificationsPage(onDone: () -> Unit) {
 
 /** An animated emblem, a title and a body, then the page's own content. */
 @Composable
-private fun Page(icon: ImageVector, title: String, body: String, content: @Composable ColumnScope.() -> Unit) {
+private fun Page(icon: ImageVector, title: String, body: String, scene: Boolean = false, content: @Composable ColumnScope.() -> Unit) {
     val colors = MetroPulseTheme.colors
     Column(
         Modifier
@@ -241,7 +242,7 @@ private fun Page(icon: ImageVector, title: String, body: String, content: @Compo
             .padding(horizontal = 24.dp)
             .padding(top = 40.dp, bottom = 8.dp),
     ) {
-        Emblem(icon)
+        if (scene) NetworkScene(Modifier.fillMaxWidth().height(170.dp)) else Emblem(icon)
         Spacer(Modifier.height(32.dp))
         Text(title, style = MetroPulseTheme.type.display, color = colors.textPrimary, modifier = Modifier.semantics { heading() })
         Spacer(Modifier.height(10.dp))

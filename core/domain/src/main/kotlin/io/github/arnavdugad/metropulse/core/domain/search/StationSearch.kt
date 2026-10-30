@@ -22,7 +22,11 @@ class StationSearch(entries: List<SearchEntry>) {
         Indexed(e, n, n.replace(" ", ""), n.split(' ').filter { it.isNotEmpty() }, trigrams(n))
     }
 
-    fun search(query: String, limit: Int = 10): List<SearchHit> {
+    /**
+     * Stations matching [query], best first. [usage] (complex id -> how often the rider uses it) lifts
+     * familiar stations within a match tier, never above a better kind of match.
+     */
+    fun search(query: String, limit: Int = 10, usage: Map<String, Int> = emptyMap()): List<SearchHit> {
         val q = normalize(query)
         if (q.isEmpty()) return emptyList()
         val qTokens = q.split(' ').filter { it.isNotEmpty() }
@@ -31,11 +35,15 @@ class StationSearch(entries: List<SearchEntry>) {
         return index.asSequence()
             .map { it to score(it, q, qCompact, qTokens, qTrigrams) }
             .filter { it.second > 0.0 }
+            .map { (ix, s) -> ix to s + boost(usage[ix.entry.complexId] ?: 0) }
             .sortedWith(compareByDescending<Pair<Indexed, Double>> { it.second }.thenBy { it.first.entry.name.length }.thenBy { it.first.entry.name })
             .take(limit)
             .map { (ix, s) -> SearchHit(ix.entry.complexId, ix.entry.name, s) }
             .toList()
     }
+
+    /** At most 0.04: less than the gap between match tiers (exact, prefix, word prefix...). */
+    private fun boost(uses: Int): Double = if (uses <= 0) 0.0 else min(0.04, 0.01 * kotlin.math.ln(1.0 + uses) / kotlin.math.ln(2.0))
 
     private fun score(ix: Indexed, q: String, qCompact: String, qTokens: List<String>, qTrigrams: Set<String>): Double {
         if (ix.norm == q) return 1.0

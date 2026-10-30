@@ -12,14 +12,15 @@ bengaluru:
 
 hyderabad:
   gtfs:
-    # The official HMRL GTFS is sent by email after a request form. Place the ZIP here and rebuild;
-    # until then Hyderabad is built from OpenStreetMap with approximate timetables.
-    local: input/hyderabad/hmrl_gtfs.zip
-    page: https://data.telangana.gov.in/
+    # Official HMRL GTFS published by Open Data Telangana (file of 03 July 2026, calendar to 2030-01-01). The
+    # Telangana portal emails its link after a form; this is OpenCity's direct-download copy of the same file.
+    # Its fares predate the May 2025 cut, so the city file's fare slabs are used instead (fares.override_feed).
+    url: https://data.opencity.in/dataset/4e72c202-4cdb-4437-a629-ffcbe9519f73/resource/5fa250e1-3104-4ca7-ad31-4fa3321f6255/download/telangana_opendata_gtfs_hmrl_03_july_2026.zip
+    page: https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs
     quality: scheduled
-    what: Hyderabad Metro official GTFS
+    what: Hyderabad Metro stations, entrances, timetable and shapes (official HMRL GTFS via Open Data Telangana)
     licence: Open Government Licence - India
-    attribution: Hyderabad Metro Rail Limited (HMRL)
+    attribution: "Hyderabad Metro Rail Limited (HMRL), published by Open Data Telangana"
 
 # Delhi: the maintainer has DMRC's permission to convert its GTFS (otd.delhi.gov.in), but the
 # portal's download fails after its request form, and the feed dates from August 2023, so lines

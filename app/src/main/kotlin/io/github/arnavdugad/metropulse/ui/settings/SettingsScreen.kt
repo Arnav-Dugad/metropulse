@@ -88,7 +88,7 @@ import java.util.Locale
 private const val REPO_URL = "https://github.com/Arnav-Dugad/metropulse"
 
 @Composable
-fun SettingsScreen(updateViewModel: UpdateViewModel, cityViewModel: CityViewModel, settingsViewModel: SettingsViewModel, onAbout: () -> Unit) {
+fun SettingsScreen(updateViewModel: UpdateViewModel, cityViewModel: CityViewModel, settingsViewModel: SettingsViewModel, onAbout: () -> Unit, onTrips: () -> Unit) {
     val colors = MetroPulseTheme.colors
     val context = LocalContext.current
     val cityState by cityViewModel.state.collectAsStateWithLifecycle()
@@ -98,10 +98,12 @@ fun SettingsScreen(updateViewModel: UpdateViewModel, cityViewModel: CityViewMode
     val dataCheck by settingsViewModel.dataCheck.collectAsStateWithLifecycle()
     val city = (cityState as? CityState.Ready)?.city
     var picking by rememberSaveable { mutableStateOf<Boolean?>(null) } // true: home, false: work
+    var pickingReminder by rememberSaveable { mutableStateOf(false) }
     val updateState by updateViewModel.state.collectAsStateWithLifecycle()
     val autoCheck by updateViewModel.autoCheck.collectAsStateWithLifecycle()
     val lastChecked by updateViewModel.lastCheckedAt.collectAsStateWithLifecycle()
     val uriHandler = LocalUriHandler.current
+    val clock = io.github.arnavdugad.metropulse.ui.common.rememberClockFormatter()
 
     Box(Modifier.fillMaxSize()) {
         Column(
@@ -154,6 +156,25 @@ fun SettingsScreen(updateViewModel: UpdateViewModel, cityViewModel: CityViewMode
                         )
                         Divider()
                     }
+                    SwitchRow(
+                        icon = MpIcons.BellPlus,
+                        title = stringResource(R.string.settings_commute_reminder),
+                        subtitle = if (commute.first == null || commute.second == null) stringResource(R.string.settings_commute_reminder_needs)
+                        else stringResource(R.string.settings_commute_reminder_body, clock(prefs.commuteReminderMinutes * 60)),
+                        checked = prefs.commuteReminder,
+                        onCheckedChange = { settingsViewModel.setCommuteReminder(it, prefs.commuteReminderMinutes) },
+                    )
+                    if (prefs.commuteReminder) {
+                        Divider()
+                        ActionRow(
+                            icon = MpIcons.Clock,
+                            title = stringResource(R.string.settings_commute_reminder_time),
+                            subtitle = null,
+                            onClick = { pickingReminder = true },
+                            trailing = { Text(clock(prefs.commuteReminderMinutes * 60), style = MetroPulseTheme.type.label, color = colors.accent) },
+                        )
+                    }
+                    Divider()
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         ActionRow(
                             icon = MpIcons.Sparkle,
@@ -179,7 +200,31 @@ fun SettingsScreen(updateViewModel: UpdateViewModel, cityViewModel: CityViewMode
                 }
                 Divider()
                 SwitchRow(
-                    icon = MpIcons.Clock,
+                    icon = MpIcons.Train,
+                    title = stringResource(R.string.settings_vibrate_stops),
+                    subtitle = stringResource(R.string.settings_vibrate_stops_body),
+                    checked = prefs.vibrateAtStops,
+                    onCheckedChange = settingsViewModel::setVibrateAtStops,
+                )
+                Divider()
+                SwitchRow(
+                    icon = MpIcons.Accessible,
+                    title = stringResource(R.string.settings_step_free),
+                    subtitle = stringResource(R.string.settings_step_free_body),
+                    checked = prefs.stepFreeRoutes,
+                    onCheckedChange = settingsViewModel::setStepFreeRoutes,
+                )
+                Divider()
+                ActionRow(
+                    icon = MpIcons.History,
+                    title = stringResource(R.string.trips_title),
+                    subtitle = stringResource(R.string.settings_trips_body),
+                    onClick = onTrips,
+                    trailing = { Icon(MpIcons.ChevronRight, null, tint = colors.textTertiary, modifier = Modifier.size(20.dp)) },
+                )
+                Divider()
+                SwitchRow(
+                    icon = MpIcons.Live,
                     title = stringResource(R.string.settings_live),
                     subtitle = stringResource(R.string.settings_live_body),
                     checked = prefs.liveData,
@@ -309,6 +354,12 @@ fun SettingsScreen(updateViewModel: UpdateViewModel, cityViewModel: CityViewMode
         }
         StatusBarScrim()
     }
+    if (pickingReminder) {
+        ReminderTimeDialog(prefs.commuteReminderMinutes, onDismiss = { pickingReminder = false }) { minutes ->
+            settingsViewModel.setCommuteReminder(true, minutes)
+            pickingReminder = false
+        }
+    }
     val home = picking
     if (home != null && city != null) {
         StationPickerSheet(
@@ -321,6 +372,31 @@ fun SettingsScreen(updateViewModel: UpdateViewModel, cityViewModel: CityViewMode
             onDismiss = { picking = null },
         )
     }
+}
+
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+@Composable
+private fun ReminderTimeDialog(initialMinutes: Int, onDismiss: () -> Unit, onPick: (Int) -> Unit) {
+    val colors = MetroPulseTheme.colors
+    val state = androidx.compose.material3.rememberTimePickerState(initialMinutes / 60, initialMinutes % 60, android.text.format.DateFormat.is24HourFormat(LocalContext.current))
+    androidx.compose.material3.AlertDialog(
+        onDismissRequest = onDismiss,
+        containerColor = colors.surface,
+        title = { Text(stringResource(R.string.settings_commute_reminder_time), color = colors.textPrimary) },
+        text = {
+            androidx.compose.material3.TimePicker(
+                state,
+                colors = androidx.compose.material3.TimePickerDefaults.colors(
+                    clockDialSelectedContentColor = colors.onAccent,
+                    selectorColor = colors.accent,
+                    timeSelectorSelectedContainerColor = colors.accentSoft,
+                    timeSelectorSelectedContentColor = colors.accent,
+                ),
+            )
+        },
+        confirmButton = { androidx.compose.material3.TextButton({ onPick(state.hour * 60 + state.minute) }) { Text(stringResource(R.string.action_done), color = colors.accent) } },
+        dismissButton = { androidx.compose.material3.TextButton(onDismiss) { Text(stringResource(R.string.update_cancel), color = colors.textSecondary) } },
+    )
 }
 
 /** Offers the commute tile through Android's own "add tile" prompt (Android 13+). */

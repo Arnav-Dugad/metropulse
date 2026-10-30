@@ -13,6 +13,8 @@ import androidx.glance.LocalContext
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
+import androidx.glance.appwidget.SizeMode
+import androidx.glance.LocalSize
 import androidx.glance.appwidget.LinearProgressIndicator
 import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.provideContent
@@ -37,6 +39,8 @@ import java.time.ZonedDateTime
 
 /** The trip in progress (destination, stops left, arrival), or a button to start one. */
 class TripWidget : GlanceAppWidget() {
+
+    override val sizeMode: SizeMode = SizeMode.Exact
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val sessions = context.widgetDependencies().onboard().session
@@ -99,6 +103,10 @@ class TripWidget : GlanceAppWidget() {
                 }
             }
             WidgetText(detail, color = WidgetColors.textSecondary, maxLines = 2)
+            if (p.phase == TripPhase.Riding && LocalSize.current.height >= 100.dp) {
+                Spacer(GlanceModifier.height(10.dp))
+                Strip(s, colour)
+            }
             Spacer(GlanceModifier.height(10.dp))
             LinearProgressIndicator(
                 progress = p.fraction.toFloat(),
@@ -106,6 +114,26 @@ class TripWidget : GlanceAppWidget() {
                 color = colour,
                 backgroundColor = WidgetColors.surface,
             )
+        }
+    }
+
+    /** The current ride's stops as a mini line: passed stops filled, the rest hollow (at most [MAX_STOPS]). */
+    @Composable
+    private fun Strip(s: TripSession, colour: androidx.glance.unit.ColorProvider) {
+        val p = s.progress
+        val ride = p.ride
+        val first = ride.boardIndex
+        val last = ride.alightIndex
+        val total = last - first + 1
+        // A window that keeps the train in view on long rides.
+        val start = if (total <= MAX_STOPS) first else (p.nextStopIndex - MAX_STOPS / 2).coerceIn(first, last - MAX_STOPS + 1)
+        val end = minOf(last, start + MAX_STOPS - 1)
+        Row(GlanceModifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            for (i in start..end) {
+                val passed = i < p.nextStopIndex
+                if (i > start) Box(GlanceModifier.defaultWeight().height(3.dp).background(if (passed) colour else WidgetColors.surface)) {}
+                Dot(if (passed || i == last) colour else WidgetColors.textSecondary, if (i == last) 12.dp else 8.dp)
+            }
         }
     }
 
@@ -138,3 +166,5 @@ class TripWidget : GlanceAppWidget() {
 class TripWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = TripWidget()
 }
+
+private const val MAX_STOPS = 9

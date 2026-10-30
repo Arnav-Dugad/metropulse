@@ -32,6 +32,7 @@ import io.github.arnavdugad.metropulse.core.designsystem.icon.MpIcons
 import io.github.arnavdugad.metropulse.core.designsystem.theme.MetroPulseTheme
 import io.github.arnavdugad.metropulse.core.domain.city.LoadedCity
 import io.github.arnavdugad.metropulse.ui.common.EmptyState
+import io.github.arnavdugad.metropulse.ui.common.LocalStationUsage
 import io.github.arnavdugad.metropulse.ui.common.NearbyStations
 import io.github.arnavdugad.metropulse.ui.common.RoundIconButton
 import io.github.arnavdugad.metropulse.ui.common.SearchField
@@ -58,6 +59,7 @@ fun SearchScreen(
     var query by rememberSaveable { mutableStateOf("") }
     val nearby by searchViewModel.nearbyStations.nearby.collectAsStateWithLifecycle()
     val favourites by favouritesViewModel.favourites.collectAsStateWithLifecycle()
+    val usage = LocalStationUsage.current
     DisposableEffect(city) {
         city?.network?.let(searchViewModel.nearbyStations::locate)
         onDispose { searchViewModel.nearbyStations.stop() }
@@ -97,7 +99,7 @@ fun SearchScreen(
                     item { EmptyState(MpIcons.Search, stringResource(R.string.search_empty_title), stringResource(R.string.search_empty_body), Modifier.padding(top = 60.dp)) }
                 }
             } else {
-                val hits = city.search.search(query, 40)
+                val hits = city.search.search(query, 40, usage)
                 if (hits.isEmpty()) {
                     item { EmptyState(MpIcons.Search, stringResource(R.string.search_none_title), stringResource(R.string.search_none_body, query), Modifier.padding(top = 60.dp)) }
                 }

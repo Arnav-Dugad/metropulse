@@ -1,0 +1,704 @@
+{
+  "op-agra": {
+    "file": "op-agra.svg",
+    "title": "UPMRC.svg",
+    "author": "Uttar Pradesh Metro Rail Corporation Limited",
+    "licence": "CC0",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:UPMRC.svg",
+    "notes": "UPMRC logo; same file as op-kanpur and op-lucknow. Mark of Uttar Pradesh Metro Rail Corporation (UPMRC); trademark, used for identification only."
+  },
+  "op-kanpur": {
+    "file": "op-kanpur.svg",
+    "title": "UPMRC.svg",
+    "author": "Uttar Pradesh Metro Rail Corporation Limited",
+    "licence": "CC0",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:UPMRC.svg",
+    "notes": "UPMRC logo; same file as op-agra and op-lucknow. Mark of Uttar Pradesh Metro Rail Corporation (UPMRC); trademark, used for identification only."
+  },
+  "op-lucknow": {
+    "file": "op-lucknow.svg",
+    "title": "UPMRC.svg",
+    "author": "Uttar Pradesh Metro Rail Corporation Limited",
+    "licence": "CC0",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:UPMRC.svg",
+    "notes": "UPMRC logo; same file as op-agra and op-kanpur. Mark of Uttar Pradesh Metro Rail Corporation (UPMRC); trademark, used for identification only."
+  },
+  "op-ahmedabad": {
+    "file": "op-ahmedabad.png",
+    "title": "GMRC logo.png",
+    "author": "Starred.cookie0198",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:GMRC_logo.png",
+    "notes": "PNG only (no SVG on Commons). Uploaded as 'own work' under CC BY-SA 4.0; the design itself is GMRC's logo. Attribution and share-alike apply to this file. Mark of Gujarat Metro Rail Corporation (GMRC); trademark, used for identification only."
+  },
+  "op-bengaluru": {
+    "file": "op-bengaluru.svg",
+    "title": "Namma metro.svg",
+    "author": "Bangalore Metro Rail Corporation Limited",
+    "licence": "Public domain (PD-textlogo, PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Namma_metro.svg",
+    "notes": "Mark of Bangalore Metro Rail Corporation Ltd (BMRCL), Namma Metro; trademark, used for identification only."
+  },
+  "op-bhopal": {
+    "file": "op-bhopal.png",
+    "title": "Madhya Pradesh Metro Rail Corporation Limited.png",
+    "author": "Madhya Pradesh Metro Rail Corporation Limited",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Madhya_Pradesh_Metro_Rail_Corporation_Limited.png",
+    "notes": "PNG only (380x240). MP Metro logo with MPMETRO wordmark; same file as op-indore. Mark of Madhya Pradesh Metro Rail Corporation Ltd; trademark, used for identification only."
+  },
+  "op-indore": {
+    "file": "op-indore.png",
+    "title": "Madhya Pradesh Metro Rail Corporation Limited.png",
+    "author": "Madhya Pradesh Metro Rail Corporation Limited",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Madhya_Pradesh_Metro_Rail_Corporation_Limited.png",
+    "notes": "PNG only (380x240). MP Metro logo with MPMETRO wordmark; same file as op-bhopal. Mark of Madhya Pradesh Metro Rail Corporation Ltd; trademark, used for identification only."
+  },
+  "op-chennai": {
+    "file": "op-chennai.svg",
+    "title": "Chennai Metro logo.svg",
+    "author": "Not stated on Commons (mark of Chennai Metro Rail Limited)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Chennai_Metro_logo.svg",
+    "notes": "Mark of Chennai Metro Rail Ltd (CMRL); trademark, used for identification only."
+  },
+  "op-delhi": {
+    "file": "op-delhi.svg",
+    "title": "Delhi Metro logo.svg",
+    "author": "Not stated on Commons (mark of Delhi Metro Rail Corporation)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Delhi_Metro_logo.svg",
+    "notes": "Mark of Delhi Metro Rail Corporation (DMRC); trademark, used for identification only."
+  },
+  "op-gurugram": {
+    "file": "op-gurugram.svg",
+    "title": "RMRG logo.svg",
+    "author": "RaviC (using http://rapidmetrorail.com/ as an example piece)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:RMRG_logo.svg",
+    "notes": "Root <svg> has no viewBox (fixed 146.6x75.1). Mark of Rapid Metro Rail Gurgaon; trademark, used for identification only."
+  },
+  "op-hyderabad": {
+    "file": "op-hyderabad.svg",
+    "title": "Seal of Hyderabad Metro Rail.svg",
+    "author": "Hyderabad Metro Rail (vector derived from File:Hyderabad Metro Rail Logo.png)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Hyderabad_Metro_Rail.svg",
+    "notes": "Mark of Hyderabad Metro Rail Ltd / L&T Metro Rail (Hyderabad) Ltd; trademark, used for identification only."
+  },
+  "op-jaipur": {
+    "file": "op-jaipur.svg",
+    "title": "Jaipur Metro Logo.svg",
+    "author": "Jaipur Metro",
+    "licence": "CC0",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Jaipur_Metro_Logo.svg",
+    "notes": "Mark of Jaipur Metro Rail Corporation; trademark, used for identification only."
+  },
+  "op-kochi": {
+    "file": "op-kochi.svg",
+    "title": "Logo of Kochi Metro.svg",
+    "author": "Kochi Metro",
+    "licence": "CC0",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_of_Kochi_Metro.svg",
+    "notes": "Mark of Kochi Metro Rail Ltd (KMRL); trademark, used for identification only."
+  },
+  "op-kolkata": {
+    "file": "op-kolkata.svg",
+    "title": "Kolkata Metro Logo.svg",
+    "author": "Not stated on Commons (mark of Metro Railway, Kolkata)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Kolkata_Metro_Logo.svg",
+    "notes": "Metro Railway, Kolkata emblem. Root <svg> has no viewBox (fixed 57.6x39.7). Mark of Metro Railway, Kolkata; trademark, used for identification only."
+  },
+  "op-meerut": {
+    "file": "op-meerut.svg",
+    "title": "NCRTC logo.svg",
+    "author": "NCRTC, vectorised by cypp0847",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NCRTC_logo.svg",
+    "notes": "NCRTC corporate logo (operator of Namo Bharat and Meerut Metro). No Namo Bharat-branded mark is on Commons as SVG. Mark of National Capital Region Transport Corporation (NCRTC); trademark, used for identification only."
+  },
+  "op-mumbai-metro-one": {
+    "file": "op-mumbai-metro-one.svg",
+    "title": "Logo of Mumbai Metro Line 1.svg",
+    "author": "Original: Reliance Mumbai Metro; vector: ReneeWrites",
+    "licence": "Public domain (PD-shape, PD-simple)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-shape",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_of_Mumbai_Metro_Line_1.svg",
+    "notes": "Root <svg> has no viewBox (fixed 570x218). Mark of Mumbai Metro One Pvt Ltd (Line 1); trademark, used for identification only."
+  },
+  "op-mumbai-mmmocl": {
+    "file": "op-mumbai-mmmocl.svg",
+    "title": "Mmmocl-logo.svg",
+    "author": "MMMOCL",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Mmmocl-logo.svg",
+    "notes": "Mark of Maha Mumbai Metro Operation Corporation Ltd (MMMOCL; Lines 2A, 7); trademark, used for identification only."
+  },
+  "op-mumbai-mmrda": {
+    "file": "op-mumbai-mmrda.svg",
+    "title": "Mmrda-logo.svg",
+    "author": "MMRDA",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Mmrda-logo.svg",
+    "notes": "Mark of Mumbai Metropolitan Region Development Authority (MMRDA); trademark, used for identification only."
+  },
+  "op-mumbai-mmrcl": {
+    "file": "op-mumbai-mmrcl.svg",
+    "title": "MMRC textless logo.svg",
+    "author": "Mumbai Metro Rail Corporation Ltd.",
+    "licence": "Public domain (PD-textlogo, PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:MMRC_textless_logo.svg",
+    "notes": "MMRCL symbol without wordmark. Mark of Mumbai Metro Rail Corporation Ltd (MMRCL; Line 3 / Aqua Line); trademark, used for identification only."
+  },
+  "op-nagpur": {
+    "file": "op-nagpur.svg",
+    "title": "Maha-metro-logo.svg",
+    "author": "Maharashtra Metro Rail Corporation Limited (Maha Metro)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Maha-metro-logo.svg",
+    "notes": "Maha Metro logo; same file as op-pune. Mark of Maharashtra Metro Rail Corporation Ltd (Maha Metro); trademark, used for identification only."
+  },
+  "op-pune": {
+    "file": "op-pune.svg",
+    "title": "Maha-metro-logo.svg",
+    "author": "Maharashtra Metro Rail Corporation Limited (Maha Metro)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Maha-metro-logo.svg",
+    "notes": "Maha Metro logo; same file as op-nagpur. Mark of Maharashtra Metro Rail Corporation Ltd (Maha Metro); trademark, used for identification only."
+  },
+  "op-navi-mumbai": {
+    "file": "op-navi-mumbai.png",
+    "title": "NaviMumbaiMetro-Logo.png",
+    "author": "CIDCO",
+    "licence": "Public domain (PD-textlogo, PD-logo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NaviMumbaiMetro-Logo.png",
+    "notes": "PNG only, small (217x90 px). Mark of CIDCO (Navi Mumbai Metro); trademark, used for identification only."
+  },
+  "op-patna": {
+    "file": "op-patna.svg",
+    "title": "Patna Metro en.svg",
+    "author": "Not stated on Commons (mark of Patna Metro Rail Corporation)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Patna_Metro_en.svg",
+    "notes": "Mark of Patna Metro Rail Corporation Ltd (PMRCL); trademark, used for identification only."
+  },
+  "op-doha": {
+    "file": "op-doha.svg",
+    "title": "Doha Metro Logo 04.2019.svg",
+    "author": "Qatar Rail",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Doha_Metro_Logo_04.2019.svg",
+    "notes": "Mark of Qatar Rail (Doha Metro); trademark, used for identification only."
+  },
+  "op-doha-qatar-rail": {
+    "file": "op-doha-qatar-rail.svg",
+    "title": "Qatar Rail logo.svg",
+    "author": "Unknown author (mark of Qatar Rail)",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Qatar_Rail_logo.svg",
+    "notes": "Optional extra: Qatar Rail corporate logo (Doha Metro operator). Uses 48 clipPaths. Mark of Qatar Rail; trademark, used for identification only."
+  },
+  "op-riyadh": {
+    "file": "op-riyadh.svg",
+    "title": "Riyadh Metro Logo.svg",
+    "author": "Riyadh Public Transport",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Riyadh_Metro_Logo.svg",
+    "notes": "Mark of Riyadh Public Transport / Royal Commission for Riyadh City (Riyadh Metro); trademark, used for identification only."
+  },
+  "op-dubai": {
+    "file": "op-dubai.png",
+    "title": "Dubai Roads and Transport Authority logo.png",
+    "author": "Secondarywaltz",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Dubai_Roads_and_Transport_Authority_logo.png",
+    "notes": "RTA corporate logo, PNG only (366x132). No Dubai Metro-specific logo is hosted on Commons. Mark of Roads and Transport Authority (RTA), Dubai; trademark, used for identification only."
+  },
+  "op-london": {
+    "file": "op-london.svg",
+    "title": "Underground.svg",
+    "author": "Edward Johnston",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Underground.svg",
+    "notes": "London Underground roundel with UNDERGROUND name bar. Mark of Transport for London (London Underground); trademark, used for identification only."
+  },
+  "op-london-dlr": {
+    "file": "op-london-dlr.svg",
+    "title": "Docklands-Light-Railway-Logo.svg",
+    "author": "Transport for London",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Docklands-Light-Railway-Logo.svg",
+    "notes": "Mark of Transport for London (Docklands Light Railway); trademark, used for identification only."
+  },
+  "op-new-york": {
+    "file": "op-new-york.svg",
+    "title": "MTA NYC logo.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:MTA_NYC_logo.svg",
+    "notes": "MTA corporate logo. Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-lon-bakerloo": {
+    "file": "line-lon-bakerloo.svg",
+    "title": "Bakerloo line roundel.svg",
+    "author": "Matthewedwards",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Bakerloo_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-central": {
+    "file": "line-lon-central.svg",
+    "title": "Central Line roundel.svg",
+    "author": "Matthewedwards",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Central_Line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-circle": {
+    "file": "line-lon-circle.svg",
+    "title": "Circle Line roundel.svg",
+    "author": "Matthewedwards",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Circle_Line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-district": {
+    "file": "line-lon-district.svg",
+    "title": "District line roundel.svg",
+    "author": "Andreuvv",
+    "licence": "Public domain (PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-shape",
+    "source": "https://commons.wikimedia.org/wiki/File:District_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-hammersmith-city": {
+    "file": "line-lon-hammersmith-city.svg",
+    "title": "H&c line roundel.svg",
+    "author": "Andreuvv",
+    "licence": "Public domain (PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-shape",
+    "source": "https://commons.wikimedia.org/wiki/File:H%26c_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-jubilee": {
+    "file": "line-lon-jubilee.svg",
+    "title": "Jubilee line roundel.svg",
+    "author": "Andreuvv",
+    "licence": "Public domain (PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-shape",
+    "source": "https://commons.wikimedia.org/wiki/File:Jubilee_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-metropolitan": {
+    "file": "line-lon-metropolitan.svg",
+    "title": "Metropolitan line roundel.svg",
+    "author": "Andreuvv",
+    "licence": "Public domain (PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-shape",
+    "source": "https://commons.wikimedia.org/wiki/File:Metropolitan_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-northern": {
+    "file": "line-lon-northern.svg",
+    "title": "Northern line roundel.svg",
+    "author": "Andreuvv",
+    "licence": "Public domain (PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-shape",
+    "source": "https://commons.wikimedia.org/wiki/File:Northern_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-piccadilly": {
+    "file": "line-lon-piccadilly.svg",
+    "title": "Piccadilly line roundel.svg",
+    "author": "Andreuvv",
+    "licence": "Public domain (PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-shape",
+    "source": "https://commons.wikimedia.org/wiki/File:Piccadilly_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-victoria": {
+    "file": "line-lon-victoria.svg",
+    "title": "Victoria line roundel.svg",
+    "author": "Andreuvv",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Victoria_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-lon-waterloo-city": {
+    "file": "line-lon-waterloo-city.svg",
+    "title": "W&c line roundel.svg",
+    "author": "Andreuvv",
+    "licence": "Public domain (PD-shape)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-shape",
+    "source": "https://commons.wikimedia.org/wiki/File:W%26c_line_roundel.svg",
+    "notes": "Line-coloured roundel with line name (Commons rendition). Mark of Transport for London; trademark, used for identification only."
+  },
+  "line-doh-red": {
+    "file": "line-doh-red.svg",
+    "title": "Red Line Doha Icon 04.2019.svg",
+    "author": "Qatar Rail",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Red_Line_Doha_Icon_04.2019.svg",
+    "notes": "An unreferenced <defs> block (leftover glyph symbols and an unused embedded JPEG) was removed; rendered artwork unchanged. Mark of Qatar Rail (Doha Metro); trademark, used for identification only."
+  },
+  "line-doh-gold": {
+    "file": "line-doh-gold.svg",
+    "title": "Gold Line Doha Icon 04.2019.svg",
+    "author": "Qatar Rail",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Gold_Line_Doha_Icon_04.2019.svg",
+    "notes": "An unreferenced <defs> block (leftover glyph symbols and an unused embedded JPEG) was removed; rendered artwork unchanged. Mark of Qatar Rail (Doha Metro); trademark, used for identification only."
+  },
+  "line-doh-green": {
+    "file": "line-doh-green.svg",
+    "title": "Green Line Doha Icon 04.2019.svg",
+    "author": "Qatar Rail",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Green_Line_Doha_Icon_04.2019.svg",
+    "notes": "An unreferenced <defs> block (leftover glyph symbols and an unused embedded JPEG) was removed; rendered artwork unchanged. Mark of Qatar Rail (Doha Metro); trademark, used for identification only."
+  },
+  "line-kol-blue": {
+    "file": "line-kol-blue.svg",
+    "title": "Kolkata Metro Logo Blue Line.svg",
+    "author": "Metro Railway, Kolkata",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Kolkata_Metro_Logo_Blue_Line.svg",
+    "notes": "Metro Railway Kolkata emblem in line colour (Commons derivative of File:Kolkata Metro Logo.svg). Root <svg> has no viewBox (fixed 1280x883). Mark of Metro Railway, Kolkata; trademark, used for identification only."
+  },
+  "line-kol-green": {
+    "file": "line-kol-green.svg",
+    "title": "Kolkata Metro Green Line.svg",
+    "author": "Metro Railway, Kolkata",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Kolkata_Metro_Green_Line.svg",
+    "notes": "Metro Railway Kolkata emblem in line colour (Commons derivative of File:Kolkata Metro Logo.svg). Root <svg> has no viewBox (fixed 1280x883). Mark of Metro Railway, Kolkata; trademark, used for identification only."
+  },
+  "line-kol-purple": {
+    "file": "line-kol-purple.svg",
+    "title": "Kolkata Metro Purple Line.svg",
+    "author": "Metro Railway, Kolkata",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Kolkata_Metro_Purple_Line.svg",
+    "notes": "Metro Railway Kolkata emblem in line colour (Commons derivative of File:Kolkata Metro Logo.svg). Root <svg> has no viewBox (fixed 1280x883). Mark of Metro Railway, Kolkata; trademark, used for identification only."
+  },
+  "line-kol-orange": {
+    "file": "line-kol-orange.svg",
+    "title": "Kolkata Metro Orange Line.svg",
+    "author": "Metro Railway, Kolkata",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Kolkata_Metro_Orange_Line.svg",
+    "notes": "Metro Railway Kolkata emblem in line colour (Commons derivative of File:Kolkata Metro Logo.svg). Root <svg> has no viewBox (fixed 1280x883). Mark of Metro Railway, Kolkata; trademark, used for identification only."
+  },
+  "line-kol-yellow": {
+    "file": "line-kol-yellow.svg",
+    "title": "Kolkata Metro Yellow Line.svg",
+    "author": "Metro Railway, Kolkata",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:Kolkata_Metro_Yellow_Line.svg",
+    "notes": "Metro Railway Kolkata emblem in line colour (Commons derivative of File:Kolkata Metro Logo.svg). Root <svg> has no viewBox (fixed 1280x883). Mark of Metro Railway, Kolkata; trademark, used for identification only."
+  },
+  "line-a": {
+    "file": "line-a.svg",
+    "title": "NYCS-bull-trans-A-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-A-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-c": {
+    "file": "line-c.svg",
+    "title": "NYCS-bull-trans-C-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-C-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-e": {
+    "file": "line-e.svg",
+    "title": "NYCS-bull-trans-E-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-E-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-b": {
+    "file": "line-b.svg",
+    "title": "NYCS-bull-trans-B-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-B-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-d": {
+    "file": "line-d.svg",
+    "title": "NYCS-bull-trans-D-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-D-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-f": {
+    "file": "line-f.svg",
+    "title": "NYCS-bull-trans-F-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-F-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-fx": {
+    "file": "line-fx.svg",
+    "title": "NYCS-bull-trans-Fd-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-Fd-Std.svg",
+    "notes": "F express diamond. Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-m": {
+    "file": "line-m.svg",
+    "title": "NYCS-bull-trans-M-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-M-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-g": {
+    "file": "line-g.svg",
+    "title": "NYCS-bull-trans-G-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-G-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-j": {
+    "file": "line-j.svg",
+    "title": "NYCS-bull-trans-J-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-J-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-z": {
+    "file": "line-z.svg",
+    "title": "NYCS-bull-trans-Z-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-Z-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-l": {
+    "file": "line-l.svg",
+    "title": "NYCS-bull-trans-L-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-L-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-n": {
+    "file": "line-n.svg",
+    "title": "NYCS-bull-trans-N-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-N-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-q": {
+    "file": "line-q.svg",
+    "title": "NYCS-bull-trans-Q-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-Q-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-r": {
+    "file": "line-r.svg",
+    "title": "NYCS-bull-trans-R-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-R-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-w": {
+    "file": "line-w.svg",
+    "title": "NYCS-bull-trans-W-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-W-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-gs": {
+    "file": "line-gs.svg",
+    "title": "NYCS-bull-trans-S-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-S-Std.svg",
+    "notes": "Plain grey S shuttle bullet (42 St Shuttle). Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-fs": {
+    "file": "line-fs.svg",
+    "title": "NYCS-bull-trans-SF-Std.svg",
+    "author": "Minoa/Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-SF-Std.svg",
+    "notes": "Wikipedia-convention S with subscript F (Franklin Av Shuttle); MTA signage uses a plain grey S (see line-gs). Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-h": {
+    "file": "line-h.svg",
+    "title": "NYCS-bull-trans-SR-Std.svg",
+    "author": "Minoa/Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-SR-Std.svg",
+    "notes": "Wikipedia-convention S with subscript R (Rockaway Park Shuttle); MTA signage uses a plain grey S (see line-gs). Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-1": {
+    "file": "line-1.svg",
+    "title": "NYCS-bull-trans-1-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-1-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-2": {
+    "file": "line-2.svg",
+    "title": "NYCS-bull-trans-2-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-2-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-3": {
+    "file": "line-3.svg",
+    "title": "NYCS-bull-trans-3-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-3-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-4": {
+    "file": "line-4.svg",
+    "title": "NYCS-bull-trans-4-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-4-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-5": {
+    "file": "line-5.svg",
+    "title": "NYCS-bull-trans-5-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-5-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-6": {
+    "file": "line-6.svg",
+    "title": "NYCS-bull-trans-6-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-6-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-6x": {
+    "file": "line-6x.svg",
+    "title": "NYCS-bull-trans-6d-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-6d-Std.svg",
+    "notes": "6 express diamond. Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-7": {
+    "file": "line-7.svg",
+    "title": "NYCS-bull-trans-7-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-7-Std.svg",
+    "notes": "Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-7x": {
+    "file": "line-7x.svg",
+    "title": "NYCS-bull-trans-7d-Std.svg",
+    "author": "Metropolitan Transportation Authority",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-7d-Std.svg",
+    "notes": "7 express diamond. Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  },
+  "line-sir": {
+    "file": "line-sir.svg",
+    "title": "NYCS-bull-trans-SIR-Std.svg",
+    "author": "Minoa",
+    "licence": "Public domain (PD-textlogo)",
+    "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+    "source": "https://commons.wikimedia.org/wiki/File:NYCS-bull-trans-SIR-Std.svg",
+    "notes": "Staten Island Railway bullet (Commons rendition by Minoa). Mark of Metropolitan Transportation Authority (MTA); trademark, used for identification only."
+  }
+}

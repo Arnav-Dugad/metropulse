@@ -25,6 +25,15 @@ data class Settings(
     val cityDataUpdates: Boolean = true,
     /** Live arrival predictions where an operator publishes them freely (London). */
     val liveData: Boolean = true,
+    /** A short vibration as the train passes each stop during a trip. */
+    val vibrateAtStops: Boolean = true,
+    /** Weekday "time to leave" reminder for the commute, at [commuteReminderMinutes] after midnight. */
+    val commuteReminder: Boolean = false,
+    val commuteReminderMinutes: Int = 8 * 60,
+    /** Plan only journeys whose stations are not known to lack step-free access. */
+    val stepFreeRoutes: Boolean = false,
+    /** The rider dismissed the "set this as your commute?" suggestion for this pair (from|to). */
+    val dismissedCommuteSuggestion: String = "",
     val onboardingDone: Boolean = false,
 )
 
@@ -46,6 +55,11 @@ class AppSettings @Inject constructor(private val store: DataStore<Preferences>)
             alertStops = (p[ALERT_STOPS] ?: 1).coerceIn(1, 2),
             cityDataUpdates = p[CITY_DATA_UPDATES] ?: true,
             liveData = p[LIVE_DATA] ?: true,
+            vibrateAtStops = p[VIBRATE_AT_STOPS] ?: true,
+            commuteReminder = p[COMMUTE_REMINDER] ?: false,
+            commuteReminderMinutes = p[COMMUTE_REMINDER_MINUTES] ?: (8 * 60),
+            stepFreeRoutes = p[STEP_FREE_ROUTES] ?: false,
+            dismissedCommuteSuggestion = p[DISMISSED_COMMUTE] ?: "",
             onboardingDone = p[ONBOARDING_DONE] ?: false,
         )
     }.distinctUntilChanged()
@@ -58,6 +72,13 @@ class AppSettings @Inject constructor(private val store: DataStore<Preferences>)
     suspend fun setAlertStops(stops: Int) = store.edit { it[ALERT_STOPS] = stops.coerceIn(1, 2) }
     suspend fun setCityDataUpdates(on: Boolean) = store.edit { it[CITY_DATA_UPDATES] = on }
     suspend fun setLiveData(on: Boolean) = store.edit { it[LIVE_DATA] = on }
+    suspend fun setVibrateAtStops(on: Boolean) = store.edit { it[VIBRATE_AT_STOPS] = on }
+    suspend fun setCommuteReminder(on: Boolean, minutes: Int) = store.edit {
+        it[COMMUTE_REMINDER] = on
+        it[COMMUTE_REMINDER_MINUTES] = minutes.coerceIn(0, 24 * 60 - 1)
+    }
+    suspend fun setStepFreeRoutes(on: Boolean) = store.edit { it[STEP_FREE_ROUTES] = on }
+    suspend fun dismissCommuteSuggestion(key: String) = store.edit { it[DISMISSED_COMMUTE] = key }
     suspend fun setOnboardingDone() = store.edit { it[ONBOARDING_DONE] = true }
 
     fun commute(cityId: String): Flow<Commute?> = store.data.map { p ->
@@ -83,6 +104,11 @@ class AppSettings @Inject constructor(private val store: DataStore<Preferences>)
         val ALERT_STOPS = intPreferencesKey("alert_stops")
         val CITY_DATA_UPDATES = booleanPreferencesKey("city_data_updates")
         val LIVE_DATA = booleanPreferencesKey("live_data")
+        val VIBRATE_AT_STOPS = booleanPreferencesKey("vibrate_at_stops")
+        val COMMUTE_REMINDER = booleanPreferencesKey("commute_reminder")
+        val COMMUTE_REMINDER_MINUTES = intPreferencesKey("commute_reminder_minutes")
+        val STEP_FREE_ROUTES = booleanPreferencesKey("step_free_routes")
+        val DISMISSED_COMMUTE = stringPreferencesKey("dismissed_commute")
         val ONBOARDING_DONE = booleanPreferencesKey("onboarding_done")
         const val HOME_PREFIX = "commute_home_"
         const val WORK_PREFIX = "commute_work_"

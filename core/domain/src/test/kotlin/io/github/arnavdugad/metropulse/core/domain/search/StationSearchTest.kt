@@ -31,6 +31,15 @@ class StationSearchTest {
     }
 
     @Test
+    fun `stations the rider uses rank first within a tier, never above a better match`() {
+        // Both are prefix matches for "sector"; the one used often comes first.
+        assertEquals("Sector 18", search.search("sector", 2).first().name)
+        assertEquals("Sector 52", search.search("sector", 2, usage = mapOf("Sector 52" to 6)).first().name)
+        // An exact match still beats a familiar prefix match.
+        assertEquals("Majestic", search.search("majestic", 2, usage = mapOf("Mahatma Gandhi Road" to 50)).first().name)
+    }
+
+    @Test
     fun `typos are tolerated`() {
         assertEquals("Rajiv Chowk", top("rajiv chok").first())
         assertEquals("Kashmere Gate", top("kashmiri gate").first())

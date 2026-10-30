@@ -73,6 +73,12 @@ class NetworkMapData(val network: TransitNetwork) {
     val stations: FeatureCollection
     val bounds: LatLngBounds?
 
+    /** Each line's extent, to know which lines are on screen (for live trains). */
+    val lineBounds: Map<String, LatLngBounds> = network.patterns.groupBy { it.lineId }.mapValues { (_, patterns) ->
+        val points = patterns.flatMap { it.shape.points }
+        LatLngBounds.from(points.maxOf { it.lat }, points.maxOf { it.lon }, points.minOf { it.lat }, points.minOf { it.lon })
+    }
+
     init {
         val lineFeatures = ArrayList<Feature>()
         val parts = ArrayList<Feature>()
@@ -100,10 +106,14 @@ class NetworkMapData(val network: TransitNetwork) {
                 val lat = members.sumOf { it.location.lat } / members.size
                 val lon = members.sumOf { it.location.lon } / members.size
                 val lines = network.linesAtComplex[complexId].orEmpty()
+                val ids = members.mapTo(HashSet()) { it.id }
+                val terminus = network.patterns.any { p -> p.stationIds.first() in ids || p.stationIds.last() in ids }
                 Feature.fromGeometry(Point.fromLngLat(lon, lat)).apply {
                     addStringProperty("complex", complexId)
                     addStringProperty("name", members.first().name)
                     addBooleanProperty("interchange", lines.size > 1)
+                    addStringProperty("kind", if (lines.size > 1) "interchange" else if (terminus) "terminus" else "station")
+                    addBooleanProperty("access", network.stepFree(complexId) == true)
                     addStringProperty("color", lines.firstOrNull()?.let { hex(it.color) } ?: "#888888")
                 }
             },

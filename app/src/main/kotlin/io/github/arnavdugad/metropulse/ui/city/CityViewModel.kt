@@ -7,18 +7,35 @@ import io.github.arnavdugad.metropulse.core.data.city.CityRepository
 import io.github.arnavdugad.metropulse.core.domain.city.CityInfo
 import io.github.arnavdugad.metropulse.core.domain.city.CityState
 import io.github.arnavdugad.metropulse.core.map.MapFocus
+import io.github.arnavdugad.metropulse.core.map.MapRoute
+import io.github.arnavdugad.metropulse.core.data.user.UserRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /** The current city, shared by every tab (scoped to the activity). */
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class CityViewModel @Inject constructor(private val repository: CityRepository) : ViewModel() {
+class CityViewModel @Inject constructor(private val repository: CityRepository, user: UserRepository) : ViewModel() {
 
     val cities: List<CityInfo> = repository.cities
     val state: StateFlow<CityState> = repository.state
+
+    /** How often the rider uses each station of the current city, for search ranking. */
+    val stationUsage: StateFlow<Map<String, Int>> = state
+        .map { (it as? CityState.Ready)?.city?.info?.id }
+        .distinctUntilChanged()
+        .flatMapLatest { id -> id?.let(user::stationUsage) ?: flowOf(emptyMap()) }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
 
     private val _mapFocus = MutableStateFlow<MapFocus?>(null)
 
@@ -31,6 +48,19 @@ class CityViewModel @Inject constructor(private val repository: CityRepository) 
 
     fun focusShown() {
         _mapFocus.value = null
+    }
+
+    private val _mapRoute = MutableStateFlow<MapRoute?>(null)
+
+    /** A planned journey drawn on the map ("Show on map" from a journey). */
+    val mapRoute: StateFlow<MapRoute?> = _mapRoute.asStateFlow()
+
+    fun showRoute(route: MapRoute) {
+        _mapRoute.value = route
+    }
+
+    fun clearRoute() {
+        _mapRoute.value = null
     }
 
     private val _pickerVisible = MutableStateFlow(false)

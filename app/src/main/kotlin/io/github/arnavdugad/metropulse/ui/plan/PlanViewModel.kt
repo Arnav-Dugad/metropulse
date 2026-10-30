@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.arnavdugad.metropulse.core.data.city.CityRepository
+import io.github.arnavdugad.metropulse.core.data.settings.AppSettings
 import io.github.arnavdugad.metropulse.core.data.user.UserRepository
+import io.github.arnavdugad.metropulse.core.domain.routing.Leg
 import io.github.arnavdugad.metropulse.core.domain.city.CityState
 import io.github.arnavdugad.metropulse.core.domain.city.LoadedCity
 import io.github.arnavdugad.metropulse.core.domain.fare.FareQuote
@@ -35,12 +37,29 @@ data class PlanQuery(val from: String? = null, val to: String? = null, val depar
 
 enum class OptionTag { Fastest, FewestChanges }
 
-data class PlanOption(val journey: Journey, val fare: FareQuote?, val tags: Set<OptionTag>)
+data class PlanOption(
+    val journey: Journey,
+    val fare: FareQuote?,
+    val tags: Set<OptionTag>,
+    /** Changes at stations whose step-free access nobody has recorded (only with step-free routes on). */
+    val stepFreeUnknown: List<String> = emptyList(),
+    /** Time spent walking between stations, seconds. */
+    val walkSecs: Int = 0,
+)
 
 sealed interface PlanResults {
     data object Idle : PlanResults
     data object Planning : PlanResults
-    data class Ready(val date: LocalDate, val departSecs: Int, val options: List<PlanOption>, val untimedLines: Set<String>) : PlanResults
+    data class Ready(
+        val date: LocalDate,
+        val departSecs: Int,
+        val options: List<PlanOption>,
+        val untimedLines: Set<String>,
+        /** With step-free routes on: the start or end station is known to have no step-free access. */
+        val notStepFree: List<String> = emptyList(),
+        /** With step-free routes on: options dropped because they change at a station without step-free access. */
+        val droppedForAccess: Int = 0,
+    ) : PlanResults
     data object NoRoute : PlanResults
 }
 
@@ -54,7 +73,15 @@ class PlanViewModel @Inject constructor(
     private val cities: CityRepository,
     private val user: UserRepository,
     private val onboard: OnboardController,
+    private val settings: AppSettings,
 ) : ViewModel() {
+
+    /** Plan only step-free journeys (as far as the data knows). */
+    val stepFree: StateFlow<Boolean> = settings.settings.map { it.stepFreeRoutes }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    fun setStepFree(on: Boolean) {
+        viewModelScope.launch { settings.setStepFreeRoutes(on) }
+    }
 
     private val _query = MutableStateFlow(PlanQuery())
     val query: StateFlow<PlanQuery> = _query.asStateFlow()
@@ -70,6 +97,35 @@ class PlanViewModel @Inject constructor(
     val recents: StateFlow<List<SavedJourney>> = cityId.flatMapLatest { id -> id?.let { user.recentJourneys(it, 8) } ?: flowOf(emptyList()) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
+    /**
+     * A journey planned three times or more while no commute is set: offered as the commute. Either
+     * direction counts, and a dismissed pair is not offered again.
+     */
+    val commuteSuggestion: StateFlow<SavedJourney?> = cityId.flatMapLatest { id ->
+        if (id == null) flowOf(null) else combine(user.recentJourneys(id, 20), settings.commute(id), settings.settings) { recents, commute, prefs ->
+            if (commute != null) return@combine null
+            val counts = recents.groupBy { setOf(it.fromComplexId, it.toComplexId) }.mapValues { (_, list) -> list.sumOf { it.useCount } }
+            recents.filter { counts[setOf(it.fromComplexId, it.toComplexId)]!! >= COMMUTE_AFTER }
+                .maxByOrNull { it.useCount }
+                ?.takeIf { pairKey(it) != prefs.dismissedCommuteSuggestion }
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    private fun pairKey(j: SavedJourney) = listOf(j.fromComplexId, j.toComplexId).sorted().joinToString("|")
+
+    /** Morning trips start from home: the pair is saved with [home] as home. */
+    fun acceptCommute(j: SavedJourney, home: String) {
+        val work = if (home == j.fromComplexId) j.toComplexId else j.fromComplexId
+        viewModelScope.launch {
+            settings.setCommuteStation(j.cityId, home = true, complexId = home)
+            settings.setCommuteStation(j.cityId, home = false, complexId = work)
+        }
+    }
+
+    fun dismissCommute(j: SavedJourney) {
+        viewModelScope.launch { settings.dismissCommuteSuggestion(pairKey(j)) }
+    }
+
     init {
         // A new city clears the planner.
         viewModelScope.launch {
@@ -83,7 +139,8 @@ class PlanViewModel @Inject constructor(
             }
         }
         viewModelScope.launch {
-            combine(_query, cities.state) { q, s -> q to (s as? CityState.Ready)?.city }.collect { (q, city) -> plan(q, city) }
+            combine(_query, cities.state, stepFree) { q, s, free -> Triple(q, (s as? CityState.Ready)?.city, free) }
+                .collect { (q, city, free) -> plan(q, city, free) }
         }
     }
 
@@ -108,7 +165,11 @@ class PlanViewModel @Inject constructor(
 
     private fun currentCity(): LoadedCity? = (cities.state.value as? CityState.Ready)?.city
 
-    private suspend fun plan(q: PlanQuery, city: LoadedCity?) {
+    private companion object {
+        const val COMMUTE_AFTER = 3
+    }
+
+    private suspend fun plan(q: PlanQuery, city: LoadedCity?, stepFree: Boolean) {
         val from = q.from
         val to = q.to
         if (city == null || from == null || to == null || from == to) {
@@ -124,14 +185,22 @@ class PlanViewModel @Inject constructor(
             val plan = city.planner.plan(from, to, date, departSecs, departures = 3)
             val fastest = plan.journeys.filter { it.timed }.minByOrNull { it.arriveSecs!! } ?: plan.journeys.minByOrNull { it.durationSecs }
             val fewest = plan.journeys.minOfOrNull { it.transfers }
-            val options = plan.journeys.map { j ->
+            // Step-free: changes happen at stations between rides; known-inaccessible ones rule a journey out.
+            fun changes(j: Journey) = j.rides.drop(1).mapNotNull { network.stationById[it.fromStationId]?.complexId }.distinct()
+            val usable = if (!stepFree) plan.journeys else plan.journeys.filter { j -> changes(j).none { network.stepFree(it) == false } }
+            val options = usable.map { j ->
                 val tags = buildSet {
                     if (j === fastest) add(OptionTag.Fastest)
                     if (j.transfers == fewest && j !== fastest && plan.journeys.firstOrNull { it.transfers == fewest } === j) add(OptionTag.FewestChanges)
                 }
-                PlanOption(j, city.fares.quote(j, date, j.departSecs ?: departSecs), tags)
+                val unknown = if (stepFree) changes(j).filter { network.stepFree(it) == null }.map(network::complexName) else emptyList()
+                val walk = j.legs.filterIsInstance<Leg.Walk>().sumOf { it.durationSecs }
+                PlanOption(j, city.fares.quote(j, date, j.departSecs ?: departSecs), tags, unknown, walk)
             }
-            if (options.isEmpty()) PlanResults.NoRoute else PlanResults.Ready(date, departSecs, options, plan.untimedLines)
+            val notStepFree = if (stepFree) listOf(from, to).filter { network.stepFree(it) == false }.map(network::complexName) else emptyList()
+            // Every option hidden for access: say so rather than "no route".
+            if (options.isEmpty() && usable.size == plan.journeys.size) PlanResults.NoRoute
+            else PlanResults.Ready(date, departSecs, options, plan.untimedLines, notStepFree, plan.journeys.size - usable.size)
         }
         _results.value = result
         if (result is PlanResults.Ready) {

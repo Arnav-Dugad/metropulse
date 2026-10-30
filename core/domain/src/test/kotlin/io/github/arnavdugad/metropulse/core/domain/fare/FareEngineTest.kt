@@ -32,6 +32,28 @@ class FareEngineTest {
         return FareEngine(net).quote(journey, date, journey.departSecs)
     }
 
+    private fun zonal(rule: ZoneRule, zones: Map<String, List<Int>>, vararg rows: ZoneFare) =
+        FareData(emptyMap(), emptyList(), emptyList(), emptyList(), ZonalFares(rule, zones, rows.toList(), listOf(PeakWindow(31, hm(6, 30), hm(9, 30)))))
+
+    @Test
+    fun `span fares price the lowest and highest zone touched, peak and off-peak`() {
+        // A1 zone 1, A2 boundary 1/2 (counts as 2), the rest zone 2: A1-X touches 1-2; A2-X only 2.
+        val zones = mapOf("A1" to listOf(1), "A2" to listOf(1, 2), "A3" to listOf(2), "X" to listOf(2), "Xb" to listOf(2))
+        val fares = zonal(ZoneRule.Span, zones, ZoneFare(1 to 2, 360, 310), ZoneFare(2 to 2, 230, 220), ZoneFare(1 to 1, 310, 300))
+        assertEquals(360, quote(fares, "A1", "X", at = hm(8, 0))!!.totalPaise)
+        assertEquals(310, quote(fares, "A1", "X", at = hm(12, 0))!!.totalPaise)
+        assertEquals(230, quote(fares, "A2", "X", at = hm(8, 0))!!.totalPaise)
+        assertEquals(FareBasis.Zones, quote(fares, "A2", "X")!!.components.single().basis)
+    }
+
+    @Test
+    fun `count fares price the number of zones passed through`() {
+        val zones = mapOf("A1" to listOf(5), "A2" to listOf(5, 6), "A3" to listOf(6), "X" to listOf(2), "Xb" to listOf(2), "B1" to listOf(1), "B2" to listOf(1))
+        val fares = zonal(ZoneRule.Count, zones, ZoneFare(1 to 1, 300, 300), ZoneFare(2 to 2, 500, 500), ZoneFare(3 to 3, 750, 750))
+        assertEquals(500, quote(fares, "A1", "A3")!!.totalPaise) // zones 5 and 6
+        assertEquals(750, quote(fares, "A1", "B2")!!.totalPaise) // 4 zones: the 3+ fare
+    }
+
     @Test
     fun `distance slab uses track distance`() {
         val fares = FareData(emptyMap(), slabs("", 2.0 to 10, 5.0 to 20, 1e9 to 30), emptyList(), emptyList())

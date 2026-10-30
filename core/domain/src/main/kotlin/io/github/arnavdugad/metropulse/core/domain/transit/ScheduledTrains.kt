@@ -19,6 +19,22 @@ data class TrainPosition(
  */
 class ScheduledTrains(private val network: TransitNetwork, private val date: LocalDate) {
 
+    companion object {
+        /**
+         * When the next train leaves anywhere on the network after [nowSecs] on [date]: today, or
+         * the first of tomorrow. Null if nothing runs on either day.
+         */
+        fun nextDeparture(network: TransitNetwork, date: LocalDate, nowSecs: Int): Pair<LocalDate, Int>? {
+            for ((day, after) in listOf(date to nowSecs, date.plusDays(1) to 0)) {
+                val running = network.services.filter { it.runsOn(day) }.mapTo(HashSet()) { it.id }
+                val first = network.trips.asSequence().filter { it.serviceId in running && it.startSecs >= after }.minOfOrNull { it.startSecs }
+                if (first != null) return day to first
+            }
+            return null
+        }
+    }
+
+
     private class Run(val trip: Trip, val pattern: Pattern, val profile: Profile, val startSecs: Int) {
         val endSecs = startSecs + profile.arrivals.last()
     }

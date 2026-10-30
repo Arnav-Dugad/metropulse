@@ -139,6 +139,14 @@ def build_city(cfg: dict, sources: dict, refresh: bool) -> tuple[CityData, list[
         city.sources.append(Source(feed["what"], feed.get("page") or feed.get("url", ""), feed["licence"], feed["attribution"]))
         if not any(s.complex_id for s in city.stations.values()):
             group_gtfs_complexes(city)
+        ends = [s.end_date for s in city.services.values() if s.end_date]
+        city.valid_until = max(ends) if ends else None
+        if (cfg.get("fares") or {}).get("override_feed"):
+            # The feed's fares are out of date: the city file's published fares replace them.
+            city.fare_od.clear()
+            city.fare_rules.clear()
+            city.fare_discounts.clear()
+            city.fare_peak_windows.clear()
         if not city.fare_od and not city.fare_rules:
             apply_fare_table(city, cfg.get("fares"))
     else:
@@ -161,9 +169,21 @@ def build_city(cfg: dict, sources: dict, refresh: bool) -> tuple[CityData, list[
 
     if cfg.get("tfl_codes"):
         add_tfl_codes(city)
+    add_interchanges(city, cfg.get("interchanges") or [])
+    zonal_file = CITIES_DIR / "fares" / f"{cfg['id']}.yaml"
+    if zonal_file.exists():
+        city.zonal = load_zonal(yaml.safe_load(zonal_file.read_text(encoding="utf-8")), city, warnings)
     osm.build_tracks(index, city, hints)
     if not city.exits:
         osm.build_exits(index, city)
+    try:
+        fkey = hashlib.sha1(f"{cfg['bbox']}|facilities|{osm.FACILITIES_VERSION}".encode()).hexdigest()[:10]
+        fdata = osm.fetch(cfg["bbox"], CACHE / cfg["id"] / f"facilities-{fkey}.json", max_age_days=0 if refresh else 30,
+                          query=osm.facilities_query(cfg["bbox"]), timeout=120, rounds=1)
+        osm.build_facilities(fdata, city)
+    except osm.OsmError as e:
+        # Facilities are extras: a busy Overpass leaves them out this time rather than holding the build.
+        warnings.append(f"facilities: {e}")
     city.sources.append(OSM_SOURCE)
     for url in cfg.get("sources") or []:
         source = curated_source(url)
@@ -242,6 +262,56 @@ def add_tfl_codes(city: CityData) -> None:
             city.station_codes.setdefault(cache[name], sid)
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     cache_path.write_text(json.dumps(cache, indent=1, sort_keys=True), encoding="utf-8")
+
+
+def add_interchanges(city: CityData, pairs: list) -> None:
+    """Interchanges a feed misses: [station name, station name, walk seconds] joins the two stations."""
+    by_name: dict[str, list[str]] = {}
+    for s in city.stations.values():
+        by_name.setdefault(s.name, []).append(s.id)
+    for a, b, secs in pairs:
+        for x in by_name.get(a, []):
+            for y in by_name.get(b, []):
+                city.transfers[(x, y)] = int(secs)
+                city.transfers[(y, x)] = int(secs)
+                root = city.stations[x].complex_id or x
+                city.stations[x].complex_id = root
+                city.stations[y].complex_id = root
+
+
+DAY_MASKS = {"mon_fri": 31, "mon_sat": 63, "daily": 127, "sat_sun": 96}
+
+
+def load_zonal(cfg: dict, city: CityData, warnings: list[str]) -> dict:
+    """tools/cities/fares/<city>.yaml -> the app's zonal fare data (station ids, minor units, seconds)."""
+    def clock(t: str) -> int:
+        h, m = t.split(":")
+        return int(h) * 3600 + int(m) * 60
+
+    by_name: dict[str, list[str]] = {}
+    for s in city.stations.values():
+        by_name.setdefault(s.name, []).append(s.id)
+    zones: dict[str, list[int]] = {}
+    for name, z in (cfg.get("station_zones") or {}).items():
+        ids = by_name.get(name)
+        if not ids:
+            warnings.append(f"fares: no station named {name!r}")
+            continue
+        for sid in ids:
+            zones[sid] = sorted(int(v) for v in z)
+    used = {s for p in city.patterns for s in p.station_ids}
+    missing = sorted(city.stations[s].name for s in used if s not in zones)
+    if missing:
+        warnings.append(f"fares: no zone for {len(missing)} stations, e.g. {missing[:3]}")
+    rows = []
+    for f in cfg.get("fares") or []:
+        z = f["zones"]
+        lo, hi = (z[0], z[1]) if isinstance(z, list) else (z, z)
+        peak = f.get("peak", f.get("fare"))
+        off = f.get("offpeak", f.get("fare"))
+        rows.append({"lo": int(lo), "hi": int(hi), "peak": round(float(peak) * 100), "offpeak": round(float(off) * 100)})
+    peak_windows = [{"days": DAY_MASKS[w["days"]], "from": clock(w["from"]), "to": clock(w["to"])} for w in cfg.get("peak") or []]
+    return {"rule": cfg["rule"], "zones": zones, "fares": rows, "peak": peak_windows}
 
 
 def group_gtfs_complexes(city: CityData) -> None:
@@ -350,6 +420,8 @@ def cmd_build(args) -> int:
             "sha256": digest,
             "url": f"{RAW_BASE}/{cfg['id']}.db",
         }
+        if city.valid_until:
+            entries[cfg["id"]]["valid_until"] = city.valid_until
         print(f"  ok: {len(city.lines)} lines, {entries[cfg['id']]['stations']} stations, {len(city.trips)} trips, "
               f"{len(city.tracks)} track pieces, {len(city.exits)} exits, {out.stat().st_size / 1024:.0f} KB")
 

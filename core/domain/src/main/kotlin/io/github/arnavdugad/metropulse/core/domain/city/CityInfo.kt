@@ -65,6 +65,8 @@ data class CityInfo(
     val url: String,
     /** "India" for the Indian systems, which the picker lists first. */
     val country: String = "India",
+    /** Last day (yyyymmdd) the operator's published timetable covers; null when not from an official feed. */
+    val validUntil: Int? = null,
 )
 
 data class CityDataUpdate(val city: CityInfo, val installedVersion: Long)

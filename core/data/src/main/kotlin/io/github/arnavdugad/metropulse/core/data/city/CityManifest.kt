@@ -31,6 +31,7 @@ internal data class CityEntryDto(
     val size: Long,
     val sha256: String,
     val url: String,
+    @SerialName("valid_until") val validUntil: Int? = null,
 )
 
 internal object CityManifest {
@@ -42,7 +43,7 @@ internal object CityManifest {
         return CityInfo(
             id = id, name = name, state = state, country = country, version = version, schemaVersion = schemaVersion,
             quality = DataQuality.parse(quality), timetable = TimetableCoverage.parse(timetable), lineCount = lines, stationCount = stations,
-            centerLat = center[0], centerLon = center[1], bbox = bbox, sizeBytes = size, sha256 = sha256, url = url,
+            centerLat = center[0], centerLon = center[1], bbox = bbox, sizeBytes = size, sha256 = sha256, url = url, validUntil = validUntil,
         )
     }
 }

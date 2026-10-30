@@ -38,6 +38,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.arnavdugad.metropulse.R
+import io.github.arnavdugad.metropulse.ui.common.Logos
+import io.github.arnavdugad.metropulse.ui.common.Logo
+import androidx.compose.ui.platform.LocalContext
 import io.github.arnavdugad.metropulse.ui.common.composeColor
 import io.github.arnavdugad.metropulse.core.designsystem.component.Tag
 import io.github.arnavdugad.metropulse.core.designsystem.component.TimeSource
@@ -54,6 +57,13 @@ import io.github.arnavdugad.metropulse.ui.city.ChooseCity
 import io.github.arnavdugad.metropulse.ui.city.CityFailed
 import io.github.arnavdugad.metropulse.ui.city.CityViewModel
 import io.github.arnavdugad.metropulse.ui.common.EmptyState
+import io.github.arnavdugad.metropulse.ui.common.LineDot
+import io.github.arnavdugad.metropulse.ui.common.LineStatusPill
+import io.github.arnavdugad.metropulse.ui.common.LiveViewModel
+import io.github.arnavdugad.metropulse.ui.common.SkeletonList
+import io.github.arnavdugad.metropulse.core.domain.live.Alerts
+import io.github.arnavdugad.metropulse.core.domain.live.ServiceAlert
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import io.github.arnavdugad.metropulse.ui.common.StatusBarScrim
 import io.github.arnavdugad.metropulse.ui.common.hoursText
 import io.github.arnavdugad.metropulse.ui.common.rememberClockFormatter
@@ -89,26 +99,27 @@ private fun rows(network: TransitNetwork, today: LocalDate): List<LineRow> {
 }
 
 @Composable
-fun LinesScreen(cityViewModel: CityViewModel, onLine: (lineId: String) -> Unit) {
+fun LinesScreen(cityViewModel: CityViewModel, onLine: (lineId: String) -> Unit, liveViewModel: LiveViewModel = hiltViewModel()) {
     val state by cityViewModel.state.collectAsStateWithLifecycle()
     val colors = MetroPulseTheme.colors
     when (val s = state) {
         is CityState.Ready -> Box(Modifier.fillMaxSize()) {
-            LineList(s.city.network, onLine)
+            LineList(s.city.network, liveViewModel, onLine)
             StatusBarScrim()
         }
-        is CityState.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator(color = colors.accent)
-        }
+        is CityState.Loading -> SkeletonList(stringResource(R.string.city_loading), rows = 6, modifier = Modifier.statusBarsPadding().padding(20.dp))
         is CityState.Failed -> CityFailed(cityViewModel)
         CityState.NoCity -> ChooseCity(cityViewModel)
     }
 }
 
 @Composable
-private fun LineList(network: TransitNetwork, onLine: (String) -> Unit) {
+private fun LineList(network: TransitNetwork, liveViewModel: LiveViewModel, onLine: (String) -> Unit) {
     val colors = MetroPulseTheme.colors
     val rows = remember(network) { rows(network, LocalDate.now(network.timezone)) }
+    // Null until the operator's status has loaded (and always null where there is no live feed).
+    val alerts by remember(network) { liveViewModel.alerts(network) }.collectAsStateWithLifecycle(null)
+    val hasLive = remember(network) { liveViewModel.provider(network) != null }
     LazyColumn(
         Modifier.fillMaxSize(),
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 120.dp),
@@ -122,10 +133,20 @@ private fun LineList(network: TransitNetwork, onLine: (String) -> Unit) {
                     color = colors.textPrimary,
                     modifier = Modifier.semantics { heading() },
                 )
-                Text(network.cityName, style = MetroPulseTheme.type.bodyStrong, color = colors.textSecondary)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    val context = LocalContext.current
+                    remember(network.cityId) { Logos.operatorKey(context, network.cityId) }?.let {
+                        Logo(it, 20.dp, null)
+                        Spacer(Modifier.width(8.dp))
+                    }
+                    Text(network.cityName, style = MetroPulseTheme.type.bodyStrong, color = colors.textSecondary)
+                }
             }
         }
-        items(rows, key = { it.line.id }) { LineCard(it) { onLine(it.line.id) } }
+        items(rows, key = { it.line.id }) { row ->
+            val status = alerts?.let { Alerts.forLine(it, row.line.id) }
+            LineCard(row, status.takeIf { hasLive }) { onLine(row.line.id) }
+        }
         item {
             val notes = listOfNotNull(
                 stringResource(R.string.lines_note_approximate).takeIf { rows.any { it.timed && it.line.quality == DataQuality.Approximate } },
@@ -143,7 +164,7 @@ private fun LineList(network: TransitNetwork, onLine: (String) -> Unit) {
 }
 
 @Composable
-private fun LineCard(row: LineRow, onClick: () -> Unit) {
+private fun LineCard(row: LineRow, status: List<ServiceAlert>?, onClick: () -> Unit) {
     val colors = MetroPulseTheme.colors
     val clock = rememberClockFormatter()
     val lineColor = row.line.composeColor()
@@ -160,7 +181,7 @@ private fun LineCard(row: LineRow, onClick: () -> Unit) {
         Box(Modifier.width(6.dp).fillMaxHeight().background(lineColor))
         Column(Modifier.weight(1f).padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(12.dp).clip(CircleShape).background(lineColor))
+                LineDot(row.line, 12.dp)
                 Spacer(Modifier.width(8.dp))
                 Text(row.line.name, style = MetroPulseTheme.type.title, color = colors.textPrimary, modifier = Modifier.weight(1f))
                 if (row.timed) {
@@ -170,6 +191,11 @@ private fun LineCard(row: LineRow, onClick: () -> Unit) {
                 }
             }
             Text("${row.from}  →  ${row.to}", style = MetroPulseTheme.type.body, color = colors.textSecondary)
+            when {
+                status == null -> Unit
+                status.isEmpty() -> GoodService()
+                else -> LineStatusPill(status)
+            }
             Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Text(
                     pluralStringResource(R.plurals.stations_count, row.stations, row.stations),
@@ -185,5 +211,19 @@ private fun LineCard(row: LineRow, onClick: () -> Unit) {
                 }
             }
         }
+    }
+}
+
+/** The operator reports no disruption on this line. */
+@Composable
+private fun GoodService() {
+    val colors = MetroPulseTheme.colors
+    Row(
+        Modifier.clip(MpShapes.pill).background(colors.live.copy(alpha = 0.12f)).padding(horizontal = 8.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(Modifier.size(7.dp).clip(CircleShape).background(colors.live))
+        Spacer(Modifier.width(6.dp))
+        Text(stringResource(R.string.lines_good_service), style = MetroPulseTheme.type.label, color = colors.live)
     }
 }

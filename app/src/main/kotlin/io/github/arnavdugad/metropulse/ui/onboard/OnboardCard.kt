@@ -55,6 +55,7 @@ import io.github.arnavdugad.metropulse.core.designsystem.theme.MpShapes
 import io.github.arnavdugad.metropulse.core.domain.onboard.PositionSource
 import io.github.arnavdugad.metropulse.core.domain.onboard.TripPhase
 import io.github.arnavdugad.metropulse.onboard.TripSession
+import io.github.arnavdugad.metropulse.ui.common.lineBrush
 import io.github.arnavdugad.metropulse.ui.common.rememberClockFormatter
 
 /** The active trip: destination, countdown, stops left and progress, on the violet gradient. */
@@ -64,7 +65,10 @@ fun OnboardCard(session: TripSession, onEnd: () -> Unit, modifier: Modifier = Mo
     val network = session.network
     val clock = rememberClockFormatter()
     val white = Color.White
-    GradientSurface(modifier.fillMaxWidth()) {
+    val context = LocalContext.current
+    // The card takes the colour of the line the rider is on.
+    val brush = lineBrush(listOfNotNull(network.lineById[p.ride.lineId]), MetroPulseTheme.colors.tripBrush)
+    GradientSurface(modifier.fillMaxWidth(), brush = brush) {
         Column(Modifier.padding(start = 20.dp, end = 12.dp, top = 14.dp, bottom = 18.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TimeSourceChip(
@@ -76,6 +80,20 @@ fun OnboardCard(session: TripSession, onEnd: () -> Unit, modifier: Modifier = Mo
                     onGradient = true,
                 )
                 Spacer(Modifier.weight(1f))
+                val shareLabel = stringResource(R.string.onboard_share_eta)
+                Box(
+                    Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .clickable(role = Role.Button) {
+                            val text = etaText(context, session, clock)
+                            context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text), null))
+                        }
+                        .semantics { contentDescription = shareLabel },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(MpIcons.Share, null, tint = white.copy(alpha = 0.85f), modifier = Modifier.size(18.dp))
+                }
                 val endLabel = stringResource(R.string.onboard_end_trip)
                 Box(
                     Modifier
@@ -208,5 +226,18 @@ private fun Warning(text: String) {
     ) {
         Icon(MpIcons.Info, null, tint = Color.White, modifier = Modifier.size(16.dp))
         Text(text, style = MetroPulseTheme.type.label, color = Color.White)
+    }
+}
+
+/** "On the Purple Line to Majestic, arriving about 9:42 am (MetroPulse)". */
+private fun etaText(context: Context, session: TripSession, clock: (Int) -> String): String {
+    val p = session.progress
+    val line = session.network.lineById[p.ride.lineId]?.name.orEmpty()
+    val secs = p.secondsToDestination
+    return if (secs != null && p.phase != TripPhase.Arrived) {
+        val arrive = java.time.ZonedDateTime.now(session.network.timezone).toLocalTime().toSecondOfDay() + secs
+        context.getString(R.string.onboard_share_text, line, session.toName, clock(arrive))
+    } else {
+        context.getString(R.string.onboard_share_text_untimed, line, session.toName)
     }
 }

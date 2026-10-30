@@ -38,10 +38,40 @@ import io.github.arnavdugad.metropulse.core.designsystem.theme.MetroPulseTheme
 import io.github.arnavdugad.metropulse.core.designsystem.theme.MpShapes
 import io.github.arnavdugad.metropulse.core.domain.transit.TransitNetwork
 import io.github.arnavdugad.metropulse.ui.common.DetailTopBar
+import io.github.arnavdugad.metropulse.ui.common.Logo
+import android.content.Context
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.runtime.produceState
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import io.github.arnavdugad.metropulse.ui.common.SectionTitle
 
 /** One credit: who made it, under which licence, and where to read more. */
-private data class Credit(val title: String, val licence: String, val links: List<String>)
+private data class Credit(val title: String, val licence: String, val links: List<String>, val logo: String? = null)
+
+/**
+ * The bundled logos' credits (assets/logos/index.json), one per source file, the current city's first.
+ * Read off the main thread; empty if the index is missing.
+ */
+private fun logoCredits(context: Context, cityId: String?, lineIds: Set<String>): List<Credit> = runCatching {
+    val index = JSONObject(context.assets.open("logos/index.json").bufferedReader().use { it.readText() })
+    val bySource = linkedMapOf<String, MutableList<String>>()
+    val entries = index.keys().asSequence().toList().sorted().map { it to index.getJSONObject(it) }
+    for ((key, e) in entries) bySource.getOrPut(e.optString("source")) { mutableListOf() } += key
+    bySource.map { (source, keys) ->
+        val e = index.getJSONObject(keys.first())
+        val title = e.optString("title").substringBeforeLast('.').replace('_', ' ')
+        Credit(
+            title = "$title · ${e.optString("author")}",
+            licence = e.optString("licence"),
+            links = listOf(source),
+            logo = keys.first(),
+        ) to keys
+    }.sortedByDescending { (_, keys) -> cityId != null && keys.any { it.startsWith("op-$cityId") || it.removePrefix("line-") in lineIds } }
+        .map { it.first }
+}.getOrDefault(emptyList())
 
 private val MAP_CREDITS = listOf(
     Credit("© OpenStreetMap contributors", "Open Database License (ODbL) 1.0", listOf("https://www.openstreetmap.org/copyright")),
@@ -92,6 +122,10 @@ fun AboutScreen(network: TransitNetwork?, version: String, onBack: () -> Unit) {
     val cityCredits = network?.sources.orEmpty()
         .groupBy { it.attribution to it.licence }
         .map { (key, sources) -> Credit(key.first, key.second, sources.map { it.url }.distinct()) }
+    val context = LocalContext.current
+    val logos by produceState(emptyList<Credit>(), network?.cityId) {
+        value = withContext(Dispatchers.IO) { logoCredits(context, network?.cityId, network?.lines.orEmpty().mapTo(HashSet()) { it.id }) }
+    }
     Column(Modifier.fillMaxSize().background(colors.background)) {
         DetailTopBar(onBack)
         LazyColumn(contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 40.dp)) {
@@ -112,16 +146,23 @@ fun AboutScreen(network: TransitNetwork?, version: String, onBack: () -> Unit) {
             if (network?.cityId == "london") item { CreditCard(stringResource(R.string.about_live), LIVE_CREDITS) }
             if (network?.cityId == "new-york") item { CreditCard(stringResource(R.string.about_live), MTA_LIVE_CREDITS) }
             item { CreditCard(stringResource(R.string.about_map), MAP_CREDITS) }
+            if (logos.isNotEmpty()) item {
+                CreditCard(stringResource(R.string.about_logos), logos, note = stringResource(R.string.about_logos_note))
+            }
             item { CreditCard(stringResource(R.string.about_libraries), APP_CREDITS) }
         }
     }
 }
 
 @Composable
-private fun CreditCard(title: String, credits: List<Credit>) {
+private fun CreditCard(title: String, credits: List<Credit>, note: String? = null) {
     val colors = MetroPulseTheme.colors
     SectionTitle(title)
     Column(Modifier.fillMaxWidth().clip(MpShapes.card).background(colors.surface)) {
+        if (note != null) {
+            Text(note, style = MetroPulseTheme.type.caption, color = colors.textSecondary, modifier = Modifier.padding(16.dp))
+            HorizontalDivider(Modifier.padding(start = 16.dp), color = colors.hairline)
+        }
         credits.forEachIndexed { i, credit ->
             if (i > 0) HorizontalDivider(Modifier.padding(start = 16.dp), color = colors.hairline)
             CreditRow(credit)
@@ -136,6 +177,7 @@ private fun CreditRow(credit: Credit) {
     var expanded by rememberSaveable(credit.title) { mutableStateOf(false) }
     val shown = if (expanded) credit.links else credit.links.take(COLLAPSED_LINKS)
     Column(Modifier.fillMaxWidth().animateContentSize().padding(horizontal = 16.dp, vertical = 12.dp)) {
+        credit.logo?.let { Logo(it, 24.dp, null, Modifier.padding(bottom = 6.dp).widthIn(max = 120.dp)) }
         Text(credit.title, style = MetroPulseTheme.type.bodyStrong, color = colors.textPrimary)
         Text(credit.licence, style = MetroPulseTheme.type.caption, color = colors.textSecondary)
         for (url in shown) {

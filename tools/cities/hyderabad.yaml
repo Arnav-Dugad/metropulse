@@ -2,16 +2,24 @@ id: hyderabad
 name: Hyderabad
 state: Telangana
 timezone: Asia/Kolkata
-bbox: [17.34, 78.37, 17.50, 78.57]   # from OSM route relation bounds (Overpass, 2026-10-29)
-checked: 2026-10-29
+# OSM route relation bounds (Overpass, 2026-10-29). The GTFS stop extent (stops.txt, feed of 03 July 2026) is
+# 17.3494,78.3724 to 17.4989,78.5605, which falls inside this box.
+bbox: [17.34, 78.37, 17.50, 78.57]
+checked: 2026-10-30
 
+# One entry per GTFS route (3 routes in routes.txt). `gtfs_route` is the exact route_short_name. The importer keys
+# lines by the slug of the short name (c1-red, c2-green, c3-blue), so the route_id (RED, GREEN, BLUE) would not
+# match and is not given.
 lines:
   - id: hyd-red
     name: Red Line
     long_name: Miyapur – L B Nagar
+    gtfs_route: "C1_RED"   # exact GTFS route_short_name (route_id RED)
     operator: L&T Metro Rail (Hyderabad) Limited (L&TMRHL)
     colour: "#E31E24"
-    colour_source: operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the line)
+    colour_source: >-
+      operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the
+      line); GTFS routes.txt route_color E31E24 (route_id RED) agrees
     mode: metro
     termini: [Miyapur, L B Nagar]
     opened: null
@@ -19,36 +27,35 @@ lines:
       ref: "1"
       name_contains: "Red Line"
     timetable:
-      weekday:
-        first: "06:00"
-        last: "23:00"
-        headways:
-          - {from: "06:00", to: "08:00", minutes: 4.83}
-          - {from: "08:00", to: "10:30", minutes: 3.67}
-          - {from: "10:30", to: "17:00", minutes: 4.83}
-          - {from: "17:00", to: "20:00", minutes: 3.67}
-          - {from: "20:00", to: "23:00", minutes: 4.83}
-      saturday: {first: "06:00", last: "23:00", headways: null}
-      sunday: {first: "06:00", last: "23:00", headways: null}
+      weekday: null
+      saturday: null
+      sunday: null
     avg_speed_kmh: null
     source_urls:
+      - https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs
+      - https://data.telangana.gov.in/
       - https://ltmetro.com/train-timings/
       - https://hmrl.co.in/train-timings/
       - https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf
     notes: >-
-      First and last trains come from L&TMRHL: "Monday to Sunday: First train at 06:00 hrs, last train from terminal
-      stations at 23:00 hrs in Red & Blue line ... on all days". Headways come from an HMRL press release dated
-      22.04.2026 describing normal weekday operation: 3 min 40 sec (3.67) in the peaks (08:00-10:30 and
-      17:00-20:00) and 4 min 50 sec (4.83) off-peak on the Miyapur-LB Nagar (C1) corridor. The release does not
-      give separate early-morning or late-evening values, so the off-peak value is applied from first to last train.
-      Saturday and Sunday headways are not published.
+      Timetable left null: the HMRL GTFS (Open Data Telangana, file of 03 July 2026, calendar 2026-07-03 to
+      2030-01-01) supplies scheduled times for weekdays (Mon-Fri), Saturday and Sunday. GTFS route_long_name
+      "Miyapur - LB Nagar - Miyapur - C1"; headsigns "L. B. Nagar" and "Miyapur", plus short workings from
+      intermediate stations. The feed's first and last departures from both termini are 06:00 and 23:00 on all three
+      day types, which matches L&TMRHL's "Monday to Sunday: First train at 06:00 hrs, last train from terminal
+      stations at 23:00 hrs". The feed's headways do not match the HMRL press release of 22.04.2026 (3 min 40 sec
+      peak, 4 min 50 sec off-peak): mean weekday intervals at Ameerpet towards L. B. Nagar are about 4.4 min in
+      08:00-10:30, 4.3 min in 17:00-20:00 and 4.8 min in 10:30-17:00. The feed is used as published.
 
   - id: hyd-blue
     name: Blue Line
     long_name: Nagole – Raidurg
+    gtfs_route: "C3_BLUE"  # exact GTFS route_short_name (route_id BLUE)
     operator: L&T Metro Rail (Hyderabad) Limited (L&TMRHL)
     colour: "#007ABB"
-    colour_source: operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the line)
+    colour_source: >-
+      operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the
+      line); GTFS routes.txt route_color 007ABB (route_id BLUE) agrees
     mode: metro
     termini: [Nagole, Raidurg]
     opened: null
@@ -56,34 +63,32 @@ lines:
       ref: "3"
       name_contains: "Blue Line"
     timetable:
-      weekday:
-        first: "06:00"
-        last: "23:00"
-        headways:
-          - {from: "06:00", to: "08:00", minutes: 5.33}
-          - {from: "08:00", to: "10:30", minutes: 3.67}
-          - {from: "10:30", to: "17:00", minutes: 5.33}
-          - {from: "17:00", to: "20:00", minutes: 3.67}
-          - {from: "20:00", to: "23:00", minutes: 5.33}
-      saturday: {first: "06:00", last: "23:00", headways: null}
-      sunday: {first: "06:00", last: "23:00", headways: null}
+      weekday: null
+      saturday: null
+      sunday: null
     avg_speed_kmh: null
     source_urls:
+      - https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs
+      - https://data.telangana.gov.in/
       - https://ltmetro.com/train-timings/
       - https://hmrl.co.in/train-timings/
       - https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf
     notes: >-
-      First and last trains are the same as on the Red Line (L&TMRHL, all days). HMRL press release (22.04.2026):
-      3 min 40 sec (3.67) in the 08:00-10:30 and 17:00-20:00 weekday peaks and 5 min 20 sec (5.33) off-peak on the
-      Nagole-Raidurg (C3) corridor. The off-peak value is applied from first to last train. Saturday and Sunday
-      headways are not published.
+      Timetable left null (GTFS is used). GTFS route_long_name "Nagole - Raidurg - Nagole - C3"; headsigns "Raidurg"
+      and "Nagole", plus short workings to or from HITEC City, Mettuguda, Ameerpet and Madhura Nagar. First and last
+      departures from the termini in the feed are 06:00 and 23:00 on all day types, as published by L&TMRHL. Mean
+      weekday intervals at Ameerpet towards Raidurg in the feed: about 2.9 min in 08:00-10:30, 3.5 min in
+      17:00-20:00 and 5.1 min in 10:30-17:00 (HMRL release of 22.04.2026: 3 min 40 sec peak, 5 min 20 sec off-peak).
 
   - id: hyd-green
     name: Green Line
     long_name: JBS Parade Ground – MG Bus Station
+    gtfs_route: "C2_GREEN" # exact GTFS route_short_name (route_id GREEN)
     operator: L&T Metro Rail (Hyderabad) Limited (L&TMRHL)
     colour: "#009846"
-    colour_source: operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the line)
+    colour_source: >-
+      operator network map https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf (vector RGB fill of the
+      line); GTFS routes.txt route_color 009846 (route_id GREEN) agrees
     mode: metro
     termini: [JBS Parade Ground, MG Bus Station]
     opened: null
@@ -91,18 +96,26 @@ lines:
       ref: "2"
       name_contains: "Green Line"
     timetable:
-      weekday: {first: "06:00", last: "23:35", headways: null}
-      saturday: {first: "06:00", last: "23:35", headways: null}
-      sunday: {first: "06:00", last: "23:35", headways: null}
+      weekday: null
+      saturday: null
+      sunday: null
     avg_speed_kmh: null
     source_urls:
+      - https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs
+      - https://data.telangana.gov.in/
       - https://ltmetro.com/train-timings/
       - https://hmrl.co.in/train-timings/
     notes: >-
-      L&TMRHL: first train 06:00 and last train from terminals 23:35 on the Green Line, on all days. No headway is
-      published for the Green Line (C2). The April 2026 HMRL release covers only C1 and C3.
+      Timetable left null (GTFS is used). GTFS route_long_name "JBS Parade Ground - MG Bus Station - JBS Parade
+      Ground - C2"; the feed names the southern terminus "Mahatma Gandhi Bus Station". First departures 06:00; last
+      departures from JBS Parade Ground 23:35 (weekday, Sunday) and 23:41 (Saturday), from MG Bus Station 23:36
+      (weekday, Sunday) and 23:42 (Saturday). L&TMRHL gives 23:35 from the terminals on all days. The feed runs a
+      12 min interval through the day on all day types. In the feed, JBS Parade Ground (stop JBS) and the Blue
+      Line's Parade Ground (stop PRG) are separate stations with no transfers.txt link between them.
 
 fares:
+  # The feed's fare table predates L&TMRHL's 10% cut of 24 May 2025; these slabs are what riders pay.
+  override_feed: true
   type: distance_slab
   currency: INR
   slabs:
@@ -123,12 +136,19 @@ fares:
     already include a 10% discount on the FFC increase. They apply to all fare media (paper QR/token, digital tickets,
     smart cards), so no separate smart card or QR discount is recorded. No metro fare revision after May 2025 was
     found as of 2026-10-29. An RTC-Metro common pass was under review in October 2026 and is not modelled.
+    The HMRL GTFS (03 July 2026) carries a station-to-station fare_rules table with Rs 12, 18, 30, 40, 50, 55, 60,
+    66, 70 and 75. Those are the FFC values before the 10% discount, not the fares in force. Its fare_rules also
+    have no rows for JBS Parade Ground (zone JBS). When a feed has fare_rules the pipeline uses them instead of
+    these slabs.
   source_urls:
     - https://ltmetro.com/fare-ticketing/
     - https://ltmetro.com/wp-content/uploads/2025/05/Hyderabad-Metro-Rail-Revised-Fare-Chart-Final.pdf
     - https://ltmetro.com/ticketing/
 
 sources:
+  - https://data.opencity.in/dataset/hyderabad-metro-rail-gtfs
+  - https://data.opencity.in/dataset/4e72c202-4cdb-4437-a629-ffcbe9519f73/resource/5fa250e1-3104-4ca7-ad31-4fa3321f6255/download/telangana_opendata_gtfs_hmrl_03_july_2026.zip
+  - https://data.telangana.gov.in/
   - https://ltmetro.com/train-timings/
   - https://hmrl.co.in/train-timings/
   - https://hmrl.co.in/wp-content/uploads/2026/04/Press-Statement-frequesncy-augementation-22.4.20206-old.pdf
@@ -140,10 +160,10 @@ sources:
 unknowns:
   - lines.*.opened
   - lines.*.avg_speed_kmh
-  - lines.hyd-red.timetable.saturday.headways
-  - lines.hyd-red.timetable.sunday.headways
-  - lines.hyd-blue.timetable.saturday.headways
-  - lines.hyd-blue.timetable.sunday.headways
-  - lines.hyd-green.timetable.weekday.headways
-  - lines.hyd-green.timetable.saturday.headways
-  - lines.hyd-green.timetable.sunday.headways
+  - lines.*.timetable (GTFS headways differ from the HMRL release of 22.04.2026; which is current is not confirmed)
+  - fares (GTFS fare_rules show pre-discount FFC fares and omit JBS Parade Ground)
+  - JBS Parade Ground / Parade Ground interchange (not linked in the GTFS)
+
+# Same interchange, two stations in the feed with no transfer between them (Green and Blue lines).
+interchanges:
+  - [JBS Parade Ground, Parade Ground, 240]

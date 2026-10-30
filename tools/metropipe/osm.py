@@ -56,15 +56,49 @@ out body;
 """
 
 
-def fetch(bbox: list[float], cache: Path, routes: str = "subway|light_rail|monorail", max_age_days: float = 7) -> dict:
-    """Runs the city query against Overpass, caching the response for max_age_days."""
+FACILITIES_VERSION = 1  # bump with facilities_query changes  # part of the facilities cache key
+
+
+def facilities_query(bbox: list[float]) -> str:
+    """Stations' own accessibility tags, and lifts, toilets, cash machines, cycle and park-and-ride
+    parking within a short walk of a station. Kept apart from the main query so adding it leaves the
+    network (and its ids) untouched."""
+    s, w, n, e = bbox
+    b = f"{s},{w},{n},{e}"
+    return f"""
+[out:json][timeout:300];
+(
+  node["railway"="station"]({b});
+  node["public_transport"="station"]({b});
+  node["railway"="stop"]({b});
+  node["public_transport"="stop_position"]["subway"="yes"]({b});
+  node["public_transport"="stop_position"]["light_rail"="yes"]({b});
+  node["public_transport"="platform"]["wheelchair"]({b});
+)->.st;
+.st out body;
+(
+  node(around.st:120)["highway"="elevator"];
+  node(around.st:150)["amenity"="toilets"];
+  node(around.st:120)["amenity"="atm"];
+  node(around.st:120)["amenity"="bicycle_parking"];
+  node(around.st:300)["amenity"="parking"]["park_ride"~"yes|bus|train|subway"];
+  way(around.st:300)["amenity"="parking"]["park_ride"~"yes|bus|train|subway"];
+);
+out center tags;
+"""
+
+
+def fetch(bbox: list[float], cache: Path, routes: str = "subway|light_rail|monorail", max_age_days: float = 7, query: str | None = None,
+          timeout: int = 360, rounds: int = 2) -> dict:
+    """Runs the city query against Overpass, caching the response for max_age_days. Each endpoint is
+    tried [rounds] times, waiting [timeout] seconds for each answer."""
     if cache.exists() and (time.time() - cache.stat().st_mtime) < max_age_days * 86400:
         return json.loads(cache.read_text(encoding="utf-8"))
-    query = overpass_query(bbox, routes)
+    query = query or overpass_query(bbox, routes)
     last_error: Exception | None = None
-    for attempt, endpoint in enumerate(OVERPASS_ENDPOINTS * 2):
+    for attempt, endpoint in enumerate(OVERPASS_ENDPOINTS * rounds):
         try:
-            r = requests.post(endpoint, data={"data": query}, headers={"User-Agent": USER_AGENT}, timeout=360)
+            r = requests.post(endpoint, data={"data": query}, headers={"User-Agent": USER_AGENT}, timeout=timeout)
             if r.status_code == 200:
                 data = r.json()
                 cache.parent.mkdir(parents=True, exist_ok=True)
@@ -322,7 +356,9 @@ class StationResolver:
         for code in tags.get("naptan:AtcoCode", "").split(";"):
             code = code.strip()
             if code.startswith("940") and len(code) >= 11:
-                self.city.station_codes.setdefault("940G" + code[4:11], sid)  # drop any platform suffix
+                # Platform codes add a digit (9400ZZLUHAW1); newer stations have 12-letter codes (9400ZZBPSUST).
+                base = code[:-1] if code[-1].isdigit() else code
+                self.city.station_codes.setdefault("940G" + base[4:], sid)
 
 
 DUPLICATE_STATION_M = 60  # same name and this close: one station mapped twice
@@ -508,6 +544,59 @@ def build_exits(index: OsmIndex, city: CityData, max_dist_m: float = 300.0) -> N
         label = tags.get("name:en") or tags.get("name") or (f"Gate {tags['ref']}" if tags.get("ref") else "Entrance")
         wheelchair = {"yes": True, "no": False}.get(tags.get("wheelchair", ""))
         city.exits.append(Exit(nearest.id, label, p[0], p[1], wheelchair))
+
+
+FACILITY_KINDS = (
+    ("highway", "elevator", "lift"),
+    ("amenity", "toilets", "toilets"),
+    ("amenity", "atm", "atm"),
+    ("amenity", "bicycle_parking", "bicycle_parking"),
+    ("amenity", "parking", "parking"),
+)
+
+
+def build_facilities(data: dict, city: CityData) -> None:
+    """Step-free access (station and platform `wheelchair` tags) and nearby facilities per station.
+
+    A tagged OSM station counts for the network station of the same name within 400 m, or failing a
+    name match the nearest one within 120 m. Facilities go to the nearest station within reach.
+    """
+    stations = list(city.stations.values())
+    if not stations:
+        return
+    tagged: dict[str, list[bool]] = {}
+    for el in data.get("elements", []):
+        tags = el.get("tags", {})
+        p = _point(el)
+        if p is None:
+            continue
+        if "wheelchair" in tags:
+            # "limited" often means step-free to the ticket hall only, so it says nothing either way.
+            value = {"yes": True, "no": False}.get(tags["wheelchair"])
+            rail = tags.get("railway") or tags.get("station") or any(tags.get(k) == "yes" for k in ("subway", "light_rail", "train", "monorail"))
+            if value is None or not rail or _bus_only(tags) or tags.get("highway") == "bus_stop":
+                continue
+            name = _english_name(tags)
+            near = [s for s in stations if haversine_m(p, s.point) < 400]
+            named = [s for s in near if name and _names_match(name, s.name)]
+            target = min(named or [s for s in near if haversine_m(p, s.point) < 120], key=lambda s: haversine_m(p, s.point), default=None)
+            if target is not None:
+                tagged.setdefault(target.id, []).append(value)
+            continue
+        kind = next((k for key, val, k in FACILITY_KINDS if tags.get(key) == val), None)
+        if kind is None:
+            continue
+        reach = 300 if kind == "parking" else 150
+        nearest = min(stations, key=lambda s: haversine_m(p, s.point))
+        if haversine_m(p, nearest.point) <= reach:
+            have = city.station_facilities.setdefault(nearest.id, [])
+            if kind not in have:
+                have.append(kind)
+    # Any step-free platform or station tag makes the station step-free; only all-"no" makes it not.
+    for sid, values in tagged.items():
+        city.station_access[sid] = any(values)
+    for have in city.station_facilities.values():
+        have.sort()
 
 
 def build_walk_transfers(city: CityData, max_dist_m: float = 300.0) -> None:

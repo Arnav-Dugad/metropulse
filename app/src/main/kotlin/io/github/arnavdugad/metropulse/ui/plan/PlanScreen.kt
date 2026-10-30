@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -62,6 +64,7 @@ import io.github.arnavdugad.metropulse.core.designsystem.component.pressScale
 import io.github.arnavdugad.metropulse.core.designsystem.component.rememberMpHaptics
 import io.github.arnavdugad.metropulse.core.designsystem.icon.MpIcons
 import io.github.arnavdugad.metropulse.core.designsystem.theme.MetroPulseTheme
+import io.github.arnavdugad.metropulse.core.designsystem.theme.tabular
 import io.github.arnavdugad.metropulse.core.designsystem.theme.MpShapes
 import io.github.arnavdugad.metropulse.core.domain.city.CityState
 import io.github.arnavdugad.metropulse.core.domain.city.DataQuality
@@ -101,6 +104,9 @@ private fun Planner(vm: PlanViewModel, city: LoadedCity, onOpenJourney: (Int) ->
     val results by vm.results.collectAsStateWithLifecycle()
     val favourites by vm.favourites.collectAsStateWithLifecycle()
     val recents by vm.recents.collectAsStateWithLifecycle()
+    val stepFree by vm.stepFree.collectAsStateWithLifecycle()
+    val suggestion by vm.commuteSuggestion.collectAsStateWithLifecycle()
+    var comparing by rememberSaveable { mutableStateOf(false) }
     var picking by rememberSaveable { mutableStateOf<Picking?>(null) }
     var pickingTime by rememberSaveable { mutableStateOf(false) }
     val network = city.network
@@ -122,7 +128,7 @@ private fun Planner(vm: PlanViewModel, city: LoadedCity, onOpenJourney: (Int) ->
                     onSwap = vm::swap,
                 )
                 Spacer(Modifier.height(12.dp))
-                TimeChoices(query.departAt, onChoose = vm::setDepartAt, onPickTime = { pickingTime = true })
+                TimeChoices(query.departAt, stepFree, onChoose = vm::setDepartAt, onPickTime = { pickingTime = true }, onStepFree = vm::setStepFree)
             }
             when (val r = results) {
                 PlanResults.Planning -> item {
@@ -132,7 +138,26 @@ private fun Planner(vm: PlanViewModel, city: LoadedCity, onOpenJourney: (Int) ->
                     EmptyState(MpIcons.Route, stringResource(R.string.plan_no_route_title), stringResource(R.string.plan_no_route_body), Modifier.padding(top = 40.dp))
                 }
                 is PlanResults.Ready -> {
-                    item { SectionTitle(stringResource(R.string.plan_options)) }
+                    if (r.notStepFree.isNotEmpty()) item {
+                        Notice(MpIcons.Alert, stringResource(R.string.plan_step_free_endpoint, r.notStepFree.joinToString()), colors.approximate)
+                    }
+                    if (r.droppedForAccess > 0) item {
+                        Notice(MpIcons.Accessible, pluralStringResource(R.plurals.plan_step_free_dropped, r.droppedForAccess, r.droppedForAccess), colors.textSecondary)
+                    }
+                    if (r.options.isEmpty()) item {
+                        EmptyState(MpIcons.Accessible, stringResource(R.string.plan_step_free_none_title), stringResource(R.string.plan_step_free_none_body), Modifier.padding(top = 32.dp))
+                    }
+                    if (r.options.isNotEmpty()) item {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            SectionTitle(stringResource(R.string.plan_options), Modifier.weight(1f))
+                            if (r.options.size > 1) {
+                                ChoiceChip(stringResource(R.string.plan_compare), comparing) { comparing = !comparing }
+                            }
+                        }
+                    }
+                    if (comparing && r.options.size > 1) item {
+                        Comparison(city, r.options, onOpen = onOpenJourney, modifier = Modifier.padding(bottom = 12.dp).animateItem())
+                    }
                     itemsIndexed(r.options, key = { i, _ -> "option-$i" }) { i, option ->
                         JourneyCard(city, option, i, onClick = { onOpenJourney(i) }, modifier = Modifier.padding(bottom = 12.dp))
                     }
@@ -141,6 +166,16 @@ private fun Planner(vm: PlanViewModel, city: LoadedCity, onOpenJourney: (Int) ->
                     }
                 }
                 PlanResults.Idle -> {
+                    suggestion?.let { j ->
+                        item(key = "commute-suggestion") {
+                            CommuteSuggestion(
+                                city, j,
+                                onAccept = { home -> vm.acceptCommute(j, home) },
+                                onDismiss = { vm.dismissCommute(j) },
+                                modifier = Modifier.padding(top = 16.dp).animateItem(),
+                            )
+                        }
+                    }
                     if (favourites.isEmpty() && recents.isEmpty()) {
                         item { EmptyState(MpIcons.Route, stringResource(R.string.plan_empty_title), stringResource(R.string.plan_empty_body), Modifier.padding(top = 48.dp)) }
                     }
@@ -215,7 +250,7 @@ private fun EndpointRow(icon: ImageVector, label: String, value: String, placeho
 }
 
 @Composable
-private fun TimeChoices(departAt: LocalTime?, onChoose: (LocalTime?) -> Unit, onPickTime: () -> Unit) {
+private fun TimeChoices(departAt: LocalTime?, stepFree: Boolean, onChoose: (LocalTime?) -> Unit, onPickTime: () -> Unit, onStepFree: (Boolean) -> Unit) {
     val clock = rememberClockFormatter()
     Row(
         Modifier.bleed(SCREEN_GUTTER).horizontalScroll(rememberScrollState()).padding(horizontal = SCREEN_GUTTER),
@@ -226,6 +261,7 @@ private fun TimeChoices(departAt: LocalTime?, onChoose: (LocalTime?) -> Unit, on
             ChoiceChip(stringResource(R.string.plan_in_minutes, minutes.toInt()), false) { onChoose(LocalTime.now().plusMinutes(minutes).withSecond(0).withNano(0)) }
         }
         ChoiceChip(departAt?.let { stringResource(R.string.plan_leave_at, clock(it.toSecondOfDay())) } ?: stringResource(R.string.plan_pick_time), departAt != null, onClick = onPickTime)
+        ChoiceChip(stringResource(R.string.plan_step_free), stepFree) { onStepFree(!stepFree) }
     }
 }
 
@@ -278,7 +314,7 @@ fun JourneyCard(city: LoadedCity, option: PlanOption, index: Int, onClick: () ->
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             if (journey.timed) {
-                Text("${clock(journey.departSecs!!)} → ${clock(journey.arriveSecs!!)}", style = MetroPulseTheme.type.title, color = colors.textPrimary)
+                Text("${clock(journey.departSecs!!)} → ${clock(journey.arriveSecs!!)}", style = MetroPulseTheme.type.title.tabular(), color = colors.textPrimary)
             } else {
                 Text(stringResource(R.string.plan_about, formatDuration(journey.durationSecs)), style = MetroPulseTheme.type.title, color = colors.textPrimary)
             }
@@ -316,6 +352,107 @@ fun JourneyCard(city: LoadedCity, option: PlanOption, index: Int, onClick: () ->
                 if (OptionTag.FewestChanges in option.tags) Tag(stringResource(R.string.plan_fewest_changes))
             }
         }
+        if (option.stepFreeUnknown.isNotEmpty()) {
+            Text(
+                stringResource(R.string.plan_step_free_unknown, option.stepFreeUnknown.joinToString()),
+                style = MetroPulseTheme.type.caption,
+                color = colors.textTertiary,
+            )
+        }
+    }
+}
+
+/** A one-line note above the options (step-free warnings). */
+@Composable
+private fun Notice(icon: ImageVector, text: String, tint: Color) {
+    val colors = MetroPulseTheme.colors
+    Row(
+        Modifier.fillMaxWidth().padding(top = 12.dp).clip(MpShapes.control).background(tint.copy(alpha = 0.10f)).padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(icon, null, tint = tint, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.width(10.dp))
+        Text(text, style = MetroPulseTheme.type.body, color = colors.textPrimary)
+    }
+}
+
+/** The options side by side as a table; the best value in each column is highlighted. */
+@Composable
+private fun Comparison(city: LoadedCity, options: List<PlanOption>, onOpen: (Int) -> Unit, modifier: Modifier = Modifier) {
+    val colors = MetroPulseTheme.colors
+    val clock = rememberClockFormatter()
+    val currency = city.network.currency
+    // A column's best is highlighted only where the options differ in it.
+    fun <T : Comparable<T>> best(values: List<T>): T? = values.minOrNull()?.takeIf { values.distinct().size > 1 }
+    val bestTime = best(options.mapNotNull { o -> o.journey.arriveSecs })
+    val bestChanges = best(options.map { it.journey.transfers })
+    val bestWalk = best(options.map { it.walkSecs })
+    val bestFare = best(options.mapNotNull { it.fare?.totalPaise })
+    Column(
+        modifier.fillMaxWidth().clip(MpShapes.card).background(colors.surface).padding(vertical = 8.dp),
+    ) {
+        Row(Modifier.padding(horizontal = 12.dp, vertical = 6.dp)) {
+            CompareCell(stringResource(R.string.plan_compare_arrive), header = true, weight = 1.3f)
+            CompareCell(stringResource(R.string.plan_compare_time), header = true)
+            CompareCell(stringResource(R.string.plan_compare_changes), header = true)
+            CompareCell(stringResource(R.string.plan_compare_walk), header = true)
+            CompareCell(stringResource(R.string.plan_compare_fare), header = true, weight = 1.2f)
+        }
+        HorizontalDivider(color = colors.hairline)
+        options.forEachIndexed { i, o ->
+            val j = o.journey
+            Row(
+                Modifier.fillMaxWidth().clickable(role = Role.Button) { onOpen(i) }.padding(horizontal = 12.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                CompareCell(j.arriveSecs?.let(clock) ?: "—", best = j.arriveSecs != null && j.arriveSecs == bestTime, weight = 1.3f)
+                CompareCell(formatDuration(j.durationSecs))
+                CompareCell(j.transfers.toString(), best = j.transfers == bestChanges)
+                CompareCell(if (o.walkSecs == 0) "—" else formatDuration(o.walkSecs), best = o.walkSecs == bestWalk)
+                CompareCell(o.fare?.totalPaise?.let { formatMoney(it, currency) } ?: "—", best = o.fare?.totalPaise != null && o.fare.totalPaise == bestFare, weight = 1.2f)
+            }
+        }
+    }
+}
+
+@Composable
+private fun RowScope.CompareCell(text: String, header: Boolean = false, best: Boolean = false, weight: Float = 1f) {
+    val colors = MetroPulseTheme.colors
+    Text(
+        text,
+        style = if (header) MetroPulseTheme.type.caption else MetroPulseTheme.type.label.tabular(),
+        color = when {
+            header -> colors.textTertiary
+            best -> colors.accent
+            else -> colors.textPrimary
+        },
+        maxLines = 1,
+        modifier = Modifier.weight(weight),
+    )
+}
+
+/** "You often go A ↔ B": one tap makes it the commute (reminders, widget, quick tile). */
+@Composable
+private fun CommuteSuggestion(city: LoadedCity, journey: SavedJourney, onAccept: (home: String) -> Unit, onDismiss: () -> Unit, modifier: Modifier = Modifier) {
+    val colors = MetroPulseTheme.colors
+    val network = city.network
+    val from = network.complexes[journey.fromComplexId]?.let { network.complexName(journey.fromComplexId) } ?: journey.fromName
+    val to = network.complexes[journey.toComplexId]?.let { network.complexName(journey.toComplexId) } ?: journey.toName
+    Column(
+        modifier.fillMaxWidth().clip(MpShapes.card).background(colors.accentSoft).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(MpIcons.History, null, tint = colors.accent, modifier = Modifier.size(20.dp))
+            Spacer(Modifier.width(10.dp))
+            Text(stringResource(R.string.plan_commute_suggest_title), style = MetroPulseTheme.type.bodyStrong, color = colors.textPrimary, modifier = Modifier.weight(1f))
+        }
+        Text(stringResource(R.string.plan_commute_suggest_body, from, to), style = MetroPulseTheme.type.body, color = colors.textSecondary)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            ChoiceChip(stringResource(R.string.plan_commute_home_is, from), false) { onAccept(journey.fromComplexId) }
+            ChoiceChip(stringResource(R.string.plan_commute_home_is, to), false) { onAccept(journey.toComplexId) }
+        }
+        TextButton(onDismiss, Modifier.align(Alignment.End)) { Text(stringResource(R.string.plan_commute_not_now), color = colors.textSecondary) }
     }
 }
 

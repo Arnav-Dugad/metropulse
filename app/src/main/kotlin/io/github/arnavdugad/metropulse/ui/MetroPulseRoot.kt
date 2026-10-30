@@ -12,6 +12,7 @@ import io.github.arnavdugad.metropulse.launch.LaunchAction
 import io.github.arnavdugad.metropulse.launch.LaunchActions
 import io.github.arnavdugad.metropulse.ui.onboarding.OnboardingScreen
 import io.github.arnavdugad.metropulse.ui.settings.AboutScreen
+import io.github.arnavdugad.metropulse.ui.settings.TripsScreen
 import io.github.arnavdugad.metropulse.ui.settings.SettingsViewModel
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
@@ -24,6 +25,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.toRoute
 import io.github.arnavdugad.metropulse.core.domain.city.CityState
 import io.github.arnavdugad.metropulse.core.map.MapFocus
+import io.github.arnavdugad.metropulse.ui.common.LocalStationUsage
 import io.github.arnavdugad.metropulse.ui.common.LocalNavAnimatedScope
 import io.github.arnavdugad.metropulse.ui.common.LocalSharedTransitionScope
 import io.github.arnavdugad.metropulse.ui.lines.LineScreen
@@ -83,6 +85,7 @@ import io.github.arnavdugad.metropulse.core.designsystem.theme.MpShapes
 import io.github.arnavdugad.metropulse.core.designsystem.theme.scaledAtMost
 import io.github.arnavdugad.metropulse.ui.city.CityPickerHost
 import io.github.arnavdugad.metropulse.ui.city.CityViewModel
+import io.github.arnavdugad.metropulse.ui.home.HomeActions
 import io.github.arnavdugad.metropulse.ui.home.HomeScreen
 import io.github.arnavdugad.metropulse.ui.lines.LinesScreen
 import io.github.arnavdugad.metropulse.ui.plan.PlanScreen
@@ -101,6 +104,7 @@ import kotlin.reflect.KClass
 @Serializable data class LineRoute(val lineId: String)
 @Serializable data class JourneyRoute(val index: Int)
 @Serializable data object AboutRoute
+@Serializable data object TripsRoute
 
 private data class Tab(val route: Any, val routeClass: KClass<*>, val icon: ImageVector, val label: Int)
 
@@ -193,7 +197,8 @@ private fun MainContent(updateViewModel: UpdateViewModel, settingsViewModel: Set
 
     Box(Modifier.fillMaxSize().background(MetroPulseTheme.colors.background)) {
         SharedTransitionLayout {
-            CompositionLocalProvider(LocalSharedTransitionScope provides this) {
+            val stationUsage by cityViewModel.stationUsage.collectAsStateWithLifecycle()
+            CompositionLocalProvider(LocalSharedTransitionScope provides this, LocalStationUsage provides stationUsage) {
                 NavHost(
                     navController = navController,
                     startDestination = MapRoute,
@@ -201,10 +206,22 @@ private fun MainContent(updateViewModel: UpdateViewModel, settingsViewModel: Set
                     enterTransition = { fadeIn() },
                     exitTransition = { fadeOut() },
                 ) {
-                    destination<MapRoute> { HomeScreen(cityViewModel, onSearch = { navController.navigate(SearchRoute) }, onStation = openStation) }
+                    destination<MapRoute> {
+                        HomeScreen(
+                            cityViewModel, favouriteStations,
+                            HomeActions(
+                                onSearch = { navController.navigate(SearchRoute) },
+                                onLines = { goToTab(LinesRoute) },
+                                onLine = openLine,
+                                onPlanFrom = { planViewModel.setFrom(it); goToTab(PlanRoute) },
+                                onPlanTo = { planViewModel.setTo(it); goToTab(PlanRoute) },
+                            ),
+                        )
+                    }
                     destination<PlanRoute> { PlanScreen(planViewModel, cityViewModel, onOpenJourney = { navController.navigate(JourneyRoute(it)) }) }
                     destination<LinesRoute> { LinesScreen(cityViewModel, onLine = openLine) }
-                    destination<SettingsRoute> { SettingsScreen(updateViewModel, cityViewModel, settingsViewModel, onAbout = { navController.navigate(AboutRoute) }) }
+                    destination<SettingsRoute> { SettingsScreen(updateViewModel, cityViewModel, settingsViewModel, onAbout = { navController.navigate(AboutRoute) }, onTrips = { navController.navigate(TripsRoute) }) }
+                    destination<TripsRoute> { TripsScreen(city?.network, hiltViewModel(), onBack = { navController.popBackStack() }) }
                     destination<AboutRoute> { AboutScreen(city?.network, updateViewModel.installedVersion, onBack = { navController.popBackStack() }) }
                     destination<SearchRoute> {
                         SearchScreen(city, hiltViewModel(), favouriteStations, onBack = { navController.popBackStack() }) { id ->
@@ -238,6 +255,7 @@ private fun MainContent(updateViewModel: UpdateViewModel, settingsViewModel: Set
                             onBack = { navController.popBackStack() },
                             onStation = openStation,
                             onStarted = { leaveTo(MapRoute) },
+                            onShowOnMap = { leaveTo(MapRoute) },
                         )
                     }
                 }

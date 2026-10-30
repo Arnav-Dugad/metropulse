@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-30T05:51:56Z",
+  "generated_at": "2026-10-30T08:18:31Z",
   "cities": [
     {
       "id": "agra",
       "name": "Agra",
       "state": "Uttar Pradesh",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "none",
@@ -24,7 +24,7 @@
         78.07
       ],
       "size": 147456,
-      "sha256": "3e97b73cbc55b4844cddf6a355ed575031f025bf5cba7cef4e124088030648ef",
+      "sha256": "ac9c0458ef57e5805391a67dcb930dd8609261f9cc4c59f88e780aaf771308d8",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/agra.db"
     },
     {
@@ -32,7 +32,7 @@
       "name": "Ahmedabad – Gandhinagar",
       "state": "Gujarat",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "partial",
@@ -49,7 +49,7 @@
         72.7
       ],
       "size": 208896,
-      "sha256": "50147dbfe124d6e7173c586bbc0bd874564d01464bd8c9d52c182ee2c8d8933e",
+      "sha256": "24ce86f90f1c236904369ca2b8e6da080b332f7a08da7a3566c969e36ca64c48",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/ahmedabad.db"
     },
     {
@@ -57,7 +57,7 @@
       "name": "Bengaluru",
       "state": "Karnataka",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "estimated",
       "timetable": "full",
@@ -74,15 +74,16 @@
         77.76
       ],
       "size": 598016,
-      "sha256": "b23555ff0ab967fa233bc8066d1d31b9bd657eeab603e2202e3b689166941e74",
-      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/bengaluru.db"
+      "sha256": "0cbdf3ef612a14effb59b74044424d24abcf7002351f8b69956b96453accc548",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/bengaluru.db",
+      "valid_until": 20270817
     },
     {
       "id": "bhopal",
       "name": "Bhopal",
       "state": "Madhya Pradesh",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "unknown",
@@ -99,7 +100,7 @@
         77.48
       ],
       "size": 147456,
-      "sha256": "ec8f67ec46cbc9b6a9920923491273a2a8a802cc8d82a79553e22f92f7de3063",
+      "sha256": "b14075f3971f159df84ca5f1d2fa84f37436e7cbf32f7557657eb906c6e9ad28",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/bhopal.db"
     },
     {
@@ -107,7 +108,7 @@
       "name": "Chennai",
       "state": "Tamil Nadu",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "full",
@@ -124,7 +125,7 @@
         80.31
       ],
       "size": 249856,
-      "sha256": "50968bae989617b04b1b7db7f3e65165553989f203c2ea8d7b7d688fc6154aeb",
+      "sha256": "62017b2650c3351a12558ffd9a91ca0cce002ccc376151eb250f58129d1809a2",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/chennai.db"
     },
     {
@@ -132,7 +133,7 @@
       "name": "Delhi",
       "state": "Delhi NCR",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "none",
@@ -148,8 +149,8 @@
         28.77,
         77.42
       ],
-      "size": 352256,
-      "sha256": "5d0dc5fd74f6cc5331e2d1e9e02ef2a80b1d72b0b6cc74918d3c0c1913750e64",
+      "size": 364544,
+      "sha256": "1fdb3c657d9f3f770242b4242eaabc309f58b72e92a96864f2c683ce01535ea5",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/delhi.db"
     },
     {
@@ -157,7 +158,7 @@
       "name": "Doha",
       "state": "Doha",
       "country": "Qatar",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "unknown",
@@ -174,7 +175,7 @@
         51.62
       ],
       "size": 172032,
-      "sha256": "66f89593db7ecc4de470347ba38e304080651abeaaa98a24d79560ed62e9f3b8",
+      "sha256": "1cb2f7fc1fb43a51651cb4bd7b2e26b8e00575a1c390e9809e1fe2e1b8bfc88a",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/doha.db"
     },
     {
@@ -182,7 +183,7 @@
       "name": "Dubai",
       "state": "Dubai",
       "country": "United Arab Emirates",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "none",
@@ -199,7 +200,7 @@
         55.41
       ],
       "size": 180224,
-      "sha256": "11d19bb63b1df8dffcf6559a92bd58d4424437e5eccb21c61eefa497f1599876",
+      "sha256": "03b7e657eb9b99be1c978674df1824d3108d6727ea350f4009039c6f9f736e44",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/dubai.db"
     },
     {
@@ -207,7 +208,7 @@
       "name": "Gurugram",
       "state": "Haryana",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "full",
@@ -224,7 +225,7 @@
         77.12
       ],
       "size": 184320,
-      "sha256": "3e3e2ad80511b286826fd4321d100020ce54f04d3e56a6431589f3b84b7255df",
+      "sha256": "6d5982169920e3525469a3293a147c0be529bac97b3d0a69443e1ae50b0b7df2",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/gurugram.db"
     },
     {
@@ -232,15 +233,15 @@
       "name": "Hyderabad",
       "state": "Telangana",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
-      "quality": "approximate",
-      "timetable": "partial",
+      "quality": "scheduled",
+      "timetable": "full",
       "lines": 3,
-      "stations": 58,
+      "stations": 57,
       "center": [
-        17.42374,
-        78.47079
+        17.42329,
+        78.47041
       ],
       "bbox": [
         17.34,
@@ -248,16 +249,17 @@
         17.5,
         78.57
       ],
-      "size": 217088,
-      "sha256": "3af6d41f25294cd81f2efb542891317cb896a218f69a5fc01687c4783aeb4247",
-      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/hyderabad.db"
+      "size": 544768,
+      "sha256": "ecddf189bcc9db3376f50fcb379e2da0188c2bfa5bbd2ad27415f6320960c5b8",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/hyderabad.db",
+      "valid_until": 20300101
     },
     {
       "id": "indore",
       "name": "Indore",
       "state": "Madhya Pradesh",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300801,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "unknown",
@@ -274,7 +276,7 @@
         75.92
       ],
       "size": 147456,
-      "sha256": "117da97414850597c25f3245bcd3e6f653e504cf47208bfcfe69f2743f0f5313",
+      "sha256": "ab983d491f7dc91f8d113c25773246f541675207db1633e4907c56d4552c50a4",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/indore.db"
     },
     {
@@ -282,7 +284,7 @@
       "name": "Jaipur",
       "state": "Rajasthan",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300804,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "full",
@@ -299,7 +301,7 @@
         75.85
       ],
       "size": 155648,
-      "sha256": "323a2d3ccc2c3e2e854b20a852b1bda8e3620353f073766919461469bee659e0",
+      "sha256": "fd3812916611d403a5a752658394661ae1c4c9780399162891176dfb3692f8c0",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/jaipur.db"
     },
     {
@@ -307,7 +309,7 @@
       "name": "Kanpur",
       "state": "Uttar Pradesh",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300807,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "partial",
@@ -324,7 +326,7 @@
         80.37
       ],
       "size": 159744,
-      "sha256": "d4210d634e3043a2e1d6eaf2f593c110d919dbd9543b129e373c043d6aa96736",
+      "sha256": "c76f7f4f94310c22aab054a96fc1614a18c688c84ea43ffee7cc921b995e6683",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/kanpur.db"
     },
     {
@@ -332,7 +334,7 @@
       "name": "Kochi",
       "state": "Kerala",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300808,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "full",
@@ -349,7 +351,7 @@
         76.36
       ],
       "size": 172032,
-      "sha256": "59bb8c3f468acfbe58b05a10cd98f96b1479e8a2a6dd6f565f733a81bede2905",
+      "sha256": "706c88d78393dc9094dcd2dbfd233116003153e255b091ad700373687f15e3fc",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/kochi.db"
     },
     {
@@ -357,7 +359,7 @@
       "name": "Kolkata",
       "state": "West Bengal",
       "country": "India",
-      "version": 202610300549,
+      "version": 202610300808,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "full",
@@ -374,7 +376,7 @@
         88.44
       ],
       "size": 282624,
-      "sha256": "f3f98f20c147502786c26dedb93ffe7d7a5f00903bb726fe6a62b73af462a35f",
+      "sha256": "dfa8fd38e30446896fda0270e514ebfe382d8568bf41e1805253c5def99bee4e",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/kolkata.db"
     },
     {
@@ -382,7 +384,7 @@
       "name": "London",
       "state": "England",
       "country": "United Kingdom",
-      "version": 202610300549,
+      "version": 202610300746,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "full",
@@ -398,8 +400,8 @@
         51.71,
         0.26
       ],
-      "size": 2277376,
-      "sha256": "7cdc2cf071f6c8acb11be3dc55061ed189f8863183546943ba76d15a5690cc05",
+      "size": 2318336,
+      "sha256": "0d3e99fd1a8158e70e524c3251c45bd1b7947e9f47d29cbf05de4bcc3f08336a",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/london.db"
     },
     {
@@ -407,7 +409,7 @@
       "name": "Lucknow",
       "state": "Uttar Pradesh",
       "country": "India",
-      "version": 202610300550,
+      "version": 202610300809,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "partial",
@@ -424,7 +426,7 @@
         81.01
       ],
       "size": 159744,
-      "sha256": "24ac18221700ee7f06f2b8a937e3383c21d32ac4d23201c9bd76bd58195f5117",
+      "sha256": "c8e8e050d94b294e6b07fd5bd551a942c0ae8da31f5cbff4ddd3ee23c8ec2e63",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/lucknow.db"
     },
     {
@@ -432,7 +434,7 @@
       "name": "Meerut",
       "state": "Uttar Pradesh",
       "country": "India",
-      "version": 202610300550,
+      "version": 202610300810,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "none",
@@ -449,7 +451,7 @@
         77.74
       ],
       "size": 147456,
-      "sha256": "f1925101cf0783b8181665b07576438fa0cdd678efcf9c0c13a3aa0eae0f1905",
+      "sha256": "641831448cab3a559c4178486189d17aaef2b62ebaad44ea356cdd6e573afa3b",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/meerut.db"
     },
     {
@@ -457,7 +459,7 @@
       "name": "Mumbai",
       "state": "Maharashtra",
       "country": "India",
-      "version": 202610300550,
+      "version": 202610300810,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "partial",
@@ -474,7 +476,7 @@
         72.95
       ],
       "size": 258048,
-      "sha256": "daad278706ecd166584a907cf8f455239e11f78c3ce47b1b104e4a5ad0d74034",
+      "sha256": "9727308c940956d7bd57c6256ae7b18787503faea910de15df6943fe4f6b4978",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/mumbai.db"
     },
     {
@@ -482,7 +484,7 @@
       "name": "Nagpur",
       "state": "Maharashtra",
       "country": "India",
-      "version": 202610300550,
+      "version": 202610300811,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "partial",
@@ -499,7 +501,7 @@
         79.16
       ],
       "size": 176128,
-      "sha256": "78c8017b15876ececa6563242e6ed48b97fe16b9fa62c950a05d52f987676aee",
+      "sha256": "3057b48fa5a176e4d1bf00af7b35b1548dc05a390a401108f1eb9800925e703a",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/nagpur.db"
     },
     {
@@ -507,7 +509,7 @@
       "name": "Navi Mumbai",
       "state": "Maharashtra",
       "country": "India",
-      "version": 202610300550,
+      "version": 202610300811,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "full",
@@ -524,7 +526,7 @@
         73.11
       ],
       "size": 147456,
-      "sha256": "b1e139833ec9c40203614c193724cf94a3e2ca93bccae54e044dc87fb7ecf8b6",
+      "sha256": "4912727a0a6515032bbbaefc94d288725d9e3036e992f98745d844a3e60aeca7",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/navi-mumbai.db"
     },
     {
@@ -532,7 +534,7 @@
       "name": "New York",
       "state": "New York",
       "country": "United States",
-      "version": 202610300551,
+      "version": 202610300815,
       "schema_version": 1,
       "quality": "scheduled",
       "timetable": "full",
@@ -549,15 +551,16 @@
         -73.73
       ],
       "size": 3907584,
-      "sha256": "f84c84fc650aa3434364f0569577f4cd88dfdd19860a129648e23a5332fb95b8",
-      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/new-york.db"
+      "sha256": "7b358454c952d2c6ea588f72e5c679105690ea18e198897d54fd9891cdbf7d17",
+      "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/new-york.db",
+      "valid_until": 20270515
     },
     {
       "id": "noida",
       "name": "Noida",
       "state": "Uttar Pradesh",
       "country": "India",
-      "version": 202610300551,
+      "version": 202610300816,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "partial",
@@ -574,7 +577,7 @@
         77.54
       ],
       "size": 155648,
-      "sha256": "f18313a3c440619ab69e5968d2f96eb248348d0c0fa3d4528a6023ff0b01ac34",
+      "sha256": "cf02f22baed850155c1b90ebe3e5e3c84b4090675d30d998e765d2c1f10a5d5c",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/noida.db"
     },
     {
@@ -582,7 +585,7 @@
       "name": "Patna",
       "state": "Bihar",
       "country": "India",
-      "version": 202610300551,
+      "version": 202610300817,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "full",
@@ -599,7 +602,7 @@
         85.19
       ],
       "size": 147456,
-      "sha256": "2a533a5a68b98a462ddb59767d0b043ef5b8a1a09f7b832d36b0c867fbfac8f2",
+      "sha256": "c9d8b4402cfc2e5d615fe73322bf87443afa2bfbc158ced0770dd2b575ec0729",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/patna.db"
     },
     {
@@ -607,7 +610,7 @@
       "name": "Pune",
       "state": "Maharashtra",
       "country": "India",
-      "version": 202610300551,
+      "version": 202610300817,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "partial",
@@ -624,7 +627,7 @@
         73.92
       ],
       "size": 176128,
-      "sha256": "16b0777d8af7529776b6fc819d8b18b427b6e2e7314aa41ec0f50db0990eee4f",
+      "sha256": "52b40cbf6739048e8252520d5838a4df5f4c10b5120267bf9d10fac70e99c9da",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/pune.db"
     },
     {
@@ -632,7 +635,7 @@
       "name": "Riyadh",
       "state": "Riyadh Province",
       "country": "Saudi Arabia",
-      "version": 202610300551,
+      "version": 202610300818,
       "schema_version": 1,
       "quality": "approximate",
       "timetable": "none",
@@ -649,7 +652,7 @@
         46.87
       ],
       "size": 233472,
-      "sha256": "8953abeef74468dde72d7ddbea9d54771077f70321329d142d74cb3fc43b1ea0",
+      "sha256": "f7b4a4bbd2b76934b2d83f7d0b60641e9535965849462d9af4e240357bebeaf5",
       "url": "https://raw.githubusercontent.com/Arnav-Dugad/metropulse/main/app/src/main/assets/cities/riyadh.db"
     }
   ]

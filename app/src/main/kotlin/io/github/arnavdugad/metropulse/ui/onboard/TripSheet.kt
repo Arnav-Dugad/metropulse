@@ -50,6 +50,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.arnavdugad.metropulse.R
+import io.github.arnavdugad.metropulse.ui.common.LocalStationUsage
 import io.github.arnavdugad.metropulse.ui.common.composeColor
 import io.github.arnavdugad.metropulse.core.designsystem.component.PrimaryButton
 import io.github.arnavdugad.metropulse.core.designsystem.component.rememberMpHaptics
@@ -224,7 +225,8 @@ private fun StopRow(icon: androidx.compose.ui.graphics.vector.ImageVector, label
 private fun StationPicker(city: LoadedCity, onPick: (String) -> Unit) {
     val colors = MetroPulseTheme.colors
     var query by rememberSaveable { mutableStateOf("") }
-    val hits = remember(query, city) { city.search.search(query, 30) }
+    val usage = LocalStationUsage.current
+    val hits = remember(query, city, usage) { city.search.search(query, 30, usage) }
     SearchField(query, { query = it }, stringResource(R.string.onboard_search_hint), autoFocus = true)
     LazyColumn(Modifier.heightIn(max = 320.dp).padding(top = 6.dp, bottom = 12.dp)) {
         items(hits, key = { it.complexId }) { hit ->

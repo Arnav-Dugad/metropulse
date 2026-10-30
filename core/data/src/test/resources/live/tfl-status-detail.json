@@ -1,0 +1,510 @@
+[
+  {
+    "$type": "Tfl.Api.Presentation.Entities.Line, Tfl.Api.Presentation.Entities",
+    "id": "bakerloo",
+    "name": "Bakerloo",
+    "modeName": "tube",
+    "disruptions": [],
+    "created": "2026-09-22T09:53:41.037Z",
+    "modified": "2026-09-22T09:53:41.037Z",
+    "lineStatuses": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.LineStatus, Tfl.Api.Presentation.Entities",
+        "id": 0,
+        "lineId": "bakerloo",
+        "statusSeverity": 9,
+        "statusSeverityDescription": "Minor Delays",
+        "reason": "Bakerloo Line: Severe delays between Queen's Park and Harrow & Wealdstone due to a person ill on a train earlier at Queen's Park. MINOR DELAYS on the rest of the line. Tickets being accepted on London Buses and Lioness line.  ",
+        "created": "0001-01-01T00:00:00",
+        "validityPeriods": [
+          {
+            "$type": "Tfl.Api.Presentation.Entities.ValidityPeriod, Tfl.Api.Presentation.Entities",
+            "fromDate": "2026-10-30T07:01:25Z",
+            "toDate": "2026-10-31T01:29:00Z",
+            "isNow": true
+          }
+        ],
+        "disruption": {
+          "$type": "Tfl.Api.Presentation.Entities.Disruption, Tfl.Api.Presentation.Entities",
+          "category": "RealTime",
+          "categoryDescription": "RealTime",
+          "description": "Bakerloo Line: Severe delays between Queen's Park and Harrow & Wealdstone due to a person ill on a train earlier at Queen's Park. MINOR DELAYS on the rest of the line. Tickets being accepted on London Buses and Lioness line.  ",
+          "affectedRoutes": [
+            {
+              "$type": "Tfl.Api.Presentation.Entities.DisruptedRoute, Tfl.Api.Presentation.Entities",
+              "id": "398",
+              "name": "Harrow & Wealdstone Underground Station - Elephant & Castle Underground Station",
+              "direction": "inbound",
+              "originationName": "Harrow & Wealdstone Underground Station",
+              "destinationName": "Elephant & Castle Underground Station",
+              "isEntireRouteSection": true,
+              "routeSectionNaptanEntrySequence": [
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 0,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUHAW",
+                    "modes": [],
+                    "icsCode": "1000101",
+                    "stationNaptan": "940GZZLUHAW",
+                    "hubNaptanCode": "HUBHRW",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUHAW",
+                    "commonName": "Harrow & Wealdstone Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                },
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 1,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUKEN",
+                    "modes": [],
+                    "icsCode": "1000124",
+                    "stationNaptan": "940GZZLUKEN",
+                    "hubNaptanCode": "HUBKNT",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUKEN",
+                    "commonName": "Kenton Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                },
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 2,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUSKT",
+                    "modes": [],
+                    "icsCode": "1000213",
+                    "stationNaptan": "940GZZLUSKT",
+                    "hubNaptanCode": "HUBSOK",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUSKT",
+                    "commonName": "South Kenton Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                }
+              ]
+            }
+          ],
+          "affectedStops": []
+        }
+      },
+      {
+        "$type": "Tfl.Api.Presentation.Entities.LineStatus, Tfl.Api.Presentation.Entities",
+        "id": 0,
+        "lineId": "bakerloo",
+        "statusSeverity": 6,
+        "statusSeverityDescription": "Severe Delays",
+        "reason": "Bakerloo Line: Severe delays between Queen's Park and Harrow & Wealdstone due to a person ill on a train earlier at Queen's Park. MINOR DELAYS on the rest of the line. Tickets being accepted on London Buses and Lioness line.  ",
+        "created": "0001-01-01T00:00:00",
+        "validityPeriods": [
+          {
+            "$type": "Tfl.Api.Presentation.Entities.ValidityPeriod, Tfl.Api.Presentation.Entities",
+            "fromDate": "2026-10-30T07:01:25Z",
+            "toDate": "2026-10-31T01:29:00Z",
+            "isNow": true
+          }
+        ],
+        "disruption": {
+          "$type": "Tfl.Api.Presentation.Entities.Disruption, Tfl.Api.Presentation.Entities",
+          "category": "RealTime",
+          "categoryDescription": "RealTime",
+          "description": "Bakerloo Line: Severe delays between Queen's Park and Harrow & Wealdstone due to a person ill on a train earlier at Queen's Park. MINOR DELAYS on the rest of the line. Tickets being accepted on London Buses and Lioness line.  ",
+          "affectedRoutes": [
+            {
+              "$type": "Tfl.Api.Presentation.Entities.DisruptedRoute, Tfl.Api.Presentation.Entities",
+              "id": "398",
+              "name": "Harrow & Wealdstone Underground Station - Elephant & Castle Underground Station",
+              "direction": "inbound",
+              "originationName": "Harrow & Wealdstone Underground Station",
+              "destinationName": "Elephant & Castle Underground Station",
+              "isEntireRouteSection": false,
+              "routeSectionNaptanEntrySequence": [
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 0,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUHAW",
+                    "modes": [],
+                    "icsCode": "1000101",
+                    "stationNaptan": "940GZZLUHAW",
+                    "hubNaptanCode": "HUBHRW",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUHAW",
+                    "commonName": "Harrow & Wealdstone Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                },
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 1,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUKEN",
+                    "modes": [],
+                    "icsCode": "1000124",
+                    "stationNaptan": "940GZZLUKEN",
+                    "hubNaptanCode": "HUBKNT",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUKEN",
+                    "commonName": "Kenton Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                },
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 2,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUSKT",
+                    "modes": [],
+                    "icsCode": "1000213",
+                    "stationNaptan": "940GZZLUSKT",
+                    "hubNaptanCode": "HUBSOK",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUSKT",
+                    "commonName": "South Kenton Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                }
+              ]
+            }
+          ],
+          "affectedStops": [
+            {
+              "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+              "naptanId": "940GZZLUHAW",
+              "stationNaptan": "940GZZLUHAW",
+              "status": true,
+              "id": "940GZZLUHAW",
+              "commonName": "Harrow & Wealdstone Underground Station",
+              "lat": 0.0,
+              "lon": 0.0
+            },
+            {
+              "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+              "naptanId": "940GZZLUHSN",
+              "stationNaptan": "940GZZLUHSN",
+              "status": true,
+              "id": "940GZZLUHSN",
+              "commonName": "Harlesden Underground Station",
+              "lat": 0.0,
+              "lon": 0.0
+            },
+            {
+              "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+              "naptanId": "940GZZLUKEN",
+              "stationNaptan": "940GZZLUKEN",
+              "status": true,
+              "id": "940GZZLUKEN",
+              "commonName": "Kenton Underground Station",
+              "lat": 0.0,
+              "lon": 0.0
+            }
+          ]
+        }
+      }
+    ],
+    "routeSections": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.MatchedRoute, Tfl.Api.Presentation.Entities",
+        "name": "Harrow & Wealdstone Underground Station - Elephant & Castle Underground Station",
+        "direction": "inbound",
+        "originationName": "Harrow & Wealdstone Underground Station",
+        "destinationName": "Elephant & Castle Underground Station",
+        "originator": "940GZZLUHAW",
+        "destination": "940GZZLUEAC",
+        "serviceType": "Regular",
+        "validTo": "2026-12-23T00:00:00Z",
+        "validFrom": "2026-09-19T00:00:00Z"
+      },
+      {
+        "$type": "Tfl.Api.Presentation.Entities.MatchedRoute, Tfl.Api.Presentation.Entities",
+        "name": "Elephant & Castle Underground Station - Harrow & Wealdstone Underground Station",
+        "direction": "outbound",
+        "originationName": "Elephant & Castle Underground Station",
+        "destinationName": "Harrow & Wealdstone Underground Station",
+        "originator": "940GZZLUEAC",
+        "destination": "940GZZLUHAW",
+        "serviceType": "Regular",
+        "validTo": "2026-12-23T00:00:00Z",
+        "validFrom": "2026-09-19T00:00:00Z"
+      }
+    ],
+    "serviceTypes": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.LineServiceTypeInfo, Tfl.Api.Presentation.Entities",
+        "name": "Regular",
+        "uri": "/Line/Route?ids=Bakerloo&serviceTypes=Regular"
+      }
+    ],
+    "crowding": {
+      "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+    }
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.Line, Tfl.Api.Presentation.Entities",
+    "id": "dlr",
+    "name": "DLR",
+    "modeName": "dlr",
+    "disruptions": [],
+    "created": "2026-09-22T09:53:41.037Z",
+    "modified": "2026-09-22T09:53:41.037Z",
+    "lineStatuses": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.LineStatus, Tfl.Api.Presentation.Entities",
+        "id": 0,
+        "statusSeverity": 10,
+        "statusSeverityDescription": "Good Service",
+        "created": "0001-01-01T00:00:00",
+        "validityPeriods": []
+      }
+    ],
+    "routeSections": [],
+    "serviceTypes": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.LineServiceTypeInfo, Tfl.Api.Presentation.Entities",
+        "name": "Regular",
+        "uri": "/Line/Route?ids=DLR&serviceTypes=Regular"
+      }
+    ],
+    "crowding": {
+      "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+    }
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.Line, Tfl.Api.Presentation.Entities",
+    "id": "piccadilly",
+    "name": "Piccadilly",
+    "modeName": "tube",
+    "disruptions": [],
+    "created": "2026-09-22T09:53:41.037Z",
+    "modified": "2026-09-22T09:53:41.037Z",
+    "lineStatuses": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.LineStatus, Tfl.Api.Presentation.Entities",
+        "id": 0,
+        "lineId": "piccadilly",
+        "statusSeverity": 5,
+        "statusSeverityDescription": "Part Closure",
+        "reason": "PICCADILLY LINE: Wednesday 28, Thursday 29 and Friday 30 October, no service between Cockfosters and Uxbridge. Trains continue to operate between Acton Town and Heathrow, all terminals. Use the METROPOLITAN LINE between Rayners Lane and Uxbridge, and ELIZABETH LINE services between Central London and Heathrow. Replacement bus services operate.",
+        "created": "0001-01-01T00:00:00",
+        "validityPeriods": [
+          {
+            "$type": "Tfl.Api.Presentation.Entities.ValidityPeriod, Tfl.Api.Presentation.Entities",
+            "fromDate": "2026-10-28T04:30:00Z",
+            "toDate": "2026-10-31T01:29:00Z",
+            "isNow": false
+          }
+        ],
+        "disruption": {
+          "$type": "Tfl.Api.Presentation.Entities.Disruption, Tfl.Api.Presentation.Entities",
+          "category": "PlannedWork",
+          "categoryDescription": "PlannedWork",
+          "description": "PICCADILLY LINE: Wednesday 28, Thursday 29 and Friday 30 October, no service between Cockfosters and Uxbridge. Trains continue to operate between Acton Town and Heathrow, all terminals. Use the METROPOLITAN LINE between Rayners Lane and Uxbridge, and ELIZABETH LINE services between Central London and Heathrow. Replacement bus services operate.",
+          "additionalInfo": "Replacement bus services operate:Service PL4: Acton Town - Ealing Common - North Ealing - Hanger Lane (for Central line and Park Royal) - Alperton (Bridgewater Road) - Sudbury Town (Whitton Avenue East) - Sudbury Hill - South Harrow - Rayners Lane;Service PL5: Finchley Central (for Northern line) - Arnos Grove - Southgate - Oakwood - Cockfosters;Service PL6: Finsbury Park - Manor House - Turnpike Lane - Wood Green - Bounds Green - New Southgate (National Rail) - Arnos Grove;",
+          "created": "2026-09-29T14:55:00Z",
+          "affectedRoutes": [
+            {
+              "$type": "Tfl.Api.Presentation.Entities.DisruptedRoute, Tfl.Api.Presentation.Entities",
+              "id": "1829",
+              "name": "Cockfosters Underground Station - Uxbridge Underground Station",
+              "direction": "inbound",
+              "originationName": "Cockfosters Underground Station",
+              "destinationName": "Uxbridge Underground Station",
+              "isEntireRouteSection": true,
+              "routeSectionNaptanEntrySequence": [
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 0,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUCKS",
+                    "modes": [],
+                    "icsCode": "1000053",
+                    "stationNaptan": "940GZZLUCKS",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUCKS",
+                    "commonName": "Cockfosters Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                },
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 1,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUOAK",
+                    "modes": [],
+                    "icsCode": "1000168",
+                    "stationNaptan": "940GZZLUOAK",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUOAK",
+                    "commonName": "Oakwood Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                },
+                {
+                  "$type": "Tfl.Api.Presentation.Entities.RouteSectionNaptanEntrySequence, Tfl.Api.Presentation.Entities",
+                  "ordinal": 2,
+                  "stopPoint": {
+                    "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+                    "naptanId": "940GZZLUSGT",
+                    "modes": [],
+                    "icsCode": "1000210",
+                    "stationNaptan": "940GZZLUSGT",
+                    "lines": [],
+                    "lineGroup": [],
+                    "lineModeGroups": [],
+                    "status": true,
+                    "id": "940GZZLUSGT",
+                    "commonName": "Southgate Underground Station",
+                    "placeType": "StopPoint",
+                    "additionalProperties": [],
+                    "children": [],
+                    "lat": 0.0,
+                    "lon": 0.0
+                  }
+                }
+              ]
+            }
+          ],
+          "affectedStops": [
+            {
+              "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+              "naptanId": "940GZZLUACT",
+              "stationNaptan": "940GZZLUACT",
+              "status": true,
+              "id": "940GZZLUACT",
+              "commonName": "Acton Town Underground Station",
+              "lat": 0.0,
+              "lon": 0.0
+            },
+            {
+              "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+              "naptanId": "940GZZLUALP",
+              "stationNaptan": "940GZZLUALP",
+              "status": true,
+              "id": "940GZZLUALP",
+              "commonName": "Alperton Underground Station",
+              "lat": 0.0,
+              "lon": 0.0
+            },
+            {
+              "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+              "naptanId": "940GZZLUASG",
+              "stationNaptan": "940GZZLUASG",
+              "status": true,
+              "id": "940GZZLUASG",
+              "commonName": "Arnos Grove Underground Station",
+              "lat": 0.0,
+              "lon": 0.0
+            }
+          ]
+        }
+      }
+    ],
+    "routeSections": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.MatchedRoute, Tfl.Api.Presentation.Entities",
+        "name": "Cockfosters Underground Station - Uxbridge Underground Station",
+        "direction": "inbound",
+        "originationName": "Cockfosters Underground Station",
+        "destinationName": "Uxbridge Underground Station",
+        "originator": "940GZZLUCKS",
+        "destination": "940GZZLUUXB",
+        "serviceType": "Regular",
+        "validTo": "2026-12-23T00:00:00Z",
+        "validFrom": "2026-09-28T00:00:00Z"
+      },
+      {
+        "$type": "Tfl.Api.Presentation.Entities.MatchedRoute, Tfl.Api.Presentation.Entities",
+        "name": "Uxbridge Underground Station - Cockfosters Underground Station",
+        "direction": "outbound",
+        "originationName": "Uxbridge Underground Station",
+        "destinationName": "Cockfosters Underground Station",
+        "originator": "940GZZLUUXB",
+        "destination": "940GZZLUCKS",
+        "serviceType": "Regular",
+        "validTo": "2026-12-23T00:00:00Z",
+        "validFrom": "2026-09-28T00:00:00Z"
+      }
+    ],
+    "serviceTypes": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.LineServiceTypeInfo, Tfl.Api.Presentation.Entities",
+        "name": "Regular",
+        "uri": "/Line/Route?ids=Piccadilly&serviceTypes=Regular"
+      },
+      {
+        "$type": "Tfl.Api.Presentation.Entities.LineServiceTypeInfo, Tfl.Api.Presentation.Entities",
+        "name": "Night",
+        "uri": "/Line/Route?ids=Piccadilly&serviceTypes=Night"
+      }
+    ],
+    "crowding": {
+      "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+    }
+  }
+]

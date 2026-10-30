@@ -1,0 +1,77 @@
+# Weekly rebuild of the city databases from their sources (official feeds, OpenStreetMap, TfL).
+# Changes come back as a pull request to review; nothing is merged or released automatically.
+# Needs "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General).
+name: City data
+
+on:
+  schedule:
+    - cron: "17 3 * * 1" # Mondays 03:17 UTC
+  workflow_dispatch:
+    inputs:
+      cities:
+        description: "City ids to rebuild, space-separated (empty: all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install the pipeline
+        run: python -m pip install --quiet -r tools/requirements.txt
+      - name: Pipeline tests
+        run: cd tools && python -m unittest discover -s tests -q
+      - name: Rebuild
+        # One city failing (an Overpass timeout, say) keeps its old data; the others still update.
+        env:
+          CITIES: ${{ github.event.inputs.cities }}
+        run: |
+          python -X utf8 tools/build_data.py build --refresh $CITIES 2>&1 | tee build.log
+          python -X utf8 tools/build_data.py docs
+      - name: Check feed calendars
+        id: expiry
+        run: |
+          python -X utf8 - <<'EOF' | tee expiry.md
+          import datetime as dt, json
+          soon = dt.date.today() + dt.timedelta(days=45)
+          rows = []
+          for c in json.load(open("data/manifest.json", encoding="utf-8"))["cities"]:
+              until = c.get("valid_until")
+              if until and dt.datetime.strptime(str(until), "%Y%m%d").date() <= soon:
+                  rows.append(f"- **{c['name']}**: official timetable ends {until}")
+          if rows:
+              print("### Timetables ending within 45 days\n")
+              print("\n".join(rows))
+              print("\nThe operator's newer feed is needed; until then the app shows these times as possibly out of date.")
+          EOF
+          if [ -s expiry.md ]; then echo "::warning title=Timetables ending soon::$(tr '\n' ' ' < expiry.md)"; fi
+      - name: Summary
+        run: |
+          {
+            echo "Rebuilt by the weekly City data workflow."
+            echo
+            grep -E "^(==|  ok|  FAILED|  ERROR|Failed)" build.log | head -80 | sed 's/^/    /'
+            echo
+            cat expiry.md
+          } > pr-body.md
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: data/weekly-rebuild
+          delete-branch: true
+          commit-message: "City data: weekly rebuild"
+          title: "City data: weekly rebuild"
+          body-path: pr-body.md
+          add-paths: |
+            app/src/main/assets/cities/
+            data/manifest.json
+            DATA_SOURCES.md
+          labels: data

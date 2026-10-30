@@ -2,7 +2,9 @@ package io.github.arnavdugad.metropulse.core.data.user
 
 import io.github.arnavdugad.metropulse.core.domain.user.SavedJourney
 import io.github.arnavdugad.metropulse.core.domain.user.SavedStation
+import io.github.arnavdugad.metropulse.core.domain.user.TripRecord
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,11 +14,13 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(private val dao: UserDao) {
 
     fun favouriteStations(cityId: String): Flow<List<SavedStation>> =
-        dao.favouriteStations(cityId).map { list -> list.map { SavedStation(it.cityId, it.complexId, it.name) } }
+        dao.favouriteStations(cityId).map { list -> list.map { SavedStation(it.cityId, it.complexId, it.name, it.directionKey, it.directionLabel) } }
 
     suspend fun setFavouriteStation(station: SavedStation, favourite: Boolean) {
         if (favourite) {
-            dao.upsert(FavouriteStationEntity(station.cityId, station.complexId, station.name, System.currentTimeMillis()))
+            dao.upsert(
+                FavouriteStationEntity(station.cityId, station.complexId, station.name, System.currentTimeMillis(), station.directionKey, station.directionLabel),
+            )
         } else {
             dao.removeFavouriteStation(station.cityId, station.complexId)
         }
@@ -50,6 +54,40 @@ class UserRepository @Inject constructor(private val dao: UserDao) {
     }
 
     suspend fun clearRecent(cityId: String) = dao.clearRecent(cityId)
+
+    val trips: Flow<List<TripRecord>> = dao.trips().map { list ->
+        list.map {
+            TripRecord(
+                it.cityId, it.fromComplex, it.fromName, it.toComplex, it.toName, it.startedAt, it.endedAt, it.rideSecs, it.distanceM,
+                it.fareMinor, it.currency, it.lines.split(',').filter(String::isNotEmpty), it.arrived,
+            )
+        }
+    }
+
+    suspend fun recordTrip(t: TripRecord) = dao.insert(
+        TripEntity(
+            cityId = t.cityId, fromComplex = t.fromComplexId, toComplex = t.toComplexId, fromName = t.fromName, toName = t.toName,
+            startedAt = t.startedAt, endedAt = t.endedAt, rideSecs = t.rideSecs, distanceM = t.distanceM, fareMinor = t.fareMinor,
+            currency = t.currency, lines = t.lineIds.joinToString(","), arrived = t.arrived,
+        ),
+    )
+
+    suspend fun clearTrips() = dao.clearTrips()
+
+    /**
+     * How much the rider uses each station (complex id -> weight), for ranking search results:
+     * favourites count most, then favourite journeys, recent plans and finished trips.
+     */
+    fun stationUsage(cityId: String): Flow<Map<String, Int>> =
+        combine(favouriteStations(cityId), favouriteJourneys(cityId), recentJourneys(cityId), trips) { stations, journeys, recents, trips ->
+            buildMap<String, Int> {
+                fun add(id: String, n: Int) = put(id, (get(id) ?: 0) + n)
+                stations.forEach { add(it.complexId, 5) }
+                journeys.forEach { add(it.fromComplexId, 3); add(it.toComplexId, 3) }
+                recents.forEach { add(it.fromComplexId, it.useCount); add(it.toComplexId, it.useCount) }
+                trips.filter { it.cityId == cityId }.forEach { add(it.fromComplexId, 1); add(it.toComplexId, 1) }
+            }
+        }
 
     private companion object {
         const val RECENT_LIMIT = 20

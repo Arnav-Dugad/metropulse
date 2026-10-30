@@ -25,6 +25,9 @@ val Inter = FontFamily(inter(400), inter(500), inter(600), inter(700), inter(800
 /** Tabular figures keep countdown digits from jittering as they change. */
 private const val TABULAR = "tnum, cv11"
 
+/** Tabular figures for times and prices in lists, so columns of them line up. */
+fun TextStyle.tabular(): TextStyle = copy(fontFeatureSettings = "tnum")
+
 @Immutable
 data class MpTypography(
     /** Huge countdown numerals on the trip card. */

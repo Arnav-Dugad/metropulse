@@ -23,15 +23,21 @@ No account. No ads. No tracking. Your location never leaves your phone.
 ## Features
 
 - **3D network map** with viaducts, embankments, cuttings and tunnel portals, and trains moving
-  along them by the timetable (or by live predictions in London).
+  along them by the timetable (or live in London and New York, gliding between updates).
 - **Journey planner** that works offline: fastest and fewest-change options, a timeline of every
-  change and walk, and fares in each city's currency, including card discounts where published.
+  change and walk, and fares in each city's currency, including card discounts and London's and
+  Dubai's zonal peak/off-peak fares. Compare options side by side, plan step-free routes, share a
+  journey, and get a reminder when to leave.
 - **On-board mode**: follows your train by GPS (and by the timetable underground), shows your
   trip on the lock screen as a Live Update on Android 16, and rings a **wake alert** one or two
   stops before your destination, even with the screen off.
 - **Station details**: next trains per line and direction, first and last trains, exits and
   step-free access; **line strip maps** with trains moving along them.
-- **Live arrivals in London and New York** from TfL's and the MTA's feeds, fetched by your phone directly.
+- **Live arrivals and disruption alerts in London and New York** from TfL's and the MTA's feeds,
+  fetched by your phone directly, with platform numbers where TfL gives them.
+- **Real operator logos and line symbols** (London roundels, New York bullets and more), from
+  Wikimedia Commons.
+- **Trip history** and a weekday **commute reminder**, kept on your phone.
 - **Home-screen widgets** (next trains, your trip), launcher shortcuts and a **"Start my
   commute"** Quick Settings tile.
 - **Offline maps**: download a city's map for use without a connection.
@@ -140,5 +146,8 @@ London and the MTA in New York. Details in [PRIVACY.md](PRIVACY.md).
 - London live arrivals: Powered by TfL Open Data. Contains OS data © Crown copyright and database
   rights 2016 and Geomni UK Map data © and database rights 2019. MetroPulse is not endorsed by TfL.
 - [Inter](https://rsms.me/inter/) font (SIL Open Font License 1.1).
+- Operator logos and line symbols are trademarks of their owners, used only to identify their
+  services, from Wikimedia Commons; each file's author and licence is in
+  [licenses/LOGOS.md](licenses/LOGOS.md).
 
 MetroPulse is an independent project and is not affiliated with any metro operator.

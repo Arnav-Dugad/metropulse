@@ -3,7 +3,7 @@ package io.github.arnavdugad.metropulse.core.domain.transit
 import java.time.LocalDate
 
 /** One train leaving: seconds after the service day's midnight (may exceed 86 400) and where it ends. */
-data class Departure(val secs: Int, val headsign: String)
+data class Departure(val secs: Int, val headsign: String, val platform: String? = null)
 
 /**
  * Departures of one line in one direction from a station: the next few by the timetable, today's

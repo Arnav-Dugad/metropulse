@@ -1,0 +1,425 @@
+# London Underground + DLR zonal fares (TfL). Read 2026-10-30; fares in effect on that date.
+type: zonal
+currency: GBP
+# span: fare looked up by the lowest and highest zone the journey touches.
+rule: span
+media: contactless       # adult contactless / Oyster pay as you go
+peak:                    # TfL: "Monday to Friday (not on public holidays) between 06:30 and 09:30, and between 16:00 and 19:00"
+  - {days: mon_fri, from: "06:30", to: "09:30"}
+  - {days: mon_fri, from: "16:00", to: "19:00"}
+fares:
+  # Adult PAYG single fares from the TfL Unified API single-fare finder (StopPoint/{from}/FareTo/{to}),
+  # queried 2026-10-30 for one or two station pairs per span. Every row was valid from 2026-07-04T23:00Z.
+  # Each pair ran along one line and stayed inside the span. The "Default route" fare is used.
+  # The Tube and DLR give identical fares for the same span (checked 1-2, 1-3, 1-4, 2-2, 2-3, 3-3, 3-4).
+  - {zones: [1, 1], peak: 3.10, offpeak: 3.00}
+  - {zones: [1, 2], peak: 3.60, offpeak: 3.10}
+  - {zones: [1, 3], peak: 3.90, offpeak: 3.30}
+  - {zones: [1, 4], peak: 4.80, offpeak: 3.60}
+  - {zones: [1, 5], peak: 5.30, offpeak: 3.80}
+  - {zones: [1, 6], peak: 5.90, offpeak: 4.00}
+  - {zones: [1, 7], peak: 7.10, offpeak: 5.20}
+  - {zones: [1, 8], peak: 8.70, offpeak: 5.20}
+  - {zones: [1, 9], peak: 8.80, offpeak: 5.30}
+  - {zones: [2, 2], peak: 2.30, offpeak: 2.20}
+  - {zones: [2, 3], peak: 2.50, offpeak: 2.30}
+  - {zones: [2, 4], peak: 3.20, offpeak: 2.40}
+  - {zones: [2, 5], peak: 3.40, offpeak: 2.50}
+  - {zones: [2, 6], peak: 3.80, offpeak: 2.60}
+  - {zones: [2, 7], peak: 5.20, offpeak: 3.70}
+  - {zones: [2, 8], peak: 5.90, offpeak: 3.80}
+  - {zones: [2, 9], peak: 5.90, offpeak: 3.80}
+  - {zones: [3, 3], peak: 2.30, offpeak: 2.20}
+  - {zones: [3, 4], peak: 2.50, offpeak: 2.30}
+  - {zones: [3, 5], peak: 3.20, offpeak: 2.40}
+  - {zones: [3, 6], peak: 3.40, offpeak: 2.50}
+  - {zones: [3, 7], peak: 4.20, offpeak: 2.50}
+  - {zones: [3, 8], peak: 5.10, offpeak: 2.50}
+  - {zones: [3, 9], peak: 5.30, offpeak: 2.50}
+  - {zones: [4, 4], peak: 2.30, offpeak: 2.20}
+  - {zones: [4, 5], peak: 2.50, offpeak: 2.30}
+  - {zones: [4, 6], peak: 3.20, offpeak: 2.40}
+  - {zones: [4, 7], peak: 3.40, offpeak: 2.40}
+  - {zones: [4, 8], peak: 4.20, offpeak: 2.40}
+  - {zones: [4, 9], peak: 4.30, offpeak: 2.40}
+  - {zones: [5, 5], peak: 2.30, offpeak: 2.20}
+  - {zones: [5, 6], peak: 2.50, offpeak: 2.30}
+  - {zones: [5, 7], peak: 3.10, offpeak: 2.40}
+  - {zones: [5, 8], peak: 3.40, offpeak: 2.40}
+  - {zones: [5, 9], peak: 3.70, offpeak: 2.40}
+  - {zones: [6, 6], peak: 2.30, offpeak: 2.20}
+  - {zones: [6, 7], peak: 2.30, offpeak: 2.10}
+  - {zones: [6, 8], peak: 3.10, offpeak: 2.30}
+  - {zones: [6, 9], peak: 3.20, offpeak: 2.40}
+  - {zones: [7, 7], peak: 2.10, offpeak: 2.00}
+  - {zones: [7, 8], peak: 2.30, offpeak: 2.10}
+  - {zones: [7, 9], peak: 2.40, offpeak: 2.20}
+  - {zones: [8, 9], peak: 2.30, offpeak: 2.10}   # Chalfont & Latimer - Amersham
+  # [8, 8] cannot occur: Chalfont & Latimer is the only zone-8 station.
+  # [9, 9] (Amersham - Chesham) is unknown; see unknowns.
+cash_or_other_notes: >-
+  Cash single (paper ticket), adult, from the same TfL fare finder: GBP 7.00 for every sampled journey
+  within zones 1-6, and for zones 7-9 journeys that do not touch zones 1-2. Higher for zones 7-9 journeys
+  that do: 1-7 8.70, 1-8 9.90, 1-9 10.30, 2-8 and 2-9 8.60. Journeys among Chalfont & Latimer, Amersham
+  and Chesham cost 2.55.
+  TfL caps PAYG spending per day and per week (Monday-Sunday). The caps and Travelcards are frozen until
+  March 2027, per TfL's 2026-02-20 press release. Cap amounts were not collected and are not modelled.
+  Child, 16+, 18+, Railcard, Freedom Pass and other concessions are not modelled. Night Tube fares are
+  always off-peak.
+station_zones:
+  # Zone from the TfL Unified API (StopPoint/{naptanId} -> additionalProperties "Zone"), fetched 2026-10-30.
+  # The API writes boundary stations as "2/3" or "2+3"; both zones are listed here.
+  # OSM fare_zone tags (tools/cache/london/overpass-0f04a2d52b.json) agree for every station record where
+  # both sources have a zone, except Pudding Mill Lane: TfL gives 2/3, OSM gives 2. TfL is used.
+  # Only Woolwich Arsenal (DLR) has no Zone in the API, so its zone comes from OSM fare_zone (4).
+  "Abbey Road": [2, 3]
+  "Acton Town": [3]
+  "Aldgate": [1]
+  "Aldgate East": [1]
+  "All Saints": [2]
+  "Alperton": [4]
+  "Amersham": [9]
+  "Angel": [1]
+  "Archway": [2, 3]
+  "Arnos Grove": [4]
+  "Arsenal": [2]
+  "Baker Street": [1]
+  "Balham": [3]
+  "Bank": [1]
+  "Barbican": [1]
+  "Barking": [4]
+  "Barkingside": [4]
+  "Barons Court": [2]
+  "Battersea Power Station": [1]
+  "Bayswater": [1]
+  "Beckton": [3]
+  "Beckton Park": [3]
+  "Becontree": [5]
+  "Belsize Park": [2]
+  "Bermondsey": [2]
+  "Bethnal Green": [2]
+  "Blackfriars": [1]
+  "Blackhorse Road": [3]
+  "Blackwall": [2]
+  "Bond Street": [1]
+  "Borough": [1]
+  "Boston Manor": [4]
+  "Bounds Green": [3, 4]
+  "Bow Church": [2]
+  "Bow Road": [2]
+  "Brent Cross": [3]
+  "Brixton": [2]
+  "Bromley-by-Bow": [2, 3]
+  "Buckhurst Hill": [5]
+  "Burnt Oak": [4]
+  "Caledonian Road": [2]
+  "Camden Town": [2]
+  "Canada Water": [2]
+  "Canary Wharf": [2]
+  "Canning Town": [2, 3]
+  "Cannon Street": [1]
+  "Canons Park": [5]
+  "Chalfont & Latimer": [8]
+  "Chalk Farm": [2]
+  "Chancery Lane": [1]
+  "Charing Cross": [1]
+  "Chesham": [9]
+  "Chigwell": [4]
+  "Chiswick Park": [3]
+  "Chorleywood": [7]
+  "Clapham Common": [2]
+  "Clapham North": [2]
+  "Clapham South": [2, 3]
+  "Cockfosters": [5]
+  "Colindale": [4]
+  "Colliers Wood": [3]
+  "Covent Garden": [1]
+  "Crossharbour": [2]
+  "Croxley": [7]
+  "Custom House": [3]
+  "Cutty Sark for Maritime Greenwich": [2, 3]
+  "Cyprus": [3]
+  "Dagenham East": [5]
+  "Dagenham Heathway": [5]
+  "Debden": [6]
+  "Deptford Bridge": [2, 3]
+  "Devons Road": [2]
+  "Dollis Hill": [3]
+  "Ealing Broadway": [3]
+  "Ealing Common": [3]
+  "Earl's Court": [1, 2]
+  "East Acton": [2]
+  "East Finchley": [3]
+  "East Ham": [3, 4]
+  "East India": [2, 3]
+  "East Putney": [2, 3]
+  "Eastcote": [5]
+  "Edgware": [5]
+  "Edgware Road": [1]
+  "Elephant & Castle": [1, 2]
+  "Elm Park": [6]
+  "Elverson Road": [2, 3]
+  "Embankment": [1]
+  "Epping": [6]
+  "Euston": [1]
+  "Euston Square": [1]
+  "Fairlop": [4]
+  "Farringdon": [1]
+  "Finchley Central": [4]
+  "Finchley Road": [2]
+  "Finsbury Park": [2]
+  "Fulham Broadway": [2]
+  "Gallions Reach": [3]
+  "Gants Hill": [4]
+  "Gloucester Road": [1]
+  "Golders Green": [3]
+  "Goldhawk Road": [2]
+  "Goodge Street": [1]
+  "Grange Hill": [4]
+  "Great Portland Street": [1]
+  "Green Park": [1]
+  "Greenford": [4]
+  "Greenwich": [2, 3]
+  "Gunnersbury": [3]
+  "Hainault": [4]
+  "Hammersmith": [2]
+  "Hampstead": [2, 3]
+  "Hanger Lane": [3]
+  "Harlesden": [3]
+  "Harrow & Wealdstone": [5]
+  "Harrow-on-the-Hill": [5]
+  "Hatton Cross": [5, 6]
+  "Heathrow Terminal 4": [6]
+  "Heathrow Terminal 5": [6]
+  "Heathrow Terminals 2 & 3": [6]
+  "Hendon Central": [3, 4]
+  "Heron Quays": [2]
+  "High Barnet": [5]
+  "High Street Kensington": [1]
+  "Highbury & Islington": [2]
+  "Highgate": [3]
+  "Hillingdon": [6]
+  "Holborn": [1]
+  "Holland Park": [2]
+  "Holloway Road": [2]
+  "Hornchurch": [6]
+  "Hounslow Central": [4]
+  "Hounslow East": [4]
+  "Hounslow West": [5]
+  "Hyde Park Corner": [1]
+  "Ickenham": [6]
+  "Island Gardens": [2]
+  "Kennington": [1, 2]
+  "Kensal Green": [2]
+  "Kensington (Olympia)": [2]
+  "Kentish Town": [2]
+  "Kenton": [4]
+  "Kew Gardens": [3, 4]
+  "Kilburn": [2]
+  "Kilburn Park": [2]
+  "King George V": [3]
+  "King's Cross St Pancras": [1]
+  "Kingsbury": [4]
+  "Knightsbridge": [1]
+  "Ladbroke Grove": [2]
+  "Lambeth North": [1]
+  "Lancaster Gate": [1]
+  "Langdon Park": [2]
+  "Latimer Road": [2]
+  "Leicester Square": [1]
+  "Lewisham": [2, 3]
+  "Leyton": [3]
+  "Leytonstone": [3, 4]
+  "Limehouse": [2]
+  "Liverpool Street": [1]
+  "London Bridge": [1]
+  "London City Airport": [3]
+  "London Liverpool Street": [1]
+  "London Waterloo": [1]
+  "Loughton": [6]
+  "Maida Vale": [2]
+  "Manor House": [2, 3]
+  "Mansion House": [1]
+  "Marble Arch": [1]
+  "Marylebone": [1]
+  "Mile End": [2]
+  "Mill Hill East": [4]
+  "Monument": [1]
+  "Moor Park": [6, 7]
+  "Moorgate": [1]
+  "Morden": [4]
+  "Mornington Crescent": [2]
+  "Mudchute": [2]
+  "Neasden": [3]
+  "Newbury Park": [4]
+  "Nine Elms": [1]
+  "North Acton": [2, 3]
+  "North Ealing": [3]
+  "North Greenwich": [2, 3]
+  "North Harrow": [5]
+  "North Wembley": [4]
+  "Northfields": [3]
+  "Northolt": [5]
+  "Northwick Park": [4]
+  "Northwood": [6]
+  "Northwood Hills": [6]
+  "Notting Hill Gate": [1, 2]
+  "Oakwood": [5]
+  "Old Street": [1]
+  "Osterley": [4]
+  "Oval": [2]
+  "Oxford Circus": [1]
+  "Paddington": [1]
+  "Park Royal": [3]
+  "Parsons Green": [2]
+  "Perivale": [4]
+  "Piccadilly Circus": [1]
+  "Pimlico": [1]
+  "Pinner": [5]
+  "Plaistow": [3]
+  "Pontoon Dock": [3]
+  "Poplar": [2]
+  "Preston Road": [4]
+  "Prince Regent": [3]
+  "Pudding Mill Lane": [2, 3]
+  "Putney Bridge": [2]
+  "Queen's Park": [2]
+  "Queensbury": [4]
+  "Queensway": [1]
+  "Ravenscourt Park": [2]
+  "Rayners Lane": [5]
+  "Redbridge": [4]
+  "Regent's Park": [1]
+  "Richmond": [4]
+  "Rickmansworth": [7]
+  "Roding Valley": [4]
+  "Royal Albert": [3]
+  "Royal Oak": [2]
+  "Royal Victoria": [3]
+  "Ruislip": [6]
+  "Ruislip Gardens": [5]
+  "Ruislip Manor": [6]
+  "Russell Square": [1]
+  "Seven Sisters": [3]
+  "Shadwell": [2]
+  "Shepherd's Bush": [2]
+  "Shepherd's Bush Market": [2]
+  "Sloane Square": [1]
+  "Snaresbrook": [4]
+  "South Ealing": [3]
+  "South Harrow": [5]
+  "South Kensington": [1]
+  "South Kenton": [4]
+  "South Quay": [2]
+  "South Ruislip": [5]
+  "South Wimbledon": [3, 4]
+  "South Woodford": [4]
+  "Southfields": [3]
+  "Southgate": [4]
+  "Southwark": [1]
+  "St. James's Park": [1]
+  "St. John's Wood": [2]
+  "St. Paul's": [1]
+  "Stamford Brook": [2]
+  "Stanmore": [5]
+  "Star Lane": [2, 3]
+  "Stepney Green": [2]
+  "Stockwell": [2]
+  "Stonebridge Park": [3]
+  "Stratford": [2, 3]
+  "Stratford High Street": [2, 3]
+  "Stratford International": [2, 3]
+  "Sudbury Hill": [4]
+  "Sudbury Town": [4]
+  "Swiss Cottage": [2]
+  "Temple": [1]
+  "Theydon Bois": [6]
+  "Tooting Bec": [3]
+  "Tooting Broadway": [3]
+  "Tottenham Court Road": [1]
+  "Tottenham Hale": [3]
+  "Totteridge & Whetstone": [4]
+  "Tower Gateway": [1]
+  "Tower Hill": [1]
+  "Tufnell Park": [2]
+  "Turnham Green": [2, 3]
+  "Turnpike Lane": [3]
+  "Upminster": [6]
+  "Upminster Bridge": [6]
+  "Upney": [4]
+  "Upton Park": [3]
+  "Uxbridge": [6]
+  "Vauxhall": [1, 2]
+  "Victoria": [1]
+  "Walthamstow Central": [3]
+  "Wanstead": [4]
+  "Warren Street": [1]
+  "Warwick Avenue": [2]
+  "Waterloo": [1]
+  "Watford": [7]
+  "Wembley Central": [4]
+  "Wembley Park": [4]
+  "West Acton": [3]
+  "West Brompton": [2]
+  "West Finchley": [4]
+  "West Ham": [2, 3]
+  "West Hampstead": [2]
+  "West Harrow": [5]
+  "West India Quay": [2]
+  "West Kensington": [2]
+  "West Ruislip": [6]
+  "West Silvertown": [3]
+  "Westbourne Park": [2]
+  "Westferry": [2]
+  "Westminster": [1]
+  "White City": [2]
+  "Whitechapel": [2]
+  "Willesden Green": [2, 3]
+  "Willesden Junction": [2, 3]
+  "Wimbledon": [3]
+  "Wimbledon Park": [3]
+  "Wood Green": [3]
+  "Wood Lane": [2]
+  "Woodford": [4]
+  "Woodside Park": [4]
+  "Woolwich Arsenal": [4]  # TfL API has no zone for this DLR stop; zone from OSM fare_zone
+source_urls:
+  - https://api.tfl.gov.uk/StopPoint/{naptanId}                      # station zones (318 records)
+  - https://api.tfl.gov.uk/StopPoint/{fromNaptanId}/FareTo/{toNaptanId}   # single fares, e.g. 940GZZLUOXC/FareTo/940GZZLUWLO
+  - https://tfl.gov.uk/fares/find-fares/tube-and-rail-fares
+  - https://tfl-newsroom.prgloo.com/news/tfl-reminds-customers-of-changes-to-tube-and-rail-fares-from-1-march-while-bus-and-tram-fares-frozen-until-july-2026
+  - https://www.timeout.com/london/news/london-tube-fares-are-going-up-in-price-this-week-heres-how-much-more-you-will-pay-in-every-travel-zone-022326
+  - tools/cache/london/overpass-0f04a2d52b.json                       # OSM fare_zone cross-check (local cache)
+notes: >-
+  2026 fares: Tube and TfL rail fares changed on 1 March 2026 (TfL press release, 2026-02-20). The
+  zone 1 PAYG fare went from 2.90 to 3.10 peak and from 2.80 to 3.00 off-peak, and no zones 1-6 fare
+  rose more than 20p. The fare-finder values above match the March 2026 table in Time Out for
+  1-1 to 1-6 and for one to five zones outside zone 1 (2-2 to 2-6). The fare finder marks every row valid
+  from 2026-07-04T23:00Z, at the same March 2026 prices. Most spans were checked with two station pairs
+  that gave the same fare. Spans with zone 8 (other than 1-8) and 3-7 to 3-9 used a single pair.
+  Peak exceptions the model ignores: (1) a journey that starts outside zone 1 between 16:00 and 19:00
+  Mon-Fri and ends in zone 1 is charged off-peak. (2) Public holidays are off-peak. (3) Tube journeys to
+  or from Heathrow are charged the peak fare at all times if they start, end or pass through zone 1.
+  The fare finder confirms this: Heathrow Terminals 2 & 3 to Leicester Square is PAYG "Anytime" 5.90.
+  Heathrow journeys that avoid zone 1 have normal peak/off-peak fares, e.g. Heathrow T2&3 to
+  Hammersmith is 3.80/2.60. Engine suggestion: for a span touching zone 1 with a Heathrow terminal at
+  either end, use the peak fare at all times.
+  Where the span model can be wrong: TfL prices each origin-destination pair, and a few pairs differ from
+  their span. Example: King's Cross St Pancras (1) to Caledonian Road (2) is charged the zone 1 fare
+  (3.10/3.00), not 1-2 (3.60/3.10). Only about 90 pairs were sampled, so other exceptions may exist. For
+  journeys that neither start nor end in zone 1, the fare finder's default fare is usually the
+  "avoiding zone 1" fare. The API's default route for e.g. Finchley Road-Harrow-on-the-Hill is 2-5
+  (3.40/2.50), with "via zone 1" listed separately at 5.30/3.80. A span model that takes the zones of the
+  app's computed route will charge the zone 1 fare when that route dips into zone 1, even if TfL would
+  not. Hanger Lane to Chorleywood is an example: the fare finder's default route gives 7.10/5.20, but
+  "avoiding zones 1 and 2 via Ealing Broadway, Rayners Lane and Harrow-on-the-Hill" gives 4.20/2.50.
+  Boundary stations list both zones. TfL is generally understood to charge the cheaper zone, so the
+  engine should pick the zone at each end that gives the lowest fare. No TfL page stating this was read
+  in this pass; see unknowns.
+  DLR: no DLR-only fare differences were found; DLR fares equal Tube fares for the same span.
+unknowns:
+  - "zones [9, 9] / Amersham-Chesham and Chalfont & Latimer-Chesham: the TfL fare finder returns PAYG peak 0.00 / off-peak 0.60 (cash 2.55), which looks like a data error; not used"
+  - Heathrow Terminal 4 to Heathrow Terminals 2 & 3 (zone 6-6) has no PAYG fare in the fare finder (only cash 7.00); whether travel between Heathrow terminals is free on the Tube was not confirmed
+  - other origin-destination pairs whose fare differs from the span fare (like King's Cross St Pancras - Caledonian Road) were not enumerated
+  - daily/weekly cap amounts not collected
+  - boundary-station rule (charged as the cheaper zone) not confirmed from a TfL page

@@ -44,19 +44,7 @@ fun EmptyState(icon: ImageVector, title: String, body: String, modifier: Modifie
             },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Box(contentAlignment = Alignment.Center) {
-            // Concentric rings echo a station marker.
-            Box(Modifier.size(132.dp).background(colors.accent.copy(alpha = 0.06f), CircleShape))
-            Box(Modifier.size(96.dp).background(colors.accent.copy(alpha = 0.10f), CircleShape))
-            Box(
-                Modifier
-                    .size(64.dp)
-                    .background(Brush.linearGradient(colors.tripGradient), CircleShape),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(28.dp))
-            }
-        }
+        LoopEmblem(icon)
         Spacer(Modifier.size(24.dp))
         Text(title, style = MetroPulseTheme.type.headline, color = colors.textPrimary, textAlign = TextAlign.Center)
         Spacer(Modifier.size(8.dp))

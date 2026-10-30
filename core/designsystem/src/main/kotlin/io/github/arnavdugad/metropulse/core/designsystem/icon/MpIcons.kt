@@ -124,6 +124,47 @@ object MpIcons {
             .build()
     }
 
+    val Share by lazy {
+        icon(
+            "Share", "M8.6 10.7l6.8-3.9", "M8.6 13.3l6.8 3.9",
+            "M6.5 14.25a2.25 2.25 0 1 0 0-4.5a2.25 2.25 0 0 0 0 4.5Z",
+            "M17.5 8.25a2.25 2.25 0 1 0 0-4.5a2.25 2.25 0 0 0 0 4.5Z",
+            "M17.5 20.25a2.25 2.25 0 1 0 0-4.5a2.25 2.25 0 0 0 0 4.5Z",
+        )
+    }
+    val Lift by lazy { icon("Lift", "M6 3.75h12a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5H6a1.5 1.5 0 0 1-1.5-1.5V5.25A1.5 1.5 0 0 1 6 3.75Z", "M12 3.75v16.5", "M7.5 10l1.5-2l1.5 2", "M13.5 8l1.5 2l1.5-2") }
+    val Toilet by lazy {
+        icon(
+            "Toilet", "M7 6.5a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Z", "M17 6.5a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Z",
+            "M5.5 20.25v-6.5h-1v-4a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v4h-1v6.5", "M12 3.75v16.5",
+            "M15 20.25v-4h-1.5l1.5-6.5a1.5 1.5 0 0 1 1.5-1.25h1a1.5 1.5 0 0 1 1.5 1.25l1.5 6.5H19v4",
+        )
+    }
+    val Parking by lazy { icon("Parking", "M5.25 3.75h13.5a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V5.25a1.5 1.5 0 0 1 1.5-1.5Z", "M9.5 16.75v-9.5h3.25a2.75 2.75 0 0 1 0 5.5H9.5") }
+    val Atm by lazy { icon("Atm", "M3.75 6.75h16.5v10.5H3.75Z", "M12 14.25a2.25 2.25 0 1 0 0-4.5a2.25 2.25 0 0 0 0 4.5Z", "M6.75 9.75v4.5", "M17.25 9.75v4.5") }
+    val Bike by lazy {
+        icon(
+            "Bike", "M6 18.25a3.5 3.5 0 1 0 0-7a3.5 3.5 0 0 0 0 7Z", "M18 18.25a3.5 3.5 0 1 0 0-7a3.5 3.5 0 0 0 0 7Z",
+            "M6 14.75l3.5-6.5h6l2.5 6.5", "M9.5 8.25L12 14.75h-6", "M8.5 5.75h2.5", "M15.5 8.25l-1-2.5h2",
+        )
+    }
+    val Accessible by lazy {
+        icon(
+            "Accessible", "M11 5.25a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Z", "M11 7.5v6h5.25l2 5.25",
+            "M11 10.25h4.5", "M8.25 10.6a5 5 0 1 0 7.9 5.65",
+        )
+    }
+    val Alert by lazy { icon("Alert", "M10.3 4.4L3 17.25a2 2 0 0 0 1.7 3h14.6a2 2 0 0 0 1.7-3L13.7 4.4a2 2 0 0 0-3.4 0Z", "M12 9.5v4", "M12 16.75h0.01") }
+    val History by lazy { icon("History", "M3.75 12a8.25 8.25 0 1 0 2.4-5.85", "M3.75 3.75v4.5h4.5", "M12 7.75V12l3 2") }
+    val Compare by lazy { icon("Compare", "M4.75 5.75h4.5v12.5h-4.5Z", "M14.75 9.75h4.5v8.5h-4.5Z", "M4 20.25h16") }
+    val Live by lazy {
+        icon(
+            "Live", "M12 13.5a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Z",
+            "M8.5 8.5a5 5 0 0 0 0 7", "M15.5 8.5a5 5 0 0 1 0 7", "M5.6 5.6a9 9 0 0 0 0 12.8", "M18.4 5.6a9 9 0 0 1 0 12.8",
+        )
+    }
+    val BellPlus by lazy { icon("BellPlus", "M6 16.5V11a6 6 0 0 1 8.5-5.45", "M18 11v5.5l1.5 1.5h-15L6 16.5", "M10 20.25a2 2 0 0 0 4 0", "M18 2.75v5", "M15.5 5.25h5") }
+
     private fun icon(name: String, vararg paths: String): ImageVector =
         ImageVector.Builder(name = "MpIcons.$name", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f)
             .apply {

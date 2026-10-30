@@ -1,0 +1,117 @@
+# Dubai Metro zonal fares (RTA nol). Read 2026-10-30; fares in effect on that date.
+type: zonal
+currency: AED
+# count: fare looked up by how many fare zones the journey passes through.
+rule: count
+media: nol_silver        # Silver / Personal nol card, standard (Silver) class
+# No peak pricing on Dubai Metro: peak omitted.
+fares:
+  # zones = number of zones passed through. RTA bands: "within 1 zone", "2 adjacent zones",
+  # "more than 2 zones" (3 or more all cost the same).
+  - {zones: 1, fare: 3.00}
+  - {zones: 2, fare: 5.00}
+  - {zones: 3, fare: 7.50}
+  - {zones: 4, fare: 7.50}
+  - {zones: 5, fare: 7.50}
+  - {zones: 6, fare: 7.50}
+  - {zones: 7, fare: 7.50}
+cash_or_other_notes: >-
+  RTA nol fares page (read 2026-10-30), AED per single journey, within 1 zone / 2 adjacent zones /
+  more than 2 zones: Silver 3 / 5 / 7.5; Personal 3 / 5 / 7.5; Gold 6 / 10 / 15 (Gold class costs
+  double: "Gold class passengers are charged a Gold Surcharge on top of their regular fares when using
+  the tram and metro only"); nol Red ticket regular 4 / 6 / 8.5, Red ticket Gold 8 / 12 / 17. Each band
+  allows a journey of up to 180 minutes with up to 3 transfers, and a change between two modes must be
+  made within 30 minutes (one fare for the linked journey). Concessions (students, seniors, people of
+  determination) and passes are not modelled.
+station_zones:
+  # From the zone_id of each Metro station's stops in RTA's GTFS (stops.txt, zone_id 0001-0007),
+  # matched to the app's stations by name and position (all matches within 133 m, most within 50 m).
+  # Red Line
+  "Centrepoint": [5]
+  "Emirates": [5]
+  "Airport Terminal 3": [5]
+  "Airport Terminal 1": [5]
+  "Al Garhoud": [5]
+  "Deira City Centre": [5]
+  "Al Rigga": [5]
+  "Union": [5]
+  "BurJuman": [6]
+  "ADCB": [6]
+  "max": [6]
+  "World Trade Centre": [6]
+  "Emirates Towers": [6]
+  "Financial Centre": [6]
+  "Burj Khalifa / Dubai Mall": [6]
+  "Business Bay": [6]
+  "Garmin": [2]                 # named "ONPASSIVE Metro Station" in the GTFS (former name)
+  "Equiti": [2]
+  "Mall of the Emirates": [2]
+  "InsuranceMarket": [2]
+  "Dubai Internet City": [2]
+  "Al Fardan Exchange": [2]
+  "Sobha Realty": [2]
+  "DMCC": [2]
+  "National Paints": [2]
+  "Ibn Battuta": [2]
+  "Energy": [2]
+  "Danube": [1]
+  "Life Pharmacy": [1]
+  # Red Line, Expo branch (Jumeirah Golf Estates, zone 3 in the GTFS, is not in the app's network)
+  "The Gardens": [2]
+  "Discovery Gardens": [2]
+  "Al Furjan": [2]
+  "Dubai Investment Park": [1]
+  "Expo City Dubai": [1]
+  # Green Line
+  "e&": [5]
+  "Al Qusais": [5]
+  "Dubai Airport Free Zone": [5]
+  "Al Nahda": [5]
+  "Stadium": [5]
+  "Al Qiyadah": [5]
+  "Abu Hail": [5]
+  "Abu Baker Al Siddique": [5]
+  "Salah Al Din": [5]
+  "Baniyas Square": [5]
+  "Gold Souq": [5]
+  "Al Ras": [5]
+  "Al Ghubaiba": [6]
+  "Sharaf DG": [6]
+  "Oud Metha": [6]
+  "Dubai Healthcare City": [6]
+  "Al Jadaf": [6]
+  "Creek": [6]
+source_urls:
+  - https://rta.ae/wps/portal/rta/ae/public-transport/Nol-Fares?lang=en
+  - https://www.rta.ae/links/rail/rail-network-map.pdf
+  - https://mobilitydatabase.org/feeds/mdb-3359
+  - https://files.mobilitydatabase.org/mdb-3359/mdb-3359-202607201528/mdb-3359-202607201528.zip
+  - https://www.gitlab.com/Lach-anonym/dubai-gtfs/-/jobs/artifacts/main/raw/gtfs.zip?job=download-republish-gtfs
+  - https://gulfnews.com/living-in-uae/transport/how-to-maximise-your-dubai-public-transport-trip-know-the-rules-for-what-counts-as-a-single-trip-1.1717081849615
+  - https://gulfnews.com/uae/transport/rta-revises-public-transport-tariff-1.1408539
+  - https://gulfnews.com/uae/transport/fares-to-rise-with-new-mobility-zones-1.848169
+notes: >-
+  Fares: RTA's nol fares page (7 zones; 3 bands). Station zones: zone_id in stops.txt of RTA's own GTFS
+  (agency and feed_publisher "Road and Transport Authority (RTA)"), taken from the Mobility Database copy
+  downloaded 2026-07-20 of a community republication of the RTA open-data feed (service calendar
+  2025-08-29 to 2025-12-31). Dubai Pulse, RTA's open-data portal, refused connections from here, so the
+  feed could not be fetched first-hand. Corroboration: Gulf News (rezoning report, last updated
+  2018-09-15) says Zone 5 was split to create Zone 6 in Bur Dubai, which includes Khalid Bin Al Waleed
+  (now BurJuman), Karama (now ADCB), Jafiliya (now max), World Trade Centre, Emirates Towers, Financial
+  Centre, Burj Khalifa/Dubai Mall and Business Bay. It also says Green Line riders crossing the Creek
+  between Deira (5) and Bur Dubai (6) pay for two zones. This matches the GTFS. Both lines have the same zone at
+  the shared Union and BurJuman stations. Along the Red Line the zones run 5-6-2-1, and on the Expo branch
+  2-(3)-1. On the Green Line they run 5-6. The count rule matches RTA's bands when every zone change along
+  the line is between adjacent zones. For example, Union (5) to BurJuman (6) costs AED 5 and Centrepoint
+  to Life Pharmacy (zones 5, 6, 2, 1) costs AED 7.50.
+  Things the count model may get wrong: (1) a Gulf News report on the tariff revision says the minimum
+  (1-zone) fare also covers "a distance of up to 3 kilometres even between two adjacent zones" (the page
+  is marked last updated 2018). RTA's
+  current fares page does not mention this rule, so it is not modelled. (2) Al Furjan (2) to Dubai
+  Investment Park (1) passes the unopened Jumeirah Golf Estates station (zone 3). Counting only the
+  zones of served stations gives 2 zones (AED 5). If RTA counts zone 3 as crossed, the fare would be
+  AED 7.50; not confirmed.
+unknowns:
+  - whether the "up to 3 km between two adjacent zones = 1-zone fare" rule (older Gulf News tariff report) still applies
+  - whether a journey between zones 2 and 1 on the Expo branch counts zone 3 (Jumeirah Golf Estates area) as crossed
+  - station zones not confirmed against a current first-hand RTA zone list or map (the RTA network map PDF has a "Zone Number" legend, but its zone areas could not be read as text)

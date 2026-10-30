@@ -23,7 +23,7 @@ The full plan is in phases 1–9. English UI only for now; localization is defer
 - [x] Interchange platforms grouped by `station.complex_id`; duplicate OSM stations merged
 - [x] DATA_SOURCES.md generated, `data/manifest.json` with `timetable` coverage (full / partial / none)
 - [x] `BundledCitiesTest` checks every bundled database against the manifest (size, SHA-256, schema)
-- [ ] **You:** put the HMRL GTFS ZIP at `tools/input/hyderabad/hmrl_gtfs.zip`, then rebuild Hyderabad (see `tools/input/hyderabad/README.md`)
+- [x] Hyderabad: official HMRL GTFS via Open Data Telangana (OpenCity copy); fares from the city file (feed fares predate the 2025 cut)
 - [ ] Bengaluru: check whether the official BMRCL feed on the DULT portal is downloadable without login; prefer it if so
 - [ ] Delhi, Agra, Bhopal, Indore and Meerut have no published headways, so they show first and last trains only. Add headways if the operators publish them (never guess)
 - [ ] Saturday/Sunday headways are missing for several lines (shown as times unavailable)
@@ -82,7 +82,7 @@ The full plan is in phases 1–9. English UI only for now; localization is defer
 - [x] Planning never allows less than a 2 min change at a stop, even when a feed publishes less (Bengaluru's modelled feed says 60 s at Majestic)
 - [x] Verified on the API 36 emulator (Bengaluru; light and dark)
 - [ ] Departures per platform: feeds give one stop per station, so platforms are not known yet
-- [ ] Facilities beyond exits (lifts, toilets, parking) from OSM
+- [x] Facilities beyond exits (lifts, toilets, parking) from OSM
 - [ ] Shared-element transitions from map pins (the pin is drawn by MapLibre, not Compose)
 ## Phase 7: Widgets, shortcuts, QS tile, onboarding, settings, accessibility ✅
 - [x] Onboarding (4 pages): welcome, city, location (explained, optional), notifications and lock-screen alerts; shown once, skippable permissions, animated emblems that hold still with reduced motion
@@ -108,7 +108,7 @@ The full plan is in phases 1–9. English UI only for now; localization is defer
 - [x] The MTA and DMRC have given the maintainer permission to convert their feeds (2026-10-30)
 - [ ] Delhi: the OTD portal's DMRC download fails after its request form; once the files are in `tools/input/delhi/`, merge the 2023 feed with the newer OpenStreetMap sections (see that folder's README)
 - [ ] The MTA feed starts on 1 Nov 2026 and runs to 15 May 2027: rebuild New York (`build --refresh new-york`) before then
-- [ ] London, Dubai: zonal fares are not supported by the fare engine (shown as "fare not available")
+- [x] London, Dubai: zonal fares (peak/off-peak) from `tools/cities/fares/`
 - [ ] Dubai: no published off-peak/weekend headways; Doha and Riyadh publish none. Dubai's RTA GTFS (Dubai Pulse) needs a data request
 - [ ] Dubai: OSM's Expo-branch relations skip Jumeirah Golf Estates
 - [ ] London: the Woodford–Hainault shuttle takes a share of the Central line's Bank headway (central frequency ~11% low); weekend District Olympia shuttle under-represented; Kennington terminators counted as Battersea; "London Waterloo" for the Waterloo & City platform
@@ -144,3 +144,18 @@ The full plan is in phases 1–9. English UI only for now; localization is defer
 - Android asks for confirmation on every self-update of a sideloaded app on the API 36 emulator, even with `USER_ACTION_NOT_REQUIRED`. This is expected because the app is not the installer of record.
 - The debug APK is about 15.7 MB, mostly unshrunk dex (Compose); the city databases add about 1 MB. Review in Phase 8.
 - During Phase 2 research, one research agent read DMRC/NMRC/UPMRC pages through the Chrome browser extension. Nothing was submitted or signed into.
+
+## Logos, live alerts and polish (2026-10-30) ✅
+- [x] Operator logos and line symbols from Wikimedia Commons (licenses/LOGOS.md), credited in the app with a not-affiliated notice
+- [x] Live trains on the 3D map (London, New York) with glide smoothing; alerts from TfL and the MTA on map, lines, stations, journeys
+- [x] Live check in the planner, platform numbers, sharing, leave-by reminders, weekday commute reminder, commute suggestion
+- [x] Step-free routing (post-filter on OSM wheelchair tags), facilities from OSM, options comparison, trip history, usage-ranked search
+- [x] Widgets: responsive sizes, lock screen category, line symbols, per-direction favourites, mini line strip
+- [x] Weekly data rebuild Action (PR) with calendar-expiry check; freshness line in the city picker
+- [ ] Noida has no operator logo on Commons that is free to use; Dubai's RTA logo is a PNG (no SVG on Commons)
+- [ ] Best-carriage advice: no open data exists (TfL's station data covers ~55 platforms only)
+- [ ] Step-free data is OSM's: "limited" is treated as unknown, and many Indian stations are untagged
+- [ ] Platform numbers only where the operator's live feed has them (London); timetables have one stop per station
+- [ ] Map pin → station shared-element transition: the pin is drawn by MapLibre, so the sheet's expanding card stands in
+- [ ] Turn on "Allow GitHub Actions to create and approve pull requests" for the weekly data workflow
+

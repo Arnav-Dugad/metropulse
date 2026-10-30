@@ -7,6 +7,9 @@ import io.github.arnavdugad.metropulse.core.domain.fare.FareDay
 import io.github.arnavdugad.metropulse.core.domain.fare.FareDiscount
 import io.github.arnavdugad.metropulse.core.domain.fare.FareRule
 import io.github.arnavdugad.metropulse.core.domain.fare.PeakWindow
+import io.github.arnavdugad.metropulse.core.domain.fare.ZonalFares
+import io.github.arnavdugad.metropulse.core.domain.fare.ZoneFare
+import io.github.arnavdugad.metropulse.core.domain.fare.ZoneRule
 import io.github.arnavdugad.metropulse.core.domain.fare.SlabUnit
 import io.github.arnavdugad.metropulse.core.domain.fare.Timeframe
 import io.github.arnavdugad.metropulse.core.domain.geo.LatLon
@@ -29,6 +32,7 @@ import io.github.arnavdugad.metropulse.core.domain.transit.Trip
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonPrimitive
 import java.time.ZoneId
 
@@ -59,6 +63,8 @@ object CityNetworkLoader {
             currency = meta["currency"] ?: "INR",
             stationCodes = parseCodes(meta["station_codes"]),
             routeCodes = parseCodes(meta["route_codes"]),
+            stepFree = parseAccess(meta["station_access"]),
+            facilities = parseFacilities(meta["station_facilities"]),
             lines = dao.lines().map {
                 Line(it.id, it.name, it.longName, it.color, it.textColor, it.mode, it.operator, DataQuality.parse(it.quality), it.sortOrder)
             },
@@ -89,6 +95,7 @@ object CityNetworkLoader {
                     FareDiscount(it.media, Timeframe.parse(it.timeframe), FareDay.parse(it.dayType), it.lineId, it.percent, it.note)
                 },
                 peakWindows = dao.farePeakWindows().map { PeakWindow(it.days, it.startSecs, it.endSecs) },
+                zonal = parseZonal(meta["fare_zones"]),
             ),
             sources = dao.sources().map { DataSource(it.what, it.url, it.licence, it.attribution) },
         )
@@ -97,9 +104,37 @@ object CityNetworkLoader {
     private fun String.toIntArray(): IntArray =
         if (isEmpty()) IntArray(0) else split(',').map { it.trim().toInt() }.toIntArray()
 
+    /** meta.fare_zones: {"rule": "span", "zones": {station: [1, 2]}, "fares": [{lo, hi, peak, offpeak}], "peak": [{days, from, to}]} */
+    internal fun parseZonal(text: String?): ZonalFares? = runCatching {
+        if (text.isNullOrBlank()) return null
+        val o = Json.parseToJsonElement(text).jsonObject
+        ZonalFares(
+            rule = if (o["rule"]?.jsonPrimitive?.content == "count") ZoneRule.Count else ZoneRule.Span,
+            stationZones = o["zones"]!!.jsonObject.mapValues { (_, v) -> v.jsonArray.map { it.jsonPrimitive.int } },
+            fares = o["fares"]!!.jsonArray.map { f ->
+                val r = f.jsonObject
+                ZoneFare(r["lo"]!!.jsonPrimitive.int to r["hi"]!!.jsonPrimitive.int, r["peak"]!!.jsonPrimitive.int, r["offpeak"]!!.jsonPrimitive.int)
+            },
+            peak = o["peak"]?.jsonArray.orEmpty().map { w ->
+                val r = w.jsonObject
+                PeakWindow(r["days"]!!.jsonPrimitive.int, r["from"]!!.jsonPrimitive.int, r["to"]!!.jsonPrimitive.int)
+            },
+        )
+    }.getOrNull()
+
     /** meta.station_codes / route_codes: {"external id": "our id", ...} */
     internal fun parseCodes(text: String?): Map<String, String> = runCatching {
         Json.parseToJsonElement(text ?: return emptyMap()).jsonObject.mapValues { it.value.jsonPrimitive.content }
+    }.getOrDefault(emptyMap())
+
+    /** meta.station_access: {"station id": true, ...} from OpenStreetMap wheelchair tags. */
+    internal fun parseAccess(text: String?): Map<String, Boolean> = runCatching {
+        Json.parseToJsonElement(text ?: return emptyMap()).jsonObject.mapValues { it.value.jsonPrimitive.content.toBoolean() }
+    }.getOrDefault(emptyMap())
+
+    /** meta.station_facilities: {"station id": ["atm", "lift", ...], ...} */
+    internal fun parseFacilities(text: String?): Map<String, List<String>> = runCatching {
+        Json.parseToJsonElement(text ?: return emptyMap()).jsonObject.mapValues { (_, v) -> v.jsonArray.map { it.jsonPrimitive.content } }
     }.getOrDefault(emptyMap())
 
     /** meta.unknown_timetables: {"line-id": ["weekday", "saturday"], ...} */

@@ -8,7 +8,8 @@ import org.maplibre.geojson.Feature
 /**
  * A metro train as 3D parts: dark bogies, a band in the line's colour, a pale body and a narrower
  * roof, with tapered noses. Each car sits on the track height at its own middle, so a train climbs
- * a ramp car by car. In a tunnel a car is drawn as a low "ghost" so it reads as below ground.
+ * a ramp car by car. Approaching a tunnel portal the cars sink into the cutting, then carry on
+ * below ground as low translucent "ghosts".
  */
 internal object TrainModel {
     const val CARS = 4
@@ -16,6 +17,9 @@ internal object TrainModel {
     private const val GAP = 1.2
     private const val WIDTH = 3.2 // a little wider than real (2.9 m) so trains read at city zooms
     private const val GHOST_HEIGHT = 0.6
+    /** Distance before a portal over which a car sinks into the cutting. */
+    private const val SINK_M = 45.0
+    private const val SINK_MIN = 0.12
 
     private class Layer(val part: String, val widthScale: Double, val bottom: Double, val top: Double, val taper: Boolean)
 
@@ -49,14 +53,25 @@ internal object TrainModel {
             for (car in cars) {
                 if (inTunnel.getOrElse(car.index) { false }) continue
                 val ground = elevation?.top(car.centerAlongM)?.let { if (it > 0) it + Structure.BED_HEIGHT else 0.0 } ?: 0.0
+                val sink = elevation?.let { sinkFactor(it, car.centerAlongM) } ?: 1.0
                 above += NetworkMapData.polygon(car.ring).apply {
                     addStringProperty("part", layer.part)
                     addStringProperty("color", if (layer.part == "body") body else colour)
-                    addNumberProperty("base", ground + layer.bottom)
-                    addNumberProperty("top", ground + layer.top)
+                    addNumberProperty("base", ground + layer.bottom * sink)
+                    addNumberProperty("top", ground + layer.top * sink)
                 }
             }
         }
+    }
+
+    /** 1 in the open; falls towards [SINK_MIN] over the last [SINK_M] before a tunnel portal. */
+    private fun sinkFactor(elevation: ElevationProfile, alongM: Double): Double {
+        var factor = 1.0
+        for (portal in elevation.portals) {
+            val d = if (portal.tunnelAhead) portal.atM - alongM else alongM - portal.atM
+            if (d in 0.0..SINK_M) factor = minOf(factor, SINK_MIN + (1 - SINK_MIN) * d / SINK_M)
+        }
+        return factor
     }
 
     /** Mixes [rgb] towards white by [amount] (0..1). */

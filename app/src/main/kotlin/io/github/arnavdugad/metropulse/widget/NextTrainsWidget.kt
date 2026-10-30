@@ -21,6 +21,10 @@ import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
+import androidx.glance.appwidget.SizeMode
+import androidx.glance.LocalSize
+import androidx.compose.ui.unit.DpSize
+import io.github.arnavdugad.metropulse.ui.station.directionKey
 import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.action.actionStartActivity
@@ -66,6 +70,9 @@ class NextTrainsWidget : GlanceAppWidget() {
 
     override val stateDefinition: GlanceStateDefinition<*> = PreferencesGlanceStateDefinition
 
+    // One line of trains when small; more directions and more trains as it grows.
+    override val sizeMode: SizeMode = SizeMode.Responsive(setOf(SMALL, MEDIUM, LARGE))
+
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val deps = context.widgetDependencies()
         val city = deps.readyCity()
@@ -93,7 +100,12 @@ class NextTrainsWidget : GlanceAppWidget() {
         val clock = clockFormatter(context)
         val now = ZonedDateTime.now(network.timezone)
         val nowSecs = now.toLocalTime().toSecondOfDay()
-        val groups = Departures.at(network, station.complexId, now.toLocalDate(), nowSecs, count = 3)
+        val size = LocalSize.current
+        val compact = size.height < MEDIUM.height
+        val all = Departures.at(network, station.complexId, now.toLocalDate(), nowSecs, count = if (size.width >= LARGE.width) 4 else 3)
+        // A favourite saved for one direction shows only that direction.
+        val groups = all.filter { station.directionKey.isBlank() || it.directionKey() == station.directionKey }.ifEmpty { all }
+            .let { if (compact) it.take(1) else it }
         val next = groups.mapNotNull { g -> g.next.firstOrNull()?.secs }.minOrNull()
         LaunchedEffect(station.complexId, next) {
             val midnight = now.toLocalDate().atStartOfDay(network.timezone).toInstant().toEpochMilli()
@@ -109,13 +121,20 @@ class NextTrainsWidget : GlanceAppWidget() {
         Row(GlanceModifier.fillMaxWidth().clickable(cycle), verticalAlignment = Alignment.CenterVertically) {
             WidgetIcon(R.drawable.ic_widget_train)
             Spacer(GlanceModifier.width(8.dp))
-            WidgetText(network.complexName(station.complexId), size = 15.sp, bold = true, modifier = GlanceModifier.defaultWeight())
+            WidgetText(
+                network.complexName(station.complexId) + station.directionLabel.takeIf { it.isNotBlank() }?.let { " · $it" }.orEmpty(),
+                size = 15.sp, bold = true, modifier = GlanceModifier.defaultWeight(),
+            )
             if (favourites.size > 1) {
                 Spacer(GlanceModifier.width(6.dp))
                 WidgetIcon(R.drawable.ic_widget_swap, WidgetColors.textSecondary, 16.dp)
             }
         }
-        Spacer(GlanceModifier.height(8.dp))
+        Spacer(GlanceModifier.height(if (compact) 4.dp else 8.dp))
+        if (compact && groups.isNotEmpty()) {
+            Column(GlanceModifier.fillMaxWidth().clickable(open)) { GroupRow(groups.first(), clock) }
+            return
+        }
         if (groups.isEmpty()) {
             WidgetText(context.getString(R.string.station_no_departures), color = WidgetColors.textSecondary, maxLines = 2)
         } else {
@@ -142,7 +161,7 @@ class NextTrainsWidget : GlanceAppWidget() {
     private fun GroupRow(g: DepartureGroup, clock: (Int) -> String) {
         val context = LocalContext.current
         Row(GlanceModifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Dot(lineColour(g.line.color))
+            LineMark(g.line.id, g.line.color)
             Spacer(GlanceModifier.width(8.dp))
             WidgetText(context.getString(R.string.line_towards, g.headsign), color = WidgetColors.textSecondary, modifier = GlanceModifier.defaultWeight())
             Spacer(GlanceModifier.width(8.dp))
@@ -175,6 +194,9 @@ class NextTrainsWidget : GlanceAppWidget() {
 
     companion object {
         internal val STATION = stringPreferencesKey("station")
+        private val SMALL = DpSize(180.dp, 50.dp)
+        private val MEDIUM = DpSize(250.dp, 110.dp)
+        private val LARGE = DpSize(300.dp, 200.dp)
     }
 }
 

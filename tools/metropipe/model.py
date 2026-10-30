@@ -138,6 +138,13 @@ class CityData:
     # Identifiers that live data feeds use: TfL StopPoint id -> station id (from OSM NaPTAN codes),
     # GTFS route_id -> line id. The app matches realtime predictions with them.
     station_codes: dict[str, str] = field(default_factory=dict)
+    # From OpenStreetMap: station id -> step-free (wheelchair tags), and station id -> facilities nearby.
+    station_access: dict[str, bool] = field(default_factory=dict)
+    # Last day (yyyymmdd) an official feed's calendar covers; None for timetables built here.
+    valid_until: int | None = None
+    station_facilities: dict[str, list[str]] = field(default_factory=dict)
+    # Zonal fares (London, Dubai): rule, peak windows, table and station id -> zones; see tools/cities/fares/.
+    zonal: dict | None = None
     route_codes: dict[str, str] = field(default_factory=dict)
     # line id -> days ("weekday", "saturday", "sunday") whose timetable the operator has not published
     unknown_timetables: dict[str, list[str]] = field(default_factory=dict)

@@ -1,0 +1,115 @@
+[
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUBSC",
+    "fromDate": "2026-07-06T03:30:00Z",
+    "toDate": "2026-11-30T01:29:00Z",
+    "description": "BARONS COURT STATION: From Monday 6 July until November, westbound trains will not call at Barons Court. If travelling westbound from the station, please use eastbound District or Piccadilly line trains and change to westbound services at West Kensington (on the District line) or Earls Court (on the Piccadilly line) and change to westbound services. If travelling westbound to the station, please continue to Hammersmith and change for eastbound District or Piccadilly line trains.",
+    "commonName": "Barons Court Underground Station",
+    "type": "Part Closure",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUBSC",
+    "appearance": "PlannedWork",
+    "concernedLines": [
+      {
+        "$type": "Tfl.Api.Presentation.Entities.ConcernedLine, Tfl.Api.Presentation.Entities",
+        "id": "circle",
+        "direction": "inbound"
+      },
+      {
+        "$type": "Tfl.Api.Presentation.Entities.ConcernedLine, Tfl.Api.Presentation.Entities",
+        "id": "district",
+        "direction": "inbound"
+      },
+      {
+        "$type": "Tfl.Api.Presentation.Entities.ConcernedLine, Tfl.Api.Presentation.Entities",
+        "id": "piccadilly",
+        "direction": "inbound"
+      }
+    ]
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUSNB",
+    "fromDate": "2026-09-01T14:45:00Z",
+    "toDate": "2026-11-01T01:29:00Z",
+    "description": "SNARESBROOK STATION: Until further notice, the westbound platform entrance and exit is closed for repairs to a water leak. Please use the entrance and exits on the eastbound platform via the footbridge",
+    "commonName": "Snaresbrook Underground Station",
+    "type": "Interchange Message",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUSNB",
+    "appearance": "PlannedWork"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUKWG",
+    "fromDate": "2024-11-21T13:25:00Z",
+    "toDate": "2026-12-23T01:29:00Z",
+    "description": "KEW GARDENS STATION: Step-free platform interchange between platforms requires a 600m journey via street. Use the North End entrance for the westbound platform. Use the Station Approach entrance for the eastbound platform. To avoid the street level journey, please take a westbound train to Richmond and change to eastbound services there.",
+    "commonName": "Kew Gardens Underground Station",
+    "type": "Information",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUKWG",
+    "appearance": "Information"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUBTK",
+    "fromDate": "2026-10-26T04:30:00Z",
+    "toDate": "2026-11-09T01:29:00Z",
+    "description": "BURNT OAK STATION: From Monday 26 October to Sunday 8 November, the station is closed. Please use local London Buses services.",
+    "commonName": "Burnt Oak Underground Station",
+    "type": "Closure",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUBTK",
+    "appearance": "PlannedWork"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUBNK",
+    "fromDate": "2025-10-20T03:30:00Z",
+    "toDate": "2027-01-16T01:29:00Z",
+    "description": "BANK AND MONUMENT STATIONS: From Monday 20 October 2025 until early 2027. Replacement of escalators 4 and 5. These connect the Northern line platforms with the District and Circle line platforms. While this work takes place, the walking route between these platforms will be closed. Please allow a little longer for your journey and follow the signs, which will direct you via an alternative walking route. Depending on your journey, this route may be via street level. To pay the correct fare, just touch out as you exit and touch back in again, as you re-enter.",
+    "commonName": "Bank Underground Station",
+    "type": "Information",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUBNK",
+    "appearance": "PlannedWork"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUPCO",
+    "fromDate": "2026-10-08T00:02:00Z",
+    "toDate": "2026-12-01T01:29:00Z",
+    "description": "Pimlico: reduced escalator service - there is no down escalator in service from the ticket hall due to planned maintenance.",
+    "commonName": "Pimlico Underground Station",
+    "type": "Interchange Message",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUPCO",
+    "appearance": "RealTime"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUFPK",
+    "fromDate": "2026-10-30T00:07:00Z",
+    "toDate": "2026-10-31T01:29:00Z",
+    "description": "Finsbury Park: No Step Free Access - Step free access is not available to the northbound Piccadilly and Victoria lines due to planned lift maintenance. Call us on 0343 222 1234 if you need help planning your journey.\r\n",
+    "commonName": "Finsbury Park Underground Station",
+    "type": "Information",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUFPK",
+    "appearance": "RealTime"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUGDG",
+    "fromDate": "2026-10-30T02:42:00Z",
+    "toDate": "2026-10-31T01:29:00Z",
+    "description": "Goodge Street: Closed - This station is closed due to unavailability of station staff. Tickets are being accepted on London Buses.",
+    "commonName": "Goodge Street Underground Station",
+    "type": "Closure",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUGDG",
+    "appearance": "RealTime"
+  }
+]

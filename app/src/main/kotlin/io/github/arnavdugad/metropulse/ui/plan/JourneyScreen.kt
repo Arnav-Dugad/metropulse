@@ -1,5 +1,28 @@
 package io.github.arnavdugad.metropulse.ui.plan
 
+import android.content.Intent
+import io.github.arnavdugad.metropulse.ui.common.LineDot
+import androidx.compose.runtime.remember
+import android.widget.Toast
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import io.github.arnavdugad.metropulse.core.designsystem.component.SecondaryButton
+import io.github.arnavdugad.metropulse.core.domain.live.Alerts
+import io.github.arnavdugad.metropulse.core.domain.live.LiveJourney
+import io.github.arnavdugad.metropulse.core.domain.live.LiveRide
+import io.github.arnavdugad.metropulse.core.domain.routing.Journey
+import io.github.arnavdugad.metropulse.core.domain.transit.TransitNetwork
+import io.github.arnavdugad.metropulse.core.map.MapRoute
+import io.github.arnavdugad.metropulse.core.map.geometry.MapGeometry
+import io.github.arnavdugad.metropulse.reminders.Reminders
+import io.github.arnavdugad.metropulse.ui.common.AlertBanners
+import io.github.arnavdugad.metropulse.ui.common.LiveCredit
+import io.github.arnavdugad.metropulse.ui.common.LiveViewModel
+import io.github.arnavdugad.metropulse.ui.common.lineBrush
+import java.time.ZonedDateTime
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -75,6 +98,8 @@ fun JourneyScreen(
     onBack: () -> Unit,
     onStation: (complexId: String) -> Unit,
     onStarted: () -> Unit,
+    onShowOnMap: () -> Unit = {},
+    liveViewModel: LiveViewModel = hiltViewModel(),
 ) {
     val colors = MetroPulseTheme.colors
     val results by planViewModel.results.collectAsStateWithLifecycle()
@@ -95,8 +120,53 @@ fun JourneyScreen(
         }
         val favourite = favourites.any { it.fromComplexId == from && it.toComplexId == to }
         val journey = option.journey
+        val network = city.network
+        val context = LocalContext.current
+        val clock = rememberClockFormatter()
+        // Live check (London, New York): the trains the rider can actually catch on each ride.
+        val stops = remember(journey) {
+            journey.rides.flatMap { listOf(it.fromStationId, it.toStationId) }.mapNotNull { network.stationById[it]?.complexId }.toSet()
+        }
+        val live by remember(network, stops) { liveViewModel.stations(network, stops) }.collectAsStateWithLifecycle(null)
+        val alerts by remember(network) { liveViewModel.alerts(network) }.collectAsStateWithLifecycle(emptyList())
+        val liveRides = remember(live, journey) {
+            live?.let { snapshot ->
+                val now = ZonedDateTime.now(network.timezone)
+                LiveJourney.check(network, journey, snapshot, now.toLocalDate(), now.toLocalTime().toSecondOfDay())
+            }
+        }
+        var reminderMenu by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxSize()) {
             DetailTopBar(onBack) {
+                val firstDepart = liveRides?.firstOrNull()?.departSecs ?: journey.departSecs
+                if (firstDepart != null) Box {
+                    RoundIconButton(MpIcons.BellPlus, stringResource(R.string.journey_remind), { reminderMenu = true })
+                    DropdownMenu(expanded = reminderMenu, onDismissRequest = { reminderMenu = false }) {
+                        for (lead in listOf(5, 10, 15, 20)) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.journey_remind_before, lead)) },
+                                onClick = {
+                                    reminderMenu = false
+                                    val ride = journey.rides.first()
+                                    val line = network.lineById[ride.lineId]?.name.orEmpty()
+                                    val station = network.stationById[ride.fromStationId]?.name.orEmpty()
+                                    val midnight = journey.serviceDate.atStartOfDay(network.timezone).toInstant().toEpochMilli()
+                                    val at = midnight + (firstDepart - lead * 60) * 1000L
+                                    Reminders.schedule(
+                                        context, (from + to).hashCode(), at,
+                                        context.getString(R.string.reminder_leave_title, lead),
+                                        context.getString(R.string.reminder_leave_text, clock(firstDepart), line, station),
+                                    )
+                                    Toast.makeText(context, context.getString(R.string.journey_reminder_set, clock(firstDepart - lead * 60)), Toast.LENGTH_SHORT).show()
+                                },
+                            )
+                        }
+                    }
+                }
+                RoundIconButton(MpIcons.Share, stringResource(R.string.journey_share), {
+                    val text = shareText(context, network, journey, clock)
+                    context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text), null))
+                })
                 RoundIconButton(
                     if (favourite) MpIcons.StarFilled else MpIcons.Star,
                     stringResource(if (favourite) R.string.action_unsave else R.string.action_save),
@@ -108,6 +178,8 @@ fun JourneyScreen(
                 Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp),
             ) {
                 Summary(city, option, index, from, to)
+                AlertBanners(Alerts.forJourney(network, alerts, journey), Modifier.padding(top = 12.dp))
+                if (liveRides != null && liveRides.any { it != null }) LiveCheck(network, journey, liveRides, liveViewModel)
                 SectionTitle(stringResource(R.string.journey_route))
                 Timeline(city, journey.legs, onStation)
                 option.fare?.let { fare ->
@@ -115,12 +187,24 @@ fun JourneyScreen(
                     FareCard(fare, city.network.currency)
                 }
             }
-            Box(Modifier.navigationBarsPadding().padding(horizontal = 20.dp, vertical = 12.dp)) {
+            Row(
+                Modifier.navigationBarsPadding().padding(horizontal = 20.dp, vertical = 12.dp).height(IntrinsicSize.Min),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                SecondaryButton(
+                    stringResource(R.string.journey_show_map),
+                    onClick = {
+                        cityViewModel.showRoute(mapRoute(network, journey))
+                        onShowOnMap()
+                    },
+                    icon = MpIcons.Map,
+                    modifier = Modifier.fillMaxHeight(),
+                )
                 PrimaryButton(
                     stringResource(R.string.onboard_start),
                     onClick = { if (planViewModel.startOnBoard(from, to)) onStarted() },
                     icon = MpIcons.Train,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.weight(1f),
                 )
             }
         }
@@ -139,7 +223,7 @@ private fun Summary(city: LoadedCity, option: PlanOption, index: Int, from: Stri
             .sharedElement("journey-$index")
             .shadow(10.dp, MpShapes.card, ambientColor = colors.shadow, spotColor = colors.shadow)
             .clip(MpShapes.card)
-            .background(colors.tripBrush)
+            .background(lineBrush(journey.rides.mapNotNull { network.lineById[it.lineId] }, colors.tripBrush))
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
@@ -313,6 +397,7 @@ private fun FareCard(fare: FareQuote, currency: String) {
                 FareBasis.Table -> stringResource(R.string.journey_basis_table)
                 FareBasis.Distance -> stringResource(R.string.journey_basis_distance, "%.1f".format(c.measure ?: 0.0))
                 FareBasis.Stations -> pluralStringResource(R.plurals.journey_basis_stations, (c.measure ?: 0.0).toInt(), (c.measure ?: 0.0).toInt())
+                FareBasis.Zones -> stringResource(R.string.journey_basis_zones)
                 null -> null
             }
         }.distinct()
@@ -336,4 +421,80 @@ private fun mediaName(media: String): String = when (media) {
     "qr_ticket" -> stringResource(R.string.media_qr_ticket)
     "ncmc" -> stringResource(R.string.media_ncmc)
     else -> media
+}
+
+/** Each ride's next live train: when it leaves and arrives, and a warning when the plan's train is out of reach. */
+@Composable
+private fun LiveCheck(network: TransitNetwork, journey: Journey, rides: List<LiveRide?>, liveViewModel: LiveViewModel) {
+    val colors = MetroPulseTheme.colors
+    val clock = rememberClockFormatter()
+    SectionTitle(stringResource(R.string.journey_live))
+    Column(Modifier.fillMaxWidth().clip(MpShapes.card).background(colors.surface).padding(vertical = 6.dp)) {
+        journey.rides.forEachIndexed { i, ride ->
+            val lr = rides.getOrNull(i) ?: return@forEachIndexed
+            val line = network.lineById[ride.lineId] ?: return@forEachIndexed
+            val departs = lr.departSecs ?: return@forEachIndexed
+            Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                LineDot(line, 12.dp)
+                Spacer(Modifier.width(10.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(
+                        stringResource(R.string.journey_live_leaves, line.name, network.stationById[ride.fromStationId]?.name.orEmpty(), clock(departs)),
+                        style = MetroPulseTheme.type.bodyStrong,
+                        color = colors.textPrimary,
+                    )
+                    lr.arriveSecs?.let {
+                        Text(
+                            stringResource(R.string.journey_live_arrives, network.stationById[ride.toStationId]?.name.orEmpty(), clock(it)),
+                            style = MetroPulseTheme.type.caption,
+                            color = colors.textSecondary,
+                        )
+                    }
+                    if (lr.later) {
+                        val planned = ride.departSecs
+                        Text(
+                            if (i == 0 || planned == null) stringResource(R.string.journey_live_later)
+                            else stringResource(R.string.journey_live_missed, clock(planned)),
+                            style = MetroPulseTheme.type.caption,
+                            color = colors.danger,
+                        )
+                    }
+                }
+                TimeSourceChip(TimeSource.Live)
+            }
+        }
+    }
+    liveViewModel.provider(network)?.let { LiveCredit(it.credit) }
+}
+
+/** The journey as a route to draw on the map: each ride along its line, walks straight. */
+private fun mapRoute(network: TransitNetwork, journey: Journey): MapRoute = MapRoute(
+    journey.legs.mapNotNull { leg ->
+        when (leg) {
+            is Leg.Ride -> {
+                val pattern = network.patternById[leg.patternId] ?: return@mapNotNull null
+                val points = MapGeometry.slice(pattern.shape, pattern.stopDistM[leg.boardIndex], pattern.stopDistM[leg.alightIndex])
+                MapRoute.Segment(points, network.lineById[leg.lineId]?.color ?: 0x6C3BFF, walk = false)
+            }
+            is Leg.Walk -> {
+                val a = network.stationById[leg.fromStationId]?.location ?: return@mapNotNull null
+                val b = network.stationById[leg.toStationId]?.location ?: return@mapNotNull null
+                MapRoute.Segment(listOf(a, b), 0, walk = true)
+            }
+        }
+    },
+)
+
+/** "Whitefield → Majestic: Purple Line 9:02, arrive 9:31 (MetroPulse)". */
+private fun shareText(context: android.content.Context, network: TransitNetwork, journey: Journey, clock: (Int) -> String): String {
+    val first = journey.rides.first()
+    val last = journey.rides.last()
+    val from = network.stationById[first.fromStationId]?.name.orEmpty()
+    val to = network.stationById[last.toStationId]?.name.orEmpty()
+    val lines = journey.rides.mapNotNull { network.lineById[it.lineId]?.name }.distinct().joinToString(" → ")
+    return if (journey.departSecs != null && journey.arriveSecs != null) {
+        context.getString(R.string.journey_share_text_timed, from, to, lines, clock(journey.departSecs!!), clock(journey.arriveSecs!!))
+    } else {
+        context.getString(R.string.journey_share_text, from, to, lines)
+    }
 }

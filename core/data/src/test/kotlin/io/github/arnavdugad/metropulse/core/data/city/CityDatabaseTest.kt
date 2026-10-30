@@ -77,6 +77,15 @@ class CityDatabaseTest {
     }
 
     @Test
+    fun `london knows step-free stations and facilities from OpenStreetMap`() = runTest {
+        val network = load("london")
+        fun complex(name: String) = network.stations.first { it.name == name }.complexId
+        assertEquals(true, network.stepFree(complex("Westminster")))
+        assertEquals(false, network.stepFree(complex("Covent Garden")))
+        assertTrue("facilities", network.stations.any { network.facilities(it.complexId).isNotEmpty() })
+    }
+
+    @Test
     fun `bengaluru uses the official fare table and timed departures`() = runTest {
         val network = load("bengaluru")
         val majestic = network.complexes.keys.first { network.complexName(it).contains("Majestic", ignoreCase = true) }

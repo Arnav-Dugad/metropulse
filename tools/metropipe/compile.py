@@ -51,6 +51,7 @@ def write_database(city: CityData, out: Path, meta: dict[str, str]) -> None:
     try:
         for statement in schema_statements():
             db.execute(statement)
+        used = {s for p in city.patterns for s in p.station_ids}
         base_meta = {
             "schema_version": str(SCHEMA_VERSION),
             "city_id": city.id,
@@ -59,6 +60,9 @@ def write_database(city: CityData, out: Path, meta: dict[str, str]) -> None:
             "notes": "\n".join(city.notes),
             "unknown_timetables": json.dumps(city.unknown_timetables, sort_keys=True),
             "station_codes": json.dumps(city.station_codes, sort_keys=True),
+            "station_access": json.dumps({k: v for k, v in city.station_access.items() if k in used}, sort_keys=True),
+            "station_facilities": json.dumps({k: v for k, v in city.station_facilities.items() if k in used}, sort_keys=True),
+            "fare_zones": json.dumps(city.zonal, sort_keys=True) if city.zonal else "",
             "route_codes": json.dumps(city.route_codes, sort_keys=True),
         }
         _insert(db, "meta", ("key", "value"), sorted({**base_meta, **meta}.items()))
@@ -67,7 +71,6 @@ def write_database(city: CityData, out: Path, meta: dict[str, str]) -> None:
                  for l in city.lines.values()])
         _insert(db, "line_hours", ("line_id", "day_type", "first_secs", "last_secs"),
                 [(line, day, first, last) for (line, day), (first, last) in sorted(city.line_hours.items())])
-        used = {s for p in city.patterns for s in p.station_ids}
         _insert(db, "station", ("id", "name", "lat", "lon", "local_names", "osm_id", "complex_id"),
                 [(s.id, s.name, round(s.lat, 6), round(s.lon, 6), json.dumps(s.local_names, ensure_ascii=False, sort_keys=True),
                   s.osm_id, s.complex_id or s.id)

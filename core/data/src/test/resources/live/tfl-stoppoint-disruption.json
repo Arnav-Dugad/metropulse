@@ -1,0 +1,77 @@
+[
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUFPK",
+    "fromDate": "2026-10-26T03:30:00Z",
+    "toDate": "2026-11-09T01:29:00Z",
+    "description": "Finsbury Park: From Monday 26 October until Sunday 8 November, there will be no step-free access to/from the eastbound Piccadilly and northbound Victoria lines.",
+    "commonName": "Finsbury Park Underground Station",
+    "type": "Information",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUFPK",
+    "appearance": "PlannedWork",
+    "additionalInformation": "For step-free travel from Finsbury Park, travel westbound on the Piccadilly line or southbound on the Victoria line to Caledonian Road or King's Cross St Pancras. Then travel back on an eastbound Piccadilly line or northbound Victoria line train.For step-free exit at Finsbury Park, travel northbound on the Victoria line to Tottenham Hale,, then return on a southbound train."
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUFPK",
+    "fromDate": "2026-10-26T02:47:00Z",
+    "toDate": "2026-11-11T01:29:00Z",
+    "description": "Finsbury Park: No Step Free Access - Step free access is not available to the Piccadilly and Victoria lines due to planned maintenance work. Call us on 0343 222 1234 if you need help planning your journey.",
+    "commonName": "Finsbury Park Underground Station",
+    "type": "Interchange Message",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUFPK",
+    "appearance": "RealTime"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUFPK",
+    "fromDate": "2026-10-28T04:30:00Z",
+    "toDate": "2026-10-31T01:29:00Z",
+    "description": "PICCADILLY LINE: Wednesday 28, Thursday 29 and Friday 30 October, no service between Cockfosters and Uxbridge. Trains continue to operate between Acton Town and Heathrow, all terminals. Use the METROPOLITAN LINE between Rayners Lane and Uxbridge, and ELIZABETH LINE services between Central London and Heathrow. Replacement bus services operate.",
+    "commonName": "Finsbury Park Underground Station",
+    "type": "Part Closure",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUFPK",
+    "appearance": "PlannedWork",
+    "additionalInformation": "Replacement bus services operate:Service PL4: Acton Town - Ealing Common - North Ealing - Hanger Lane (for Central line and Park Royal) - Alperton (Bridgewater Road) - Sudbury Town (Whitton Avenue East) - Sudbury Hill - South Harrow - Rayners Lane;Service PL5: Finchley Central (for Northern line) - Arnos Grove - Southgate - Oakwood - Cockfosters;Service PL6: Finsbury Park - Manor House - Turnpike Lane - Wood Green - Bounds Green - New Southgate (National Rail) - Arnos Grove;"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUKSX",
+    "fromDate": "2026-10-28T04:30:00Z",
+    "toDate": "2026-10-31T01:29:00Z",
+    "description": "PICCADILLY LINE: Wednesday 28, Thursday 29 and Friday 30 October, no service between Cockfosters and Uxbridge. Trains continue to operate between Acton Town and Heathrow, all terminals. Use the METROPOLITAN LINE between Rayners Lane and Uxbridge, and ELIZABETH LINE services between Central London and Heathrow. Replacement bus services operate.",
+    "commonName": "King's Cross St. Pancras Underground Station",
+    "type": "Part Closure",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUKSX",
+    "appearance": "PlannedWork",
+    "additionalInformation": "Replacement bus services operate:Service PL4: Acton Town - Ealing Common - North Ealing - Hanger Lane (for Central line and Park Royal) - Alperton (Bridgewater Road) - Sudbury Town (Whitton Avenue East) - Sudbury Hill - South Harrow - Rayners Lane;Service PL5: Finchley Central (for Northern line) - Arnos Grove - Southgate - Oakwood - Cockfosters;Service PL6: Finsbury Park - Manor House - Turnpike Lane - Wood Green - Bounds Green - New Southgate (National Rail) - Arnos Grove;"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUFPK",
+    "fromDate": "2026-10-30T00:07:00Z",
+    "toDate": "2026-10-31T01:29:00Z",
+    "description": "Finsbury Park: No Step Free Access - Step free access is not available to the northbound Piccadilly and Victoria lines due to planned lift maintenance. Call us on 0343 222 1234 if you need help planning your journey.\r\n",
+    "commonName": "Finsbury Park Underground Station",
+    "type": "Information",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUFPK",
+    "appearance": "RealTime"
+  },
+  {
+    "$type": "Tfl.Api.Presentation.Entities.DisruptedPoint, Tfl.Api.Presentation.Entities",
+    "atcoCode": "940GZZLUGDG",
+    "fromDate": "2026-10-30T02:42:00Z",
+    "toDate": "2026-10-31T01:29:00Z",
+    "description": "Goodge Street: Closed - This station is closed due to unavailability of station staff. Tickets are being accepted on London Buses.",
+    "commonName": "Goodge Street Underground Station",
+    "type": "Closure",
+    "mode": "tube",
+    "stationAtcoCode": "940GZZLUGDG",
+    "appearance": "RealTime"
+  }
+]

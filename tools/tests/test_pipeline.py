@@ -15,7 +15,7 @@ from metropipe.compile import write_database  # noqa: E402
 from metropipe.geo import decode_polyline, encode_polyline, haversine_m, project  # noqa: E402
 from metropipe.gtfs import import_gtfs, parse_time  # noqa: E402
 from metropipe.model import CityData, Line, Pattern, Station  # noqa: E402
-from metropipe.osm import OsmIndex, StationResolver, _route_shape, display_name, group_complexes, track_kind  # noqa: E402
+from metropipe.osm import OsmIndex, StationResolver, _route_shape, build_facilities, display_name, group_complexes, track_kind  # noqa: E402
 from metropipe.timetable import build_line_timetable, run_profile  # noqa: E402
 from metropipe.validate import validate  # noqa: E402
 from build_data import curated_source  # noqa: E402
@@ -365,6 +365,31 @@ class SourceCreditTest(unittest.TestCase):
         self.assertEqual("News reports", curated_source("https://www.siasat.com/namma-metro-may-get-costlier-again-3512363/").attribution)
         self.assertEqual("Wikipedia", curated_source("https://en.wikipedia.org/wiki/Patna_Metro").attribution)
         self.assertIsNone(curated_source("https://overpass-api.de/api/interpreter"))
+
+
+class FacilitiesTest(unittest.TestCase):
+    def test_step_free_and_facilities(self):
+        city = CityData("t", "Test", "Asia/Kolkata")
+        for sid, name, lat in (("a", "Alpha", 12.90), ("b", "Bravo", 12.91), ("c", "Charlie", 12.92)):
+            city.stations[sid] = Station(sid, name, lat, 77.60)
+
+        def node(i, lat, **tags):
+            return {"type": "node", "id": i, "lat": lat, "lon": 77.60, "tags": tags}
+
+        data = {"elements": [
+            node(1, 12.9001, name="Alpha", railway="station", wheelchair="yes"),
+            # "limited" (often street to ticket hall only) says nothing either way.
+            node(2, 12.9101, name="Bravo", railway="station", wheelchair="limited"),
+            # A bus stop named after the station must not count.
+            node(3, 12.9102, name="Bravo Station", highway="bus_stop", bus="yes", public_transport="platform", wheelchair="yes"),
+            node(4, 12.9201, name="Charlie", railway="station", wheelchair="no"),
+            node(5, 12.9003, amenity="atm"),
+            node(6, 12.9004, highway="elevator"),
+            node(7, 12.9050, amenity="toilets"),  # ~550 m from either station: too far
+        ]}
+        build_facilities(data, city)
+        self.assertEqual({"a": True, "c": False}, city.station_access)
+        self.assertEqual({"a": ["atm", "lift"]}, city.station_facilities)
 
 
 if __name__ == "__main__":

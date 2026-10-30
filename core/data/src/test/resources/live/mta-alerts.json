@@ -1,0 +1,863 @@
+{
+  "header": {
+    "gtfs_realtime_version": "2.0",
+    "incrementality": "FULL_DATASET",
+    "timestamp": 1793343133,
+    "transit_realtime.mercury_feed_header": {
+      "mercury_version": "1.0"
+    }
+  },
+  "entity": [
+    {
+      "id": "lmm:alert:274089:26",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1793327891
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "F",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:F:26"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "[F] trains are running with delays in both directions while we perform track maintenance near W 4 St-Wash Sq.",
+              "language": "en"
+            },
+            {
+              "text": "<p>[F] trains are running with delays in both directions while we perform track maintenance near <strong>W 4 St-Wash Sq</strong>.</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "Planned Work Reminder:\nF is rerouted via Court Sq E between Roosevelt Av, Queens and Canal St, Manhattan, then via the A to to/from Jay St-MetroTech, Brooklyn\nOct 19 - 23 and Oct 26 - 30, Mon to Fri, 9:30 PM to 5:00 AM\nNo F service at 21 St-Queensbridge, Roosevelt Island, Lexington Av/63 St, 57 St, 47-50 Sts-Rockefeller Ctr, 42 St-Bryant Pk, 34 St-Herald Sq, 23 St, 14 St, Broadway-Lafayette St, 2 Av, Delancey St-Essex St, East Broadway and York St.",
+              "language": "en"
+            },
+            {
+              "text": "<p>Planned Work Reminder:<br><br>‌F‌<strong> is rerouted via Court Sq E between Roosevelt Av, Queens and Canal St, Manhattan, then via the </strong>‌A‌<strong> to to/from Jay St-MetroTech, Brooklyn</strong></p><ul><li><p><strong>Oct 19 - 23 and Oct 26 - 30, Mon to Fri, 9:30 PM to 5:00 AM</strong></p></li></ul><p>No ‌F‌ service at <strong>21 St-Queensbridge</strong>, <strong>Roosevelt Island</strong>, <strong>Lexington Av/63 St</strong>, <strong>57 St</strong>, <strong>47-50 Sts-Rockefeller Ctr</strong>, <strong>42 St-Bryant Pk</strong>, <strong>34 St-Herald Sq</strong>, <strong>23 St</strong>, <strong>14 St</strong>, <strong>Broadway-Lafayette St</strong>, <strong>2 Av</strong>, <strong>Delancey St-Essex St</strong>, <strong>East Broadway</strong> and <strong>York St</strong>.</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1793327891,
+          "updated_at": 1793327973,
+          "alert_type": "Delays",
+          "display_before_active": 0
+        }
+      }
+    },
+    {
+      "id": "lmm:planned_work:36103",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1794019500,
+            "end": 1794193200
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "4",
+            "stop_id": "413",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:4:16"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "4",
+            "stop_id": "412",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:4:16"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "4",
+            "stop_id": "411",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:4:16"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "4",
+            "stop_id": "410",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:4:16"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "4",
+            "stop_id": "409",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:4:16"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "In the Bronx, Woodlawn-bound [4] skips 170 St, Mt Eden Av and 176 St and runs every 16 minutes (days/evenings)",
+              "language": "en"
+            },
+            {
+              "text": "<p>In the Bronx, Woodlawn-bound [4] skips <strong>170 St</strong>, <strong>Mt Eden Av</strong> and <strong>176 St</strong> and runs every 16 minutes (days/evenings)</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "For service to these stations, take the [4] to Burnside Av and transfer to a Manhattan-bound train.\n\nFor service from these stations, take the [4] to 167 St and transfer to a Woodlawn-bound [4].\nAll trains board from the Manhattan-bound platform at Burnside Av during this time.\nTravel tip:\nFor service from 176 St, take the Bx32 bus days and evenings and transfer to the [4] at Burnside Av.\n\nNotes: The last stop for some Woodlawn-bound trains is 149 St-Hostos. Transfer at 149 St-Hostos [accessibility icon] to a Woodlawn-bound [4] to continue your trip.\nThrough December 2026, Woodlawn-bound [4] skips Burnside Av, except Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM.\n\nWhat's happening?\nWe're replacing tracks\n\n[accessibility icon] This service change affects one or more ADA accessible stations and these travel alternatives may not be fully accessible. Please contact 511 to plan your trip.",
+              "language": "en"
+            },
+            {
+              "text": "<p>For service to these stations, take the [4] to <strong>Burnside Av</strong> and transfer to a Manhattan-bound train.</p><p style=\"min-height:10px\"></p><p>For service from these stations, take the [4] to <strong>167 St</strong> and transfer to a Woodlawn-bound [4].</p><ul><li><p>All trains board from the Manhattan-bound platform at <strong>Burnside Av</strong> during this time.</p></li></ul><p><strong>Travel tip:</strong></p><p>For service from <strong>176 St</strong>, take the<a title=\"\" href=\"https://bustime.mta.info/#102130%20Bx32\" rel=\"noopener noreferrer nofollow\" target=\"_blank\"> <strong>Bx32</strong></a> bus days and evenings and transfer to the [4] at <strong>Burnside Av</strong>.</p><p style=\"min-height:10px\"></p><p><strong>Notes: </strong>The last stop for some Woodlawn-bound trains is <strong>149 St-Hostos</strong>. Transfer at <strong>149 St-Hostos</strong> [accessibility icon] to a Woodlawn-bound [4] to continue your trip.</p><p>Through December 2026, Woodlawn-bound [4] skips <strong>Burnside Av</strong>, except Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM.</p><p style=\"min-height:10px\"></p><p><strong>What's happening?</strong></p><p>We're replacing tracks</p><p style=\"min-height:10px\"></p><p>[accessibility icon] This service change affects one or more ADA accessible stations and these travel alternatives may not be fully accessible. Please contact 511 to plan your trip.</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1793114307,
+          "updated_at": 1793114516,
+          "alert_type": "Planned - Stops Skipped",
+          "display_before_active": 3600,
+          "human_readable_active_period": {
+            "translation": [
+              {
+                "text": "Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM",
+                "language": "en"
+              }
+            ]
+          },
+          "affected_stations": [
+            {
+              "agency_id": "MTASBWY",
+              "route_id": "4",
+              "stop_id": "416",
+              "direction_id": 0,
+              "transit_realtime.mercury_entity_selector": {
+                "sort_order": "MTASBWY:4:16"
+              }
+            },
+            {
+              "agency_id": "MTASBWY",
+              "route_id": "4",
+              "stop_id": "415",
+              "direction_id": 0,
+              "transit_realtime.mercury_entity_selector": {
+                "sort_order": "MTASBWY:4:16"
+              }
+            },
+            {
+              "agency_id": "MTASBWY",
+              "route_id": "4",
+              "stop_id": "414",
+              "direction_id": 0,
+              "transit_realtime.mercury_entity_selector": {
+                "sort_order": "MTASBWY:4:16"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lmm:planned_work:35999",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1795855500,
+            "end": 1796007600
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "M",
+            "stop_id": "M06",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:M:21"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "M",
+            "stop_id": "M05",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:M:21"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "M",
+            "stop_id": "M04",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:M:21"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "M",
+            "stop_id": "M01",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:M:21"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "M",
+            "stop_id": "M10",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:M:21"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "M",
+            "stop_id": "M09",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:M:21"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "[M] is suspended - Take the [J] and free shuttle buses instead",
+              "language": "en"
+            },
+            {
+              "text": "<p>[M] is suspended - Take the [J] and free shuttle buses instead</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "[shuttle bus icon] Free M90 shuttle buses make stops between Middle Village-Metropolitan Av and Myrtle Av (Broadway).\n\n[J] provides service between Myrtle Av (Broadway) and Delancey St-Essex St.\n\nFor direct service to/from Manhattan, take the [L] via transfer at Myrtle-Wyckoff Avs [accessibility icon].\nTransfer between trains and [shuttle bus icon] buses at Myrtle-Wyckoff Avs [accessibility icon] or Myrtle Av (Broadway).\nWhen exiting Myrtle-Wyckoff Avs or Myrtle Av (Broadway), get a GO ticket for re-entry into the subway.\n\nWhat's happening?\nStructural maintenance\n\n[accessibility icon] This service change affects one or more ADA accessible stations and these travel alternatives may not be fully accessible. Please contact 511 to plan your trip.",
+              "language": "en"
+            },
+            {
+              "text": "<p>[shuttle bus icon]Free <a title=\"\" href=\"https://bt.mta.info/?search=M90&amp;uuid=98886b97-331c-4dda-a77b-9db1fe4d140f\" rel=\"noopener noreferrer nofollow\" data-link-auto=\"\" target=\"_blank\"><strong>M90</strong></a> shuttle buses make stops between <strong>Middle Village-Metropolitan Av</strong> and <strong>Myrtle Av</strong> <strong>(Broadway</strong>).</p><p style=\"min-height:10px\"></p><p>[J] provides service between <strong>Myrtle Av</strong> <strong>(Broadway)</strong> and <strong>Delancey St-Essex St</strong>.</p><p style=\"min-height:10px\"></p><p>For direct service to/from Manhattan, take the [L] via transfer at <strong>Myrtle-Wyckoff Avs</strong> [accessibility icon].</p><ul><li><p>Transfer between trains and [shuttle bus icon]buses at <strong>Myrtle-Wyckoff Avs</strong> [accessibility icon] or <strong>Myrtle Av</strong> <strong>(Broadway)</strong>.</p></li></ul><p>When exiting <strong>Myrtle-Wyckoff Avs</strong> or <strong>Myrtle Av</strong> <strong>(Broadway)</strong>, get a GO ticket for re-entry into the subway.</p><p style=\"min-height:10px\"></p><p><strong>What's happening?</strong></p><p>Structural maintenance</p><p style=\"min-height:10px\"></p><p>[accessibility icon] This service change affects one or more ADA accessible stations and these travel alternatives may not be fully accessible. Please contact 511 to plan your trip.</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1792756709,
+          "updated_at": 1793196139,
+          "alert_type": "Planned - Suspended",
+          "station_alternative": [
+            {
+              "affected_entity": {
+                "agency_id": "MTASBWY",
+                "stop_id": "M01"
+              },
+              "notes": {
+                "translation": [
+                  {
+                    "text": "[shuttle bus icon] Metropolitan Av at station entrance",
+                    "language": "en"
+                  },
+                  {
+                    "text": "<p>[shuttle bus icon]Metropolitan Av at station entrance</p>",
+                    "language": "en-html"
+                  }
+                ]
+              }
+            },
+            {
+              "affected_entity": {
+                "agency_id": "MTASBWY",
+                "stop_id": "M04"
+              },
+              "notes": {
+                "translation": [
+                  {
+                    "text": "[shuttle bus icon] Fresh Pond Rd at Putnam Av",
+                    "language": "en"
+                  },
+                  {
+                    "text": "<p>[shuttle bus icon]Fresh Pond Rd at Putnam Av</p>",
+                    "language": "en-html"
+                  }
+                ]
+              }
+            },
+            {
+              "affected_entity": {
+                "agency_id": "MTASBWY",
+                "stop_id": "M05"
+              },
+              "notes": {
+                "translation": [
+                  {
+                    "text": "[shuttle bus icon] Fairview Av at Forest Av (to Metropolitan Av)\n[shuttle bus icon] Putnam Av at Forest Av (to Myrtle Av)",
+                    "language": "en"
+                  },
+                  {
+                    "text": "<p>[shuttle bus icon]Fairview Av at Forest Av (to Metropolitan Av)</p><p>[shuttle bus icon]Putnam Av at Forest Av (to Myrtle Av)</p><p></p>",
+                    "language": "en-html"
+                  }
+                ]
+              }
+            }
+          ],
+          "display_before_active": 3600,
+          "human_readable_active_period": {
+            "translation": [
+              {
+                "text": "Nov 28 - 29, Sat 3:45 AM to Sun 10:00 PM",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "lmm:planned_work:35691",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1793476800,
+            "end": 1793502000
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "A",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:A:3"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "C",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:C:3"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "D",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:D:3"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "E",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:E:3"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "F",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:F:3"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "L",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:L:3"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "Some stairways at [A][C][E], [D][F] and [L] stations on 6 Av will be exit or entrance-only and subject to intermittent closures to prevent platform crowding",
+              "language": "en"
+            },
+            {
+              "text": "<p>Some stairways at [A][C][E], [D][F] and [L] stations on 6 Av will be exit or entrance-only and subject to intermittent closures to prevent platform crowding</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "Expect crowding at these stations and please follow the directions of NYPD and MTA personnel.\n14 St/6 Av [L][F]\nW 4 St-Wash Sq [A][C][E][D][F]\nSpring St [A][E] (no downtown service from 5 PM to 10 PM)\n\nConsider using nearby [1][2][3] [R] stations or [A][C][E] stations at 14 St (8 Av) or Canal St.\n\nWhat's happening?\nNYC's 53rd Annual Village Halloween Parade",
+              "language": "en"
+            },
+            {
+              "text": "<p>Expect crowding at these stations and please follow the directions of NYPD and MTA personnel.</p><p><strong>14 St</strong>/<strong>6 Av</strong> [L][F]</p><p><strong>W 4 St-Wash Sq</strong><strong> </strong>[A][C][E][D][F]</p><p><strong>Spring St</strong> [A][E] (no downtown service from 5 PM to 10 PM)</p><p style=\"min-height:10px\"></p><p>Consider using nearby [1][2][3] [R] stations or [A][C][E] stations at <strong>14 St</strong> (8 Av) or <strong>Canal St</strong>.</p><p style=\"min-height:10px\"></p><p><strong>What's happening?</strong></p><p><a title=\"\" href=\"https://halloween-nyc.com/\" rel=\"noopener noreferrer nofollow\" data-link-auto=\"\" target=\"_blank\">NYC's 53rd Annual Village Halloween Parade</a></p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1791997694,
+          "updated_at": 1792003305,
+          "alert_type": "Station Notice",
+          "display_before_active": 3600,
+          "human_readable_active_period": {
+            "translation": [
+              {
+                "text": "Oct 31, Saturday, beginning at 4 PM",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "lmm:planned_work:36064",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1794042000,
+            "end": 1794193200
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "M",
+            "stop_id": "M08",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:M:10"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "In Brooklyn, there will be platform changes for all [M] departures at Myrtle-Wyckoff Avs",
+              "language": "en"
+            },
+            {
+              "text": "<p>In Brooklyn, there will be platform changes for all [M] departures at <strong>Myrtle-Wyckoff Avs</strong></p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "All Metropolitan Av-bound [M] trains at Myrtle-Wyckoff Avs will board/exit on the Metropolitan Av-bound platform.\nAll Myrtle Av-bound [M] trains at Myrtle-Wyckoff Avs will board/exit on the Manhattan-bound platform.\n\nPlease listen carefully to announcements and check the destination displayed on the train before boarding.\n\nNote: No [M] between Myrtle Av (Broadway) and Delancey St-Essex St during this time.\n\nWhat's happening?\nWe're replacing tracks",
+              "language": "en"
+            },
+            {
+              "text": "<p>All Metropolitan Av-bound [M] trains at <strong>Myrtle-Wyckoff Avs</strong> will board/exit on the Metropolitan Av-bound platform.</p><p>All Myrtle Av-bound [M] trains at <strong>Myrtle-Wyckoff Avs</strong> will board/exit on the Manhattan-bound platform.</p><p style=\"min-height:10px\"></p><p>Please listen carefully to announcements and check the destination displayed on the train before boarding.</p><p style=\"min-height:10px\"></p><p><strong>Note:</strong> No [M] between <strong>Myrtle Av</strong> (Broadway) and <strong>Delancey St-Essex St</strong> during this time.</p><p style=\"min-height:10px\"></p><p><strong>What's happening?</strong></p><p>We're replacing tracks</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1793016038,
+          "updated_at": 1793016038,
+          "alert_type": "Boarding Change",
+          "display_before_active": 3600,
+          "human_readable_active_period": {
+            "translation": [
+              {
+                "text": "Nov 7 - 8, Sat 4:00 AM to Sun 10:00 PM",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "lmm:planned_work:36008",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1795862700,
+            "end": 1795923900
+          },
+          {
+            "start": 1795964400,
+            "end": 1796010300
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "5",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:5:13"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "[5] runs every 20 minutes",
+              "language": "en"
+            },
+            {
+              "text": "<p>[5] runs every 20 minutes</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "[5] service operates on a modified schedule because [4][5] and [6] trains are sharing a track in Manhattan.\n\nWhat's happening?\nWe're replacing tracks",
+              "language": "en"
+            },
+            {
+              "text": "<p>[5] service operates on a modified schedule because [4][5] and [6] trains are sharing a track in Manhattan.</p><p></p><p><strong>What's happening?</strong></p><p>We're replacing tracks</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1792760803,
+          "updated_at": 1793107194,
+          "alert_type": "Reduced Service",
+          "display_before_active": 3600,
+          "human_readable_active_period": {
+            "translation": [
+              {
+                "text": "Nov 28 - 29, Sat and Sun, days and evenings",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "lmm:planned_work:36134",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1795862700,
+            "end": 1795924800
+          },
+          {
+            "start": 1795954500,
+            "end": 1796011200
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "C",
+            "stop_id": "A24",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:C:18"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "C",
+            "stop_id": "A25",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:C:18"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "C",
+            "stop_id": "A27",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:C:18"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "C",
+            "stop_id": "A28",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:C:18"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "C",
+            "stop_id": "A30",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:C:18"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "C",
+            "stop_id": "A31",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:C:18"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "In Brooklyn and Manhattan, [C] service is rerouted via [D] and [F] in both directions between Jay St-MetroTech and 59 St-Columbus Circle",
+              "language": "en"
+            },
+            {
+              "text": "<p>In Brooklyn and Manhattan, [C] service is rerouted via [D] and [F] in both directions between <strong>Jay St-MetroTech</strong> and <strong>59 St-Columbus Circle</strong></p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "168 St-bound [C] runs via the [F] from Jay St-MetroTech to 34 St-Herald Sq and via the [D] to 59 St-Columbus Circle. \nEuclid Av-bound [C] runs via the [D] from 59 St-Columbus Circle to 34 St-Herald Sq and via the [F] to Jay St-MetroTech.\n\nTravel alternatives:\nFor High St, use the nearby York St [F] station instead.\n\nFor Fulton St, take the [J] via transfer at the Delancey St-Essex St [F] station. Or, use the nearby World Trade Center [accessibility icon] | [E] station via transfer at W 4 St-Wash Sq.\n\nFor Chambers St/World Trade Center, Canal St and Spring St, take the [E] or a downtown [A].\n\nFor 14 St, 23 St, 34 St-Penn Station, 42 St-Port Authority, and 50 St take the [A] or [E] instead.\n\nTransfer stations:\nJay St-MetroTech [accessibility icon] | [A][C]\nW 4 St-Wash Sq [accessibility icon] | [A][C][E]\n7 Av [C][E]\n59 St-Columbus Circle [accessibility icon] | [A][C][1]\nNotes: Inwood-bound [A] runs via the [F] from Jay St-MetroTech to W 4 St-Wash Sq during this time.\nDowntown [A] stops at 50 St, 23 St and Spring St, and uptown [A] stops at 23 St and 50 St during this time.\n\nSchedule reminder: [C] does not run overnight.\n\nWhat's happening?\nWe're making electrical improvements\n\n[accessibility icon] This service change affects one or more ADA accessible stations and these travel alternatives may not be fully accessible. Please contact 511 to plan your trip.",
+              "language": "en"
+            },
+            {
+              "text": "<p><strong>168 St-bound</strong> [C] runs via the ‌[F] from <strong>Jay St-MetroTech</strong> to <strong>34 St-Herald Sq</strong> and via the [D] to <strong>59 St-Columbus Circle</strong>. <strong><br>Euclid Av-bound</strong> [C] runs via the [D] from <strong>59 St-Columbus Circle</strong> to <strong>34 St-Herald Sq</strong> and via the [F] to <strong>Jay St-MetroTech</strong>.</p><p style=\"min-height:10px\"></p><p><strong>Travel alternatives:</strong></p><p>For <strong>High St</strong>, use the nearby <strong>York St</strong> [F] station instead.</p><p style=\"min-height:10px\"></p><p>For <strong>Fulton St</strong>, take the [J] via transfer at the <strong>Delancey St-Essex St</strong> [F] station. Or, use the nearby <strong>World Trade Center</strong> [accessibility icon] | [E] station via transfer at <strong>W 4 St-Wash Sq</strong>.</p><p style=\"min-height:10px\"></p><p>For <strong>Chambers St</strong>/<strong>World Trade Center</strong>, <strong>Canal St</strong> and <strong>Spring St</strong>, take the [E] or a downtown [A].</p><p style=\"min-height:10px\"></p><p>For <strong>14 St</strong>, <strong>23 St</strong>, <strong>34 St-Penn Station</strong>, <strong>42 St-Port Authority</strong>, and <strong>50 St</strong> take the [A] or [E] instead.</p><p style=\"min-height:10px\"></p><p><strong>Transfer stations:</strong></p><ul><li><p><strong>Jay St-MetroTech</strong> [accessibility icon] | [A][C]</p></li><li><p><strong>W 4 St-Wash Sq</strong> [accessibility icon] | [A][C][E]</p></li><li><p><strong>7 Av</strong> [C][E]</p></li><li><p><strong>59 St-Columbus Circle</strong> [accessibility icon] | [A][C][1]</p></li></ul><p><strong>Notes:</strong> Inwood-bound [A] runs via the [F] from <strong>Jay St-MetroTech</strong> to <strong>W 4 St-Wash Sq</strong> during this time.</p><p>Downtown [A] stops at <strong>50 St</strong>, <strong>23 St</strong> and <strong>Spring St</strong>, and uptown [A] stops at <strong>23 St</strong> and <strong>50 St</strong> during this time.</p><p style=\"min-height:10px\"></p><p><strong>Schedule reminder:</strong> [C] does not run overnight.</p><p style=\"min-height:10px\"></p><p><strong>What's happening?</strong></p><p>We're making electrical improvements</p><p style=\"min-height:10px\"></p><p>[accessibility icon] This service change affects one or more ADA accessible stations and these travel alternatives may not be fully accessible. Please contact 511 to plan your trip.</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1793194772,
+          "updated_at": 1793204441,
+          "alert_type": "Planned - Reroute",
+          "display_before_active": 3600,
+          "human_readable_active_period": {
+            "translation": [
+              {
+                "text": "Nov 28 - 29, Sat and Sun, days and evenings",
+                "language": "en"
+              }
+            ]
+          },
+          "affected_stations": [
+            {
+              "agency_id": "MTASBWY",
+              "route_id": "C",
+              "stop_id": "A09",
+              "direction_id": 1,
+              "transit_realtime.mercury_entity_selector": {
+                "sort_order": "MTASBWY:C:18"
+              }
+            },
+            {
+              "agency_id": "MTASBWY",
+              "route_id": "C",
+              "stop_id": "A10",
+              "direction_id": 1,
+              "transit_realtime.mercury_entity_selector": {
+                "sort_order": "MTASBWY:C:18"
+              }
+            },
+            {
+              "agency_id": "MTASBWY",
+              "route_id": "C",
+              "stop_id": "A11",
+              "direction_id": 1,
+              "transit_realtime.mercury_entity_selector": {
+                "sort_order": "MTASBWY:C:18"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lmm:planned_work:35749",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1794891660,
+            "end": 1794913200
+          },
+          {
+            "start": 1794978060,
+            "end": 1794999600
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "GS",
+            "stop_id": "902",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:GS:9"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "GS",
+            "stop_id": "901",
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:GS:9"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "[S] 42 Street Shuttle service runs overnight",
+              "language": "en"
+            },
+            {
+              "text": "<p>[S] 42 Street Shuttle service runs overnight</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "What's happening?\nWe're providing additional service for customers during planned work.",
+              "language": "en"
+            },
+            {
+              "text": "<p><strong>What's happening?</strong></p><p>We're providing additional service for customers during planned work.</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1792092091,
+          "updated_at": 1792523157,
+          "alert_type": "Extra Service",
+          "display_before_active": 3600,
+          "human_readable_active_period": {
+            "translation": [
+              {
+                "text": "Nov 17 - 18, Tue and Wed, 12:01 AM to 6:00 AM",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "lmm:planned_work:35954",
+      "alert": {
+        "active_period": [
+          {
+            "start": 1795618800,
+            "end": 1795636800
+          }
+        ],
+        "informed_entity": [
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "E",
+            "stop_id": "G21",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:E:14"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "E",
+            "stop_id": "G14",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:E:14"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "E",
+            "stop_id": "G08",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:E:14"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "E",
+            "stop_id": "F07",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:E:14"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "E",
+            "stop_id": "F06",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:E:14"
+            }
+          },
+          {
+            "agency_id": "MTASBWY",
+            "route_id": "E",
+            "stop_id": "F05",
+            "direction_id": 0,
+            "transit_realtime.mercury_entity_selector": {
+              "sort_order": "MTASBWY:E:14"
+            }
+          }
+        ],
+        "header_text": {
+          "translation": [
+            {
+              "text": "In Queens, Jamaica Center-bound [E] stops at 75 Av and Briarwood",
+              "language": "en"
+            },
+            {
+              "text": "<p>In Queens, Jamaica Center-bound [E] stops at <strong>75 Av</strong> and <strong>Briarwood</strong></p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "description_text": {
+          "translation": [
+            {
+              "text": "Note: Service runs as scheduled at these stations all other times.\n\nWhat's happening?\nSignal maintenance",
+              "language": "en"
+            },
+            {
+              "text": "<p><strong>Note:</strong> Service runs <a title=\"\" href=\"https://new.mta.info/document/9476\" rel=\"noopener noreferrer nofollow\" target=\"_blank\">as scheduled</a> at these stations all other times.</p><p></p><p><strong>What's happening?</strong></p><p>Signal maintenance</p>",
+              "language": "en-html"
+            }
+          ]
+        },
+        "transit_realtime.mercury_alert": {
+          "created_at": 1792682388,
+          "updated_at": 1793193951,
+          "alert_type": "Planned - Express to Local",
+          "display_before_active": 3600,
+          "human_readable_active_period": {
+            "translation": [
+              {
+                "text": "Nov 25, Wednesday, 10:00 AM to 3:00 PM",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

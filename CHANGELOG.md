@@ -3,6 +3,57 @@
 All notable changes to MetroPulse are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Real logos and line symbols.** Operator logos appear in the city picker and on the Lines tab. London roundels, New York route bullets and Doha and Kolkata line emblems appear on line chips, the map's station sheet, line screens and widgets. All come from Wikimedia Commons and are credited in *Licences and sources*, along with a notice that MetroPulse is independent and not affiliated with any operator.
+- **Live trains on the 3D map** in London and New York. They glide between updates instead of jumping. Lines without live data keep their timetabled trains, and the pill says which you are seeing.
+- **Disruption alerts** from TfL and the MTA:
+  - The map shows how many lines are disrupted.
+  - Lines show *Good service* or the worst problem.
+  - Stations, lines and journeys show the operator's full notices, closures included.
+- **Live times in the planner.** A journey in London or New York is checked against live departures, and warns when a planned change may be missed.
+- **Platform numbers** with live departures where the operator gives them (London).
+- **Share a journey or your arrival time**, and **leave-by reminders** 5–20 minutes before a planned train.
+- **Step-free routes:**
+  - Plan only journeys whose changes have lifts or ramps, with warnings where the data doesn't know.
+  - Station step-free status and facilities (lifts, toilets, cash machines, cycle parking, park and ride) now come from OpenStreetMap, and step-free stations get a badge on the map.
+- **Compare journey options** side by side: arrival, time, changes, walking and fare, with the best in each column highlighted.
+- **Trip history:** every trip taken with on-board mode, with totals for time on trains, distance and fares and your most-ridden line. It stays on the phone.
+- **Commute:**
+  - The planner offers to save a journey you make often as your commute.
+  - A weekday reminder can tell you when to leave, listing the next trains.
+- **Favourite a direction:** long-press a departure to pin that direction. The widget then shows only those trains.
+- **Zonal fares** for London (peak and off-peak, Zones 1–9) and Dubai (Silver class zones).
+- **Hyderabad uses HMRL's official timetable** (Open Data Telangana GTFS) instead of an approximate one. Line and station ids changed, so Hyderabad favourites need saving again.
+- **Weekly city data rebuild** on GitHub Actions. It opens a pull request with the changes and flags official timetables that run out within 45 days. The city picker shows how old each city's data is, and when an official timetable ends.
+- Search puts the stations you use (favourites, plans, trips) first.
+- Optional vibration tick as the train calls at each stop during a trip.
+
+### Changed
+- **Station sheet on the map:** it opens as a card and expands to full departures and details, with pull-to-refresh and "Live · 12 s ago".
+- **Line screens:**
+  - Swipe sideways to switch direction.
+  - Disruption banners and the line's own symbol.
+- **Widgets:**
+  - *Next trains* resizes from a one-line strip to a large list.
+  - *My trip* shows a mini line of the stops ahead.
+  - Both can go on the lock screen where the launcher allows it.
+- **Wake alert:** a breathing glow, ripples and a train pulling into the station.
+- **Design:**
+  - Journey and trip cards take on the colours of their lines.
+  - Countdowns roll from one number to the next.
+  - "No more trains today" gives the first train and how long until it.
+  - Drawn illustrations on the welcome page and in empty states.
+  - Tabular numbers in times and fares.
+  - Long station names shrink to fit.
+  - Loading screens use shimmering placeholders.
+- **Map:**
+  - A planned journey can be drawn on the map with an animated route.
+  - Switching to a city on another continent flies out over the globe and back in.
+  - Trains sink into tunnels at portals.
+  - The map pauses its animation behind sheets.
+
 ## [1.0.0] - 2026-10-30
 
 First public release.

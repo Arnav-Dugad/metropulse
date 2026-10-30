@@ -62,7 +62,8 @@ fun StationPickerSheet(
         },
     ) {
         var query by rememberSaveable { mutableStateOf("") }
-        val hits = remember(query, city) { city.search.search(query, 30) }
+        val usage = LocalStationUsage.current
+        val hits = remember(query, city, usage) { city.search.search(query, 30, usage) }
         val network = city.network
         Column(Modifier.navigationBarsPadding().imePadding().padding(horizontal = 16.dp)) {
             Text(
