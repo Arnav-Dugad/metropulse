@@ -107,7 +107,9 @@ The full plan is in phases 1–9. English UI only for now; localization is defer
 - [x] App: city picker grouped by country, fares in each city's currency, Friday timetables, black lines (Northern) drawn grey on dark surfaces, "times unavailable" label for cities with no published times
 - [x] The MTA and DMRC have given the maintainer permission to convert their feeds (2026-10-30)
 - [x] Delhi live bus positions (OTD VehiclePositions, key from the `OTD_DELHI_KEY` secret) near metro stations; verified on the API 36 emulator at Rajiv Chowk
-- [ ] Delhi bus route names: download `routes` from https://otd.delhi.gov.in/data/static/ (the portal asks for a form, so the maintainer does it) to `tools/input/delhi/otd/routes.txt`, then run `tools/build_data.py delhi-buses`. Until then buses show their registration
+- [ ] Delhi bus route names: needs the **current** OTD static `routes.txt` in `tools/input/delhi/otd/`, then `tools/build_data.py delhi-buses`. Until then buses show their registration
+  - 2026-10-30: the portal's static download fails; its file server (traffickarma.iiitd.edu.in:9010) times out
+  - Older copies must not be used: MobilityDatabase mdb-1262/mdb-3139 (2022–24 data) and the NIUA CKAN copy (2020) number routes differently. Checked against live positions, buses were a median 10 km from their supposed route's stops, no better than a random route
 - [ ] Delhi buses: each refresh downloads the whole feed (~600 KB); consider a Wi-Fi-only option or a slower refresh on mobile data
 - [ ] Delhi: the OTD portal's DMRC download fails after its request form; once the files are in `tools/input/delhi/`, merge the 2023 feed with the newer OpenStreetMap sections (see that folder's README)
 - [ ] The MTA feed starts on 1 Nov 2026 and runs to 15 May 2027: rebuild New York (`build --refresh new-york`) before then
