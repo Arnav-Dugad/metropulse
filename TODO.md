@@ -12,7 +12,7 @@ The full plan is in phases 1–9. English UI only for now; localization is defer
   - [x] tampered digest rejected; APK signed with a different key rejected
   - [x] background download, "ready" notification, sheet, install
 - [ ] Re-check the updater on the API 28 emulator (`un28`): legacy signature APIs and the confirmation flow
-- [ ] After v1.0.0 ships, publish a v1.0.1 test release to verify the real GitHub path
+- [x] After v1.0.0 ships, verify the real GitHub path (done: a 0.9.0 build updated itself to v1.0.0)
 
 ## Phase 2: Data pipeline (`/tools`) ✅
 - [x] `build_data.py build [cities] [--refresh]` and `docs`: fetch, validate, compile, manifest (23 pipeline tests)
@@ -131,11 +131,13 @@ The full plan is in phases 1–9. English UI only for now; localization is defer
 - [x] APK size: release 14.4 MB (ARM only, compressed native libraries, all 26 cities); debug 40 MB
 - [x] PRIVACY.md: every stored item, every server contacted, every permission and what happens without it
 - [ ] The city picker sheet scrolls less smoothly over the live 3D map (map keeps animating trains behind it): pause train animation while a sheet covers the map
-- [ ] Release-test the updater end to end once the GitHub repo exists (Phase 9)
+- [x] Release-test the updater end to end once the GitHub repo exists (Phase 9)
 ## Phase 9: GitHub release ✅
 - [x] README (banner, screenshots, features, cities table, live data, install with certificate fingerprint, build, privacy, credits), MIT LICENSE (city data under ODbL and sources' terms), CONTRIBUTING, issue templates
 - [x] Release keystore outside the repo (`C:\Users\rduga\.metropulse-keys\`), passwords next to it; GitHub secrets SIGNING_KEYSTORE_B64 / SIGNING_STORE_PASSWORD / SIGNING_KEY_ALIAS / SIGNING_KEY_PASSWORD
 - [x] CI workflow (tests + debug build on every push) and release workflow (tests, signed APK named by the tag, `.sha256` companion, generated notes)
+- [x] Published: https://github.com/Arnav-Dugad/metropulse, release v1.0.0 (signed APK 13.7 MB + .sha256; GitHub digest matches; certificate CB:B3:18:B2…F1:59)
+- [x] Real updater path verified on the emulator: a release-signed 0.9.0 found v1.0.0 on GitHub, downloaded it, verified SHA-256 and signature, walked through the "install unknown apps" permission, installed, and kept the rider's city and settings
 - [ ] **You:** back up `C:\Users\rduga\.metropulse-keys\` (the keystore and its passwords). Without it, installed apps cannot be updated
 
 ## Known notes
