@@ -1,0 +1,22 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+build/
+/captures
+.externalNativeBuild
+.cxx
+.kotlin/
+*.jks
+*.keystore
+keystore.properties
+tools/.venv/
+tools/cache/
+tools/input/**/*.zip
+__pycache__/
+*.pyc
+
+# IDE (VS Code Java) build output
+bin/
+tools/input/**/*.txt

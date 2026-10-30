@@ -1,0 +1,162 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "14804218cd16f443b8d30a1374b6fce0",
+    "entities": [
+      {
+        "tableName": "favourite_station",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`city_id` TEXT NOT NULL, `complex_id` TEXT NOT NULL, `name` TEXT NOT NULL, `added_at` INTEGER NOT NULL, PRIMARY KEY(`city_id`, `complex_id`))",
+        "fields": [
+          {
+            "fieldPath": "cityId",
+            "columnName": "city_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "complexId",
+            "columnName": "complex_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "added_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "city_id",
+            "complex_id"
+          ]
+        }
+      },
+      {
+        "tableName": "favourite_journey",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`city_id` TEXT NOT NULL, `from_complex` TEXT NOT NULL, `to_complex` TEXT NOT NULL, `from_name` TEXT NOT NULL, `to_name` TEXT NOT NULL, `label` TEXT NOT NULL, `added_at` INTEGER NOT NULL, PRIMARY KEY(`city_id`, `from_complex`, `to_complex`))",
+        "fields": [
+          {
+            "fieldPath": "cityId",
+            "columnName": "city_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fromComplex",
+            "columnName": "from_complex",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toComplex",
+            "columnName": "to_complex",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fromName",
+            "columnName": "from_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toName",
+            "columnName": "to_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "added_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "city_id",
+            "from_complex",
+            "to_complex"
+          ]
+        }
+      },
+      {
+        "tableName": "recent_journey",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`city_id` TEXT NOT NULL, `from_complex` TEXT NOT NULL, `to_complex` TEXT NOT NULL, `from_name` TEXT NOT NULL, `to_name` TEXT NOT NULL, `used_at` INTEGER NOT NULL, `use_count` INTEGER NOT NULL, PRIMARY KEY(`city_id`, `from_complex`, `to_complex`))",
+        "fields": [
+          {
+            "fieldPath": "cityId",
+            "columnName": "city_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fromComplex",
+            "columnName": "from_complex",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toComplex",
+            "columnName": "to_complex",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fromName",
+            "columnName": "from_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toName",
+            "columnName": "to_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usedAt",
+            "columnName": "used_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "useCount",
+            "columnName": "use_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "city_id",
+            "from_complex",
+            "to_complex"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '14804218cd16f443b8d30a1374b6fce0')"
+    ]
+  }
+}

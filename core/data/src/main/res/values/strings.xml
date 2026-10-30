@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mp_channel_updates">App updates</string>
+    <string name="mp_channel_updates_description">Tells you when a new version of MetroPulse is ready</string>
+    <string name="mp_channel_update_download">Update download</string>
+    <string name="mp_update_available_title">MetroPulse %1$s is available</string>
+    <string name="mp_update_available_text">Tap to see what\'s new</string>
+    <string name="mp_update_ready_title">MetroPulse %1$s is ready</string>
+    <string name="mp_update_ready_text">Tap to install</string>
+    <string name="mp_update_downloading_title">Downloading MetroPulse %1$s</string>
+</resources>
